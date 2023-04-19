@@ -7,5 +7,8 @@
   "trailingComma": "none",
   "bracketSpacing": true,
   "endOfLine": "auto",
-  "eslintIntegration": true
+  "eslintIntegration": true,
+  "plugins": [
+    "prettier-plugin-tailwindcss"
+  ]
 }

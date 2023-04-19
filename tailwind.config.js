@@ -1,11 +1,58 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    './index.html',
-    './src/**/*.{js,ts,jsx,tsx}',
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  mode: 'jit',
   theme: {
-    extend: {},
+    container: {
+      center: true,
+    },
+    fontFamily: {
+      tw: ['"Tw Cen MT"'],
+      times: ['Times'],
+    },
+    extend: {
+      gradientColorStops: {
+        bg1: ['#121518', '#2D3832', '#2F3B36'],
+        bg2: ['#27302d', '#42534b'],
+        block1: ['#3b5649', '#32473d'],
+        block2: ['#1A4132', '#234838'],
+        border: ['#446052', '#2E4037'],
+        'btn-bg': ['#191D1E', '#3A3E3A'],
+        'btn-border': ['#BE9D66', '#E8D2A3'],
+        'input-border': ['#BE9D66', '#E8D2A3'],
+        t1: ['#AF8160', '#D0B588'],
+        t6: ['#BE9D66', '#E8D2A3'],
+      },
+      colors: {
+        bg3: '#1a342f',
+        divider: '#3B5649',
+        t2: '#C2D7C7',
+        t3: '#161616',
+        t4: '#161616',
+        t5: '#C39770',
+      },
+      boxShadow: {},
+      spacing: {
+        0.5: '2px',
+        1: '4px',
+        2: '8px',
+        3: '12px',
+        4: '16px',
+        5: '20px',
+        6: '24px',
+        8: '32px',
+        10: '40px',
+        12: '44px',
+        16: '64px',
+        20: '80px',
+        24: '96px',
+        32: '128px',
+        40: '160px',
+        48: '192px',
+        56: '224px',
+        64: '256px',
+      },
+    },
   },
   plugins: [],
 };

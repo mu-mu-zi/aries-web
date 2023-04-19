@@ -1,10 +1,12 @@
-import { combineReducers, configureStore, createStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import userSlice from './user';
+import appSlice from './app';
 
 export const store = configureStore({
   reducer: combineReducers({
     user: userSlice.reducer,
+    app: appSlice.reducer,
   }),
 });
 

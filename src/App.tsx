@@ -1,16 +1,10 @@
 import React from 'react';
-import { css } from '@emotion/react';
-import classNames from 'classnames';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
-    <div
-      className={classNames('underline')}
-      css={css`
-        color: red;
-      `}
-    >
-      Hello World
+    <div className="min-h-screen">
+      <Outlet />
     </div>
   );
 }

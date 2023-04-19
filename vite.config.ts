@@ -10,8 +10,6 @@ export default defineConfig({
         plugins: ['@emotion/babel-plugin'],
       },
     }),
-    eslintPlugin({
-      fix: true,
-    }),
+    eslintPlugin(),
   ],
 });

@@ -1,0 +1,31 @@
+import React from 'react';
+import { css } from '@emotion/react';
+import Sidebar from './Sidebar';
+import Portrait from './Portrait';
+import Button from '../../components/Button';
+import AssetOverview from './AssetOverview';
+import Notification from './Notification';
+import BillingRecord from './BillingRecord';
+import GradientText from '../../components/GradientText';
+import DigitalAssets from './DigitalAssets';
+import FiatAssets from './FiatAssets';
+
+export default function Dashboard() {
+  return (
+    <div className="flex h-screen flex-row gap-6 bg-gradient-to-r from-[#121518] via-[#2d3832] to-[#2f3b36] p-6">
+      <div className="w-[318px] flex-shrink-0">
+        <Sidebar />
+      </div>
+      <div className="flex flex-auto flex-col gap-6">
+        <Portrait />
+        <DigitalAssets />
+        <FiatAssets />
+      </div>
+      <div className="w-[324px]">
+        <AssetOverview />
+        <Notification />
+        <BillingRecord />
+      </div>
+    </div>
+  );
+}
