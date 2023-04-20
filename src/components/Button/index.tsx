@@ -18,32 +18,36 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
     <button
       {...rest}
       ref={ref}
-      className={classNames('w-fit')}
+      className={classNames({
+        'w-full': block,
+      })}
     >
       {/* 外层边框 */}
       <div
         className={classNames('overflow-clip rounded-full p-0.5', {
           'bg-gradient-to-r from-[#BE9D66] to-[#E8D2A3]': variant === 'normal' || !variant,
-          'inline-block': !block,
-          block,
         })}
       >
         {/* 背景 */}
         <div
-          className={classNames('inline-block grid place-items-center rounded-full ', {
+          className={classNames('grid place-items-center rounded-full ', {
             'bg-gradient-to-r from-[#191D1E] to-[#3A3E3A]': variant === 'normal' || !variant,
           })}
         >
           {/* 渐变文字 */}
           <div
             className={classNames(
-              'inline-block line-clamp-1 h-full w-full bg-gradient-to-r bg-clip-text px-8 text-[14px] font-bold text-transparent transition-all',
+              props.className,
+              'line-clamp-1 bg-gradient-to-r bg-clip-text px-8 text-[14px] font-bold text-transparent transition-all font-title',
+              'truncate',
               {
                 'h-[40px] leading-[40px]': size === 'medium' || !size,
                 'h-[48px] leading-[48px]': size === 'large',
                 'from-[#AF8160] to-[#D0B588] hover:from-[#BE9D66] hover:to-[#E8D2A3]': !rest.disabled,
                 'from-[#695D52] to-[#695D52]': rest.disabled,
                 'cursor-not-allowed': rest.disabled,
+                'w-full': block,
+                'w-auto': !block,
               },
             )}
           >

@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { forwardRef, HTMLAttributes } from 'react';
+import classNames from 'classnames';
 
-export default function GradientBox() {
+type GradientBoxProps = HTMLAttributes<HTMLDivElement> & {};
+
+const GradientBox = forwardRef<HTMLDivElement, GradientBoxProps>((props, ref) => {
+  const { ...rest } = props;
+
   return (
-    <div />
+    <div {...rest} ref={ref} className={classNames(props.className, 'bg-gradient-to-r from-[#27302D] to-[#42534B]')} />
   );
-}
+});
+
+export default GradientBox;

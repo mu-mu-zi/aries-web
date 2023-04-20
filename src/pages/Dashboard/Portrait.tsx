@@ -22,7 +22,7 @@ export default function Portrait() {
           Dear Mr. Lin
         </GradientText>
         <GradientText
-          className={classNames('text-[20px] font-normal times leading-[23px]')}
+          className={classNames('text-[20px] font-normal times leading-[23px]', 'font-title')}
         >
           [Growth Family Trust] has been exclusively established in accordance with your wishes to achieve the purpose
           of wealth inheritance and planning for your family.

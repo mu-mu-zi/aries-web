@@ -7,10 +7,13 @@ export default {
       center: true,
     },
     fontFamily: {
-      tw: ['"Tw Cen MT"'],
-      times: ['Times'],
+      text: ['Tw Cen MT'],
+      title: ['Times New Roman'],
     },
     extend: {
+      boxShadow: {
+        block: '-4px 8px 10px 0 #030C0880',
+      },
       gradientColorStops: {
         bg1: ['#121518', '#2D3832', '#2F3B36'],
         bg2: ['#27302d', '#42534b'],
@@ -31,7 +34,6 @@ export default {
         t4: '#161616',
         t5: '#C39770',
       },
-      boxShadow: {},
       spacing: {
         0.5: '2px',
         1: '4px',

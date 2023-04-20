@@ -7,22 +7,15 @@ const GradientText = forwardRef<HTMLDivElement, GradientTextProps>((props, ref) 
   const { ...rest } = props;
 
   return (
-    <span
+    <div
       {...rest}
       ref={ref}
-      className={classNames(
-        'inline-block',
-        'text-transparent',
-        'bg-clip-text',
-        'w-fit',
-        {
-          'bg-gradient-to-r from-[#AF8160] to-[#D0B588]': true,
-        },
-        props.className,
-      )}
+      className={classNames(props.className, 'inline-block', 'text-transparent', 'bg-clip-text', 'w-fit', {
+        'bg-gradient-to-r from-[#AF8160] to-[#D0B588]': true,
+      })}
     >
       {props.children}
-    </span>
+    </div>
   );
 });
 

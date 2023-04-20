@@ -1,3 +1,46 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    line-height: normal;
+}
+
+/* Fonts */
+@font-face {
+    font-family: 'Times New Roman';
+    src: url("./assets/fonts/times.ttf"), url("./assets/fonts/timesbd.ttf"), url("./assets/fonts/timesbi.ttf"), url("./assets/fonts/timesi.ttf");
+}
+
+@font-face {
+    font-family: 'Tw Cen MT';
+    src: url("./assets/fonts/TCB.TTF"), url("./assets/fonts/TCBI.TTF"), url("./assets/fonts/TCCB.TTF"), url("./assets/fonts/TCCEB.TTF"), url("./assets/fonts/TCCM.TTF"), url("./assets/fonts/TCM.TTF"), url("./assets/fonts/TCMI.TTF");
+}
+
+/* 渐变：背景 1 */
+.gradient-bg1 {
+    background: linear-gradient(90deg, #121518 1.56%, #2D3832 49.48%, #2F3B36 100%);
+}
+
+/* 渐变：背景 2 */
+.gradient-bg2 {
+    background: linear-gradient(90deg, #27302D 0%, #42534B 100%);
+}
+
+/* 渐变：描边 1 */
+.gradient-border1 {
+    background: linear-gradient(90deg, #BE9D66 -4.08%, #E8D2A3 100%);
+}
+
+/* 渐变：块背景 1 */
+.gradient-block1 {
+    background: linear-gradient(180deg, #3B5649 0%, #32473D 100%);;
+}
+
+/* 渐变文字 */
+.gradient-text1 {
+    background: linear-gradient(90deg, #BE9D66 -4.08%, #E8D2A3 100%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}

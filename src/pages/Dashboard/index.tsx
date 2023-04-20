@@ -9,10 +9,12 @@ import BillingRecord from './BillingRecord';
 import GradientText from '../../components/GradientText';
 import DigitalAssets from './DigitalAssets';
 import FiatAssets from './FiatAssets';
+import Navbar from '../../views/Navbar';
 
 export default function Dashboard() {
   return (
     <div className="flex h-screen flex-row gap-6 bg-gradient-to-r from-[#121518] via-[#2d3832] to-[#2f3b36] p-6">
+
       <div className="w-[318px] flex-shrink-0">
         <Sidebar />
       </div>
@@ -21,7 +23,7 @@ export default function Dashboard() {
         <DigitalAssets />
         <FiatAssets />
       </div>
-      <div className="w-[324px]">
+      <div className="flex flex-col w-[402px] flex-shrink-0 gap-6">
         <AssetOverview />
         <Notification />
         <BillingRecord />
