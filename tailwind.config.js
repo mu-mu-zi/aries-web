@@ -1,3 +1,5 @@
+import plugin from 'tailwindcss';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -11,7 +13,13 @@ export default {
       title: ['Times New Roman'],
     },
     extend: {
+      dropShadow: {
+        block: '-4px 8px 10px 0 #030C0880',
+      },
       boxShadow: {
+        block: '-4px 8px 10px 0 #030C0880',
+      },
+      textShadow: {
         block: '-4px 8px 10px 0 #030C0880',
       },
       gradientColorStops: {

@@ -5,9 +5,9 @@ import Navbar from '../../views/Navbar';
 
 export default function Home() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-full">
       <Navbar />
-      <div className="flex-auto">
+      <div className="flex-auto ">
         <Outlet />
       </div>
     </div>

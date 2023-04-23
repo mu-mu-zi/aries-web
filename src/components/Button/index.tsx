@@ -24,7 +24,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
     >
       {/* 外层边框 */}
       <div
-        className={classNames('overflow-clip rounded-full p-0.5', {
+        className={classNames('overflow-clip rounded-full p-0.5 shadow-block', {
           'bg-gradient-to-r from-[#BE9D66] to-[#E8D2A3]': variant === 'normal' || !variant,
         })}
       >
@@ -47,7 +47,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
                 'from-[#695D52] to-[#695D52]': rest.disabled,
                 'cursor-not-allowed': rest.disabled,
                 'w-full': block,
-                'w-auto': !block,
+                'w-auto min-w-[144px]': !block,
               },
             )}
           >

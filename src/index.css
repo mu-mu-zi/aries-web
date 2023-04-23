@@ -14,7 +14,8 @@ body {
 
 @font-face {
     font-family: 'Tw Cen MT';
-    src: url("./assets/fonts/TCB.TTF"), url("./assets/fonts/TCBI.TTF"), url("./assets/fonts/TCCB.TTF"), url("./assets/fonts/TCCEB.TTF"), url("./assets/fonts/TCCM.TTF"), url("./assets/fonts/TCM.TTF"), url("./assets/fonts/TCMI.TTF");
+    /*src: url("./assets/fonts/TCB.TTF"), url("./assets/fonts/TCBI.TTF"), url("./assets/fonts/TCCB.TTF"), url("./assets/fonts/TCCEB.TTF"), url("./assets/fonts/TCCM.TTF"), url("./assets/fonts/TCM.TTF"), url("./assets/fonts/TCMI.TTF");*/
+    src: url("./assets/fonts/TCB.TTF"), url("./assets/fonts/TCM.TTF");
 }
 
 /* 渐变：背景 1 */
@@ -43,4 +44,9 @@ body {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
+}
+
+/* 由于 tailwinds 默认不支持 text-shadow，这里选择手动扩展 */
+.text-shadow-block {
+    text-shadow: -4px 8px 10px #030C0880;
 }

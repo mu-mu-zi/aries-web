@@ -1,10 +1,19 @@
 import React from 'react';
+import classNames from 'classnames';
 import logo from '../../assets/icon/logo_black.svg';
 import Button from '../../components/Button';
 import Divide from '../../components/Divide';
+import TextInput from '../../components/TextInput';
+import mobileIcon from '../../assets/icon/mobile_nor.svg';
+import mobileSelIcon from '../../assets/icon/mobile_sel.svg';
+import emailIcon from '../../assets/icon/email_nor.svg';
+import emailSelIcon from '../../assets/icon/email_sel.svg';
+import Select from '../../components/Select';
+import ContactUs from './ContactUs';
+import PhotoEmailSwitch from '../../components/PhotoEmailSwitch';
 
 export default function SignIn() {
-  const [isPhone, setIsPhone] = React.useState(false);
+  const [isPhone, setIsPhone] = React.useState(true);
 
   return (
     <div className="flex flex-col items-center pt-9">
@@ -14,23 +23,29 @@ export default function SignIn() {
           <img height="54px" src={logo} />
         </div>
         {/* Form */}
-        <div className="flex flex-col">
-          <div className="flex flex-row">
-            <div>Phone</div>
-            <div>Email</div>
+        <div className="flex flex-col gap-10 px-[80px] py-[64px]">
+          <PhotoEmailSwitch onSelected={setIsPhone} />
+          <div className="flex flex-row gap-2">
+            {isPhone ? <Select /> : null}
+            <TextInput block className="w-full" placeholder="Please input your email" type="email" />
           </div>
-          <div className="flex flex-row">
-            <div>+312</div>
-            <div>123123</div>
-          </div>
-          <div>12313</div>
-          <Button block>Next</Button>
           <div>
+            <TextInput placeholder="Please input your email" type="email" />
+          </div>
+          <Button block>Next</Button>
+          <div className="text-[#99AC9B] leading-[15px] text-[14px]">
             After mobile phone verification, the user will automatically log in without registration. Registration
-            represents agreement to the Aries Digital Group Agreement and Aries Digital Group Privacy Policy.
+            represents agreement to the
+            {' '}
+            <a href="#" className="gradient-text1">Aries Digital Group Agreement</a>
+            {' '}
+            and
+            {' '}
+            <a href="#" className="gradient-text1">Aries Digital Group Privacy Policy</a>
+            .
           </div>
           <Divide />
-          <div>Contace Us</div>
+          <ContactUs />
         </div>
       </div>
     </div>
