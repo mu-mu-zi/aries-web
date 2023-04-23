@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import cellIcon from '../../assets/icon/money_small_icon.svg';
-import moreIcon from '../../assets/icon/arrow_r.svg';
+import cellIcon from '../../../assets/icon/money_small_icon.svg';
+import moreIcon from '../../../assets/icon/arrow_r.svg';
 
 export default function Notification() {
   return (

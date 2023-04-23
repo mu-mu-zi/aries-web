@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import './index.css';
 import { store } from './state';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/Trust/Dashboard';
 import Home from './pages/Home';
 import Welcome from './pages/SignIn/Welcome';
 import SignIn from './pages/SignIn/SignIn';
@@ -20,6 +20,9 @@ import ContactCustomer from './views/ContactCustomer';
 import FirstGuideWelcome from './pages/FirstGuide/FirstGuideWelcome';
 import KycVerify from './pages/FirstGuide/KycVerify';
 import MyTrust from './pages/MyTrust';
+import Trust from './pages/Trust';
+import AssetTransfet from './pages/Trust/AssetTransfet';
+import InvestmentOrder from './pages/Trust/InvestmentOrder';
 
 const router = createBrowserRouter([
   {
@@ -85,8 +88,22 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: '/dashboard',
-        element: <Dashboard />,
+        path: '/trust',
+        element: <Trust />,
+        children: [
+          {
+            path: 'dashboard',
+            element: <Dashboard />,
+          },
+          {
+            path: 'assets',
+            element: <AssetTransfet />,
+          },
+          {
+            path: 'orders',
+            element: <InvestmentOrder />,
+          },
+        ],
       },
     ],
   },

@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import GradientBox from '../../components/GradientBox';
+import GradientBox from '../../../components/GradientBox';
 
 export default function DigitalAssets() {
   return (

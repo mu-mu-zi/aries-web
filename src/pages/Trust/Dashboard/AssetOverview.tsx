@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import Button from '../../components/Button';
-import bgIcon from '../../assets/icon/assets_overview_bg.svg';
+import Button from '../../../components/Button';
+import bgIcon from '../../../assets/icon/assets_overview_bg.svg';
 
 export default function AssetOverview() {
   return (

@@ -30,7 +30,7 @@ export default function EnteringTrust() {
 
 function BottomItem({ icon, title, onTap }: { icon: string; title: string; onTap?(): void }) {
   return (
-    <div className="flex flex-row items-center gap-2" onClick={onTap}>
+    <div className="flex flex-row items-center gap-2 cursor-pointer" onClick={onTap}>
       <img src={icon} width="32px" alt={title} />
       <div className="gradient-text1 font-blod text-[14px]">{title}</div>
     </div>

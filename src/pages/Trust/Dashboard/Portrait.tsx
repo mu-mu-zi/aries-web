@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import borderImg from '../../assets/icon/avatar_border.svg';
-import GradientText from '../../components/GradientText';
+import borderImg from '../../../assets/icon/avatar_border.svg';
+import GradientText from '../../../components/GradientText';
 
 export default function Portrait() {
   return (

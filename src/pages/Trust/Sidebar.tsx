@@ -35,19 +35,19 @@ export default function Sidebar() {
         {/* 底部工具 */}
         <div className="flex flex-row items-center justify-evenly py-10">
           <div className="cursor-pointer">
-            <img src={personIcon} className="w-[22px] h-auto" alt="Notify" />
+            <img src={personIcon} className="w-[22px] h-auto" alt="Personal" />
           </div>
           <div className="cursor-pointer">
-            <img src={messageIcon} className="w-[22px] h-auto" alt="Notify" />
+            <img src={messageIcon} className="w-[22px] h-auto" alt="Message" />
           </div>
           <div className="cursor-pointer">
-            <img src={languageIcon} className="w-[22px] h-auto" alt="Notify" />
+            <img src={languageIcon} className="w-[22px] h-auto" alt="Language" />
           </div>
           <div className="cursor-pointer">
             <img src={notifyIcon} className="w-[22px] h-auto" alt="Notify" />
           </div>
           <div className="cursor-pointer">
-            <img src={exitIcon} className="w-[22px] h-auto" alt="Notify" />
+            <img src={exitIcon} className="w-[22px] h-auto" alt="Exit" />
           </div>
         </div>
       </div>
