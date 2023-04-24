@@ -23,6 +23,7 @@ import MyTrust from './pages/MyTrust';
 import Trust from './pages/Trust';
 import AssetTransfet from './pages/Trust/AssetTransfet';
 import InvestmentOrder from './pages/Trust/InvestmentOrder';
+import OrderDetail from './pages/Trust/InvestmentOrder/OrderDetail';
 
 const router = createBrowserRouter([
   {
@@ -101,7 +102,16 @@ const router = createBrowserRouter([
           },
           {
             path: 'orders',
-            element: <InvestmentOrder />,
+            children: [
+              {
+                path: '',
+                element: <InvestmentOrder />,
+              },
+              {
+                path: 'detail',
+                element: <OrderDetail />,
+              },
+            ],
           },
         ],
       },

@@ -14,8 +14,12 @@ body {
 
 @font-face {
     font-family: 'Tw Cen MT';
-    /*src: url("./assets/fonts/TCB.TTF"), url("./assets/fonts/TCBI.TTF"), url("./assets/fonts/TCCB.TTF"), url("./assets/fonts/TCCEB.TTF"), url("./assets/fonts/TCCM.TTF"), url("./assets/fonts/TCM.TTF"), url("./assets/fonts/TCMI.TTF");*/
-    src: url("./assets/fonts/TCB.TTF"), url("./assets/fonts/TCM.TTF");
+    src: url("./assets/fonts/TCM.TTF"), url("./assets/fonts/TCB.TTF");
+}
+
+@font-face {
+    font-family: 'Tw Cen MT Std';
+    src: url("./assets/fonts/TwCenMTStd.otf"), url("./assets/fonts/TwCenMTStd-Bold.otf");
 }
 
 /* 渐变：背景 1 */
@@ -41,6 +45,13 @@ body {
 /* 渐变文字 */
 .gradient-text1 {
     background: linear-gradient(90deg, #BE9D66 -4.08%, #E8D2A3 100%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.gradient-text2 {
+    background: linear-gradient(90deg, #AF8160 0%, #D0B588 100%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;

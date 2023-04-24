@@ -18,6 +18,8 @@ export default {
       },
       boxShadow: {
         block: '-4px 8px 10px 0 #030C0880',
+        btn: '-4px 4px 4px 0 #1A201C66',
+        input: '-1px 1px 4px 0 #00000040',
       },
       textShadow: {
         block: '-4px 8px 10px 0 #030C0880',

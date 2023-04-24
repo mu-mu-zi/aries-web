@@ -1,0 +1,54 @@
+import React from 'react';
+
+export default function InvestmentDetails() {
+  return (
+    <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8 shadow-block">
+      {/* 标题 */}
+      <div className="gradient-text1 font-blod text-[20px]">Investment Instruction Details</div>
+      {/* 分割线 */}
+      <div className="h-[1px] bg-[#3B5649]" />
+      {/* 状态 */}
+      <div className="flex flex-row">
+        <div className="flex-1 flex flex-col gap-4">
+          <div className="text-[#99ac9b] text-[16px]">Investment number</div>
+          <div className="font-blod text-[20px] text-[#C2D7C7F6]">TZ202304041321</div>
+        </div>
+        <div className="flex-1 flex flex-col gap-4">
+          <div className="text-[#99ac9b] text-[16px]">Investment time</div>
+          <div className="font-blod text-[20px] text-[#C2D7C7F6]">March 30th, 2023 to April 1st, 2025</div>
+        </div>
+        <div className="flex-1 flex flex-col gap-4 items-end">
+          <div className="text-[#99ac9b] text-[16px]">Status</div>
+          <div className="font-blod text-[20px] text-[#C2D7C7F6]">Under review</div>
+        </div>
+      </div>
+      {/* advice */}
+      <div className="grid grid-cols-3 gap-4">
+        <AdviceCell
+          title="Investment objective:"
+          description="To achieve high returns through the stock market, increase assets, and ensure sustainable growth of my assets in the future."
+        />
+        <AdviceCell
+          title="Investment target: "
+          description="Selecting solidly growing shares of listed companies, with a particular focus on investment opportunities in mid to high market capitalization blue-chip stocks, holding long-term as the primary strategy, and maintaining a certain level of liquidity to ensure timely realization when necessary."
+        />
+        <AdviceCell
+          title="Investment scope:"
+          description="Choose stocks of listed companies in Hong Kong and international markets as investment targets. Among them, the proportion of Hong Kong market stocks should not be less than 50% of the total investment..."
+        />
+      </div>
+    </div>
+  );
+}
+
+function AdviceCell({ title, description }: {
+    title: string,
+    description: string
+}) {
+  return (
+    <div className="flex flex-col gap-2 bg-[#344D41] rounded-xl p-8">
+      <div className="font-bold text-[16px] text-[#C2D7C7F6]">{title}</div>
+      <div className="text-[16px] text-[#99AC9B] leading-[18px]">{description}</div>
+    </div>
+  );
+}

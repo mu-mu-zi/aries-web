@@ -1,6 +1,9 @@
 import React from 'react';
 import ContactUs from '../../SignIn/ContactUs';
 import AssetDeclaration from './AssetDeclaration';
+import PaymentBit from './PaymentBit';
+import PaymentFiat from './PaymentFiat';
+import DeclarationRecord from './DeclarationRecord';
 
 export default function EntrustedDeclaration() {
   return (
@@ -31,7 +34,14 @@ export default function EntrustedDeclaration() {
       {/* Assets */}
       <div className="flex flex-row gap-16">
         <div className="flex-1"><AssetDeclaration /></div>
-        <div className="flex-1">B</div>
+        <div className="w-[1px] bg-[#3B5649] my-[120px]" />
+        <div className="flex-1">
+          <div className="gradient-text1 font-blod text-[20px] font-title">Payment information</div>
+          <div className="mt-[40px]">
+            {/* <PaymentBit /> */}
+            <PaymentFiat />
+          </div>
+        </div>
       </div>
     </div>
   );
