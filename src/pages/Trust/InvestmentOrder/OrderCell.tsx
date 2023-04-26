@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import StepProgress from './StepProgress';
 
 export default function OrderCell() {
+  const navigate = useNavigate();
+
   return (
     <div className="flex flex-col gap-4 gradient-block1 rounded-xl shadow-block p-8">
       {/* Header */}
@@ -29,9 +32,14 @@ export default function OrderCell() {
       <div className="h-[1px] mx-[-32px] bg-[#3B5649]" />
       {/* 操作 */}
       <div className="flex flex-row items-center font-title justify-center gap-16">
-        <div className="gradient-text1 font-blod text-[14px]">Cancel</div>
-        <div className="gradient-text1 font-blod text-[14px]">Approval</div>
-        <div className="gradient-text1 font-blod text-[14px]">Check</div>
+        <div
+          className="gradient-text1 font-blod text-[14px] cursor-pointer"
+          onClick={() => navigate('/trust/orders/detail')}
+        >
+          Cancel
+        </div>
+        <div className="gradient-text1 font-blod text-[14px] cursor-pointer">Approval</div>
+        <div className="gradient-text1 font-blod text-[14px] cursor-pointer">Check</div>
       </div>
     </div>
   );

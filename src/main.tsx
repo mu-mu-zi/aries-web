@@ -24,6 +24,11 @@ import Trust from './pages/Trust';
 import AssetTransfet from './pages/Trust/AssetTransfet';
 import InvestmentOrder from './pages/Trust/InvestmentOrder';
 import OrderDetail from './pages/Trust/InvestmentOrder/OrderDetail';
+import Distribution from './pages/Trust/Distribution';
+import Elements from './pages/Trust/Elements';
+import BillAndResources from './pages/Trust/BillAndResources';
+import Security from './pages/Security';
+import LoginLog from './pages/Security/LoginLog';
 
 const router = createBrowserRouter([
   {
@@ -86,6 +91,14 @@ const router = createBrowserRouter([
             path: '/my',
             element: <MyTrust />,
           },
+          {
+            path: '/security',
+            element: <Security />,
+          },
+          {
+            path: '/loginLog',
+            element: <LoginLog />,
+          },
         ],
       },
       {
@@ -113,16 +126,45 @@ const router = createBrowserRouter([
               },
             ],
           },
+          {
+            path: 'distribution',
+            children: [
+              {
+                path: '',
+                element: <Distribution />,
+              },
+            ],
+          },
+          {
+            path: 'elements',
+            children: [
+              {
+                path: '',
+                element: <Elements />,
+              },
+            ],
+          },
+          {
+            path: 'billAndResources',
+            children: [
+              {
+                path: '',
+                element: <BillAndResources />,
+              },
+            ],
+          },
         ],
       },
     ],
   },
 ]);
 
+const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
-      <QueryClientProvider client={new QueryClient()}>
+      <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
       </QueryClientProvider>
     </Provider>
