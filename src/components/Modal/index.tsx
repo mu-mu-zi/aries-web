@@ -11,13 +11,14 @@ export default function Modal({
     onClose?(): void
 }) {
   return (
+  /* @ts-ignore */
     <Transition
       show={visible}
       appear
       as={React.Fragment}
     >
       <div>
-        {/* 背景 */}
+        {/* @ts-ignore */}
         <Transition.Child
           as={React.Fragment}
           enter="ease-out duration-300"
@@ -40,7 +41,10 @@ export default function Modal({
           leaveFrom="opacity-100 scale-100"
           leaveTo="opacity-0 scale-95"
         >
-          <div className="fixed inset-0 grid place-items-center" onClick={onClose}>
+          <div
+            className="fixed inset-0 grid place-items-center"
+            onClick={onClose}
+          >
             {children}
           </div>
         </Transition.Child>

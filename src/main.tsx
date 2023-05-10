@@ -29,6 +29,7 @@ import Elements from './pages/Trust/Elements';
 import BillAndResources from './pages/Trust/BillAndResources';
 import Security from './pages/Security';
 import LoginLog from './pages/Security/LoginLog';
+import Updater from './updater';
 
 const router = createBrowserRouter([
   {
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
         element: <Home />,
         children: [
           {
-            path: '/welcome',
+            path: '/',
             element: <Welcome />,
           },
           {
@@ -92,7 +93,7 @@ const router = createBrowserRouter([
             element: <MyTrust />,
           },
           {
-            path: '/security',
+            path: '/personal',
             element: <Security />,
           },
           {
@@ -159,14 +160,19 @@ const router = createBrowserRouter([
   },
 ]);
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
+      <Updater />
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  </Provider>,
 );

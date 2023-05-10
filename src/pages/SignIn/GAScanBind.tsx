@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import QRCode from 'react-qr-code';
+import { Await, useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import qs from 'qs';
+import { useAsync } from 'react-use';
 import GANavbar from './GANavbar';
 import Button from '../../components/Button';
 import Divide from '../../components/Divide';
 import ContactUs from './ContactUs';
+import { useGoogleSecretQuery } from '../../api/user/verify';
+// import { useGoogleSecretQuery } from '../../api/user/verify';
 
 export default function GAScanBind() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const googleAuth = useGoogleSecretQuery({
+    account: location.state?.account,
+  });
+
   return (
     <div className="flex flex-col items-center pt-[38px]">
       <div className="gradient-bg2 flex max-w-[1200px] w-full min-h-[800px] flex-col overflow-clip  rounded-xl">
@@ -18,12 +31,30 @@ export default function GAScanBind() {
           <div className="text-shadow-block font-blod gradient-text1 text-center font-title text-[32px] leading-[36px]">
             Please scan this QR code using Google Authenticator app
           </div>
-          <div className="mt-12 rounded-xl bg-[#3B5649] p-5 shadow-block w-[200px] h-[200px] self-center">
-            <img src="https://p.ipic.vip/bhxc06.png" width="160px" height="160px" alt="QRCode" />
+          <div className="mt-12 rounded-xl bg-[#3B5649] p-5 shadow-block self-center">
+            <div className="p-3 rounded-xl bg-[#D2D8D6]">
+              {googleAuth.data?.data.qrCode && <QRCode value={googleAuth.data?.data.qrCode} size={160} bgColor="#D2D8D6" />}
+            </div>
           </div>
           <div className="flex flex-row gap-4 mt-[40px]">
-            <Button size="medium" block>Cancel</Button>
-            <Button size="medium" block>Next</Button>
+            <Button size="medium" block onClick={() => navigate(-1)}>Cancel</Button>
+            <Button
+              size="medium"
+              block
+              onClick={() => {
+                if (googleAuth.data?.data.secret) {
+                  navigate('/gaBackup', {
+                    state: {
+                      secret: googleAuth.data?.data.secret,
+                      account: location.state.account,
+                      areaCodeId: location.state.areaCodeId,
+                    },
+                  });
+                }
+              }}
+            >
+              Next
+            </Button>
           </div>
         </div>
         <div className="flex-auto" />

@@ -41,7 +41,7 @@ export default {
         divider: '#3B5649',
         t2: '#C2D7C7',
         t3: '#161616',
-        t4: '#161616',
+        t4: '#3D3228',
         t5: '#C39770',
       },
       spacing: {

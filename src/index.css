@@ -6,6 +6,19 @@ body {
     line-height: normal;
 }
 
+::-webkit-scrollbar {
+    width: 2px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #C2D7C7F6;
+    border-radius: 3px;
+}
+
 /* Fonts */
 @font-face {
     font-family: 'Times New Roman';
@@ -78,4 +91,5 @@ body {
 .text-shadow-block {
     text-shadow: -4px 8px 10px #030C0880;
 }
+
 

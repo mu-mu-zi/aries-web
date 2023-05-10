@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 import { useNavigate } from 'react-router-dom';
 import icon from '../../assets/icon/arrow_l.svg';
 

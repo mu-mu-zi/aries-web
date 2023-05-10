@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Await, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import logo from '../../assets/icon/logo_black.svg';
 import Button from '../../components/Button';
 import Divide from '../../components/Divide';
@@ -11,43 +16,131 @@ import emailSelIcon from '../../assets/icon/email_sel.svg';
 import Select from '../../components/Select';
 import ContactUs from './ContactUs';
 import PhotoEmailSwitch from '../../components/PhotoEmailSwitch';
+import { useGetUserInfoMutation, useSendValidateCodeMutation } from '../../api/user/verify';
+import { IResponseData } from '../../interfaces/base';
 
 export default function SignIn() {
-  const [isPhone, setIsPhone] = React.useState(true);
+  const navigate = useNavigate();
+  const [isPhone, setIsPhone] = useState(true);
+  const sendValidateCodeMutation = useSendValidateCodeMutation();
+  const getUserInfoMutation = useGetUserInfoMutation();
+  const valid = z.object({
+    account: z.string().nonempty(),
+    areaCodeId: z.number().optional(),
+    securityCode: z.string().nonempty(),
+  });
+    type FormValid = z.infer<typeof valid>;
+    const {
+      register,
+      handleSubmit,
+      formState: { errors },
+      clearErrors,
+      trigger,
+      getValues,
+    } = useForm<FormValid>({
+      resolver: zodResolver(valid),
+    });
 
-  return (
-    <div className="flex flex-col items-center pt-9">
-      <div className="gradient-bg2 flex w-[580px] flex-col overflow-clip rounded-xl">
-        {/* Logo */}
-        <div className="gradient-border1 grid h-[102px] place-items-center">
-          <img height="54px" src={logo} />
-        </div>
-        {/* Form */}
-        <div className="flex flex-col gap-10 px-[80px] py-[64px]">
-          <PhotoEmailSwitch onSelected={setIsPhone} />
-          <div className="flex flex-row gap-2">
-            {isPhone ? <Select /> : null}
-            <TextInput block className="w-full" placeholder="Please input your email" type="email" />
+    const sendValidCode = async () => {
+      /* 验证账号 */
+      try {
+        await trigger('account', {
+          shouldFocus: true,
+        });
+        sendValidateCodeMutation.mutate({
+          account: getValues('account'),
+          areaCode: '',
+        });
+      } catch (e) {
+        // console.log(e);
+      }
+    };
+
+    const submit = async (data: FormValid) => {
+      try {
+        const resp = await axios.post('/auth/ariesToken/getUserInfo', {
+          userEmail: isPhone ? undefined : data.account,
+          userMobile: isPhone ? data.account : undefined,
+          securityCode: data.securityCode,
+          areaCodeId: data.areaCodeId,
+        });
+        /* 是否进行 Google 验证 */
+        console.log(resp);
+        console.log(`Success => ${resp.data?.googleSecretAuth}`);
+        if (resp.data?.googleSecretAuth) {
+          navigate('/my');
+        } else {
+          navigate('/gaGuide', {
+            state: {
+              account: data.account,
+              areaCodeId: isPhone ? data.areaCodeId : undefined,
+            },
+          });
+        }
+      } catch (e) {
+        console.log(`e => ${e}`);
+      }
+    };
+
+    return (
+      <div className="flex flex-col items-center pt-9">
+        <div className="gradient-bg2 flex w-[580px] flex-col overflow-clip rounded-xl">
+          {/* Logo */}
+          <div className="gradient-border1 grid h-[102px] place-items-center">
+            <img height="54px" src={logo} />
           </div>
-          <div>
-            <TextInput placeholder="Please input your email" type="email" />
-          </div>
-          <Button block>Next</Button>
-          <div className="text-[#99AC9B] leading-[15px] text-[14px]">
-            After mobile phone verification, the user will automatically log in without registration. Registration
-            represents agreement to the
-            {' '}
-            <a href="#" className="gradient-text1">Aries Digital Group Agreement</a>
-            {' '}
-            and
-            {' '}
-            <a href="#" className="gradient-text1">Aries Digital Group Privacy Policy</a>
-            .
-          </div>
-          <Divide />
-          <ContactUs />
+          {/* Form */}
+          <form onSubmit={handleSubmit(submit)}>
+            <div className="flex flex-col gap-10 px-[80px] py-[64px]">
+              <PhotoEmailSwitch onSelected={setIsPhone} />
+              <div className="flex flex-row gap-2">
+                {isPhone ? <Select /> : null}
+                <TextInput
+                  block
+                  className="w-full"
+                  {...register('account')}
+                  placeholder={isPhone ? 'Please input your phone' : 'Please input your email'}
+                  type="text"
+                />
+              </div>
+              <div>
+                <TextInput
+                  placeholder="Please enter the verification code"
+                  type="text"
+                  {...register('securityCode')}
+                  suffix={(
+                    <div
+                      className="cursor-pointer font-bold gradient-text1 text-[20px] px-2"
+                      onClick={sendValidCode}
+                    >
+                      Send
+                    </div>
+                                )}
+                />
+              </div>
+              <Button
+                block
+                type="submit"
+                disabled={getUserInfoMutation.isLoading}
+              >
+                Next
+              </Button>
+              <div className="text-[#99AC9B] leading-[15px] text-[14px]">
+                After mobile phone verification, the user will automatically log in without registration.
+                Registration represents agreement to the
+                {' '}
+                <a href="#" className="gradient-text1">Aries Digital Group Agreement</a>
+                {' '}
+                and
+                {' '}
+                <a href="#" className="gradient-text1">Aries Digital Group Privacy Policy</a>
+                .
+              </div>
+              <Divide />
+              <ContactUs />
+            </div>
+          </form>
         </div>
       </div>
-    </div>
-  );
+    );
 }

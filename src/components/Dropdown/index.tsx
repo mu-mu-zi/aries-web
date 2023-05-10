@@ -16,6 +16,7 @@ export default function Dropdown({ title }: {
           <img src={icon} width="32px" />
         </Menu.Button>
       </div>
+      {/* @ts-ignore */}
       <Transition
         as={React.Fragment}
         enter="transition ease-out duration-100"

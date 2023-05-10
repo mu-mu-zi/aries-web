@@ -1,11 +1,16 @@
 import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import Divide from '../../components/Divide';
 import ContactUs from './ContactUs';
 import appstoreIcon from '../../assets/icon/appstore.svg';
+import googlePayIcon from '../../assets/icon/icons_google_selected.svg';
 import GANavbar from './GANavbar';
 
 export default function GAGuide() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <div className="flex flex-col items-center pt-[38px]">
       <div className="gradient-bg2 flex max-w-[1200px] w-full min-h-[800px] flex-col overflow-clip  rounded-xl">
@@ -21,11 +26,27 @@ export default function GAGuide() {
               Download and install the Google Authenticator app
             </div>
             <div className="mt-[64px] flex flex-row gap-2">
-              <ChannelButton icon={appstoreIcon} text="Google Play" />
-              <ChannelButton icon={appstoreIcon} text="App Store" />
+              <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank" rel="noreferrer">
+                <ChannelButton icon={googlePayIcon} text="Google Play" />
+              </a>
+              <a href="https://apps.apple.com/us/app/google-authenticator/id388497605">
+                <ChannelButton icon={appstoreIcon} text="App Store" />
+              </a>
             </div>
             <div className="mt-[40px] w-full">
-              <Button block>Next</Button>
+              <Button
+                block
+                onClick={() => {
+                  navigate('/gaBind', {
+                    state: {
+                      account: location.state.account,
+                      areaCodeId: location.state.areaCodeId,
+                    },
+                  });
+                }}
+              >
+                Next
+              </Button>
             </div>
           </div>
           <div className="flex-auto" />

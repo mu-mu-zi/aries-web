@@ -11,17 +11,24 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@headlessui/react": "^1.7.14",
+    "@hookform/resolvers": "^3.1.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@tanstack/react-query": "^4.29.3",
+    "@types/qs": "^6.9.7",
     "@types/react-slick": "^0.23.10",
+    "axios": "^1.4.0",
     "classnames": "^2.3.2",
+    "qs": "^6.11.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
+    "react-qr-code": "^2.0.11",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.10.0",
     "react-slick": "^0.29.0",
-    "slick-carousel": "^1.8.1"
+    "react-use": "^17.4.0",
+    "slick-carousel": "^1.8.1",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.10.6",

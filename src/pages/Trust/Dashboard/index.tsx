@@ -12,8 +12,7 @@ import Navbar from '../../../views/Navbar';
 
 export default function Dashboard() {
   return (
-    <div className="flex h-screen flex-row gap-6 bg-gradient-to-r from-[#121518] via-[#2d3832] to-[#2f3b36] p-6">
-
+    <div className="flex min-h-screen flex-row gap-6 px-6">
       <div className="flex flex-auto flex-col gap-6">
         <Portrait />
         <DigitalAssets />
