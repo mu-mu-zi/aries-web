@@ -3,8 +3,11 @@ import classNames from 'classnames';
 import GradientBox from '../../../components/GradientBox';
 import symbolIcon from '../../../assets/icon/dashboard/icon_usdt.svg';
 import arrowUp from '../../../assets/icon/arrow_up.svg';
+import { IAssetsOverview, IDigitalAssets } from '../../../interfaces/trust';
 
-export default function DigitalAssets() {
+export default function DigitalAssets({ assetOverview }: {
+  assetOverview?: IAssetsOverview
+}) {
   return (
     <div className={classNames('gradient-bg2 rounded-xl p-8', 'flex flex-col gap-6')}>
       <div
@@ -18,22 +21,23 @@ export default function DigitalAssets() {
         )}
       >
         <div>Digital Assets</div>
-        <div>100002.122 USD</div>
+        {/* todo: 这里的 total 是错误的 */}
+        <div>{`${assetOverview?.totalUSDT} USD`}</div>
       </div>
-      {/* Custody */}
-      <div className={classNames('gradient-block1', 'shadow-block', 'rounded-xl')}>
-        <div className="flex flex-row items-center h-[80px] px-8">
-          <div className="gradient-text1 text-[20px] font-bold flex-auto">Custody</div>
-          <div className="gradient-text1 text-[20px] font-bold">100002.122 USD</div>
-          <img src={arrowUp} />
+      {assetOverview?.digitalAssets.map((it) => (
+        <div className={classNames('gradient-block1', 'shadow-block', 'rounded-xl')}>
+          <div className="flex flex-row items-center h-[80px] px-8">
+            <div className="gradient-text1 text-[20px] font-bold flex-auto">{it.name}</div>
+            <div className="gradient-text1 text-[20px] font-bold">{`${it.totalUSDT} USD`}</div>
+            <img src={arrowUp} alt="" />
+          </div>
+          {it.details?.length > 0 && (
+            <div className="flex flex-col gap-6 p-8 bg-divider rounded-b-xl">
+              {it.details?.map((d) => <Cell icon={symbolIcon} amount={d.amount} symbol={d.symbol} />)}
+            </div>
+          )}
         </div>
-        <div className="flex flex-col gap-6 p-8 bg-divider rounded-b-xl">
-          <Cell icon={symbolIcon} amount="100,672.122" symbol="USD" />
-          <Cell icon={symbolIcon} amount="100,672.122" symbol="BTC" />
-          <Cell icon={symbolIcon} amount="100,672.122" symbol="ETH" />
-        </div>
-      </div>
-      {/* Coinbase */}
+      ))}
     </div>
   );
 }
@@ -41,9 +45,9 @@ export default function DigitalAssets() {
 function Cell({
   icon, amount, symbol,
 }: {
-    icon: string,
-    amount: string,
-    symbol: string
+  icon: string,
+  amount: string | number,
+  symbol: string
 }) {
   return (
     <div className="flex flex-row items-center relative">

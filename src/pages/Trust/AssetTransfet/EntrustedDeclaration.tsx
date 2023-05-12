@@ -33,12 +33,14 @@ export default function EntrustedDeclaration() {
       </div>
       {/* Assets */}
       <div className="flex flex-row gap-16">
-        <div className="flex-1"><AssetDeclaration /></div>
+        <div className="flex-1">
+          <AssetDeclaration />
+        </div>
         <div className="w-[1px] bg-[#3B5649] my-[120px]" />
         <div className="flex-1">
           <div className="gradient-text1 font-blod text-[20px] font-title">Payment information</div>
           <div className="mt-[40px]">
-            {/* <PaymentBit /> */}
+            <PaymentBit />
             <PaymentFiat />
           </div>
         </div>

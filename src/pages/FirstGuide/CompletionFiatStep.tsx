@@ -1,8 +1,11 @@
 import React from 'react';
 import VerifyStatusRow from './VerifyStatusRow';
 import digitalIcon from '../../assets/icon/digital_account.svg';
+import { TrustDetail } from '../../interfaces/trust';
 
-export default function CompletionFiatStep() {
+export default function CompletionFiatStep({ trust }: {
+    trust: TrustDetail
+}) {
   return (
     <div className="flex flex-col items-center gap-6">
       <div>Logo</div>

@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import VerifyStatusRow from './VerifyStatusRow';
 import digitalIcon from '../../assets/icon/digital_account.svg';
+import { TrustDetail } from '../../interfaces/trust';
 
 function Text({ children }: {
   children: ReactNode
@@ -8,7 +9,9 @@ function Text({ children }: {
   return <div className="gradient-text1 text-[20px] font-[400]">{children}</div>;
 }
 
-export default function CompletionBitStep() {
+export default function CompletionBitStep({ trust }: {
+    trust: TrustDetail
+}) {
   return (
     <div className="flex flex-col text-[20px] gap-4">
       <div className="flex flex-row items-center justify-between px-8 h-[70px] gradient-block1 rounded-xl shadow-block">

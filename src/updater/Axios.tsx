@@ -11,7 +11,7 @@ export default function Axios() {
     * */
     axios.interceptors.request.use((config) => {
       const token = localStorage.getItem('TOKEN');
-      if (token) {
+      if (config.headers && token) {
         config.headers.Authorization = token;
       }
       return config;
@@ -36,10 +36,7 @@ export default function Axios() {
         }
         return Promise.reject(response.data.msg);
       },
-      (error: any) => {
-        console.log(error);
-        return Promise.reject(error);
-      },
+      (error: any) => Promise.reject(error),
     );
   });
 

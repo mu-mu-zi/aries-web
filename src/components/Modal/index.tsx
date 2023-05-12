@@ -11,7 +11,7 @@ export default function Modal({
     onClose?(): void
 }) {
   return (
-  /* @ts-ignore */
+    /* @ts-ignore */
     <Transition
       show={visible}
       appear

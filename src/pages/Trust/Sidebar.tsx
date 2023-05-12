@@ -22,7 +22,6 @@ import billIcon from '../../assets/icon/dashboard/icons-file.svg';
 import billSelIcon from '../../assets/icon/dashboard/icons-file-1.svg';
 
 export default function Sidebar() {
-  const [index, setIndex] = useState(0);
   const navigate = useNavigate();
 
   return (
@@ -37,7 +36,7 @@ export default function Sidebar() {
           {[
             ['Dashboard', dashboardIcon, dashboardSelIcon, '/trust/dashboard'],
             ['Asset Transfer', assetIcon, assetSelIcon, '/trust/assets'],
-            ['Investment Order', keyIcon, keySelIcon, '/trust/assets'],
+            ['Investment Order', keyIcon, keySelIcon, '/trust/orders'],
             ['Distribution', distIcon, distSelIcon, '/trust/distribution'],
             ['Trust Elements', eleIcon, eleSelIcon, '/trust/elements'],
             ['Bill and Resources', billIcon, billSelIcon, '/trust/billAndResources'],
@@ -46,9 +45,8 @@ export default function Sidebar() {
               key={title}
               icon={icon}
               selectedIcon={selectIcon}
-              isSelected={index === idx}
+              isSelected={window.location.pathname.startsWith(to)}
               onSelected={() => {
-                setIndex(idx);
                 navigate(to);
               }}
             >
@@ -66,7 +64,7 @@ export default function Sidebar() {
               [messageIcon, 'Message', '/message'],
               [languageIcon, 'Language', '/language'],
               [notifyIcon, 'Notification', '/notify'],
-              [exitIcon, 'Exit', '/exit'],
+              [exitIcon, 'Exit', '/my'],
             ].map(([icon, alt, to], idx) => (
               <div
                 className="cursor-pointer"
@@ -106,7 +104,7 @@ function SidebarCell({
         },
       )}
     >
-      <img src={isSelected ? selectedIcon : icon} />
+      <img src={isSelected ? selectedIcon : icon} alt="" />
       <div
         className={classNames({
           'text-[#3D3228] font-[600]': isSelected,

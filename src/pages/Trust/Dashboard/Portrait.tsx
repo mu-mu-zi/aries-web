@@ -1,26 +1,24 @@
 import React from 'react';
 import classNames from 'classnames';
+import { useQuery } from '@tanstack/react-query';
 import borderImg from '../../../assets/icon/avatar_border.svg';
 import GradientText from '../../../components/GradientText';
+import { useUserInfoQuery } from '../../../api/user/user';
+import LargeAvatar from '../../../components/LargeAvatar';
 
 export default function Portrait() {
+  const userQuery = useUserInfoQuery();
+
   return (
     <div className="flex flex-row gap-8 items-center p-8">
-      {/* 头像 */}
-      <div className="flex-shrink-0 relative w-[216px] h-[216px] rounded-full overflow-clip">
-        <div
-          style={{ backgroundImage: `url(${borderImg})` }}
-          className="absolute bg-no-repeat bg-contain bg-center w-full h-full z-10"
-        />
-        <img src="https://p.ipic.vip/gxnsaj.svg" className="absolute top-0 left-0 z-0 w-full h-full" alt="User" />
-      </div>
+      <LargeAvatar isMale={userQuery.data?.data?.gentr} />
       {/* 昵称描述 */}
       <div className="flex flex-col gap-4">
-        <GradientText
-          className={classNames('text-[40px] font-bold')}
-        >
+        {/* todo：缺少 Dear 前缀 */}
+        <GradientText className={classNames('text-[40px] font-bold')}>
           Dear Mr. Lin
         </GradientText>
+        {/* todo：描述 */}
         <GradientText
           className={classNames('text-[20px] font-normal times leading-[23px]', 'font-title')}
         >

@@ -1,20 +1,29 @@
 import React from 'react';
+import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 import icon from '../../assets/icon/my_trust_logo.svg';
 import Button from '../../components/Button';
 import Divide from '../../components/Divide';
 import bankIcon from '../../assets/icon/coin_bank.svg';
+import { Trust } from '../../interfaces/trust';
 
-export default function EnteringTrust() {
+export default function EnteringTrust({ trust }: {
+  trust: Trust
+}) {
+  const navigate = useNavigate();
+
   return (
-    <div className="gradient-bg1 flex h-[720px] max-w-[475px] flex-col overflow-clip rounded-xl shadow-block">
+    <div className="m-auto gradient-bg1 flex h-[720px] max-w-[475px] flex-col flex-shrink-0 overflow-clip rounded-xl shadow-block">
       <div className="flex flex-auto flex-col px-12">
         <img className="mt-20 self-center" src={icon} width="224px" alt="Logo" />
         <div className="gradient-text1 mt-12 text-center font-title text-[32px]">Welcome to Aries Trust Company</div>
         <div className="gradient-text1 mt-4 text-center font-title text-[32px]">[Settlor]</div>
-        <div className="mt-4 text-center font-title text-[20px] text-[#C39770]">2023-05-01</div>
+        <div className="mt-4 text-center font-title text-[20px] text-[#C39770]">
+          {moment.unix(trust.createTime / 1000).format('yyyy-MM-DD')}
+        </div>
         <div className="flex-1" />
         <div className="self-center">
-          <Button>Entering the trust</Button>
+          <Button onClick={() => navigate('/trust/dashboard')}>Entering the trust</Button>
         </div>
       </div>
       <div className="mt-[52px]">

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom';
 import App from './App';
 import './index.css';
 import { store } from './state';
@@ -30,6 +30,7 @@ import BillAndResources from './pages/Trust/BillAndResources';
 import Security from './pages/Security';
 import LoginLog from './pages/Security/LoginLog';
 import Updater from './updater';
+import Notification from './pages/Trust/Dashboard/Notification';
 
 const router = createBrowserRouter([
   {
@@ -109,6 +110,10 @@ const router = createBrowserRouter([
           {
             path: 'dashboard',
             element: <Dashboard />,
+          },
+          {
+            path: 'notification',
+            element: <Notification />,
           },
           {
             path: 'assets',

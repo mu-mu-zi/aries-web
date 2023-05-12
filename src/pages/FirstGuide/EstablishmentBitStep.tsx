@@ -1,6 +1,9 @@
 import React from 'react';
+import { TrustDetail } from '../../interfaces/trust';
 
-export default function EstablishmentBitStep() {
+export default function EstablishmentBitStep({ trust }: {
+    trust: TrustDetail
+}) {
   return (
     <div className="flex flex-col text-[20px] gap-4">
       <div className="flex flex-row items-center justify-between px-8 h-[70px] gradient-block1 rounded-xl shadow-block">

@@ -49,7 +49,6 @@ export default function SignIn() {
         });
         sendValidateCodeMutation.mutate({
           account: getValues('account'),
-          areaCode: '',
         });
       } catch (e) {
         // console.log(e);
@@ -68,7 +67,12 @@ export default function SignIn() {
         console.log(resp);
         console.log(`Success => ${resp.data?.googleSecretAuth}`);
         if (resp.data?.googleSecretAuth) {
-          navigate('/my');
+          navigate('/gaVerify', {
+            state: {
+              account: data.account,
+              areaCodeId: isPhone ? data.areaCodeId : undefined,
+            },
+          });
         } else {
           navigate('/gaGuide', {
             state: {

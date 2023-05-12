@@ -13,7 +13,7 @@ export const useSendValidateCodeMutation = () => useMutation({
 });
 
 /*
-* 获取用户信息
+* 未登录获取用户信息
 * */
 export const useGetUserInfoMutation = () => useMutation({
   mutationFn: (data: {
