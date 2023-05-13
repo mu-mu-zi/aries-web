@@ -3,8 +3,10 @@ import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import icon from '../../assets/icon/arrow_down.svg';
 
-export default function Dropdown({ title }: {
-    title: string
+export default function Dropdown({ title, items, onSelected }: {
+  title?: string,
+  items?: string[],
+  onSelected?(index: number): void
 }) {
   return (
     <Menu as="div" className="relative block w-full">
@@ -27,22 +29,23 @@ export default function Dropdown({ title }: {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items
-          className="absolute right-0 z-10 mt-2 w-full origin-top-right"
+          className="absolute right-0 z-10 mt-1 w-full origin-top-right"
         >
-          <div className="py-1 rounded-xl shadow-block gradient-border1">
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-6 h-[48px] leading-[48px]',
-                  )}
-                >
-                  Account settings
-                </a>
-              )}
-            </Menu.Item>
+          <div className="rounded-xl shadow-block overflow-clip bg-gradient-to-r from-[#1a4132] to-[#234838] text-[20px]">
+            {items?.map((it, idx) => (
+              <Menu.Item>
+                {({ active }) => (
+                  <div
+                    onClick={() => onSelected?.(idx)}
+                    className={classNames('block  cursor-pointer', active ? 'bg-[#3B5649]' : 'bg-transparent')}
+                  >
+                    <div className={classNames('px-6 h-[48px] leading-[48px] gradient-text1')}>
+                      {it}
+                    </div>
+                  </div>
+                )}
+              </Menu.Item>
+            ))}
           </div>
         </Menu.Items>
       </Transition>

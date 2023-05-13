@@ -4,8 +4,11 @@ import TextField from '../../../components/TextField';
 import Button from '../../../components/Button';
 import Dropdown from '../../../components/Dropdown';
 import AssetDigitalDeclaration from './AssetDigitalDeclaration';
+import AssetFiatDeclaration from './AssetFiatDeclaration';
 
-export default function AssetDeclaration() {
+export default function AssetDeclaration({ assetModeChange }: {
+  assetModeChange?(isDigital: boolean): void
+}) {
   const [isDigital, setIsDigital] = React.useState(true);
 
   return (
@@ -14,9 +17,15 @@ export default function AssetDeclaration() {
       <div className="mt-[40px] flex flex-col gap-8">
         <div className="flex flex-col gap-3">
           <div className="font-blod text-[#C2D7C7F6]">Please select a payment method</div>
-          <MethodSwitch titles={['Digital currency', 'Fiat currency']} onSelected={(idx) => setIsDigital(idx === 0)} />
+          <MethodSwitch
+            titles={['Digital currency', 'Fiat currency']}
+            onSelected={(idx) => {
+              setIsDigital(idx === 0);
+              assetModeChange?.(idx === 0);
+            }}
+          />
         </div>
-        {isDigital ? <AssetDigitalDeclaration /> : <AssetDigitalDeclaration />}
+        {isDigital ? <AssetDigitalDeclaration /> : <AssetFiatDeclaration />}
       </div>
     </div>
   );

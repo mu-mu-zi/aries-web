@@ -9,12 +9,12 @@ export interface TrustDetail {
   trustLimit: string;
   trustDistributionMode: string;
   contractStatus: number;
-  contractFilePath: null;
-  payTemplateId: null;
+  contractFilePath: string;
+  payTemplateId: string;
   payStatus: number;
   trustStatus: number;
-  userName: null;
-  account: null;
+  userName: string;
+  account: string;
   trustEntrustTypeName: string;
   totalAssets: null;
   trustStatusName: string;
@@ -22,6 +22,15 @@ export interface TrustDetail {
   createTimeStamp: null;
   updateTime: number;
   stepId: number;
+  kycStatus: number
+  initialCost: number
+  safeHeronAddress: string
+  mainne: string
+  coinName: string
+  transferredAssets: number
+  bankName: string
+  bankAddress: string
+  bankAccount: string
 }
 
 export interface Trust {

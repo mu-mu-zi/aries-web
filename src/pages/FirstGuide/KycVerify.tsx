@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import CenterContainer from '../../views/CenterContainer';
 import ContainerLogo from '../../views/CenterContainer/ContainerLogo';
@@ -11,18 +11,27 @@ import EstablishmentBitStep from './EstablishmentBitStep';
 import CompletionBitStep from './CompletionBitStep';
 import CompletionFiatStep from './CompletionFiatStep';
 import { useTrustDetailQuery } from '../../api/trust/trust';
+import ContractSigningStep from './ContractSigningStep';
 
 export default function KycVerify() {
   const location = useLocation();
   /* todo: 固定 ID */
   const detailQuery = useTrustDetailQuery({
-    trustId: 15,
+    trustId: 24,
   });
 
   const stepId = () => {
     switch (detailQuery.data?.data?.stepId) {
       case 1:
         return 0;
+      case 2:
+      case 3:
+        return 1;
+      case 4:
+      case 5:
+        return 2;
+      case 6:
+        return 3;
       default:
         return 0;
     }
@@ -30,7 +39,7 @@ export default function KycVerify() {
 
   return (
     <CenterContainer>
-      <div className="flex flex-col">
+      <div className="flex-1 flex flex-col">
         <ContainerLogo />
         <div className="flex flex-col items-center">
           <div
@@ -51,11 +60,12 @@ export default function KycVerify() {
                 />
               </div>
               <div className="mt-12 max-w-[824px] w-full">
-                <KYCCertificationStep trust={detailQuery.data.data} />
-                {/* <EstablishmentFaitStep /> */}
-                {/* <EstablishmentBitStep /> */}
-                {/* <CompletionBitStep /> */}
-                <CompletionFiatStep trust={detailQuery.data.data} />
+                {detailQuery.data.data.stepId === 1 && <KYCCertificationStep trust={detailQuery.data.data} />}
+                {[2, 3].includes(detailQuery.data.data.stepId) && <ContractSigningStep trust={detailQuery.data.data} />}
+                {[4, 5].includes(detailQuery.data.data.stepId) && detailQuery.data.data.trustAssetType === 1 && <EstablishmentBitStep trust={detailQuery.data.data} />}
+                {[4, 5].includes(detailQuery.data.data.stepId) && detailQuery.data.data.trustAssetType === 2 && <EstablishmentFaitStep trust={detailQuery.data.data} />}
+                {detailQuery.data.data.stepId === 6 && detailQuery.data.data.trustAssetType === 1 && <CompletionBitStep trust={detailQuery.data.data} />}
+                {detailQuery.data.data.stepId === 6 && detailQuery.data.data.trustAssetType === 2 && <CompletionFiatStep trust={detailQuery.data.data} />}
               </div>
             </>
           )}

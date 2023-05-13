@@ -5,16 +5,16 @@ import { TrustDetail } from '../../interfaces/trust';
 import okIcon from '../../assets/icon/icon_check.svg';
 import waitIcon from '../../assets/icon/icon_waiting.svg';
 
-export default function KYCCertificationStep({ trust }: {
-    trust: TrustDetail
+export default function ContractSigningStep({ trust }: {
+  trust: TrustDetail
 }) {
   return (
     <div className="flex flex-col items-center">
-      <img src={trust.kycStatus === 1 ? waitIcon : okIcon} alt="" width="44px" />
+      <img src={trust.contractStatus === 1 ? waitIcon : okIcon} alt="" width="44px" />
       <div
         className="text-[#708077] text-[14px] leading-[16px] mt-4"
       >
-        {trust.kycStatus === 1 ? 'KYC certification in progress' : 'KYC Certification Success'}
+        {trust.contractStatus === 1 ? 'Contract signing in progress' : 'Contract signed successfully'}
       </div>
     </div>
   );

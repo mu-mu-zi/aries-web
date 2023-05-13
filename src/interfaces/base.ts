@@ -18,3 +18,30 @@ export interface AreaCode {
   name: string;
   img: string;
 }
+
+export interface IMainNet {
+  id: number
+  name: string
+  chainId: number
+  image?: string
+  createTime: number
+}
+
+export interface IMainNetCoin {
+  id: number
+  coinId: number
+  mainnetId: number
+  symbol: string
+  contractAddr: string
+  coinDecimal: number
+  createTime: number
+}
+
+export interface IFiat {
+  countryId: number
+  enable: boolean
+  id: number
+  rate: number
+  symbol: string
+  unit: string
+}

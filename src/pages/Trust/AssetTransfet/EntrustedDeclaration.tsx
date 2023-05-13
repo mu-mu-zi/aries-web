@@ -6,6 +6,8 @@ import PaymentFiat from './PaymentFiat';
 import DeclarationRecord from './DeclarationRecord';
 
 export default function EntrustedDeclaration() {
+  const [isDigital, setIsDigital] = React.useState(true);
+
   return (
     <div className="flex flex-col gradient-bg2 rounded-xl overflow-clip p-8 gap-8">
       {/* Header */}
@@ -34,14 +36,13 @@ export default function EntrustedDeclaration() {
       {/* Assets */}
       <div className="flex flex-row gap-16">
         <div className="flex-1">
-          <AssetDeclaration />
+          <AssetDeclaration assetModeChange={setIsDigital} />
         </div>
         <div className="w-[1px] bg-[#3B5649] my-[120px]" />
         <div className="flex-1">
           <div className="gradient-text1 font-blod text-[20px] font-title">Payment information</div>
           <div className="mt-[40px]">
-            <PaymentBit />
-            <PaymentFiat />
+            {isDigital ? <PaymentBit /> : <PaymentFiat />}
           </div>
         </div>
       </div>

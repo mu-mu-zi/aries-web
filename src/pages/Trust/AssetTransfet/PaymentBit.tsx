@@ -1,25 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Controller } from 'react-hook-form';
 import Dropdown from '../../../components/Dropdown';
 import PaymentRow from './PaymentRow';
+import { useAllCoinInMainNetQuery, useAllMainNetsQuery } from '../../../api/trust/trust';
+import { IMainNet, IMainNetCoin } from '../../../interfaces/base';
+import { useAssetByCoinId } from '../../../api/assets/assets';
+import QrCode from '../../../components/QrCode';
 
 export default function PaymentBit() {
+  const mainNetListQuery = useAllMainNetsQuery();
+  const [mainNet, setMainNet] = useState<IMainNet>();
+  const mainNetCoinListQuery = useAllCoinInMainNetQuery({
+    mainnetId: mainNet?.id,
+  });
+  const [coin, setCoin] = useState<IMainNetCoin>();
+  /* todo: 固定 ID */
+  const addressQuery = useAssetByCoinId({
+    mainnetCoinId: coin?.id,
+    trustId: 15,
+  });
+
   return (
-    <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-4">
-        <div className="text-[#C2D7C7F6] font-blod text-[16px]">Choosing a Bank</div>
-        <Dropdown title="Hang Send Bank" />
-      </div>
-      <div className="flex flex-col gap-4">
-        <div className="text-[#C2D7C7F6] font-blod text-[16px]">Receiving address</div>
-        <div className="flex flex-col gap-4">
-          <PaymentRow title="Payee Name" value="Mr. Lin" />
-          <PaymentRow title="Payee account number" value="4561 000 000 8888" />
-          <PaymentRow title="Payee's Address" value="1108NEXXUS BUILDING,41CONNAUGHTROAD C ENTRAL,CENTRAL HK" />
-          <PaymentRow title="Payment Bank (English)" value="STANDARD CHARTERED BANK" />
-          <PaymentRow title="Payment Bank (Chinese simplified)" value="恒生银行" />
-          <PaymentRow title="Wire transfer code (SWIFT)" value="MrSCBLHKHHXXX" />
-        </div>
-      </div>
+    <div className="flex flex-col gap-4">
+      <div className="text-[#C2D7C7F6] font-blod text-[16px]">Receiving address</div>
+      <Dropdown
+        title={mainNet?.name}
+        items={mainNetListQuery.data?.data?.map((x) => x.name)}
+        onSelected={(idx) => {
+          setMainNet(mainNetListQuery.data?.data?.[idx]);
+          setCoin(undefined);
+        }}
+      />
+      {mainNet && (
+        <Dropdown
+          title={coin?.symbol}
+          items={mainNetCoinListQuery.data?.data?.map((x) => x.symbol)}
+          onSelected={(idx) => {
+            setCoin(mainNetCoinListQuery.data?.data?.[idx]);
+          }}
+        />
+      )}
+      {addressQuery.data?.data && (
+        <>
+          <PaymentRow title="Receiving address" value={addressQuery.data?.data} />
+          <div className="grid place-items-center p-3 bg-[#3B5649] shadow-btn rounded-xl self-start">
+            <QrCode text={addressQuery.data?.data} size={136} />
+          </div>
+        </>
+      )}
     </div>
   );
 }

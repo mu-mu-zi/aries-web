@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from 'axios';
 export default function Axios() {
   useEffectOnce(() => {
     /* 默认 URL */
-    axios.defaults.baseURL = 'http://8.222.208.7:8080/';
+    axios.defaults.baseURL = 'https://api.aries-trust.com/';
 
     /*
     * 请求拦截器

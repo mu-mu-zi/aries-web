@@ -1,9 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { use } from 'i18next';
+import { useId } from 'react';
 import { useUserInfoQuery } from '../user/user';
 import useUserId from '../../hooks/useUserId';
-import { IPage, IResponseData } from '../../interfaces/base';
+import {
+  IFiat,
+  IMainNet, IMainNetCoin, IPage, IResponseData,
+} from '../../interfaces/base';
 import {
   IAssetsOverview, ITrustMessage, Trust, TrustDetail,
 } from '../../interfaces/trust';
@@ -96,18 +100,18 @@ export const useTrustMessageListQuery = (data: {
 /*
 * 获取充值地址
 * */
-export const useAssesRechargeAddressQuery = (data: {
-  coinId?: number,
-  trustId?: number
-}) => {
-  const userId = useUserId();
-
-  return useQuery({
-    queryKey: ['trust', 'rechargeAddress', data, userId],
-    queryFn: () => axios.post('/asset/asset/rechargeAddress', data),
-    enabled: !!userId && !!data.coinId && !!data.trustId,
-  });
-};
+// export const useAssesRechargeAddressQuery = (data: {
+//   coinId?: number,
+//   trustId?: number
+// }) => {
+//   const userId = useUserId();
+//
+//   return useQuery({
+//     queryKey: ['trust', 'rechargeAddress', data, userId],
+//     queryFn: () => axios.post('/asset/asset/rechargeAddress', data),
+//     enabled: !!userId && !!data.coinId && !!data.trustId,
+//   });
+// };
 
 /*
 * 获取全部主网
@@ -115,9 +119,41 @@ export const useAssesRechargeAddressQuery = (data: {
 export const useAllMainNetsQuery = () => {
   const userId = useUserId();
 
-  return useQuery({
-    queryKey: ['assets', 'mainNets', userId],
+  return useQuery<IResponseData<IMainNet[]>>({
+    queryKey: ['mainNets', userId],
     queryFn: () => axios.get('/asset/asset/mainnets'),
+    enabled: !!userId,
+  });
+};
+
+/*
+* 通过主网获取主网币种
+* */
+export const useAllCoinInMainNetQuery = (data: {
+  mainnetId?: number
+}) => {
+  const userId = useUserId();
+
+  return useQuery<IResponseData<IMainNetCoin[]>>({
+    queryKey: ['mainNets', 'coins', data, userId],
+    queryFn: () => axios.request({
+      url: '/asset/asset/mainnetCoins',
+      method: 'get',
+      params: data,
+    }),
+    enabled: !!userId && !!data.mainnetId,
+  });
+};
+
+/*
+* 获取法币列表
+* */
+export const useFiatListQuery = () => {
+  const userId = useUserId();
+
+  return useQuery<IResponseData<IFiat[]>>({
+    queryKey: ['fiat', 'list', useId()],
+    queryFn: () => axios.get('/asset/asset/legalCoins'),
     enabled: !!userId,
   });
 };
