@@ -45,3 +45,13 @@ export interface IFiat {
   symbol: string
   unit: string
 }
+
+export enum Gender {
+  Male,
+  Female
+}
+
+export enum AccountType {
+  Email = 1,
+  Mobile,
+}

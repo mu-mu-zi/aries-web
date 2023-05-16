@@ -12,8 +12,8 @@ export default function Switch({ titles, onSelect }: {
       {titles.map((it, idx) => (
         <div
           className={classNames('font-title text-[20px]', 'cursor-pointer', {
-            'text-[#99AC9B]': idx != index,
-            'gradient-text1': idx == index,
+            'text-[#99AC9B]': idx !== index,
+            'gradient-text1': idx === index,
           })}
           onClick={() => {
             setIndex(idx);

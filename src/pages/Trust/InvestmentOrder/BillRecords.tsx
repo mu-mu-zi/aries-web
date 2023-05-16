@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { list } from 'postcss';
+import moment from 'moment';
 import copyIcon from '../../../assets/icon/copy.svg';
 import Modal from '../../../components/Modal';
 import TransactionVoucher from './TransactionVoucher';
+import { useInvestmentOrderRecodeQuery } from '../../../api/trust/investment';
 
-export default function BillRecords() {
+export default function BillRecords({ trustInvestmentId }: {
+  trustInvestmentId: number
+}) {
   const navigate = useNavigate();
+  const [page, setPage] = useState(1);
+  const listQuery = useInvestmentOrderRecodeQuery({
+    pageIndex: page,
+    pageSize: 5,
+    trustInvestmentId,
+  });
   const [transactionVoucherVisible, setTransactionVoucherVisible] = useState(false);
   const [approvalOpinionVisible, setApprovalOpinionVisible] = useState(false);
   const [investmentInstructionsVisible, setinvestmentInstructionsVisible] = useState(false);
@@ -27,17 +38,17 @@ export default function BillRecords() {
           </tr>
         </thead>
         <tbody>
-          {new Array(5).fill(null).map((it, idx) => (
-            <tr>
-              <td className="py-2">Reconciliation</td>
+          {listQuery.data?.data?.records.map((it, idx) => (
+            <tr key={it.billId}>
+              <td className="py-2">{it.billTypeName}</td>
               <td>
-                <div className="">BTC</div>
+                <div className="">{it.coinName}</div>
               </td>
               <td>
-                <div className="gradient-text1 text-right">+0.21 ETH</div>
+                <div className="gradient-text1 text-right">{`${it.quantity} ${it.coinName}`}</div>
               </td>
               <td className="text-right">
-                2023-03-30 12:00:00
+                {moment.unix(it.createTimeStamp / 1000).format('yyyy-MM-DD HH:mm:ss')}
               </td>
               <td>
                 <div

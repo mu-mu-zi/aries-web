@@ -4,6 +4,7 @@
     "react-app"
   ],
   "rules": {
+    "react/no-unstable-nested-components": "off",
     "linebreak-style": "off",
     "import/no-unresolved": "off",
     "import/extensions": "off",

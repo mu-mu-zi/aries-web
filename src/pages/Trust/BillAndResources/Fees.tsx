@@ -1,12 +1,36 @@
 import React from 'react';
+import { retry } from '@reduxjs/toolkit/query';
 import alertIcon from '../../../assets/icon/alert.svg';
+import { useTrustFeeListQuery } from '../../../api/trust/order';
 
 export default function Fees() {
+  const query = useTrustFeeListQuery({
+    trustId: 15,
+  });
+
+  const titleFormat = (type: number) => {
+    switch (type) {
+      case 1:
+        return '信托管理费';
+      case 2:
+        return '超额管理费';
+      case 3:
+        return '设立费';
+      default:
+        return undefined;
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4">
-      <FeesCell title="Excess transfer fee" subtitle="Unsettled in 2023" amount="0.0213" suffix="USD" />
-      <FeesCell title="Excess transfer fee" subtitle="Unsettled in 2023" amount="0.0213" suffix="USD" />
-      <FeesCell title="Excess transfer fee" subtitle="Unsettled in 2023" amount="0.0213" suffix="USD" />
+      {query.data?.data?.map((it) => (
+        <FeesCell
+          title={titleFormat(it.feeType)}
+          subtitle={it.feeStatus}
+          amount={it.feeAmount}
+          suffix="USD"
+        />
+      ))}
     </div>
   );
 }
@@ -14,7 +38,7 @@ export default function Fees() {
 function FeesCell({
   title, subtitle, amount, suffix,
 }: {
-    title: string,
+    title?: string,
     subtitle: string,
     amount: string,
     suffix: string

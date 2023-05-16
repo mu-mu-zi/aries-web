@@ -42,8 +42,8 @@ export default function Modal({
           leaveTo="opacity-0 scale-95"
         >
           <div
-            className="fixed inset-0 grid place-items-center"
-            onClick={onClose}
+            className="fixed inset-0 grid place-items-center py-16 overflow-y-auto"
+            // onClick={onClose}
           >
             {children}
           </div>
