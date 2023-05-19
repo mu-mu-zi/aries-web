@@ -13,10 +13,10 @@ export default function Navbar() {
 
   return (
     <div className={classNames('flex flex-row items-center', 'h-[76px]', 'bg-transparent', 'px-12')}>
-      <div>
+      <div className="cursor-pointer" onClick={() => navigate('/')}>
         <img src={navLogoIcon} height="52px" />
       </div>
-      <div className={classNames('flex-1')}>menu</div>
+      <div className={classNames('flex-1')} />
       <div className={classNames('flex flex-row items-center gap-6')}>
         {!userQuery.data?.data && <Button size="medium" onClick={() => navigate('/signIn')}>Sign in</Button>}
         <div className={classNames('cursor-pointer')}><LanguageIcon /></div>

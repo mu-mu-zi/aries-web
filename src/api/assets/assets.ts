@@ -19,7 +19,7 @@ export const useAssetByCoinId = (data: {
 };
 
 export const useAllBankQuery = (data: {
-  trustId?: number
+  trustId?: number | string
 }) => {
   const userId = useUserId();
 

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Controller } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Dropdown from '../../../components/Dropdown';
 import PaymentRow from './PaymentRow';
 import { useAllCoinInMainNetQuery, useAllMainNetsQuery } from '../../../api/trust/trust';
@@ -8,21 +10,22 @@ import { useAssetByCoinId } from '../../../api/assets/assets';
 import QrCode from '../../../components/QrCode';
 
 export default function PaymentBit() {
+  const { trustId } = useParams();
   const mainNetListQuery = useAllMainNetsQuery();
   const [mainNet, setMainNet] = useState<IMainNet>();
   const mainNetCoinListQuery = useAllCoinInMainNetQuery({
     mainnetId: mainNet?.id,
   });
   const [coin, setCoin] = useState<IMainNetCoin>();
-  /* todo: 固定 ID */
   const addressQuery = useAssetByCoinId({
     mainnetCoinId: coin?.id,
-    trustId: 15,
+    trustId: Number(trustId),
   });
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="text-[#C2D7C7F6] font-blod text-[16px]">Receiving address</div>
+      <div className="text-[#C2D7C7F6] font-blod text-[16px]">{t('Receiving address')}</div>
       <Dropdown
         title={mainNet?.name}
         items={mainNetListQuery.data?.data?.map((x) => x.name)}

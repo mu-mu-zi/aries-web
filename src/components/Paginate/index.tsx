@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
-import iconNext from 'src/assets/icons/pageNext.svg';
-import iconPre from 'src/assets/icons/pagePre.svg';
 import styled from '@emotion/styled';
+import leftIcon from '../../assets/icon/icons-small_triangle_left.svg';
+import rightIcon from '../../assets/icon/icons-small_triangle_right.svg';
 
 const MyReactPaginate = styled(ReactPaginate)`
   display: flex;
   flex-direction: row;
   color: #919191;
-  gap: 12px;
+  gap: 16px;
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 700;
+  font-family: 'Tw Cen MT';
 
   li {
     list-style: none;
@@ -18,7 +19,9 @@ const MyReactPaginate = styled(ReactPaginate)`
 
   a {
     box-sizing: border-box;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
     cursor: pointer;
     width: 36px;
@@ -29,8 +32,9 @@ const MyReactPaginate = styled(ReactPaginate)`
   }
 
   .selected {
-    background: #4D53F5;
-    color: #FEFEFE;
+    color: #3D3228;
+    background: linear-gradient(90deg, #BE9D66 -4.08%, #E8D2A3 100%);
+    border-radius: 12px;
   }
 `;
 
@@ -49,20 +53,20 @@ export default function Paginate(props: {
   };
 
   return (
-    <>
+    <div>
       {count > 1 && (
         <MyReactPaginate
           forcePage={page - 1}
           breakLabel="..."
-          nextLabel={<div>Next</div>}
+          nextLabel={<img src={rightIcon} />}
           onPageChange={handler}
           pageCount={count}
-          previousLabel={<div>Previous</div>}
+          previousLabel={<img src={leftIcon} />}
           pageRangeDisplayed={1}
           marginPagesDisplayed={2}
           renderOnZeroPageCount={() => null}
         />
       )}
-    </>
+    </div>
   );
 }

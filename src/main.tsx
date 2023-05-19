@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom';
+import { initReactI18next } from 'react-i18next';
+import i18n from 'i18next';
 import App from './App';
 import './index.css';
 import { store } from './state';
@@ -31,6 +33,8 @@ import Security from './pages/Security';
 import LoginLog from './pages/Security/LoginLog';
 import Updater from './updater';
 import Notification from './pages/Trust/Dashboard/Notification';
+import ChangeMobile from './pages/Security/ChangeMobile';
+import ChangeEmail from './pages/Security/ChangeEmail';
 
 const router = createBrowserRouter([
   {
@@ -77,10 +81,10 @@ const router = createBrowserRouter([
             element: <ContactCustomer />,
           },
           {
-            path: '/first',
+            path: '/first/:trustId',
             children: [
               {
-                path: 'welcome',
+                path: '',
                 element: <FirstGuideWelcome />,
               },
               {
@@ -95,7 +99,20 @@ const router = createBrowserRouter([
           },
           {
             path: '/personal',
-            element: <Security />,
+            children: [
+              {
+                path: '',
+                element: <Security />,
+              },
+              {
+                path: 'changeMobile',
+                element: <ChangeMobile />,
+              },
+              {
+                path: 'changeEmail',
+                element: <ChangeEmail />,
+              },
+            ],
           },
           {
             path: '/loginLog',
@@ -104,7 +121,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: '/trust',
+        path: '/trust/:trustId',
         element: <Trust />,
         children: [
           {
@@ -164,6 +181,24 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+
+i18n.use(initReactI18next)
+  .init({
+    resources: {
+      zhTW: {
+        translation: {},
+      },
+      en: {
+        translation: {},
+      },
+    },
+    lng: localStorage.getItem('LANGUAGE') ?? 'en',
+    fallbackLng: 'en',
+    debug: true,
+    interpolation: {
+      escapeValue: false,
+    },
+  });
 
 const queryClient = new QueryClient({
   defaultOptions: {

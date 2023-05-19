@@ -11,6 +11,7 @@ import {
 import {
   IAssetsOverview, ITrustMessage, Trust, TrustDetail,
 } from '../../interfaces/trust';
+import { IStationMessage } from '../../interfaces/message';
 
 /*
 * 信托详情
@@ -86,7 +87,7 @@ export const useTrustMessageListQuery = (data: {
 }) => {
   const userId = useUserId();
 
-  return useQuery<IResponseData<IPage<ITrustMessage>>>({
+  return useQuery<IResponseData<IPage<IStationMessage>>>({
     queryKey: ['trust', 'notify', data, userId],
     queryFn: () => axios.request({
       url: '/trust/stationMessage/list',

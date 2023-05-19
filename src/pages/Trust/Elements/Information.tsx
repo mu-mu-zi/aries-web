@@ -1,17 +1,21 @@
 import React from 'react';
 import classNames from 'classnames';
 import moment from 'moment';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Hr from '../../../components/Hr';
 import { useTrustDetailQuery } from '../../../api/trust/trust';
 
 export default function Information() {
+  const { trustId } = useParams();
+  const { t } = useTranslation();
   const detailQuery = useTrustDetailQuery({
-    trustId: 15,
+    trustId: Number(trustId),
   });
 
   return (
     <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8 shadow-block">
-      <div className="gradient-text1 font-title font-blod text-[20px]">Trust information</div>
+      <div className="gradient-text1 font-title font-blod text-[20px]">{t('Trust information')}</div>
       <Hr />
       {
         detailQuery.data?.data && (

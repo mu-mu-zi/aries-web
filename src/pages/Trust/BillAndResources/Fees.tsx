@@ -1,21 +1,25 @@
 import React from 'react';
 import { retry } from '@reduxjs/toolkit/query';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import alertIcon from '../../../assets/icon/alert.svg';
 import { useTrustFeeListQuery } from '../../../api/trust/order';
 
 export default function Fees() {
+  const { t } = useTranslation();
+  const { trustId } = useParams();
   const query = useTrustFeeListQuery({
-    trustId: 15,
+    trustId: Number(trustId),
   });
 
   const titleFormat = (type: number) => {
     switch (type) {
       case 1:
-        return '信托管理费';
+        return t('信托管理费');
       case 2:
-        return '超额管理费';
+        return t('超额管理费');
       case 3:
-        return '设立费';
+        return t('设立费');
       default:
         return undefined;
     }

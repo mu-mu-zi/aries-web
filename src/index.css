@@ -22,12 +22,28 @@ body {
 /* Fonts */
 @font-face {
     font-family: 'Times New Roman';
-    src: url("./assets/fonts/times.ttf"), url("./assets/fonts/timesbd.ttf"), url("./assets/fonts/timesbi.ttf"), url("./assets/fonts/timesi.ttf");
+    /*src: url("./assets/fonts/times.ttf"), url("./assets/fonts/timesbd.ttf"), url("./assets/fonts/timesbi.ttf"), url("./assets/fonts/timesi.ttf");*/
+    src: url("./assets/fonts/times.ttf");
+    font-weight: normal;
+}
+
+@font-face {
+    /*font-family: 'Times New Roman';*/
+    /*src: url("./assets/fonts/times.ttf"), url("./assets/fonts/timesbd.ttf"), url("./assets/fonts/timesbi.ttf"), url("./assets/fonts/timesi.ttf");*/
+    /*src: url("./assets/fonts/timesbd.ttf");*/
+    /*font-weight: bold;*/
 }
 
 @font-face {
     font-family: 'Tw Cen MT';
-    src: url("./assets/fonts/TCM.TTF"), url("./assets/fonts/TCB.TTF");
+    src: url("./assets/fonts/TCM.TTF");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Tw Cen MT';
+    src: url("./assets/fonts/TCB.TTF");
+    font-weight: bold;
 }
 
 @font-face {
@@ -92,4 +108,6 @@ body {
     text-shadow: -4px 8px 10px #030C0880;
 }
 
-
+.input-inner-shadow {
+    box-shadow: inset -1px 1px 4px rgba(0, 0, 0, 0.25);
+}

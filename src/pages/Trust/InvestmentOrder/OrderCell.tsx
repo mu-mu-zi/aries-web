@@ -1,7 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import StepProgress from './StepProgress';
 import { IInvestment } from '../../../interfaces/trust';
 import Button from '../../../components/Button';
@@ -12,6 +13,8 @@ export default function OrderCell({ item }: {
 }) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { trustId } = useParams();
+  const { t } = useTranslation();
 
   const cancelInvestment = async () => {
     axios.request({
@@ -32,9 +35,9 @@ export default function OrderCell({ item }: {
         <div className="text-[#C2D7C7F6] text-[20px] font-blod">
           {item.investmentCode}
         </div>
-        {item.benefitFlag && <OrderCellFlag title="Principal" />}
-        {item.protectionFlag && <OrderCellFlag title="Protector" />}
-        {item.entrustFlag && <OrderCellFlag title="Entrust" />}
+        {item.benefitFlag && <OrderCellFlag title={t('Principal') ?? ''} />}
+        {item.protectionFlag && <OrderCellFlag title={t('Protector') ?? ''} />}
+        {item.entrustFlag && <OrderCellFlag title={t('Entrust') ?? ''} />}
       </div>
       {/* Content */}
       <div className="flex flex-col gap-2 text-[#99AC9B] text-[16px] leading-[18px]">
@@ -51,19 +54,19 @@ export default function OrderCell({ item }: {
       <div className="h-[1px] mx-[-32px] bg-[#3B5649]" />
       {/* 操作 */}
       <div className="flex flex-row items-center justify-center gap-4">
-        <Button size="medium" onClick={cancelInvestment}>Cancel</Button>
+        <Button size="medium" onClick={cancelInvestment}>{t('Cancel')}</Button>
         <Button
           size="medium"
-          onClick={() => navigate('/trust/orders/detail', {
+          onClick={() => navigate(`/trust/${trustId}/orders/detail`, {
             state: {
               trustInvestment: item,
             },
           })}
         >
-          Approval
+          {t('Approval')}
         </Button>
         {/* todo：缺少点击事件 */}
-        <Button size="medium">Check</Button>
+        <Button size="medium">{t('Check')}</Button>
       </div>
     </div>
   );

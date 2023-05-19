@@ -1,0 +1,128 @@
+import React, { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Simulate } from 'react-dom/test-utils';
+import axios from 'axios';
+import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import CenterContainer from '../../views/CenterContainer';
+import GANavbar from '../SignIn/GANavbar';
+import Dropdown from '../../components/Dropdown';
+import TextInput from '../../components/TextInput';
+import { useAreaCodeListQuery } from '../../api/base/areaCode';
+import Button from '../../components/Button';
+import { useSendValidateCodeMutation } from '../../api/user/verify';
+
+export default function ChangeMobile() {
+  const { t } = useTranslation();
+  const areaCodeListQuery = useAreaCodeListQuery();
+  const valid = z.object({
+    areaCodeId: z.number(),
+    mobile: z.string().nonempty(),
+    securityCode: z.string().nonempty(),
+  });
+  type FormValid = z.infer<typeof valid>;
+  const sendValidateCodeMutation = useSendValidateCodeMutation();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    clearErrors,
+    trigger,
+    getValues,
+    setValue,
+    control,
+  } = useForm<FormValid>({
+    resolver: zodResolver(valid),
+  });
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  const sendValidCode = async () => {
+    /* 验证账号 */
+    try {
+      await trigger('mobile', {
+        shouldFocus: true,
+      });
+      sendValidateCodeMutation.mutate({
+        account: getValues('mobile'),
+        areaCodeId: getValues('areaCodeId'),
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    const codeId = areaCodeListQuery.data?.data?.[0].id;
+    if (codeId) {
+      setValue('areaCodeId', codeId);
+    }
+  }, [areaCodeListQuery.data?.data]);
+
+  const submit = async (data: FormValid) => {
+    try {
+      await axios.post('/user/user/updateCheck', data);
+      await queryClient.invalidateQueries(['user']);
+      navigate(-1);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  return (
+    <CenterContainer>
+      <GANavbar title="Cancel" />
+      <form onSubmit={handleSubmit(submit)}>
+        <div className="m-auto flex flex-col w-[420px]">
+          <div
+            className="text-shadow-block font-blod gradient-text1 text-center font-title text-[32px] leading-[36px] my-16"
+          >
+            {t('Binding phone verification')}
+          </div>
+          <div className="flex flex-col gap-4">
+            <div className="text-[#C2D7C7F6] text-[16px] font-bold">{t('New Mobile Phone')}</div>
+            <div className="flex flex-row gap-4">
+              <Controller
+                render={({ field }) => (
+                  <Dropdown
+                    block
+                    items={areaCodeListQuery.data?.data?.map((x) => `+${x.code}`) ?? []}
+                    title={`+${areaCodeListQuery.data?.data?.find((x) => x.id === field.value)?.code}` ?? ''}
+                    onSelected={(idx) => field.onChange(areaCodeListQuery.data?.data?.[idx].id)}
+                  />
+                )}
+                name="areaCodeId"
+                control={control}
+              />
+              <div className="flex-auto">
+                <TextInput
+                  {...register('mobile')}
+                />
+              </div>
+            </div>
+            <div className="text-[#C2D7C7F6] text-[16px] font-bold">{t('New Mobile Verification Code')}</div>
+            <div>
+              <TextInput
+                {...register('securityCode')}
+                suffix={(
+                  <div
+                    className="cursor-pointer font-bold gradient-text1 text-[20px] px-2"
+                    onClick={sendValidCode}
+                  >
+                    {t('Send')}
+                  </div>
+                )}
+              />
+            </div>
+          </div>
+          <div className="mt-10">
+            <Button block>{t('Confirm')}</Button>
+          </div>
+        </div>
+      </form>
+    </CenterContainer>
+  );
+}

@@ -67,6 +67,9 @@ dependencies:
   react-i18next:
     specifier: ^12.2.2
     version: 12.2.2(i18next@22.4.15)(react-dom@18.2.0)(react@18.2.0)
+  react-notifications-component:
+    specifier: ^4.0.1
+    version: 4.0.1(react@18.2.0)
   react-paginate:
     specifier: ^8.2.0
     version: 8.2.0(react@18.2.0)
@@ -4564,6 +4567,14 @@ packages:
 
   /react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
+    dev: false
+
+  /react-notifications-component@4.0.1(react@18.2.0):
+    resolution: {integrity: sha512-NRBkWO19AsXmN0b8YQ0L12eoCAhrnmIZtGm77ATWSfQEXPL5PYSyeACpx7tePP+R2De9b0IP4yk9vY4TtzC02w==}
+    peerDependencies:
+      react: ^18.0.1
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-paginate@8.2.0(react@18.2.0):

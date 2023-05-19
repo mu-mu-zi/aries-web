@@ -15,3 +15,12 @@ export interface IUser {
   userName: string;
   userStatus: number;
 }
+
+export interface IUserLoginLog {
+  account: string;
+  ipAddr: string;
+  deviceName: string;
+  status: boolean;
+  remark: string;
+  createTimeStamp: number;
+}

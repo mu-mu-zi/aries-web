@@ -1,6 +1,7 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { IResponseData } from '../../interfaces/base';
+import { IUser } from '../../interfaces/user';
 
 /*
 * 发送手机 Or 邮箱验证码
@@ -8,7 +9,7 @@ import { IResponseData } from '../../interfaces/base';
 export const useSendValidateCodeMutation = () => useMutation({
   mutationFn: (data: {
       account: string,
-      areaCode?: string
+      areaCodeId?: number
   }) => axios.post('/user/send/sendSmsCode', data),
 });
 
@@ -21,7 +22,7 @@ export const useGetUserInfoMutation = () => useMutation({
       userMobile?: string,
       areaCodeId?: string | number,
       securityCode: string
-  }) => axios.post<IResponseData<any>>('/auth/ariesToken/getUserInfo', data),
+  }) => axios.post<IResponseData<IUser>>('/auth/ariesToken/getUserInfo', data),
 });
 
 /*

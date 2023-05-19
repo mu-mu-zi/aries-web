@@ -24,15 +24,15 @@ export interface TrustDetail {
   createTimeStamp: null;
   updateTime: number;
   stepId: number;
-  kycStatus: number
-  initialCost: number
-  safeHeronAddress: string
-  mainne: string
-  coinName: string
-  transferredAssets: number
-  bankName: string
-  bankAddress: string
-  bankAccount: string
+  kycStatus: number;
+  initialCost: number;
+  safeHeronAddress: string;
+  mainne: string;
+  coinName: string;
+  transferredAssets: number;
+  bankName: string;
+  bankAddress: string;
+  bankAccount: string;
 }
 
 export interface Trust {
@@ -64,17 +64,24 @@ export interface IDigitalAssets {
 }
 
 export interface IFiatAssetsDetail {
-  amount: number;
-  apr: number;
   name: string;
+  totalAmountUSDT: number;
+  amount: number;
+  details: IFiatAssetsDetails2[];
+}
+
+export interface IFiatAssetsDetails2 {
+  apr: number;
   symbol: string;
+  amount: number;
+  name: number
 }
 
 export interface IFiatAssets {
   totalUSDT: number;
   name: string;
   status: number;
-  details: IFiatAssetsDetail;
+  details: IFiatAssetsDetail[];
 }
 
 export interface IAssetsOverview {
@@ -163,13 +170,13 @@ export interface ITrustFee {
 }
 
 export interface IReport {
-  id: number
-  title?: string
-  reportFilePath: string
+  id: number;
+  title?: string;
+  reportFilePath: string;
 }
 
 export interface ILaw {
-  id: number
-  title?: string
-  lawFilePath: string
+  id: number;
+  title?: string;
+  lawFilePath: string;
 }

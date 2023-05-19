@@ -3,12 +3,16 @@ import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import TextField from '../../../components/TextField';
 import Button from '../../../components/Button';
 import { useFiatListQuery } from '../../../api/trust/trust';
 import Dropdown from '../../../components/Dropdown';
 
 export default function AssetFiatDeclaration() {
+  const { t } = useTranslation();
+  const { trustId } = useParams();
   const fiatListQuery = useFiatListQuery();
   const valid = z.object({
     name: z.string().nonempty(),
@@ -31,9 +35,8 @@ export default function AssetFiatDeclaration() {
   });
 
   const submit = async (data: FormValid) => {
-    /* todo: 固定 ID */
     await axios.post('/trust/assetDeclare/apply', {
-      trustId: 15,
+      trustId: Number(trustId),
       payUserName: data.name,
       amount: data.amount,
       coinId: data.fiatId,
@@ -48,7 +51,7 @@ export default function AssetFiatDeclaration() {
   return (
     <form onSubmit={handleSubmit(submit)}>
       <div className="flex flex-col gap-3">
-        <div className="font-blod text-[#C2D7C7F6]">Declaration information</div>
+        <div className="font-blod text-[#C2D7C7F6]">{t('Declaration information')}</div>
         <TextField requiredLabel label={'Payer\'s name'} {...register('name')} />
         <Controller
           name="fiatId"
@@ -63,13 +66,36 @@ export default function AssetFiatDeclaration() {
             />
           )}
         />
-        <TextField requiredLabel label="Payment amount" placeholder="Please enter the amount" {...register('amount')} />
-        <TextField requiredLabel label="Expected transfer time" placeholder="Please enter the expected transfer time" {...register('expectedTime')} />
-        <TextField requiredLabel label="payment Bank" placeholder="Please enter the payment bank(English)" {...register('bank')} />
-        <TextField label="Bank card number (optional)" placeholder="Please enter your payment card number" {...register('bank')} />
-        <TextField label={'Payer\'s address (optional)'} placeholder={'Please enter the payer\'s address'} {...register('address')} />
+        <TextField
+          requiredLabel
+          label={t('Payment amount')}
+          placeholder={t('Please enter the amount') ?? ''}
+          {...register('amount')}
+        />
+        <TextField
+          requiredLabel
+          label={t('Expected transfer time')}
+          placeholder={t('Please enter the expected transfer time') ?? ''}
+          {...register('expectedTime')}
+        />
+        <TextField
+          requiredLabel
+          label={t('payment Bank')}
+          placeholder={t('Please enter the payment bank(English)') ?? ''}
+          {...register('bank')}
+        />
+        <TextField
+          label={t('Bank card number (optional)')}
+          placeholder={t('Please enter your payment card number') ?? ''}
+          {...register('bank')}
+        />
+        <TextField
+          label={t('Payer\'s address (optional)')}
+          placeholder={t('Please enter the payer\'s address') ?? ''}
+          {...register('address')}
+        />
         <div className="mt-4">
-          <Button type="submit" block>Submit</Button>
+          <Button type="submit" block>{t('Submit')}</Button>
         </div>
       </div>
     </form>

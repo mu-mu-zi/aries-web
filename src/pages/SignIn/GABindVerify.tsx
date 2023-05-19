@@ -1,25 +1,30 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import GANavbar from './GANavbar';
 import Button from '../../components/Button';
 import Divide from '../../components/Divide';
 import ContactUs from './ContactUs';
 import TextInput from '../../components/TextInput';
 import { useSendValidateCodeMutation } from '../../api/user/verify';
+import Dropdown from '../../components/Dropdown';
+import { useAreaCodeListQuery } from '../../api/base/areaCode';
 
 export default function GABindVerify() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
   const sendValidateCodeMutation = useSendValidateCodeMutation();
   const valid = z.object({
     securityCode: z.string().nonempty(),
     googleCaptcha: z.string().nonempty(),
   });
+  const areaCodeListQuery = useAreaCodeListQuery();
   type FormValid = z.infer<typeof valid>;
   const {
     register,
@@ -28,6 +33,7 @@ export default function GABindVerify() {
     clearErrors,
     trigger,
     getValues,
+    control,
   } = useForm<FormValid>({
     resolver: zodResolver(valid),
   });
@@ -82,35 +88,56 @@ export default function GABindVerify() {
     <div className="flex flex-col items-center pt-[38px]">
       <div className="gradient-bg2 flex max-w-[1200px] w-full min-h-[800px] flex-col overflow-clip  rounded-xl">
         <GANavbar
-          title="Bind Google Authentication"
-          description="Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After
-          binding, it generates a dynamic verification code every 30 seconds, which can be used for security
-          verification for login, modifying security settings and other operations."
+          title={t('Bind Google Authentication')}
+          description={t('Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After binding, it generates a dynamic verification code every 30 seconds, which can be used for security verification for login, modifying security settings and other operations.')}
         />
-        <div className="item-center flex w-[418px] flex-col self-center pt-[64px]">
+        <div className="item-center flex w-[420px] flex-col self-center pt-[64px]">
           <form onSubmit={handleSubmit(submit)}>
             <div className="text-shadow-block font-blod gradient-text1 text-center font-title text-[32px] leading-[36px]">
-              Verify identity
+              {t('Verify identity')}
             </div>
             <div className="mt-16 flex flex-col gap-4">
-              <div className="font-blod text-[#c2d7c7]">Email verification code</div>
+              <div className="font-blod text-[#c2d7c7]">{t('Email verification code')}</div>
               <TextInput
-                placeholder="Please enter the verification code"
+                placeholder={t('Please enter the verification code') ?? ''}
                 {...register('securityCode')}
                 suffix={(
                   <div
                     className="cursor-pointer font-bold gradient-text1 text-[20px] px-2"
                     onClick={sendValidCode}
                   >
-                    Send
+                    {t('Send')}
                   </div>
                   )}
               />
+              {/* <div className="flex flex-row gap-2"> */}
+              {/*  /!* {isPhone ? <Select /> : null} *!/ */}
+              {/*  {location.state.areaCodeId && areaCodeListQuery.data?.data && ( */}
+              {/*    <Controller */}
+              {/*      render={({ field }) => ( */}
+              {/*        <Dropdown */}
+              {/*          block */}
+              {/*          items={areaCodeListQuery.data?.data?.map((x) => `+${x.code}`) ?? []} */}
+              {/*          title={`+${areaCodeListQuery.data?.data?.find((x) => x.id === field.value)?.code}` ?? ''} */}
+              {/*          onSelected={(idx) => field.onChange(areaCodeListQuery.data?.data?.[idx].id)} */}
+              {/*        /> */}
+              {/*      )} */}
+              {/*      name="areaCodeId" */}
+              {/*      control={control} */}
+              {/*    /> */}
+              {/*  )} */}
+              {/*  <TextInput */}
+              {/*    block */}
+              {/*    className="w-full" */}
+              {/*    {...register('account')} */}
+              {/*    placeholder={isPhone ? 'Please input your phone' : 'Please input your email'} */}
+              {/*    type="text" */}
+              {/*  /> */}
+              {/* </div> */}
               <div className="text-[14px] leading-[16px] text-[#708077]">
-                To ensure the security of your funds and account, please enter the verification code received in your
-                Aries trust company@Gmail.com email.
+                {t('To ensure the security of your funds and account, please enter the verification code received in your Aries trust company@gmail.com email.')}
               </div>
-              <div className="font-blod text-[#c2d7c7]">Google Captcha</div>
+              <div className="font-blod text-[#c2d7c7]">{t('Google Captcha')}</div>
               <TextInput
                 {...register('googleCaptcha')}
                 placeholder="Please enter the verification code"
@@ -118,10 +145,10 @@ export default function GABindVerify() {
             </div>
             <div className="mt-[40px] flex flex-row gap-4">
               <Button size="medium" block>
-                Cancel
+                {t('Cancel')}
               </Button>
               <Button size="medium" block type="submit">
-                Next
+                {t('Next')}
               </Button>
             </div>
           </form>

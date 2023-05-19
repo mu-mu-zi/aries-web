@@ -20,3 +20,15 @@ export interface IBankCustomContent {
   customValue: string
   id: number
 }
+
+/*
+* 信托订单
+* */
+export interface ITrustBill {
+  amount: string;
+  billCertificate: string;
+  billStatusName: string;
+  billTypeName: string;
+  coinName: string;
+  createTimeStamp: number;
+}

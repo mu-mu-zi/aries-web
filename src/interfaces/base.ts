@@ -12,7 +12,7 @@ export interface IPage<T> {
   records: T[]
 }
 
-export interface AreaCode {
+export interface IAreaCode {
   id: number;
   code: string;
   name: string;

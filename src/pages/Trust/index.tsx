@@ -1,9 +1,19 @@
 import React, { useEffect } from 'react';
-import { Outlet, redirect, useLocation } from 'react-router-dom';
+import {
+  Outlet, redirect, useLocation, useNavigate, useParams,
+} from 'react-router-dom';
 import Sidebar from './Sidebar';
 
 export default function Trust() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { trustId } = useParams();
+
+  useEffect(() => {
+    if (location.pathname === `/trust/${trustId}`) {
+      navigate(`/trust/${trustId}/dashboard`);
+    }
+  }, [trustId, location.pathname]);
 
   return (
     <div className="flex flex-row h-full py-6 pl-6 gap-6 h-screen">

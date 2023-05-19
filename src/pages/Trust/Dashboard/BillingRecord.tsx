@@ -1,24 +1,46 @@
 import React from 'react';
 import classNames from 'classnames';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import moreIcon from '../../../assets/icon/arrow_r.svg';
 import cellIcon from '../../../assets/icon/money_small_icon.svg';
+import { useLedgerOrderListQuery } from '../../../api/trust/order';
+import { unixFormatTime } from '../../../utils/DateFormat';
 
 export default function BillingRecord() {
+  const { trustId } = useParams();
+  const listQuery = useLedgerOrderListQuery({
+    trustId: Number(trustId),
+    pageIndex: 1,
+    pageSize: 2,
+  });
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+
   return (
     <div
       className={classNames('flex flex-col', 'p-8', 'rounded-xl', 'gradient-bg2', 'shadow-[-4px_8px_10px_0_#030c08]')}
     >
       <div className={classNames('item-center flex flex-row justify-between')}>
-        <div className="gradient-text1 font-blod text-[20px]">Billing Record</div>
-        <div className="flex cursor-pointer flex-row items-center gap-2">
-          <div className="gradient-text1 font-blod text-[16px]">More</div>
+        <div className="gradient-text1 font-blod text-[20px]">{t('Billing Record')}</div>
+        <div
+          className="flex cursor-pointer flex-row items-center gap-2"
+          onClick={() => navigate(`/trust/${trustId}/billAndResources`)}
+        >
+          <div className="gradient-text1 font-blod text-[16px]">{t('More')}</div>
           <img src={moreIcon} width="24px" alt="" />
         </div>
       </div>
       <div className="my-6 h-[1px] bg-[#3B5649]" />
       <div className="flex flex-col gap-6">
-        <RecordCell title="Deduction of fees" datetime="2023-03-30 12:00:00" amount="+100 USD" status="Success" />
-        <RecordCell title="Asset transfer" datetime="2023-03-30 12:00:00" amount="-100 USD" status="Success" />
+        {listQuery.data?.data?.records.map((x) => (
+          <RecordCell
+            title={x.billTypeName}
+            datetime={unixFormatTime(x.createTimeStamp)}
+            amount={x.amount}
+            status={x.billStatusName}
+          />
+        ))}
       </div>
     </div>
   );

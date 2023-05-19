@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import VerifyStatusRow from './VerifyStatusRow';
 import digitalIcon from '../../assets/icon/digital_account.svg';
 import { TrustDetail } from '../../interfaces/trust';
@@ -7,14 +8,16 @@ import logo from '../../assets/icon/first_step_6.svg';
 export default function CompletionFiatStep({ trust }: {
     trust: TrustDetail
 }) {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col items-center gap-6">
       <div>
         <img src={logo} />
       </div>
-      <div className="text-[16px] text-center text-[#99AC9B]">We will collect from you offline.</div>
+      <div className="text-[16px] text-center text-[#99AC9B]">{t('We will collect from you offline.')}</div>
       <div className="mt-4" />
-      <div className="text-[#C39770] text-[20px] text-center font-title py-4">We are in the process of setting up your account...</div>
+      <div className="text-[#C39770] text-[20px] text-center font-title py-4">{t('We are in the process of setting up your account...')}</div>
       <div className="flex flex-col gap-2 self-stretch">
         {/* todo：Logo 阴影导致图片无法居中，待 UI 调整 */}
         <VerifyStatusRow icon={digitalIcon} title="Digital asset account" isOpening />

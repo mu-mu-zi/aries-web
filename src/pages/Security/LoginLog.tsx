@@ -1,36 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
+import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 import Container from '../../views/Container';
 import CancelNav from '../../views/CancelNav';
 import Hr from '../../components/Hr';
+import { useLoginLogQuery } from '../../api/user/user';
+import SimpleTable from '../../views/SimpleTable';
 
 export default function LoginLog() {
+  const { t } = useTranslation();
+  const [page, setPage] = useState(1);
+  const listQuery = useLoginLogQuery({
+    pageIndex: page,
+    pageSize: 10,
+  });
+
   return (
     <Container>
       <div className="flex flex-col gap-6">
         <CancelNav />
         <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8">
-          <div className="gradient-text1 font-title font-bold text-[20px]">Recent login records</div>
+          <div className="gradient-text1 font-title font-bold text-[20px]">{t('Recent login records')}</div>
           <Hr />
-          <table className="table-auto w-full text-left text-[16px]">
-            <thead className="text-[#99AC9B]">
-              <tr>
-                <th className="py-2">Login Time</th>
-                <th>Login device</th>
-                <th>Login status</th>
-                <th>Login Address</th>
-              </tr>
-            </thead>
-            <tbody className="text-[#C2D7C7F6]">
-              {new Array(10).fill(null).map((it, idx) => (
-                <tr>
-                  <td className="py-2">03/30/2023 12:00:00</td>
-                  <td>{'admin\'s MacBook Pro'}</td>
-                  <td>Login successfully</td>
-                  <td>37.128.327.24</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <SimpleTable
+            columns={[
+              {
+                Header: t('Login Time') ?? '',
+                accessor: (x) => moment.unix(x.createTimeStamp / 1000).format(),
+              },
+              {
+                Header: t('Login device') ?? '',
+                accessor: (x) => x.deviceName,
+              },
+              {
+                Header: t('Login status') ?? '',
+                accessor: (x) => (x.status ? 'Success' : 'Failed'),
+              },
+              {
+                Header: t('Login address') ?? '',
+                accessor: (x) => x.ipAddr,
+              },
+            ]}
+            data={listQuery.data?.data?.records}
+            pagination={{
+              pageIndex: page,
+              pageSize: 10,
+              total: listQuery.data?.data?.total ?? 0,
+              onPageChanged: (page) => setPage(page),
+            }}
+          />
         </div>
       </div>
     </Container>

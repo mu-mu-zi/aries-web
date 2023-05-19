@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import moment from 'moment';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Button from '../../../components/Button';
 import Hr from '../../../components/Hr';
 import BlockRow from './BlockRow';
@@ -9,21 +11,22 @@ import SimpleTable from '../../../views/SimpleTable';
 import { useElementsUserQuery } from '../../../api/trust/elements';
 
 export default function Beneficiary() {
+  const { trustId } = useParams();
   const [page, setPage] = useState(1);
-  /* todo: 固定 ID */
   const listQuery = useElementsUserQuery({
     pageIndex: page,
     pageSize: 5,
-    trustId: 15,
+    trustId: Number(trustId),
     beneficiary: true,
   });
   const [addBeneficiaryVisible, setAddBeneficiaryVisible] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col gap-4 rounded-xl shadow-block p-8 gradient-bg2">
       <div className="flex flex-row items-center justify-between">
-        <div className="gradient-text1 font-title text-[20px]">Beneficiary</div>
-        <Button onClick={() => setAddBeneficiaryVisible(true)}>Add</Button>
+        <div className="gradient-text1 font-title text-[20px]">{t('Beneficiary')}</div>
+        <Button onClick={() => setAddBeneficiaryVisible(true)}>{t('Add')}</Button>
       </div>
       <Hr />
       {/* <div className="flex flex-col gap-4 gradient-block1 shadow-block rounded-xl p-8"> */}
@@ -42,45 +45,54 @@ export default function Beneficiary() {
       <SimpleTable
         columns={[
           {
-            Header: 'Real name',
+            Header: t('Real name') ?? '',
             accessor: 'userName',
           },
           {
-            Header: 'Account',
+            Header: t('Account') ?? '',
             accessor: 'account',
           },
           {
-            Header: 'Identity category',
+            Header: t('Identity category') ?? '',
             accessor: '',
           },
           {
-            Header: 'Permissions',
+            Header: t('Permissions') ?? '',
             accessor: 'roleTypeName',
           },
           {
-            Header: 'KYC certification',
+            Header: t('KYC certification') ?? '',
             accessor: 'kycStatusName',
           },
           {
-            Header: 'Description',
+            Header: t('Description') ?? '',
             accessor: 'remark',
           },
           {
-            Header: 'Audit status',
+            Header: t('Audit status') ?? '',
             accessor: 'trustUserStatus',
           },
           {
-            Header: 'Add time',
+            Header: t('Add time') ?? '',
             accessor: (originalRow) => moment.unix(originalRow.createTimeStamp / 1000).format(),
           },
         ]}
         data={listQuery.data?.data?.records ?? []}
+        pagination={{
+          pageIndex: page,
+          pageSize: 5,
+          total: listQuery.data?.data?.total ?? 0,
+          onPageChanged: (page) => setPage(page),
+        }}
       />
       <Modal
         visible={addBeneficiaryVisible}
         onClose={() => setAddBeneficiaryVisible(false)}
       >
-        <AddBeneficiary onClose={() => setAddBeneficiaryVisible(false)} />
+        <AddBeneficiary
+          trustId={Number(trustId)}
+          onClose={() => setAddBeneficiaryVisible(false)}
+        />
       </Modal>
     </div>
   );

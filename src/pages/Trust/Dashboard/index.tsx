@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import Portrait from './Portrait';
 import Button from '../../../components/Button';
 import AssetOverview from './AssetOverview';
@@ -14,9 +14,9 @@ import { useAssetOverviewQuery } from '../../../api/trust/trust';
 
 export default function Dashboard() {
   const location = useLocation();
-  /* todo: 固定 ID */
+  const { trustId } = useParams();
   const assetsOverviewQuery = useAssetOverviewQuery({
-    trustId: 15,
+    trustId: Number(trustId),
   });
 
   return (
@@ -24,7 +24,7 @@ export default function Dashboard() {
       <div className="flex flex-auto flex-col gap-6">
         <Portrait />
         <DigitalAssets assetOverview={assetsOverviewQuery.data?.data} />
-        <FiatAssets assetOverview={assetsOverviewQuery.data?.data} />
+        {assetsOverviewQuery.data?.data?.fiatAssets.map((f) => <FiatAssets asset={f} />)}
       </div>
       <div className="flex flex-col w-[402px] flex-shrink-0 gap-6">
         <AssetOverview assetOverview={assetsOverviewQuery.data?.data} />

@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from 'react';
 import classNames from 'classnames';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Divide from '../../components/Divide';
 import notifyIcon from '../../assets/icon/db_icon_notify.svg';
 import personIcon from '../../assets/icon/db_icon_person.svg';
@@ -22,7 +23,9 @@ import billIcon from '../../assets/icon/dashboard/icons-file.svg';
 import billSelIcon from '../../assets/icon/dashboard/icons-file-1.svg';
 
 export default function Sidebar() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
+  const { trustId } = useParams();
 
   return (
     <div className="bg-gradient-to-b from-[#446052] to-[#2E4037] p-0.5 rounded-[12px] h-full w-full">
@@ -34,12 +37,12 @@ export default function Sidebar() {
         {/* 侧边栏 */}
         <div className="flex-auto flex flex-col p-6 gap-5">
           {[
-            ['Dashboard', dashboardIcon, dashboardSelIcon, '/trust/dashboard'],
-            ['Asset Transfer', assetIcon, assetSelIcon, '/trust/assets'],
-            ['Investment Order', keyIcon, keySelIcon, '/trust/orders'],
-            ['Distribution', distIcon, distSelIcon, '/trust/distribution'],
-            ['Trust Elements', eleIcon, eleSelIcon, '/trust/elements'],
-            ['Bill and Resources', billIcon, billSelIcon, '/trust/billAndResources'],
+            [t('Dashboard'), dashboardIcon, dashboardSelIcon, `/trust/${trustId}/dashboard`],
+            [t('Asset Transfer'), assetIcon, assetSelIcon, `/trust/${trustId}/assets`],
+            [t('Investment Order'), keyIcon, keySelIcon, `/trust/${trustId}/orders`],
+            [t('Distribution'), distIcon, distSelIcon, `/trust/${trustId}/distribution`],
+            [t('Trust Elements'), eleIcon, eleSelIcon, `/trust/${trustId}/elements`],
+            [t('Bill and Resources'), billIcon, billSelIcon, `/trust/${trustId}/billAndResources`],
           ].map(([title, icon, selectIcon, to], idx) => (
             <SidebarCell
               key={title}
@@ -60,11 +63,11 @@ export default function Sidebar() {
         <div className="flex flex-row items-center justify-evenly py-10">
           {
             [
-              [personIcon, 'Personal', '/personal'],
-              [messageIcon, 'Message', '/message'],
-              [languageIcon, 'Language', '/language'],
-              [notifyIcon, 'Notification', '/notify'],
-              [exitIcon, 'Exit', '/my'],
+              [personIcon, t('Personal'), '/personal'],
+              [messageIcon, t('Message'), '/message'],
+              [languageIcon, t('Language'), '/language'],
+              [notifyIcon, t('Notification'), '/notify'],
+              [exitIcon, t('Exit'), '/my'],
             ].map(([icon, alt, to], idx) => (
               <div
                 className="cursor-pointer"

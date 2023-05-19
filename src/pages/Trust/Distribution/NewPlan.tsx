@@ -4,12 +4,14 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import Button from '../../../components/Button';
 import ModalNav from '../../../views/ModalContainer/ModalNav';
 import ModalTitle from '../../../views/ModalContainer/ModalTitle';
 import ModalContainer from '../../../views/ModalContainer';
 
-export default function NewPlan({ onClose }: {
+export default function NewPlan({ trustId, onClose }: {
+  trustId: number,
   onClose?(): void
 }) {
   const valid = z.object({
@@ -28,11 +30,12 @@ export default function NewPlan({ onClose }: {
     resolver: zodResolver(valid),
   });
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const submit = async (data: FormValid) => {
     /* todo: 固定 ID */
     await axios.post('/trust/trust/distribution/plan/add', {
-      trustId: 15,
+      trustId,
       ...data,
     }).then((resp) => {
       queryClient.invalidateQueries(['trust']);
@@ -47,16 +50,16 @@ export default function NewPlan({ onClose }: {
         <div className="flex flex-col gap-8">
           <label>
             <div className="flex flex-col gap-4">
-              <div className="text-[#C2D7C7F6] text-[16px]">Allocation Plan Explanation</div>
+              <div className="text-[#C2D7C7F6] text-[16px]">{t('Allocation Plan Explanation')}</div>
               <textarea
                 {...register('planDescription')}
                 className="bg-[#3B5649] rounded-xl p-4 outline-none h-[158px] placeholder:text-[#99AC9B] resize-none"
-                placeholder={'Regarding profit distribution, I want to make it clear that it will be based on the proportion of the beneficiary\'s ownership of the rights and interests. Distribution will be made according to a predetermined ratio and the profits will be directly paid to the beneficiary\'s designated bank account at the end of each quarter.'}
+                placeholder={t('Regarding profit distribution, I want to make it clear that it will be based on the proportion of the beneficiary\'s ownership of the rights and interests. Distribution will be made according to a predetermined ratio and the profits will be directly paid to the beneficiary\'s designated bank account at the end of each quarter.') ?? ''}
               />
             </div>
           </label>
           <div className="self-center">
-            <Button type="submit">Submit</Button>
+            <Button type="submit">{t('Submit')}</Button>
           </div>
         </div>
       </form>

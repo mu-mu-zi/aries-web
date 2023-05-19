@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import moment from 'moment/moment';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Button from '../../../components/Button';
 import Hr from '../../../components/Hr';
 import BlockRow from './BlockRow';
@@ -9,21 +11,22 @@ import { useElementsUserQuery } from '../../../api/trust/elements';
 import SimpleTable from '../../../views/SimpleTable';
 
 export default function Protector() {
+  const { trustId } = useParams();
+  const { t } = useTranslation();
   const [addProtectorVisible, setAddProtectorVisible] = useState(false);
   const [page, setPage] = useState(1);
-  /* todo: 固定 ID */
   const listQuery = useElementsUserQuery({
     pageIndex: page,
     pageSize: 5,
-    trustId: 15,
+    trustId: Number(trustId),
     beneficiary: false,
   });
 
   return (
     <div className="flex flex-col gap-4 rounded-xl shadow-block p-8 gradient-bg2 h-full">
       <div className="flex flex-row items-center justify-between">
-        <div className="gradient-text1 font-title text-[20px]">Protector</div>
-        <Button onClick={() => setAddProtectorVisible(true)}>Add</Button>
+        <div className="gradient-text1 font-title text-[20px]">{t('Protector')}</div>
+        <Button onClick={() => setAddProtectorVisible(true)}>{t('Add')}</Button>
       </div>
       <Hr />
       {/* <div className="flex-1 flex flex-col gap-4 gradient-block1 shadow-block rounded-xl p-8"> */}
@@ -42,42 +45,51 @@ export default function Protector() {
       <SimpleTable
         columns={[
           {
-            Header: 'Real name',
+            Header: t('Real name') ?? '',
             accessor: 'userName',
           },
           {
-            Header: 'Account',
+            Header: t('Account') ?? '',
             accessor: 'account',
           },
           {
-            Header: 'Identity category',
+            Header: t('Identity category') ?? '',
             accessor: '',
           },
           {
-            Header: 'Permissions',
+            Header: t('Permissions') ?? '',
             accessor: 'roleTypeName',
           },
           {
-            Header: 'KYC certification',
+            Header: t('KYC certification') ?? '',
             accessor: 'kycStatusName',
           },
           {
-            Header: 'Description',
+            Header: t('Description') ?? '',
             accessor: 'remark',
           },
           {
-            Header: 'Audit status',
+            Header: t('Audit status') ?? '',
             accessor: 'trustUserStatus',
           },
           {
-            Header: 'Add time',
+            Header: t('Add time') ?? '',
             accessor: (originalRow) => moment.unix(originalRow.createTimeStamp / 1000).format(),
           },
         ]}
         data={listQuery.data?.data?.records ?? []}
+        pagination={{
+          pageIndex: page,
+          pageSize: 5,
+          total: listQuery.data?.data?.total ?? 0,
+          onPageChanged: (page) => setPage(page),
+        }}
       />
       <Modal visible={addProtectorVisible} onClose={() => setAddProtectorVisible(false)}>
-        <AddProtector onClose={() => setAddProtectorVisible(false)} />
+        <AddProtector
+          trustId={Number(trustId)}
+          onClose={() => setAddProtectorVisible(false)}
+        />
       </Modal>
     </div>
   );

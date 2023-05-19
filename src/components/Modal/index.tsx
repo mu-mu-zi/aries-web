@@ -43,7 +43,6 @@ export default function Modal({
         >
           <div
             className="fixed inset-0 grid place-items-center py-16 overflow-y-auto"
-            // onClick={onClose}
           >
             {children}
           </div>

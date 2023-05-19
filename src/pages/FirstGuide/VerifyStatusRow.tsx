@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 export default function VerifyStatusRow({
   icon,
@@ -10,6 +11,8 @@ export default function VerifyStatusRow({
   title: string;
   isOpening: boolean;
 }) {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-row items-center gap-1 bg-[#3B5649] px-8 py-4 shadow-block rounded-xl">
       <img src={icon} width="32px" alt={title} />
@@ -19,7 +22,7 @@ export default function VerifyStatusRow({
         'text-[#708077]': isOpening,
       })}
       >
-        {isOpening ? 'Opening in progress' : 'Successfully opened'}
+        {isOpening ? t('Opening in progress') : t('Successfully opened')}
       </div>
     </div>
   );

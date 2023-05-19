@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 import GradientBox from '../../../components/GradientBox';
 import symbolIcon from '../../../assets/icon/dashboard/icon_usdt.svg';
 import arrowUp from '../../../assets/icon/arrow_up.svg';
@@ -8,6 +9,8 @@ import { IAssetsOverview, IDigitalAssets } from '../../../interfaces/trust';
 export default function DigitalAssets({ assetOverview }: {
   assetOverview?: IAssetsOverview
 }) {
+  const { t } = useTranslation();
+
   return (
     <div className={classNames('gradient-bg2 rounded-xl p-8', 'flex flex-col gap-6')}>
       <div
@@ -20,7 +23,7 @@ export default function DigitalAssets({ assetOverview }: {
           'font-bold text-[24px] font-title text-t4',
         )}
       >
-        <div>Digital Assets</div>
+        <div>{t('Digital Assets')}</div>
         {/* todo: 这里的 total 是错误的 */}
         <div>{`${assetOverview?.totalUSDT} USD`}</div>
       </div>
@@ -42,7 +45,7 @@ export default function DigitalAssets({ assetOverview }: {
   );
 }
 
-function Cell({
+export function Cell({
   icon, amount, symbol,
 }: {
   icon: string,

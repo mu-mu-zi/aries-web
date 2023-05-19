@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { Await } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import closeIcon from '../../../assets/icon/model_close.svg';
 import Dropdown from '../../../components/Dropdown';
 import TextInput from '../../../components/TextInput';
@@ -32,7 +33,10 @@ enum RoleType {
   Approval
 }
 
-export default function AddProtector({ onClose }: {onClose?(): void}) {
+export default function AddProtector({ trustId, onClose }: {
+  trustId: number,
+  onClose?(): void
+}) {
   const valid = z.object({
     userType: z.nativeEnum(UserType),
     guardiansType: z.nativeEnum(GuardiansType).optional(),
@@ -60,11 +64,11 @@ export default function AddProtector({ onClose }: {onClose?(): void}) {
   });
   const guardiansType = watch('guardiansType');
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const submit = async (data: FormValid) => {
-    /* todo: 固定 ID */
     axios.post('/trust/trust/user/add', {
-      trustId: 15,
+      trustId,
       ...data,
     }).then((resp) => {
       onClose?.();
@@ -74,17 +78,17 @@ export default function AddProtector({ onClose }: {onClose?(): void}) {
 
   return (
     <ModalContainer>
-      <ModalNav title="Add Protector" onClose={onClose} />
+      <ModalNav title={t('Add Protector')} onClose={onClose} />
       <form onSubmit={handleSubmit(submit)}>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-4">
-            <label className="text-[#C2D7C7F6] font-bold text-[16px]">Identity Category</label>
+            <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Identity Category')}</label>
             <Controller
               render={({ field }) => {
                 const enums = [
-                  { value: UserType.Protect, name: 'Protector' },
-                  { value: UserType.Succession, name: 'Regent protector' },
-                  { value: UserType.SecondSuccession, name: 'The Second Successor Protector' },
+                  { value: UserType.Protect, name: t('Protector') },
+                  { value: UserType.Succession, name: t('Regent protector') },
+                  { value: UserType.SecondSuccession, name: t('The Second Successor Protector') },
                 ];
                 return (
                   <Dropdown
@@ -99,13 +103,13 @@ export default function AddProtector({ onClose }: {onClose?(): void}) {
             />
           </div>
           <div className="flex flex-col gap-4">
-            <label className="text-[#C2D7C7F6] font-bold text-[16px]">Protector</label>
+            <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Protector')}</label>
             {/* <TextInput placeholder="Please provide additional instructions" /> */}
             <Controller
               render={({ field }) => {
                 const enums = [
-                  { value: GuardiansType.Other, name: 'Other' },
-                  { value: GuardiansType.Self, name: 'Self' },
+                  { value: GuardiansType.Other, name: t('Other') },
+                  { value: GuardiansType.Self, name: t('Self') },
                 ];
                 return (
                   <Dropdown
@@ -123,21 +127,21 @@ export default function AddProtector({ onClose }: {onClose?(): void}) {
             <>
               <div className="flex flex-row gap-4">
                 <div className="flex-1 flex flex-col gap-4">
-                  <label className="text-[#C2D7C7F6] font-bold text-[16px]">First Name</label>
+                  <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('First Name')}</label>
                   <TextInput placeholder="" {...register('surname')} />
                 </div>
                 <div className="flex-1 flex flex-col gap-4">
-                  <label className="text-[#C2D7C7F6] font-bold text-[16px]">Last Name</label>
+                  <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Last Name')}</label>
                   <TextInput placeholder="" {...register('userName')} />
                 </div>
               </div>
               <div className="flex flex-col gap-4">
-                <label className="text-[#C2D7C7F6] font-bold text-[16px]">Gender</label>
+                <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Gender')}</label>
                 <Controller
                   render={({ field }) => {
                     const enums = [
-                      { value: Gender.Male, name: 'Male' },
-                      { value: Gender.Female, name: 'Female' },
+                      { value: Gender.Male, name: t('Male') },
+                      { value: Gender.Female, name: t('Female') },
                     ];
                     return (
                       <Dropdown
@@ -152,12 +156,12 @@ export default function AddProtector({ onClose }: {onClose?(): void}) {
                 />
               </div>
               <div className="flex flex-col gap-4">
-                <label className="text-[#C2D7C7F6] font-bold text-[16px]">Account Type</label>
+                <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Account Type')}</label>
                 <Controller
                   render={({ field }) => {
                     const enums = [
-                      { value: AccountType.Email, name: 'Email' },
-                      { value: AccountType.Mobile, name: 'Mobile' },
+                      { value: AccountType.Email, name: t('Email') },
+                      { value: AccountType.Mobile, name: t('Mobile') },
                     ];
                     return (
                       <Dropdown
@@ -172,17 +176,17 @@ export default function AddProtector({ onClose }: {onClose?(): void}) {
                 />
               </div>
               <div className="flex flex-col gap-4">
-                <label className="text-[#C2D7C7F6] font-bold text-[16px]">Email</label>
+                <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Email')}</label>
                 <TextInput placeholder="Please provide additional instructions" {...register('userEmail')} />
               </div>
               <div className="flex flex-col gap-4">
-                <label className="text-[#C2D7C7F6] font-bold text-[16px]">Permissions</label>
+                <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Permissions')}</label>
                 <Controller
                   render={({ field }) => {
                     const enums = [
-                      { value: RoleType.No, name: 'No' },
-                      { value: RoleType.ReadOnly, name: 'Read Only' },
-                      { value: RoleType.Approval, name: 'Approval' },
+                      { value: RoleType.No, name: t('No') },
+                      { value: RoleType.ReadOnly, name: t('Read Only') },
+                      { value: RoleType.Approval, name: t('Approval') },
                     ];
                     return (
                       <Dropdown
@@ -199,7 +203,7 @@ export default function AddProtector({ onClose }: {onClose?(): void}) {
             </>
           )}
           <div className="mt-4 self-center max-w-[420px] w-full">
-            <Button block>Submit</Button>
+            <Button block>{t('Submit')}</Button>
           </div>
           <div className="flex flex-col gap-5 mt-6">
             <Divide />

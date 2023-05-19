@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import CenterContainer from '../../views/CenterContainer';
 import ContainerLogo from '../../views/CenterContainer/ContainerLogo';
 import StepControl from './StepControl';
@@ -15,10 +16,11 @@ import ContractSigningStep from './ContractSigningStep';
 
 export default function KycVerify() {
   const location = useLocation();
-  /* todo: 固定 ID */
+  const { trustId } = useParams();
   const detailQuery = useTrustDetailQuery({
-    trustId: 24,
+    trustId: Number(trustId),
   });
+  const { t } = useTranslation();
 
   const stepId = () => {
     switch (detailQuery.data?.data?.stepId) {
@@ -45,10 +47,10 @@ export default function KycVerify() {
           <div
             className="gradient-text1 text-shadow-block text-center font-title text-[40px] font-bold mt-12"
           >
-            Welcome to Aries Trust Company
+            {t('Welcome to Aries Trust Company')}
           </div>
           <div className="text-center font-title text-[20px] font-[400] text-[#C39770] mt-4">
-            The most professional digital asset family trust service provider.
+            {t('The most professional digital asset family trust service provider.')}
           </div>
           {/* Step */}
           {detailQuery.data?.data && (

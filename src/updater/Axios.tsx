@@ -1,5 +1,6 @@
 import { useEffectOnce } from 'react-use';
 import axios, { AxiosResponse } from 'axios';
+import { Store } from 'react-notifications-component';
 
 export default function Axios() {
   useEffectOnce(() => {
@@ -33,6 +34,15 @@ export default function Axios() {
           }
           /* 服务端错误处理 */
           console.log(`Response Error => ${JSON.stringify(response.data)}`);
+          Store.addNotification({
+            container: 'top-right',
+            title: response.data.msg,
+            type: 'danger',
+            dismiss: {
+              duration: 3 * 1000,
+              waitForAnimation: false,
+            },
+          });
         }
         return Promise.reject(response.data.msg);
       },

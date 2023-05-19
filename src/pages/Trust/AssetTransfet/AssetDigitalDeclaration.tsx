@@ -3,6 +3,8 @@ import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import TextField from '../../../components/TextField';
 import Dropdown from '../../../components/Dropdown';
 import Button from '../../../components/Button';
@@ -10,6 +12,8 @@ import { useAllCoinInMainNetQuery, useAllMainNetsQuery } from '../../../api/trus
 import { IMainNet } from '../../../interfaces/base';
 
 export default function AssetDigitalDeclaration() {
+  const { t } = useTranslation();
+  const { trustId } = useParams();
   const mainNetListQuery = useAllMainNetsQuery();
   const [mainNet, setMainNet] = useState<IMainNet>();
   const mainNetCoinListQuery = useAllCoinInMainNetQuery({
@@ -35,10 +39,9 @@ export default function AssetDigitalDeclaration() {
   });
 
   const submit = async (data: FormValid) => {
-    /* todo: 固定 ID */
     try {
       await axios.post('/trust/assetDeclare/apply', {
-        trustId: 15,
+        trustId: Number(trustId),
         amount: data.amount,
         coinId: data.coinId,
         estimateTime: data.expectedTime,
@@ -54,10 +57,10 @@ export default function AssetDigitalDeclaration() {
   return (
     <form onSubmit={handleSubmit(submit)}>
       <div className="flex flex-col gap-3">
-        <div className="font-blod text-[#C2D7C7F6]">Declaration information</div>
+        <div className="font-blod text-[#C2D7C7F6]">{t('Declaration information')}</div>
         <TextField
           requiredLabel
-          label={'Payer\'s name'}
+          label={t('Payer\'s name')}
           {...register('name')}
         />
         <Dropdown
@@ -85,28 +88,28 @@ export default function AssetDigitalDeclaration() {
         )}
         <TextField
           requiredLabel
-          label="Payment amount"
-          placeholder="Please enter the amount"
+          label={t('Payment amount')}
+          placeholder={t('Please enter the amount') ?? ''}
           {...register('amount')}
         />
         <TextField
           requiredLabel
-          label="Expected transfer time"
-          placeholder="Please enter the expected transfer time"
+          label={t('Expected transfer time')}
+          placeholder={t('Please enter the expected transfer time') ?? ''}
           {...register('expectedTime')}
         />
         <TextField
-          label={'Payer\'s address'}
-          placeholder={'Please enter the payer\'s address'}
+          label={t('Payer\'s address')}
+          placeholder={t('Please enter the payer\'s address') ?? ''}
           {...register('address')}
         />
         <TextField
-          label="Transaction hash (optional)"
-          placeholder="Please enter the transaction hash"
+          label={t('Transaction hash (optional)')}
+          placeholder={t('Please enter the transaction hash') ?? ''}
           {...register('hash')}
         />
         <div className="mt-4">
-          <Button type="submit" block>Submit</Button>
+          <Button type="submit" block>{t('Submit')}</Button>
         </div>
       </div>
     </form>

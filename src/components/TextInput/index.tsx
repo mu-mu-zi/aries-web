@@ -12,7 +12,7 @@ const TextInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const { block, suffix, ...rest } = props;
 
   return (
-    <div className={classNames('bg-[#3B5649]', 'rounded-xl', 'shadow-block shadow-inner', {
+    <div className={classNames('bg-[#3B5649]', 'rounded-xl', 'input-inner-shadow', {
       'w-full': block,
     })}
     >
@@ -26,8 +26,8 @@ const TextInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
             'gradient-text1',
             'caret-[#BE9D66]',
             'text-[20px] font-bold leading-[22px]',
-            'placeholder:[#708077]',
-            'focus:ring-2 focus:ring-sky-500 rounded-xl',
+            'placeholder:text-[#708077]',
+            // 'focus:ring-2 focus:ring-sky-500 rounded-xl',
           )}
         />
         {suffix && (<div className="mr-2">{suffix}</div>)}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { list } from 'postcss';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 import copyIcon from '../../../assets/icon/copy.svg';
 import Modal from '../../../components/Modal';
 import TransactionVoucher from './TransactionVoucher';
@@ -20,21 +21,22 @@ export default function BillRecords({ trustInvestmentId }: {
   const [transactionVoucherVisible, setTransactionVoucherVisible] = useState(false);
   const [approvalOpinionVisible, setApprovalOpinionVisible] = useState(false);
   const [investmentInstructionsVisible, setinvestmentInstructionsVisible] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8 shadow-block">
       {/* 标题 */}
-      <div className="gradient-text1 font-blod text-[20px]">Bill Records</div>
+      <div className="gradient-text1 font-blod text-[20px]">{t('Bill Records')}</div>
       {/* 分割线 */}
       <div className="h-[1px] bg-[#3B5649]" />
       <table className="table-auto w-full text-[16px] text-[#99AC9B]">
         <thead>
           <tr>
-            <th className="text-left py-2">Type</th>
-            <th className="text-left">Currency</th>
-            <th className="text-right">Amount</th>
-            <th className="text-right">Time</th>
-            <th className="text-right">Reconciliation</th>
+            <th className="text-left py-2">{t('Type')}</th>
+            <th className="text-left">{t('Currency')}</th>
+            <th className="text-right">{t('Amount')}</th>
+            <th className="text-right">{t('Time')}</th>
+            <th className="text-right">{t('Reconciliation')}</th>
           </tr>
         </thead>
         <tbody>
@@ -57,7 +59,7 @@ export default function BillRecords({ trustInvestmentId }: {
                     setTransactionVoucherVisible(true);
                   }}
                 >
-                  View credentials
+                  {t('View credentials')}
                 </div>
               </td>
             </tr>

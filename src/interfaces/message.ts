@@ -1,6 +1,6 @@
 export interface IStationMessage {
   content: string;
-  createTime: string;
+  createTime: number;
   id: number;
   title: string;
 }

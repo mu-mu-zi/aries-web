@@ -3,24 +3,25 @@ import axios from 'axios';
 import useUserId from '../../hooks/useUserId';
 import { IPage, IResponseData } from '../../interfaces/base';
 import { ILaw, IReport, ITrustFee } from '../../interfaces/trust';
+import { ITrustBill } from '../../interfaces/asset';
 
 /*
 * 账单列表
 *  */
 export const useLedgerOrderListQuery = (data: {
+  trustId?: number,
   pageIndex: number,
   pageSize?: number,
-  trustId?: number
+  startTimestamp?: number,
+  endTimestamp?: number,
+  timeType?: number,
+  billType?: number
 }) => {
   const userId = useUserId();
 
-  return useQuery({
+  return useQuery<IResponseData<IPage<ITrustBill>>>({
     queryKey: ['trust', 'order', data, userId],
-    queryFn: () => axios.request({
-      url: '/trust/trust/bill/list',
-      method: 'get',
-      params: data,
-    }),
+    queryFn: () => axios.post('/trust/trust/bill/list', data),
     enabled: !!userId && !!data.trustId,
   });
 };

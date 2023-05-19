@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import GANavbar from './GANavbar';
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
@@ -13,6 +14,7 @@ import ContactUs from './ContactUs';
 import CenterContainer from '../../views/CenterContainer';
 
 export default function GAVerify() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const valid = z.object({
@@ -59,18 +61,20 @@ export default function GAVerify() {
     <CenterContainer>
       <form onSubmit={handleSubmit(submit)}>
         <div className="flex flex-col">
-          <GANavbar title="Cancel" />
+          <GANavbar title={t('Cancel')} />
           <div className="item-center flex w-[418px] flex-col self-center pt-[64px]">
             <div className="text-shadow-block font-blod gradient-text1 text-center font-title text-[32px] leading-[36px]">
-              Security verification
+              {t('Security verification')}
             </div>
             <div className="mt-16 flex flex-col gap-4">
-              <div className="font-blod text-[#c2d7c7]">Please enter the 6-digit Google security code</div>
+              <div className="font-blod text-[#c2d7c7]">
+                {t('Please enter the 6-digit Google security code')}
+              </div>
               <TextInput {...register('googleCode')} maxLength={6} />
             </div>
             <div className="mt-[40px] flex flex-row gap-4">
               <Button size="medium" block>
-                Confirm
+                {t('Confirm')}
               </Button>
             </div>
           </div>

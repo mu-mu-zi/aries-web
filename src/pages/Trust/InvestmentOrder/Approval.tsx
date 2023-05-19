@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 import copyIcon from '../../../assets/icon/copy.svg';
 import { useInvestmentApprovalRecodeQuery } from '../../../api/trust/investment';
 import CopyIcon from '../../../views/CopyIcon';
@@ -17,24 +18,25 @@ export default function Approval({ trustInvestmentId }: {
     trustInvestmentId,
   });
   const [opinionVisible, setOpinionVisible] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8 shadow-block">
       {/* 标题 */}
-      <div className="gradient-text1 font-blod text-[20px]">Approval</div>
+      <div className="gradient-text1 font-blod text-[20px]">{t('Approval')}</div>
       {/* 分割线 */}
       <div className="h-[1px] bg-[#3B5649]" />
       {/* Table */}
       <table className="table-auto text-[16px] text-[#99AC9B]">
         <thead>
           <tr>
-            <th className="text-left py-2">Currency</th>
-            <th className="text-left">Amount</th>
-            <th className="text-left">Destination</th>
-            <th className="text-left">{'Opponent\'s address'}</th>
-            <th className="text-left">Approval Comments</th>
-            <th className="text-left">Approval time</th>
-            <th className="text-right">Reconciliation</th>
+            <th className="text-left py-2">{t('Currency')}</th>
+            <th className="text-left">{t('Amount')}</th>
+            <th className="text-left">{t('Destination')}</th>
+            <th className="text-left">{t('Opponent\'s address')}</th>
+            <th className="text-left">{t('Approval Comments')}</th>
+            <th className="text-left">{t('Approval time')}</th>
+            <th className="text-right">{t('Reconciliation')}</th>
           </tr>
         </thead>
         <tbody>

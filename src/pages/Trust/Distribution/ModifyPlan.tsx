@@ -5,12 +5,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import moment from 'moment';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Button from '../../../components/Button';
 import ModalNav from '../../../views/ModalContainer/ModalNav';
 import ModalContainer from '../../../views/ModalContainer';
 import { IDistribution } from '../../../interfaces/trust';
 
-export default function ModifyPlan({ row, onClose }: {
+export default function ModifyPlan({ trustId, row, onClose }: {
+  trustId: number,
   row: IDistribution
   onClose?(): void
 }) {
@@ -33,11 +36,11 @@ export default function ModifyPlan({ row, onClose }: {
     },
   });
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const submit = async (data: FormValid) => {
-    /* todo: 固定 ID */
     await axios.post('/trust/trust/distribution/plan/update', {
-      trustId: 15,
+      trustId: Number(trustId),
       planId: row.planId,
       ...data,
     }).then((resp) => {
@@ -48,26 +51,26 @@ export default function ModifyPlan({ row, onClose }: {
 
   return (
     <ModalContainer>
-      <ModalNav title="Modify distribution plan details" onClose={onClose} />
+      <ModalNav title={t('Modify distribution plan details')} onClose={onClose} />
       <form onSubmit={handleSubmit(submit)}>
         <div className="flex flex-col gap-4">
           <label>
             <div className="flex flex-col gap-4">
-              <div className="text-[#C2D7C7F6] text-[16px]">Allocation Plan Explanation</div>
+              <div className="text-[#C2D7C7F6] text-[16px]">{t('Allocation Plan Explanation')}</div>
               <textarea
                 {...register('planDescription')}
                 className="bg-[#3B5649] rounded-xl p-4 outline-none h-[158px] placeholder:text-[#99AC9B] resize-none"
-                placeholder={'Regarding profit distribution, I want to make it clear that it will be based on the proportion of the beneficiary\'s ownership of the rights and interests. Distribution will be made according to a predetermined ratio and the profits will be directly paid to the beneficiary\'s designated bank account at the end of each quarter.'}
+                placeholder={t('Regarding profit distribution, I want to make it clear that it will be based on the proportion of the beneficiary\'s ownership of the rights and interests. Distribution will be made according to a predetermined ratio and the profits will be directly paid to the beneficiary\'s designated bank account at the end of each quarter.') ?? ''}
               />
             </div>
           </label>
           <div className="flex flex-col gap-4">
-            <Row title="Update time:" value={moment.unix(row.updateTimeStamp / 1000).format('yyyy-MM-DD HH:mm:ss')} />
-            <Row title="Approval status:" value={row.planStatusName} />
-            <Row title="Note:" value={row.remark} />
+            <Row title={t('Update time:')} value={moment.unix(row.updateTimeStamp / 1000).format('yyyy-MM-DD HH:mm:ss')} />
+            <Row title={t('Approval status:')} value={row.planStatusName} />
+            <Row title={t('Note:')} value={row.remark} />
           </div>
           <div className="mt-8 self-center">
-            <Button type="submit">Submit</Button>
+            <Button type="submit">{t('Submit')}</Button>
           </div>
         </div>
       </form>
