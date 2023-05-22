@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../state';
 import { appendMessage } from '../state/msg';
 import 'react-notifications-component/dist/theme.css';
 import { IStationMessage } from '../interfaces/message';
+import { addNotification } from '../utils/Notification';
 
 export default function StationMessage() {
   const userId = useUserId();
@@ -32,16 +33,22 @@ export default function StationMessage() {
       const msgObj: IStationMessage = JSON.parse(msg.data);
       action(appendMessage(msgObj));
 
-      /* 通知 */
-      Store.addNotification({
-        container: 'top-right',
+      addNotification({
         title: msgObj.title,
-        message: msgObj.content,
-        dismiss: {
-          duration: 3000,
-          onScreen: true,
-        },
+        content: msgObj.content,
+        type: 'success',
       });
+
+      /* 通知 */
+      // Store.addNotification({
+      //   container: 'top-right',
+      //   title: msgObj.title,
+      //   message: msgObj.content,
+      //   dismiss: {
+      //     duration: 3000,
+      //     onScreen: true,
+      //   },
+      // });
     });
 
     // eslint-disable-next-line consistent-return

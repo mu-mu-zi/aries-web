@@ -1,17 +1,21 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 import MethodSwitch from './MethodSwitch';
 import TextField from '../../../components/TextField';
 import Button from '../../../components/Button';
 import Dropdown from '../../../components/Dropdown';
 import AssetDigitalDeclaration from './AssetDigitalDeclaration';
 import AssetFiatDeclaration from './AssetFiatDeclaration';
+import { useAllBankQuery } from '../../../api/assets/assets';
 
 export default function AssetDeclaration({ assetModeChange }: {
   assetModeChange?(isDigital: boolean): void
 }) {
   const { t } = useTranslation();
   const [isDigital, setIsDigital] = React.useState(true);
+  const { trustId } = useParams();
+  const bankListQuery = useAllBankQuery({ trustId });
 
   return (
     <div className="flex flex-col">
@@ -27,7 +31,8 @@ export default function AssetDeclaration({ assetModeChange }: {
             }}
           />
         </div>
-        {isDigital ? <AssetDigitalDeclaration /> : <AssetFiatDeclaration />}
+        {/* eslint-disable-next-line no-nested-ternary */}
+        {isDigital ? <AssetDigitalDeclaration /> : (bankListQuery.data?.data?.length === 0 ? <div className="text-[#C2D7C7F6]">开立中...</div> : <AssetFiatDeclaration />)}
       </div>
     </div>
   );

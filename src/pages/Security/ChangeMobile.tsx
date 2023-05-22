@@ -14,6 +14,7 @@ import TextInput from '../../components/TextInput';
 import { useAreaCodeListQuery } from '../../api/base/areaCode';
 import Button from '../../components/Button';
 import { useSendValidateCodeMutation } from '../../api/user/verify';
+import SendButton from '../../views/SendButton';
 
 export default function ChangeMobile() {
   const { t } = useTranslation();
@@ -46,12 +47,18 @@ export default function ChangeMobile() {
       await trigger('mobile', {
         shouldFocus: true,
       });
-      sendValidateCodeMutation.mutate({
+      // sendValidateCodeMutation.mutate({
+      //   account: getValues('mobile'),
+      //   areaCodeId: getValues('areaCodeId'),
+      // });
+      await axios.post('/user/send/sendSmsCode', {
         account: getValues('mobile'),
         areaCodeId: getValues('areaCodeId'),
       });
+      return true;
     } catch (e) {
       console.log(e);
+      return false;
     }
   };
 
@@ -108,12 +115,13 @@ export default function ChangeMobile() {
               <TextInput
                 {...register('securityCode')}
                 suffix={(
-                  <div
-                    className="cursor-pointer font-bold gradient-text1 text-[20px] px-2"
-                    onClick={sendValidCode}
-                  >
-                    {t('Send')}
-                  </div>
+                  <SendButton onClick={sendValidCode} />
+                  // <div
+                  //   className="cursor-pointer font-bold gradient-text1 text-[20px] px-2"
+                  //   onClick={sendValidCode}
+                  // >
+                  //   {t('Send')}
+                  // </div>
                 )}
               />
             </div>

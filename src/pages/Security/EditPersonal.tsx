@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -13,13 +13,14 @@ import Dropdown from '../../components/Dropdown';
 import Divide from '../../components/Divide';
 import ContactUs from '../SignIn/ContactUs';
 import Button from '../../components/Button';
+import { useUserInfoQuery } from '../../api/user/user';
 
 export default function EditPersonal({ onClose }: {
   onClose?(): void
 }) {
   const [isMeal, setIsMeal] = React.useState(true);
   const valid = z.object({
-    gender: z.boolean().default(true),
+    gender: z.boolean().optional(),
     nickname: z.string().nonempty(),
     surname: z.string().nonempty(),
   });
@@ -38,6 +39,7 @@ export default function EditPersonal({ onClose }: {
   });
   const queryClient = useQueryClient();
   const { t } = useTranslation();
+  const userQuery = useUserInfoQuery();
 
   const submit = async (data: FormValid) => {
     await axios.request({
@@ -48,6 +50,15 @@ export default function EditPersonal({ onClose }: {
     await queryClient.invalidateQueries(['user']);
     onClose?.();
   };
+
+  useEffect(() => {
+    const user = userQuery.data?.data;
+    if (user) {
+      setValue('gender', user.gender);
+      setValue('nickname', user.userName);
+      setValue('surname', user.surname);
+    }
+  }, [userQuery.data?.data]);
 
   return (
     <ModalContainer>
@@ -69,10 +80,11 @@ export default function EditPersonal({ onClose }: {
             <Controller
               render={({ field }) => (
                 <Dropdown
-                  title={field ? t('Male') ?? '' : t('Female') ?? ''}
+                  title={field.value ? t('Female') ?? '' : t('Male') ?? ''}
+                  // title={`${field.value}`}
                   items={[
-                    t('Male'),
                     t('Female'),
+                    t('Male'),
                   ]}
                   onSelected={(idx) => field.onChange(idx === 0)}
                 />

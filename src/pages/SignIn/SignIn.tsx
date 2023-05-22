@@ -21,6 +21,7 @@ import { useGetUserInfoMutation, useSendValidateCodeMutation } from '../../api/u
 import { IResponseData } from '../../interfaces/base';
 import Dropdown from '../../components/Dropdown';
 import { useAreaCodeListQuery } from '../../api/base/areaCode';
+import SendButton from '../../views/SendButton';
 
 export default function SignIn() {
   const { t } = useTranslation();
@@ -54,12 +55,17 @@ export default function SignIn() {
       await trigger('account', {
         shouldFocus: true,
       });
-      sendValidateCodeMutation.mutate({
+      // await sendValidateCodeMutation.mutate({
+      //   account: getValues('account'),
+      //   areaCodeId: getValues('areaCodeId'),
+      // });
+      await axios.post('/user/send/login/sendSmsCode', {
         account: getValues('account'),
         areaCodeId: getValues('areaCodeId'),
       });
+      return true;
     } catch (e) {
-      // console.log(e);
+      return false;
     }
   };
 
@@ -139,12 +145,13 @@ export default function SignIn() {
                 type="text"
                 {...register('securityCode')}
                 suffix={(
-                  <div
-                    className="cursor-pointer font-bold gradient-text1 text-[20px] px-2"
-                    onClick={sendValidCode}
-                  >
-                    {t('Send')}
-                  </div>
+                  <SendButton onClick={sendValidCode} />
+                  // <div
+                  //   className="cursor-pointer font-bold gradient-text1 text-[20px] px-2"
+                  //   onClick={sendValidCode}
+                  // >
+                  //   {t('Send')}
+                  // </div>
                 )}
               />
             </div>

@@ -54,6 +54,7 @@ export interface Trust {
 export interface IDigitalAssetsDetail {
   amount: number;
   symbol: string;
+  price: number
 }
 
 export interface IDigitalAssets {

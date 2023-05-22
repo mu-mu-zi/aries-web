@@ -173,7 +173,7 @@ export default function AddBeneficiary({ trustId, onClose }: {
                     const enums = [
                       { value: RoleType.No, name: t('No') },
                       { value: RoleType.ReadOnly, name: t('Read Only') },
-                      { value: RoleType.Approval, name: t('Approval') },
+                      // { value: RoleType.Approval, name: t('Approval') },
                     ];
                     return (
                       <Dropdown

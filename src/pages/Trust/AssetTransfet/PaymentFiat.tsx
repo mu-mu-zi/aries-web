@@ -7,9 +7,8 @@ import { useAllBankQuery } from '../../../api/assets/assets';
 import { IBank } from '../../../interfaces/asset';
 
 export default function PaymentFiat() {
-  const { trustId } = useParams();
   const { t } = useTranslation();
-
+  const { trustId } = useParams();
   const bankListQuery = useAllBankQuery({
     trustId,
   });
@@ -32,7 +31,7 @@ export default function PaymentFiat() {
             <PaymentRow title={t('Payee Name')} value={bank.userName} />
             <PaymentRow title={t('Payee account number')} value={bank.address} />
             <PaymentRow title={t('BankName')} value={bank.bankName} />
-            {bank.customContents.map((it) => <PaymentRow key={it.id} title={it.customKey} value={it.customValue} />)}
+            {bank.customContents?.map((it) => <PaymentRow key={it.id} title={it.customKey} value={it.customValue} />)}
           </div>
         </div>
       )}

@@ -40,7 +40,7 @@ export default function CreatingCommand({ onClose }: {
       trustId: Number(trustId),
       ...data,
     }).then((resp) => {
-      queryClient.invalidateQueries(['trust']);
+      queryClient.invalidateQueries(['trust', 'investment']);
       onClose?.();
     });
   };

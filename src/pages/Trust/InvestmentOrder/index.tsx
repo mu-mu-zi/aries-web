@@ -30,15 +30,20 @@ export default function InvestmentOrder() {
         btn={<Button onClick={() => setCreatingVisible(true)}>{t('Creating a command')}</Button>}
       />
       <div
-        className="gradient-bg2 roundex-xl shadow-block grid grid-cols-2 md:grid-cols-1 gap-4 p-8 rounded-xl"
+        className="gradient-bg2 roundex-xl shadow-block grid grid-cols-2  gap-4 p-8 rounded-xl"
       >
         {listQuery.data?.data?.records.map((it) => <OrderCell item={it} key={it.trustInvestmentId} />)}
         <div className="mx-auto">
-          <Paginate page={page} total={listQuery.data?.data?.total ?? 0} pageSize={5} onPageChanged={(page) => setPage(page)} />
+          <Paginate
+            page={page}
+            total={listQuery.data?.data?.total ?? 0}
+            pageSize={5}
+            onPageChanged={(page) => setPage(page)}
+          />
         </div>
       </div>
 
-      <Modal visible={creatingVisible}>
+      <Modal visible={creatingVisible} onClose={() => setCreatingVisible(false)}>
         <CreatingCommand onClose={() => setCreatingVisible(false)} />
       </Modal>
     </div>

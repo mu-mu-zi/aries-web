@@ -20,13 +20,13 @@ export default function LoginLog() {
       <div className="flex flex-col gap-6">
         <CancelNav />
         <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8">
-          <div className="gradient-text1 font-title font-bold text-[20px]">{t('Recent login records')}</div>
+          <div className="gradient-text1 font-title font-bold text-[20px]">{t('Recent Login Records')}</div>
           <Hr />
           <SimpleTable
             columns={[
               {
                 Header: t('Login Time') ?? '',
-                accessor: (x) => moment.unix(x.createTimeStamp / 1000).format(),
+                accessor: (x) => moment.unix(x.createTimeStamp / 1000).format('MM/DD/YYYY HH:mm:ss'),
               },
               {
                 Header: t('Login device') ?? '',
@@ -34,7 +34,7 @@ export default function LoginLog() {
               },
               {
                 Header: t('Login status') ?? '',
-                accessor: (x) => (x.status ? 'Success' : 'Failed'),
+                accessor: (x) => (x.status ? 'Login successfully' : 'Login failure'),
               },
               {
                 Header: t('Login address') ?? '',

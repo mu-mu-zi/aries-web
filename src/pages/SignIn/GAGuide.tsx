@@ -30,7 +30,7 @@ export default function GAGuide() {
             <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank" rel="noreferrer">
               <ChannelButton icon={googlePayIcon} text="Google Play" />
             </a>
-            <a href="https://apps.apple.com/us/app/google-authenticator/id388497605">
+            <a href="https://apps.apple.com/us/app/google-authenticator/id388497605" target="_blank" rel="noreferrer">
               <ChannelButton icon={appstoreIcon} text="App Store" />
             </a>
           </div>

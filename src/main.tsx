@@ -35,6 +35,7 @@ import Updater from './updater';
 import Notification from './pages/Trust/Dashboard/Notification';
 import ChangeMobile from './pages/Security/ChangeMobile';
 import ChangeEmail from './pages/Security/ChangeEmail';
+import PersonalRealName from './pages/SignIn/PersonalRealName';
 
 const router = createBrowserRouter([
   {
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
           {
             path: '/contactCustomer',
             element: <ContactCustomer />,
+          },
+          {
+            path: '/personalRealName',
+            element: <PersonalRealName />,
           },
           {
             path: '/first/:trustId',

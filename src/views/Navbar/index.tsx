@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import navLogoIcon from '../../assets/icon/nav_logo.svg';
 import LanguageIcon from '../Icons/LanguageIcon';
@@ -14,7 +14,15 @@ export default function Navbar() {
   return (
     <div className={classNames('flex flex-row items-center', 'h-[76px]', 'bg-transparent', 'px-12')}>
       <div className="cursor-pointer" onClick={() => navigate('/')}>
-        <img src={navLogoIcon} height="52px" />
+        <img src={navLogoIcon} height="52px" alt="Trust" />
+      </div>
+      <div className="flex pl-8">
+        <NavLink
+          to="/my"
+          className={({ isActive }) => classNames('text-[20px] text-[#695D52]')}
+        >
+          Trust
+        </NavLink>
       </div>
       <div className={classNames('flex-1')} />
       <div className={classNames('flex flex-row items-center gap-6')}>

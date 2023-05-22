@@ -1,6 +1,7 @@
 import { useEffectOnce } from 'react-use';
 import axios, { AxiosResponse } from 'axios';
 import { Store } from 'react-notifications-component';
+import { addNotification } from '../utils/Notification';
 
 export default function Axios() {
   useEffectOnce(() => {
@@ -27,22 +28,19 @@ export default function Axios() {
           if (response.data.code === 200) {
             return Promise.resolve(response.data);
           }
-          if (response.data.code === 406) {
+          if (response.data.code === 406 || response.data.code === 4008) {
             /* 删除本地 token */
             localStorage.removeItem('TOKEN');
             return Promise.reject(response.data.msg);
           }
           /* 服务端错误处理 */
           console.log(`Response Error => ${JSON.stringify(response.data)}`);
-          Store.addNotification({
-            container: 'top-right',
-            title: response.data.msg,
-            type: 'danger',
-            dismiss: {
-              duration: 3 * 1000,
-              waitForAnimation: false,
-            },
-          });
+          if (response.data.msg) {
+            addNotification({
+              title: response.data.msg,
+              type: 'danger',
+            });
+          }
         }
         return Promise.reject(response.data.msg);
       },

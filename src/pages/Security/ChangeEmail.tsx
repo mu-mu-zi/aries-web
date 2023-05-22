@@ -12,6 +12,7 @@ import Dropdown from '../../components/Dropdown';
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
 import { useSendValidateCodeMutation } from '../../api/user/verify';
+import SendButton from '../../views/SendButton';
 
 export default function ChangeEmail() {
   const valid = z.object({
@@ -42,11 +43,16 @@ export default function ChangeEmail() {
       await trigger('email', {
         shouldFocus: true,
       });
-      sendValidateCodeMutation.mutate({
+      // sendValidateCodeMutation.mutate({
+      //   account: getValues('email'),
+      // });
+      await axios.post('/user/send/sendSmsCode', {
         account: getValues('email'),
       });
+      return true;
     } catch (e) {
       console.log(e);
+      return false;
     }
   };
 
@@ -82,12 +88,13 @@ export default function ChangeEmail() {
               <TextInput
                 {...register('securityCode')}
                 suffix={(
-                  <div
-                    className="cursor-pointer font-bold gradient-text1 text-[20px] px-2"
-                    onClick={sendValidCode}
-                  >
-                    {t('Send')}
-                  </div>
+                  <SendButton onClick={sendValidCode} />
+                  // <div
+                  //   className="cursor-pointer font-bold gradient-text1 text-[20px] px-2"
+                  //   onClick={sendValidCode}
+                  // >
+                  //   {t('Send')}
+                  // </div>
                 )}
               />
             </div>

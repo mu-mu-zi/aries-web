@@ -11,6 +11,8 @@ import DigitalAssets from './DigitalAssets';
 import FiatAssets from './FiatAssets';
 import Navbar from '../../../views/Navbar';
 import { useAssetOverviewQuery } from '../../../api/trust/trust';
+import MiniCell from './MiniCell';
+import icon from '../../../assets/icon/dashbaor_thri.svg';
 
 export default function Dashboard() {
   const location = useLocation();
@@ -26,10 +28,12 @@ export default function Dashboard() {
         <DigitalAssets assetOverview={assetsOverviewQuery.data?.data} />
         {assetsOverviewQuery.data?.data?.fiatAssets.map((f) => <FiatAssets asset={f} />)}
       </div>
-      <div className="flex flex-col w-[402px] flex-shrink-0 gap-6">
+      <div className="flex flex-col w-[402px] flex-shrink-0 gap-6 pb-4">
         <AssetOverview assetOverview={assetsOverviewQuery.data?.data} />
         <SimpleNotification />
         <BillingRecord />
+        <MiniCell logo={icon} title="Digital Asset Market" link="https://coinmarketcap.com" />
+        <MiniCell logo={icon} title="Foreign Exchange Rate" link="https://www.dbs.com.hk/personal-zh/rates-online/foreign-currency-foreign-exchange.page" />
       </div>
     </div>
   );

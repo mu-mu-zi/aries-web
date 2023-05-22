@@ -44,8 +44,8 @@ export default function Dropdown({
                 {({ active, close }) => (
                   <div
                     onClick={() => {
-                      onSelected?.(idx);
                       close();
+                      onSelected?.(idx);
                     }}
                     className={classNames('block cursor-pointer', active ? 'bg-[#3B5649]' : 'bg-transparent')}
                   >

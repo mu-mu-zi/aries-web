@@ -4,6 +4,9 @@ import VerifyStatusRow from './VerifyStatusRow';
 import digitalIcon from '../../assets/icon/digital_account.svg';
 import { TrustDetail } from '../../interfaces/trust';
 import logo from '../../assets/icon/first_step_6.svg';
+import icon2 from '../../assets/icon/icon_coin_company.svg';
+import icon3 from '../../assets/icon/icon_coin_bank.svg';
+import icon4 from '../../assets/icon/icon_coin_exchange.svgicon_coin_exchange.svg';
 
 export default function CompletionFiatStep({ trust }: {
     trust: TrustDetail
@@ -21,9 +24,9 @@ export default function CompletionFiatStep({ trust }: {
       <div className="flex flex-col gap-2 self-stretch">
         {/* todo：Logo 阴影导致图片无法居中，待 UI 调整 */}
         <VerifyStatusRow icon={digitalIcon} title="Digital asset account" isOpening />
-        <VerifyStatusRow icon={digitalIcon} title="Trust Asset Holding Company" isOpening />
-        <VerifyStatusRow icon={digitalIcon} title="Bank Account" isOpening={false} />
-        <VerifyStatusRow icon={digitalIcon} title="Exchange Account" isOpening={false} />
+        <VerifyStatusRow icon={icon2} title="Trust Asset Holding Company" isOpening />
+        <VerifyStatusRow icon={icon3} title="Bank Account" isOpening={false} />
+        <VerifyStatusRow icon={icon4} title="Exchange Account" isOpening={false} />
       </div>
     </div>
   );

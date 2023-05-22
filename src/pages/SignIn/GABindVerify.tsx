@@ -14,12 +14,15 @@ import TextInput from '../../components/TextInput';
 import { useSendValidateCodeMutation } from '../../api/user/verify';
 import Dropdown from '../../components/Dropdown';
 import { useAreaCodeListQuery } from '../../api/base/areaCode';
+import SendButton from '../../views/SendButton';
+import { useUserInfoQuery } from '../../api/user/user';
 
 export default function GABindVerify() {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
   const sendValidateCodeMutation = useSendValidateCodeMutation();
+  const userQuery = useUserInfoQuery();
   const valid = z.object({
     securityCode: z.string().nonempty(),
     googleCaptcha: z.string().nonempty(),
@@ -42,10 +45,14 @@ export default function GABindVerify() {
   const sendValidCode = async () => {
     /* 验证账号 */
     const { account } = location.state;
-    if (!account) return;
-    sendValidateCodeMutation.mutate({
+    if (!account) return false;
+    // sendValidateCodeMutation.mutate({
+    //   account,
+    // });
+    await axios.post('/user/send/login/sendSmsCode', {
       account,
     });
+    return true;
   };
 
   const submit = async (data: FormValid) => {
@@ -78,7 +85,15 @@ export default function GABindVerify() {
       /* 存储 token，刷新接口 */
       localStorage.setItem('TOKEN', token);
       await queryClient.invalidateQueries();
-      navigate('/status');
+      /* 这里需要检查是否设置你用户名，如果没有设置需要跳转到指定页面 */
+      navigate('/status', {
+        state: {
+          title: 'Bind Google Authenticator',
+          description: 'Congratulations! You have successfully bound Google Authenticator.',
+          navTo: userQuery.data?.data?.userName ? '/' : '/personalRealName',
+        },
+        replace: true,
+      });
     } catch (e) {
       console.log(e);
     }
@@ -102,12 +117,13 @@ export default function GABindVerify() {
                 placeholder={t('Please enter the verification code') ?? ''}
                 {...register('securityCode')}
                 suffix={(
-                  <div
-                    className="cursor-pointer font-bold gradient-text1 text-[20px] px-2"
-                    onClick={sendValidCode}
-                  >
-                    {t('Send')}
-                  </div>
+                  <SendButton onClick={sendValidCode} />
+                  // <div
+                  //   className="cursor-pointer font-bold gradient-text1 text-[20px] px-2"
+                  //   onClick={sendValidCode}
+                  // >
+                  //   {t('Send')}
+                  // </div>
                   )}
               />
               {/* <div className="flex flex-row gap-2"> */}

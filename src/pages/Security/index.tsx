@@ -15,6 +15,9 @@ import Modal from '../../components/Modal';
 import EditPersonal from './EditPersonal';
 import Container from '../../views/Container';
 import { useLoginLogQuery, useUserInfoQuery } from '../../api/user/user';
+import { CallFormat } from '../../utils/CallFormat';
+import { unixFormatTime } from '../../utils/DateFormat';
+import footerImg from '../../assets/icon/footer_graat.svg';
 
 export default function Security() {
   const { t } = useTranslation();
@@ -48,12 +51,15 @@ export default function Security() {
           {/* header */}
           <div className="gradient-bg2 flex flex-col gap-4 rounded-xl p-8 pb-4">
             <div className="flex flex-col items-center gap-8">
-              <LargeAvatar isMale={user.data?.data?.gender ?? true} />
+              <LargeAvatar isMale={!user.data?.data?.gender} />
               <div className="flex flex-row items-center gap-4">
                 <div className="gradient-text1 font-bold font-title text-[40px]">
-                  {`Dear ${user.data?.data?.userName}`}
+                  {CallFormat(user.data?.data?.userName, user.data?.data?.gender)}
                 </div>
-                <div className="cursor-pointer" onClick={() => setEditVisible(true)}>
+                <div
+                  className="cursor-pointer"
+                  onClick={() => setEditVisible(true)}
+                >
                   <img src={editIcon} width="32px" alt="Edit" />
                 </div>
               </div>
@@ -67,7 +73,7 @@ export default function Security() {
                 <div className="font-bold text-[20px]">{t('Login Log')}</div>
                 <div className="text-[16px]">
                   {/* eslint-disable-next-line no-unsafe-optional-chaining */}
-                  {loginLogQuery.data?.data?.records[0] && `Last Login: ${moment.unix(loginLogQuery.data?.data?.records[0]?.createTimeStamp / 1000).format()}`}
+                  {loginLogQuery.data?.data?.records[0] && `Last Login: ${unixFormatTime(loginLogQuery.data?.data?.records[0]?.createTimeStamp)}`}
                 </div>
               </div>
               <img width="32px" src={arrowR} alt="" />
@@ -130,9 +136,15 @@ export default function Security() {
           </div>
         </div>
       </Container>
-      <Modal visible={editVisible} onClose={() => setEditVisible(false)}>
-        <EditPersonal onClose={() => setEditVisible(false)} />
+      <Modal
+        visible={editVisible}
+        onClose={() => setEditVisible(false)}
+      >
+        <EditPersonal
+          onClose={() => setEditVisible(false)}
+        />
       </Modal>
+      <img src={footerImg} className="max-w-[1024px] mx-auto my-10" alt="" />
     </>
   );
 }

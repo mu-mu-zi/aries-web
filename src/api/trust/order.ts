@@ -10,7 +10,7 @@ import { ITrustBill } from '../../interfaces/asset';
 *  */
 export const useLedgerOrderListQuery = (data: {
   trustId?: number,
-  pageIndex: number,
+  pageIndex?: number,
   pageSize?: number,
   startTimestamp?: number,
   endTimestamp?: number,

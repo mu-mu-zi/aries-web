@@ -29,14 +29,21 @@ export default function DigitalAssets({ assetOverview }: {
       </div>
       {assetOverview?.digitalAssets.map((it) => (
         <div className={classNames('gradient-block1', 'shadow-block', 'rounded-xl')}>
-          <div className="flex flex-row items-center h-[80px] px-8">
+          <div className="flex flex-row gap-4 items-center h-[80px] px-8">
             <div className="gradient-text1 text-[20px] font-bold flex-auto">{it.name}</div>
             <div className="gradient-text1 text-[20px] font-bold">{`${it.totalUSDT} USD`}</div>
             <img src={arrowUp} alt="" />
           </div>
           {it.details?.length > 0 && (
-            <div className="flex flex-col gap-6 p-8 bg-divider rounded-b-xl">
-              {it.details?.map((d) => <Cell icon={symbolIcon} amount={d.amount} symbol={d.symbol} />)}
+            <div className="flex flex-col gap-6 p-8 bg-divider rounded-b-xl bg-[#314C40]">
+              {it.details?.map((d) => (
+                <Cell
+                  icon={symbolIcon}
+                  amount={d.amount}
+                  symbol={d.symbol}
+                  rate={Number((d.amount * d.price / it.totalUSDT * 100).toFixed(3))}
+                />
+              ))}
             </div>
           )}
         </div>
@@ -46,20 +53,23 @@ export default function DigitalAssets({ assetOverview }: {
 }
 
 export function Cell({
-  icon, amount, symbol,
+  icon, amount, symbol, rate,
 }: {
   icon: string,
   amount: string | number,
-  symbol: string
+  symbol: string,
+  rate: number
 }) {
   return (
     <div className="flex flex-row items-center relative">
       {/* todo: 设计图图标带阴影，需要删除 */}
-      <img src={symbolIcon} width="24px" alt="" className="absolute z-[1] mt-[4px]" />
-      <div className="flex-1 ml-[12px]">
-        <div className="gradient-border1 shadow-block w-[50%] h-[10px] rounded-full overflow-clip" />
+      <img src={icon} width="24px" alt="" className="absolute z-[1] mt-[4px]" />
+      <div className="flex-auto ml-[12px] max-w-[60%]">
+        <div className={classNames('gradient-border1 shadow-block h-[10px] rounded-full overflow-clip', rate > 0 && `w-[${rate}%]`, rate <= 0 && 'w-0')} />
       </div>
-      <div className="ml-[36px] gradient-text1 text-[20px]">100,672.122 USD</div>
+      <div className="flex-1 ml-[36px] gradient-text1 text-[20px] text-right">
+        {`${amount} ${symbol}`}
+      </div>
     </div>
   );
 }

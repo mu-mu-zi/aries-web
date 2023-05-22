@@ -9,16 +9,13 @@ export default function MyTrust() {
   return (
     <div className="flex-auto flex flex-row justify-center">
       <div className="flex flex-row overflow-auto gap-8 px-16">
-        {trustListQuery.data?.data && trustListQuery.data.data.length > 0 ? (
-          <>
-            {trustListQuery.data.data.map((trust) => (
-              <EnteringTrust
-                key={trust.trustId}
-                trust={trust}
-              />
-            ))}
-          </>
-        ) : <CreatingTrust />}
+        <CreatingTrust />
+        {trustListQuery.data?.data?.map((trust) => (
+          <EnteringTrust
+            key={trust.trustId}
+            trust={trust}
+          />
+        ))}
       </div>
     </div>
   );

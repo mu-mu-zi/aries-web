@@ -1,14 +1,18 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 import ContactUs from '../../SignIn/ContactUs';
 import AssetDeclaration from './AssetDeclaration';
 import PaymentBit from './PaymentBit';
 import PaymentFiat from './PaymentFiat';
 import DeclarationRecord from './DeclarationRecord';
+import { useAllBankQuery } from '../../../api/assets/assets';
 
 export default function EntrustedDeclaration() {
   const { t } = useTranslation();
+  const { trustId } = useParams();
   const [isDigital, setIsDigital] = React.useState(true);
+  const bankListQuery = useAllBankQuery({ trustId });
 
   return (
     <div className="flex flex-col gradient-bg2 rounded-xl overflow-clip p-8 gap-8">
@@ -42,6 +46,7 @@ export default function EntrustedDeclaration() {
         <div className="flex-1">
           <div className="gradient-text1 font-blod text-[20px] font-title">{t('Payment information')}</div>
           <div className="mt-[40px]">
+            {/* eslint-disable-next-line no-nested-ternary */}
             {isDigital ? <PaymentBit /> : <PaymentFiat />}
           </div>
         </div>

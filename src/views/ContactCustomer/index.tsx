@@ -23,7 +23,7 @@ export default function ContactCustomer() {
   const [isPhone, setIsPhone] = useState(true);
   const areaCodeListQuery = useAreaCodeListQuery();
   const valid = z.object({
-    contactName: z.string().nonempty(),
+    contactName: z.string().optional(),
     account: z.string().nonempty(),
     areaCodeId: z.number().optional(),
     problemDescription: z.string().nonempty(),
@@ -53,7 +53,6 @@ export default function ContactCustomer() {
         contactEmail: isPhone ? undefined : data.account,
         contactMobile: isPhone ? data.account : undefined,
       });
-      /* todo: 提交成功 */
       navigate(-1);
     } catch (e) {
       console.log(e);
@@ -71,7 +70,7 @@ export default function ContactCustomer() {
             </div>
             <div className="mt-16 flex flex-col gap-4">
               <div className="flex flex-row gap-2">
-                <div className="gradient-text1">*</div>
+                {/* <div className="gradient-text1">*</div> */}
                 <div className="font-blod text-[#c2d7c7]">Name</div>
               </div>
               <TextInput placeholder="Please enter your name" {...register('contactName')} />
@@ -104,14 +103,12 @@ export default function ContactCustomer() {
               </div>
             </div>
             <div className="mt-[40px] flex flex-row gap-4">
-              <Button size="medium" block>
+              <Button size="medium" block type="submit">
                 Confirm
               </Button>
             </div>
             <div className="text-[#708077] text-[14px] leading-[16px] mt-10">
-              The application will be processed within one working day, please keep your communication channels open so that
-              customer service can contact you in a timely manner. Additionally, you can also contact the platform through
-              123456789@gmail.com.
+              The application will be processed within one working day, please keep your communication channels open so that customer service can contact you in a timely manner. Additionally, you can also contact the platform through sales@aries-trust.com.
             </div>
           </div>
         </form>
