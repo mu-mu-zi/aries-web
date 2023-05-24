@@ -8,6 +8,7 @@ body {
 
 ::-webkit-scrollbar {
     width: 2px;
+    height: 2px;
 }
 
 ::-webkit-scrollbar-track {
@@ -34,8 +35,8 @@ body {
 @font-face {
     /*font-family: 'Times New Roman';*/
     /*src: url("./assets/fonts/times.ttf"), url("./assets/fonts/timesbd.ttf"), url("./assets/fonts/timesbi.ttf"), url("./assets/fonts/timesi.ttf");*/
-    /*src: url("./assets/fonts/timesbd.ttf");*/
-    /*font-weight: bold;*/
+    src: url("./assets/fonts/timesbd.ttf");
+    font-weight: bold;
 }
 
 @font-face {

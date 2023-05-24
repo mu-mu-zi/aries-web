@@ -1,12 +1,16 @@
 import { useEffectOnce } from 'react-use';
 import axios, { AxiosResponse } from 'axios';
 import { Store } from 'react-notifications-component';
+import { useNavigate } from 'react-router-dom';
 import { addNotification } from '../utils/Notification';
 
 export default function Axios() {
+  // const navigate = useNavigate();
+
   useEffectOnce(() => {
     /* 默认 URL */
     axios.defaults.baseURL = 'https://api.aries-trust.com/';
+    axios.defaults.headers['Accept-Language'] = 'en-US';
 
     /*
     * 请求拦截器
@@ -28,9 +32,11 @@ export default function Axios() {
           if (response.data.code === 200) {
             return Promise.resolve(response.data);
           }
-          if (response.data.code === 406 || response.data.code === 4008) {
+          if (response.data.code === 406 || response.data.code === 407 || response.data.code === 4008) {
             /* 删除本地 token */
             localStorage.removeItem('TOKEN');
+            /* 跳转到首页 */
+            // navigate('/');
             return Promise.reject(response.data.msg);
           }
           /* 服务端错误处理 */

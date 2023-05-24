@@ -7,6 +7,7 @@ import StepProgress from './StepProgress';
 import { IInvestment } from '../../../interfaces/trust';
 import Button from '../../../components/Button';
 import Approval from './Approval';
+import { useTrustDetailQuery } from '../../../api/trust/trust';
 
 export default function OrderCell({ item }: {
   item: IInvestment
@@ -15,6 +16,8 @@ export default function OrderCell({ item }: {
   const queryClient = useQueryClient();
   const { trustId } = useParams();
   const { t } = useTranslation();
+  const { trustId: trustInvestmentId } = useParams();
+  const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
 
   const cancelInvestment = async () => {
     axios.request({
@@ -24,20 +27,40 @@ export default function OrderCell({ item }: {
         trustInvestmentId: item.trustInvestmentId,
       },
     }).then((resp) => {
-      queryClient.invalidateQueries(['trust', 'investment']);
+      queryClient.invalidateQueries(['trust']);
+    });
+  };
+
+  const approveInvestment = async () => {
+    await axios.request({
+      url: '/trust/trust/investment/bill/check',
+      method: 'get',
+      params: {
+        billId: item.trustInvestmentId,
+        status: 2,
+      },
+    });
+    await queryClient.invalidateQueries(['trust']);
+  };
+
+  const navTo = () => {
+    navigate(`/trust/${trustId}/orders/detail`, {
+      state: {
+        trustInvestment: item,
+      },
     });
   };
 
   return (
     <div className="flex flex-col gap-4 gradient-block1 rounded-xl shadow-block p-8">
       {/* Header */}
-      <div className="flex flex-row items-center gap-2">
+      <div className="flex flex-row items-center gap-2 flex-wrap">
         <div className="text-[#C2D7C7F6] text-[20px] font-blod">
           {item.investmentCode}
         </div>
-        {item.benefitFlag && <OrderCellFlag title={t('Principal') ?? ''} />}
+        {item.benefitFlag && <OrderCellFlag title={t('Beneficiary') ?? ''} />}
         {item.protectionFlag && <OrderCellFlag title={t('Protector') ?? ''} />}
-        {item.entrustFlag && <OrderCellFlag title={t('Entrust') ?? ''} />}
+        {item.entrustFlag && <OrderCellFlag title={t('Settlor') ?? ''} />}
       </div>
       {/* Content */}
       <div className="flex flex-col gap-2 text-[#99AC9B] text-[16px] leading-[18px]">
@@ -48,30 +71,66 @@ export default function OrderCell({ item }: {
       </div>
       {/* Step */}
       <div className="mt-4">
-        <StepProgress investment={item} />
+        {item.investmentStatus <= 5 && (
+          <StepProgress
+            items={[
+              'Initiated',
+              'Under review',
+              'Investment in',
+              'Verifying',
+              'Completed',
+            ]}
+            current={item.investmentStatus - 1}
+          />
+        )}
+        {item.investmentStatus === 6 && (
+          <StepProgress
+            items={[
+              'Initiated',
+              'Verification failed',
+              'Investment in',
+              'Verifying',
+              'Completed',
+            ]}
+            current={1}
+            errorCurrent={2}
+          />
+        )}
+        {(item.investmentStatus === 7 || item.investmentStatus === 8) && (
+          <StepProgress
+            items={[
+              'Canceling',
+              'Cancelled',
+            ]}
+            current={item.investmentStatus - 7}
+          />
+        )}
       </div>
       {/* 分割线 */}
       <div className="h-[1px] mx-[-32px] bg-[#3B5649]" />
       {/* 操作 */}
-      <div className="flex flex-row items-center justify-center gap-4">
-        <Button size="medium" onClick={cancelInvestment}>{t('Cancel')}</Button>
+      <div className="flex flex-row flex-wrap items-center justify-center gap-4">
+        {trustQuery.data?.data?.roleType! > 2 && (
+          <Button size="medium" onClick={cancelInvestment}>{t('Cancel')}</Button>
+        )}
+        <Button size="medium" onClick={navTo}>{t('Approval')}</Button>
         <Button
           size="medium"
-          onClick={() => navigate(`/trust/${trustId}/orders/detail`, {
-            state: {
-              trustInvestment: item,
-            },
-          })}
+          onClick={navTo}
         >
-          {t('Approval')}
+          {t('Check')}
         </Button>
-        {/* todo：缺少点击事件 */}
-        <Button size="medium">{t('Check')}</Button>
       </div>
     </div>
   );
 }
 
-function OrderCellFlag({ title }: {title: string}) {
-  return <div className="font-title text-[14px] text-[#3D3228] px-3 py-[10px] font-bold rounded-xl bg-[#99AC9B]">{title}</div>;
+function OrderCellFlag({ title }: { title: string }) {
+  return (
+    <div
+      className="font-title text-[14px] text-[#3D3228] px-3 py-[10px] font-bold rounded-xl bg-[#99AC9B]"
+    >
+      {title}
+    </div>
+  );
 }

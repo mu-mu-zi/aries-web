@@ -13,6 +13,7 @@ import Navbar from '../../../views/Navbar';
 import { useAssetOverviewQuery } from '../../../api/trust/trust';
 import MiniCell from './MiniCell';
 import icon from '../../../assets/icon/dashbaor_thri.svg';
+import icon2 from '../../../assets/icon/dashboard_asi.svg';
 
 export default function Dashboard() {
   const location = useLocation();
@@ -32,7 +33,7 @@ export default function Dashboard() {
         <AssetOverview assetOverview={assetsOverviewQuery.data?.data} />
         <SimpleNotification />
         <BillingRecord />
-        <MiniCell logo={icon} title="Digital Asset Market" link="https://coinmarketcap.com" />
+        <MiniCell logo={icon2} title="Digital Asset Market" link="https://coinmarketcap.com" />
         <MiniCell logo={icon} title="Foreign Exchange Rate" link="https://www.dbs.com.hk/personal-zh/rates-online/foreign-currency-foreign-exchange.page" />
       </div>
     </div>

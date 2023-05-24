@@ -47,10 +47,10 @@ export default function KycVerify() {
           <div
             className="gradient-text1 text-shadow-block text-center font-title text-[40px] font-bold mt-12"
           >
-            {t('Welcome to Aries Trust Company')}
+            {t('Set up your proprietary trust')}
           </div>
           <div className="text-center font-title text-[20px] font-[400] text-[#C39770] mt-4">
-            {t('The most professional digital asset family trust service provider.')}
+            {t('In order to protect your assets and comply with the relevant laws and regulations, you are required to complete the trust contract.')}
           </div>
           {/* Step */}
           {detailQuery.data?.data && (
@@ -64,10 +64,10 @@ export default function KycVerify() {
               <div className="mt-12 max-w-[824px] w-full">
                 {detailQuery.data.data.stepId === 1 && <KYCCertificationStep trust={detailQuery.data.data} />}
                 {[2, 3].includes(detailQuery.data.data.stepId) && <ContractSigningStep trust={detailQuery.data.data} />}
-                {[4, 5].includes(detailQuery.data.data.stepId) && detailQuery.data.data.trustAssetType === 1 && <EstablishmentBitStep trust={detailQuery.data.data} />}
-                {[4, 5].includes(detailQuery.data.data.stepId) && detailQuery.data.data.trustAssetType === 2 && <EstablishmentFaitStep trust={detailQuery.data.data} />}
-                {detailQuery.data.data.stepId === 6 && detailQuery.data.data.trustAssetType === 1 && <CompletionBitStep trust={detailQuery.data.data} />}
-                {detailQuery.data.data.stepId === 6 && detailQuery.data.data.trustAssetType === 2 && <CompletionFiatStep trust={detailQuery.data.data} />}
+                {[4, 5].includes(detailQuery.data.data.stepId) && detailQuery.data.data.payType === 1 && <EstablishmentBitStep trust={detailQuery.data.data} />}
+                {[4, 5].includes(detailQuery.data.data.stepId) && detailQuery.data.data.payType === 2 && <EstablishmentFaitStep trust={detailQuery.data.data} />}
+                {detailQuery.data.data.stepId === 6 && detailQuery.data.data.payType === 1 && <CompletionBitStep trust={detailQuery.data.data} />}
+                {detailQuery.data.data.stepId === 6 && detailQuery.data.data.payType === 2 && <CompletionFiatStep trust={detailQuery.data.data} />}
               </div>
             </>
           )}

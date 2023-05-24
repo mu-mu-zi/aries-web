@@ -7,6 +7,7 @@ import copyIcon from '../../../assets/icon/copy.svg';
 import Modal from '../../../components/Modal';
 import TransactionVoucher from './TransactionVoucher';
 import { useInvestmentOrderRecodeQuery } from '../../../api/trust/investment';
+import { IInvestmentOrderRecode } from '../../../interfaces/trust';
 
 export default function BillRecords({ trustInvestmentId }: {
   trustInvestmentId: number
@@ -22,6 +23,7 @@ export default function BillRecords({ trustInvestmentId }: {
   const [approvalOpinionVisible, setApprovalOpinionVisible] = useState(false);
   const [investmentInstructionsVisible, setinvestmentInstructionsVisible] = useState(false);
   const { t } = useTranslation();
+  const [selected, setSelected] = useState<IInvestmentOrderRecode>();
 
   return (
     <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8 shadow-block">
@@ -53,21 +55,32 @@ export default function BillRecords({ trustInvestmentId }: {
                 {moment.unix(it.createTimeStamp / 1000).format('yyyy-MM-DD HH:mm:ss')}
               </td>
               <td>
+                {it.billStatus === 1 && (
                 <div
                   className="gradient-text2 text-right cursor-pointer"
                   onClick={() => {
+                    setSelected(it);
                     setTransactionVoucherVisible(true);
                   }}
                 >
                   {t('View credentials')}
                 </div>
+                )}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <Modal visible={transactionVoucherVisible}>
-        <TransactionVoucher />
+      <Modal
+        visible={transactionVoucherVisible}
+        onClose={() => setTransactionVoucherVisible(false)}
+      >
+        {selected && (
+          <TransactionVoucher
+            selected={selected}
+            onClose={() => setTransactionVoucherVisible(false)}
+          />
+        )}
       </Modal>
     </div>
   );

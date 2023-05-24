@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Dropdown from '../../../components/Dropdown';
@@ -13,6 +13,8 @@ export default function PaymentFiat() {
     trustId,
   });
   const [bank, setBank] = useState<IBank>();
+
+  useEffect(() => setBank(bankListQuery.data?.data?.[0]), [bankListQuery.data?.data]);
 
   return (
     <div className="flex flex-col gap-8">

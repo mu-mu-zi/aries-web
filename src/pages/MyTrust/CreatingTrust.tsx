@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import icon from '../../assets/icon/my_trust_logo.svg';
+import icon from '../../assets/icon/create_trust_logo.png';
 import Button from '../../components/Button';
 import Divide from '../../components/Divide';
 

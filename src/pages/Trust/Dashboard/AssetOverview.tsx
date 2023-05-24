@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Button from '../../../components/Button';
 import bgIcon from '../../../assets/icon/assets_overview_bg.svg';
 import { IAssetsOverview } from '../../../interfaces/trust';
+import { currencyFormat, currencyUSDTFormat } from '../../../utils/CurrencyFormat';
 
 export default function AssetOverview({ assetOverview }: {
   assetOverview?: IAssetsOverview
@@ -17,8 +18,8 @@ export default function AssetOverview({ assetOverview }: {
     <div className={classNames('gradient-border1', 'p-8', 'rounded-xl', 'overflow-clip', 'font-title font-bold', 'shadow-[-4px_8px_10px_0_#030c08]')}>
       <div className="bg-right-top bg-no-repeat m-[-32px] p-8" style={{ backgroundImage: `url(${bgIcon})` }}>
         <div className="text-[20px]">{t('Asset Overview')}</div>
-        <div className={classNames('mt-8 flex flex-row items-center gap-4')}>
-          <div className="text-[40px]">{assetOverview?.totalUSDT}</div>
+        <div className={classNames('mt-8 flex flex-row items-center flex-shrink-0 gap-4')}>
+          <div className="text-[40px]">{currencyUSDTFormat(assetOverview?.totalUSDT)}</div>
           <div className="text-[20px]">USD</div>
         </div>
         <div className={classNames('mt-[55px] flex flex-row gap-[20px]')}>

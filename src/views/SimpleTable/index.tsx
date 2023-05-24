@@ -27,20 +27,22 @@ export default function SimpleTable({ columns, data, pagination }: {
   return (
     <div className="flex flex-col">
       <table {...getTableProps()} className="table-auto w-full">
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps()}
-                  className="text-left text-[#99AC9B] text-[16px] py-4"
-                >
-                  {column.render('Header')}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
+        {data?.length != 0 && (
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th
+                    {...column.getHeaderProps()}
+                    className="text-left text-[#99AC9B] text-[16px] py-4"
+                  >
+                    {column.render('Header')}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+        )}
         <tbody {...getTableBodyProps()}>
           {rows.map((row, i) => {
             prepareRow(row);

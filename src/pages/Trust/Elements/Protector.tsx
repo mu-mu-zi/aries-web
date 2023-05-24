@@ -9,6 +9,7 @@ import Modal from '../../../components/Modal';
 import AddProtector from './AddProtector';
 import { useElementsUserQuery } from '../../../api/trust/elements';
 import SimpleTable from '../../../views/SimpleTable';
+import { useTrustDetailQuery } from '../../../api/trust/trust';
 
 export default function Protector() {
   const { trustId } = useParams();
@@ -21,12 +22,13 @@ export default function Protector() {
     trustId: Number(trustId),
     beneficiary: false,
   });
+  const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
 
   return (
     <div className="flex flex-col gap-4 rounded-xl shadow-block p-8 gradient-bg2 h-full">
       <div className="flex flex-row items-center justify-between">
         <div className="gradient-text1 font-title text-[20px]">{t('Protector')}</div>
-        <Button onClick={() => setAddProtectorVisible(true)}>{t('Add')}</Button>
+        {trustQuery.data?.data?.roleType! > 2 && <Button onClick={() => setAddProtectorVisible(true)}>{t('Add')}</Button>}
       </div>
       <Hr />
       {/* <div className="flex-1 flex flex-col gap-4 gradient-block1 shadow-block rounded-xl p-8"> */}

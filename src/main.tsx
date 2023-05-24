@@ -36,6 +36,11 @@ import Notification from './pages/Trust/Dashboard/Notification';
 import ChangeMobile from './pages/Security/ChangeMobile';
 import ChangeEmail from './pages/Security/ChangeEmail';
 import PersonalRealName from './pages/SignIn/PersonalRealName';
+import SCGAVerify from './pages/Security/SCGAVerify';
+import GAUnbind from './pages/Security/GAUnbind';
+import ManagerFee from './pages/Trust/BillAndResources/ManagerFee';
+import ExcessFee from './pages/Trust/BillAndResources/ExcessFee';
+import EstablishmentFee from './pages/Trust/BillAndResources/EstablishmentFee';
 
 const router = createBrowserRouter([
   {
@@ -88,10 +93,10 @@ const router = createBrowserRouter([
           {
             path: '/first/:trustId',
             children: [
-              {
-                path: '',
-                element: <FirstGuideWelcome />,
-              },
+              // {
+              //   path: '',
+              //   element: <FirstGuideWelcome />,
+              // },
               {
                 path: 'KycVerify',
                 element: <KycVerify />,
@@ -116,6 +121,14 @@ const router = createBrowserRouter([
               {
                 path: 'changeEmail',
                 element: <ChangeEmail />,
+              },
+              {
+                path: 'verify',
+                element: <SCGAVerify />,
+              },
+              {
+                path: 'gaUnbind',
+                element: <GAUnbind />,
               },
             ],
           },
@@ -179,6 +192,18 @@ const router = createBrowserRouter([
                 path: '',
                 element: <BillAndResources />,
               },
+              {
+                path: 'managerFee',
+                element: <ManagerFee />,
+              },
+              {
+                path: 'excessFee',
+                element: <ExcessFee />,
+              },
+              {
+                path: 'establishmentFee',
+                element: <EstablishmentFee />,
+              },
             ],
           },
         ],
@@ -199,7 +224,7 @@ i18n.use(initReactI18next)
     },
     lng: localStorage.getItem('LANGUAGE') ?? 'en',
     fallbackLng: 'en',
-    debug: true,
+    debug: false,
     interpolation: {
       escapeValue: false,
     },

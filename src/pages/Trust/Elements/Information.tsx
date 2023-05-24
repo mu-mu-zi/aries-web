@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Hr from '../../../components/Hr';
 import { useTrustDetailQuery } from '../../../api/trust/trust';
+import { CallFormat } from '../../../utils/CallFormat';
 
 export default function Information() {
   const { trustId } = useParams();
@@ -19,14 +20,16 @@ export default function Information() {
       <Hr />
       {
         detailQuery.data?.data && (
-        <div className="flex flex-row items-start justify-between">
-          <InformationCell title="Trust name" value={detailQuery.data?.data?.trustName} />
-          <InformationCell title="Establishment time" value={moment.unix(detailQuery.data.data.createTime / 1000).format()} />
-          {/* todo: Principal 属性 */}
-          <InformationCell title="Principal" value="Lee ***" />
-          <InformationCell title="Trust Type" value={detailQuery.data.data.trustEntrustTypeName} />
-          <InformationCell title="Status" value={detailQuery.data.data.trustStatusName} alignRight />
-        </div>
+          <div className="flex flex-row items-start justify-between">
+            <InformationCell title="Trust name" value={detailQuery.data?.data?.trustName} />
+            <InformationCell
+              title="Establishment time"
+              value={moment.unix(detailQuery.data.data.createTime / 1000).format('yyyy-MM-DD')}
+            />
+            <InformationCell title="Principal" value={CallFormat(detailQuery.data?.data?.userName)} />
+            <InformationCell title="Trust Type" value={detailQuery.data.data.trustEntrustTypeName} />
+            <InformationCell title="Status" value={detailQuery.data.data.trustStatusName} alignRight />
+          </div>
         )
       }
     </div>
@@ -34,9 +37,9 @@ export default function Information() {
 }
 
 function InformationCell({ title, value, alignRight }: {
-    title: string,
-    value?: string | number,
-    alignRight?: boolean,
+  title: string,
+  value?: string | number,
+  alignRight?: boolean,
 }) {
   return (
     <div className={classNames('flex-auto flex flex-col gap-4', {

@@ -29,7 +29,8 @@ export const useLedgerOrderListQuery = (data: {
 export const useExcessFeeListQuery = (data: {
   pageIndex: number,
   pageSize?: number,
-  trustId?: number
+  trustId?: number,
+  year?: number
 }) => {
   const userId = useUserId();
 

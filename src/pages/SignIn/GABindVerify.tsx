@@ -160,7 +160,7 @@ export default function GABindVerify() {
               />
             </div>
             <div className="mt-[40px] flex flex-row gap-4">
-              <Button size="medium" block>
+              <Button type="button" onClick={() => navigate(-1)} size="medium" block>
                 {t('Cancel')}
               </Button>
               <Button size="medium" block type="submit">

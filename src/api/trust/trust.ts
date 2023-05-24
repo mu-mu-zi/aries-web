@@ -17,7 +17,7 @@ import { IStationMessage } from '../../interfaces/message';
 * 信托详情
 * */
 export const useTrustDetailQuery = (data: {
-  trustId: number
+  trustId?: number
 }) => {
   const userId = useUserId();
 
@@ -28,7 +28,7 @@ export const useTrustDetailQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId,
+    enabled: !!userId && !!data.trustId,
   });
 };
 

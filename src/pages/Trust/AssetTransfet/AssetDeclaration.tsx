@@ -32,7 +32,7 @@ export default function AssetDeclaration({ assetModeChange }: {
           />
         </div>
         {/* eslint-disable-next-line no-nested-ternary */}
-        {isDigital ? <AssetDigitalDeclaration /> : (bankListQuery.data?.data?.length === 0 ? <div className="text-[#C2D7C7F6]">开立中...</div> : <AssetFiatDeclaration />)}
+        {isDigital ? <AssetDigitalDeclaration /> : (bankListQuery.data?.data?.length === 0 ? <div className="text-[#C2D7C7F6]">Opening in progress</div> : <AssetFiatDeclaration />)}
       </div>
     </div>
   );

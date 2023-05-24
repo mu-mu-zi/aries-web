@@ -1,6 +1,6 @@
 import React from 'react';
 import { retry } from '@reduxjs/toolkit/query';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import alertIcon from '../../../assets/icon/alert.svg';
 import { useTrustFeeListQuery } from '../../../api/trust/order';
@@ -15,13 +15,26 @@ export default function Fees() {
   const titleFormat = (type: number) => {
     switch (type) {
       case 1:
-        return t('信托管理费');
+        return t('Trust management fee');
       case 2:
-        return t('超额管理费');
+        return t('Excess transfer fee');
       case 3:
-        return t('设立费');
+        return t('Establishment Fee');
       default:
         return undefined;
+    }
+  };
+
+  const linkTo = (type: number) => {
+    switch (type) {
+      case 1:
+        return `/trust/${trustId}/billAndResources/managerFee`;
+      case 2:
+        return `/trust/${trustId}/billAndResources/excessFee`;
+      case 3:
+        return `/trust/${trustId}/billAndResources/establishmentFee`;
+      default:
+        return `/trust/${trustId}`;
     }
   };
 
@@ -33,6 +46,7 @@ export default function Fees() {
           subtitle={it.feeStatus}
           amount={it.feeAmount}
           suffix="USD"
+          to={linkTo(it.feeType)}
         />
       ))}
     </div>
@@ -40,15 +54,16 @@ export default function Fees() {
 }
 
 function FeesCell({
-  title, subtitle, amount, suffix,
+  title, subtitle, amount, suffix, to,
 }: {
-    title?: string,
-    subtitle: string,
-    amount: string,
-    suffix: string
+  title?: string,
+  subtitle: string,
+  amount: string,
+  suffix: string,
+  to: string
 }) {
   return (
-    <div className="flex flex-col gap-2 p-8 gradient-block1 rounded-xl">
+    <NavLink to={to} className="flex flex-col gap-2 p-8 gradient-block1 rounded-xl">
       <div className="flex flex-row gap-2 items-center">
         <div className="gradient-text1">{title}</div>
         <div>
@@ -60,6 +75,6 @@ function FeesCell({
         <div className="gradient-text1 text-[40px]">{amount}</div>
         <div className="gradient-text1 text-[20px]">{suffix}</div>
       </div>
-    </div>
+    </NavLink>
   );
 }

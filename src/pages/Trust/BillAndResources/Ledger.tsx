@@ -19,12 +19,20 @@ export default function Ledger() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-4">
-        <div className="flex-auto"><Dropdown title="All" /></div>
-        <div className="flex-auto"><Dropdown title="All" /></div>
-        <div className="flex-auto"><Dropdown title="All" /></div>
-        <div>Reset</div>
-      </div>
+      <form>
+        <div className="flex items-center gap-4">
+          <div className="flex-auto">
+            <Dropdown title="All" />
+          </div>
+          <div className="flex-auto">
+            <Dropdown title="All" />
+          </div>
+          <div className="flex-auto">
+            <Dropdown title="All" />
+          </div>
+          <div>Reset</div>
+        </div>
+      </form>
       <SimpleTable
         columns={[
           {

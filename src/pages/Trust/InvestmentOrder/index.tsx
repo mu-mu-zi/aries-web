@@ -9,6 +9,7 @@ import { useInvestmentOrderQuery } from '../../../api/trust/investment';
 import Modal from '../../../components/Modal';
 import CreatingCommand from './CreatingCommand';
 import Paginate from '../../../components/Paginate';
+import { useTrustDetailQuery } from '../../../api/trust/trust';
 
 export default function InvestmentOrder() {
   const { trustId } = useParams();
@@ -20,6 +21,7 @@ export default function InvestmentOrder() {
     pageSize: 5,
   });
   const [creatingVisible, setCreatingVisible] = useState(false);
+  const trustDetailQuery = useTrustDetailQuery({ trustId: Number(trustId) });
 
   return (
     <div className="flex flex-col">
@@ -27,7 +29,7 @@ export default function InvestmentOrder() {
         title={t('Investment Order')}
         description={t('The principal can use the investment instruction function to indicate investment intentions and directions to Aries Digital Group, and request investment operations to be carried out according to the principal\'s instructions. Throughout the process, the principal can adjust investment instructions based on market fluctuations and investment directions.') ?? ''}
         logo={logo}
-        btn={<Button onClick={() => setCreatingVisible(true)}>{t('Creating a command')}</Button>}
+        btn={(trustDetailQuery.data?.data?.roleType ?? 0) > 2 && <Button onClick={() => setCreatingVisible(true)}>{t('Creating a command')}</Button>}
       />
       <div
         className="gradient-bg2 roundex-xl shadow-block grid grid-cols-2  gap-4 p-8 rounded-xl"
@@ -43,7 +45,10 @@ export default function InvestmentOrder() {
         </div>
       </div>
 
-      <Modal visible={creatingVisible} onClose={() => setCreatingVisible(false)}>
+      <Modal
+        visible={creatingVisible}
+        onClose={() => setCreatingVisible(false)}
+      >
         <CreatingCommand onClose={() => setCreatingVisible(false)} />
       </Modal>
     </div>

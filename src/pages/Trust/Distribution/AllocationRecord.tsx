@@ -1,31 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Hr from '../../../components/Hr';
+import { useDistributionBillQuery } from '../../../api/trust/distribution';
+import SimpleTable from '../../../views/SimpleTable';
+import { unixFormatTime } from '../../../utils/DateFormat';
 
 export default function AllocationRecord() {
+  const { trustId } = useParams();
+  const [page, setPage] = useState(1);
+  const listQuery = useDistributionBillQuery({
+    trustId: Number(trustId),
+    pageIndex: page,
+    pageSize: 5,
+  });
+
   return (
     <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8">
       <div className="gradient-text1 font-title font-blod text-[20px]">Allocation Record</div>
-      <div><Hr /></div>
-      <table>
-        <thead>
-          <tr>
-            <th>Beneficiary</th>
-            <th>Time</th>
-            <th>Currency</th>
-            <th>Amount</th>
-            <th>Reconciliation</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Lee ***</td>
-            <td>2023-03-30 12:00:00</td>
-            <td>BTC</td>
-            <td>-5.20 BTC</td>
-            <td>View credentials</td>
-          </tr>
-        </tbody>
-      </table>
+      <Hr />
+      <SimpleTable
+        columns={[
+          {
+            Header: 'Beneficiary',
+            accessor: 'beneficiary',
+          },
+          {
+            Header: 'Time',
+            accessor: (x) => unixFormatTime(x.createTimeStamp),
+          },
+          {
+            Header: 'Currency',
+            accessor: (x) => x.coinName,
+          },
+          {
+            Header: () => (<div className="text-right">Amount</div>),
+            accessor: 'quantity',
+            // eslint-disable-next-line react/prop-types
+            Cell: ({ row }) => (
+              // eslint-disable-next-line react/prop-types
+              <div className="text-right text-[16px] gradient-text2">{row.original.quantity}</div>
+            ),
+          },
+          {
+            Header: () => (<div className="text-right">Reconciliation</div>),
+            accessor: 'reconciliation',
+            // eslint-disable-next-line react/prop-types
+            Cell: ({ row }) => (
+              <div className="gradient-text2 font-title font-bold text-[14px] text-right cursor-pointer">View credentials</div>
+            ),
+          },
+        ]}
+        data={listQuery.data?.data?.records}
+      />
     </div>
   );
 }

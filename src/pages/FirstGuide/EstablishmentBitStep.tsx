@@ -30,7 +30,7 @@ export default function EstablishmentBitStep({ trust }: {
         </div>
       </div>
       <div className="flex flex-row items-center justify-center py-5 px-8 gradient-block1 rounded-xl shadow-block">
-        <QrCode text={trust.safeHeronAddress} size={160} />
+        {trust.safeHeronAddress && <QrCode text={trust.safeHeronAddress} size={160} />}
       </div>
     </div>
   );

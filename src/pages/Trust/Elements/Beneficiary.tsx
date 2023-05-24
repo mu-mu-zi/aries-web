@@ -9,6 +9,7 @@ import Modal from '../../../components/Modal';
 import AddBeneficiary from './AddBeneficiary';
 import SimpleTable from '../../../views/SimpleTable';
 import { useElementsUserQuery } from '../../../api/trust/elements';
+import { useTrustDetailQuery } from '../../../api/trust/trust';
 
 export default function Beneficiary() {
   const { trustId } = useParams();
@@ -21,12 +22,13 @@ export default function Beneficiary() {
   });
   const [addBeneficiaryVisible, setAddBeneficiaryVisible] = useState(false);
   const { t } = useTranslation();
+  const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
 
   return (
     <div className="flex flex-col gap-4 rounded-xl shadow-block p-8 gradient-bg2">
       <div className="flex flex-row items-center justify-between">
         <div className="gradient-text1 font-title text-[20px]">{t('Beneficiary')}</div>
-        <Button onClick={() => setAddBeneficiaryVisible(true)}>{t('Add')}</Button>
+        {trustQuery.data?.data?.roleType! > 2 && <Button onClick={() => setAddBeneficiaryVisible(true)}>{t('Add')}</Button>}
       </div>
       <Hr />
       {/* <div className="flex flex-col gap-4 gradient-block1 shadow-block rounded-xl p-8"> */}

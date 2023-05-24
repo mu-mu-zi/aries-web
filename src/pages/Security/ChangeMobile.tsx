@@ -72,8 +72,13 @@ export default function ChangeMobile() {
   const submit = async (data: FormValid) => {
     try {
       await axios.post('/user/user/updateCheck', data);
-      await queryClient.invalidateQueries(['user']);
-      navigate(-1);
+      navigate('/personal/verify', {
+        state: {
+          account: data.mobile,
+          areaCodeId: data.areaCodeId,
+        },
+        replace: true,
+      });
     } catch (e) {
       console.log(e);
     }

@@ -19,9 +19,22 @@ export const addNotification = (
     message: content,
     type,
     dismiss: {
-      duration: 3 * 1000,
+      duration: 2 * 1000,
       waitForAnimation: false,
-      onScreen: true,
     },
+  });
+};
+
+export const addSuccessNotification = ({
+  title,
+  content,
+}: {
+  title: string,
+  content?: string
+}) => {
+  addNotification({
+    title,
+    content,
+    type: 'success',
   });
 };

@@ -64,9 +64,10 @@ export default function Sidebar() {
           {
             [
               [personIcon, t('Personal'), '/personal'],
-              [messageIcon, t('Message'), '/message'],
-              [languageIcon, t('Language'), '/language'],
-              [notifyIcon, t('Notification'), '/notify'],
+              [messageIcon, t('Message'), `/trust/${trustId}/notification`],
+              /* todo: 国际化切换 */
+              // [languageIcon, t('Language'), `/trust/${trustId}`],
+              [notifyIcon, t('Notification'), `/trust/${trustId}/notification`],
               [exitIcon, t('Exit'), '/my'],
             ].map(([icon, alt, to], idx) => (
               <div

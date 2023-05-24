@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import Hr from '../../components/Hr';
@@ -68,7 +68,7 @@ export default function Security() {
               </div>
             </div>
             <Hr />
-            <div className="flex flex-row justify-between gap-8 cursor-pointer" onClick={() => navigate('/loginLog')}>
+            <NavLink to="/loginLog" className="flex flex-row justify-between gap-8 cursor-pointer">
               <div className="flex flex-col gap-2 text-[#99AC9B] text-[16px]">
                 <div className="font-bold text-[20px]">{t('Login Log')}</div>
                 <div className="text-[16px]">
@@ -77,7 +77,7 @@ export default function Security() {
                 </div>
               </div>
               <img width="32px" src={arrowR} alt="" />
-            </div>
+            </NavLink>
           </div>
           {/* V */}
           <div className="flex flex-col rounded-xl gradient-bg2">
@@ -105,7 +105,12 @@ export default function Security() {
                   </div>
                 </div>
                 <div className="flex flex-row items-center gap-4 font-title text-[14px]">
-                  <div className="gradient-text2 cursor-pointer" onClick={() => navigate('/personal/changeEmail')}>{user.data?.data?.emailAuth ? t('Change') : t('Bind')}</div>
+                  <NavLink
+                    className="gradient-text2 cursor-pointer"
+                    to="/personal/changeEmail"
+                  >
+                    {user.data?.data?.emailAuth ? t('Change') : t('Bind')}
+                  </NavLink>
                 </div>
               </div>
               <Hr />
@@ -119,7 +124,12 @@ export default function Security() {
                   </div>
                 </div>
                 <div className="flex flex-row items-center gap-4 font-title text-[14px]">
-                  <div className="gradient-text2 cursor-pointer" onClick={() => navigate('/personal/changeMobile')}>{user.data?.data?.mobileAuth ? t('Change') : t('Bind')}</div>
+                  <NavLink
+                    to="/personal/changeMobile"
+                    className="gradient-text2 cursor-pointer"
+                  >
+                    {user.data?.data?.mobileAuth ? t('Change') : t('Bind')}
+                  </NavLink>
                 </div>
               </div>
               <Hr />
@@ -129,7 +139,9 @@ export default function Security() {
                   <div className="text-[20px] font-bold">{t('Google verification')}</div>
                 </div>
                 <div className="flex flex-row items-center gap-4 font-title text-[14px]">
-                  <div className="gradient-text2 cursor-pointer">{t('Change')}</div>
+                  <NavLink to="/personal/gaUnbind">
+                    <div className="gradient-text2 cursor-pointer">{t('Change')}</div>
+                  </NavLink>
                 </div>
               </div>
             </div>

@@ -63,7 +63,7 @@ export default function GAGuide() {
 
 function ChannelButton({ icon, text }: { icon: string; text: string }) {
   return (
-    <div className="flex items-center justify-center h-[88px] w-[218px] flex-row gap-4 overflow-clip rounded-xl bg-[#3B5649] shadow-block cursor-pointer">
+    <div className="flex items-center justify-center h-[88px] w-[200px] flex-row gap-4 overflow-clip rounded-xl bg-[#3B5649] shadow-block cursor-pointer">
       <img src={icon} alt={text} width="24px" />
       <div className="gradient-text1 text-[20px]">{text}</div>
     </div>

@@ -53,7 +53,9 @@ export default function GAVerify() {
         localStorage.setItem('TOKEN', token);
         await queryClient.invalidateQueries();
       }
-      navigate('/');
+      navigate('/', {
+        replace: true,
+      });
     }
   };
 

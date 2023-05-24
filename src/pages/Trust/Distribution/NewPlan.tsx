@@ -33,14 +33,12 @@ export default function NewPlan({ trustId, onClose }: {
   const { t } = useTranslation();
 
   const submit = async (data: FormValid) => {
-    /* todo: 固定 ID */
     await axios.post('/trust/trust/distribution/plan/add', {
       trustId,
       ...data,
-    }).then((resp) => {
-      queryClient.invalidateQueries(['trust']);
-      onClose?.();
     });
+    onClose?.();
+    await queryClient.invalidateQueries(['trust']);
   };
 
   return (

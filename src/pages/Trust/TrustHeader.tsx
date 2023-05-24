@@ -14,7 +14,7 @@ export default function TrustHeader({
   return (
     <div className="flex flex-row justify-between items-center gap-4 p-8">
       <div className="flex flex-col gap-4">
-        <div className="gradient-text1 font-bold text-[40px] text-shadow-block">
+        <div className="gradient-text1 font-bold font-title text-[40px] text-shadow-block">
           {title}
         </div>
         <div className="text-[#C39770] text-[20px] font-title max-w-[780px]">{description}</div>

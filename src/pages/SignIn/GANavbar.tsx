@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames';
 
 export default function GANavbar({ title, description }: { title: string; description?: string | null }) {
   const navigate = useNavigate();
@@ -19,7 +20,12 @@ export default function GANavbar({ title, description }: { title: string; descri
         </svg>
       </div>
       <div className="flex-auto flex flex-col gap-2">
-        <div className="color-[#3D3228] font-blod text-[24px] leading-[32px]">{title}</div>
+        <div
+          onClick={() => navigate(-1)}
+          className={classNames('color-[#3D3228] font-bold font-title text-[24px] leading-[32px] cursor-pointer')}
+        >
+          {title}
+        </div>
         {description && <div className="text-[14px] leading-[16px] text-[#695D52]">{description}</div>}
       </div>
     </div>

@@ -5,6 +5,7 @@ import GradientBox from '../../../components/GradientBox';
 import symbolIcon from '../../../assets/icon/dashboard/icon_usdt.svg';
 import arrowUp from '../../../assets/icon/arrow_up.svg';
 import { IAssetsOverview, IDigitalAssets } from '../../../interfaces/trust';
+import { currencyFormat, currencyUSDTFormat } from '../../../utils/CurrencyFormat';
 
 export default function DigitalAssets({ assetOverview }: {
   assetOverview?: IAssetsOverview
@@ -25,18 +26,18 @@ export default function DigitalAssets({ assetOverview }: {
       >
         <div>{t('Digital Assets')}</div>
         {/* todo: 这里的 total 是错误的 */}
-        <div>{`${assetOverview?.totalUSDT} USD`}</div>
+        <div>{`${currencyUSDTFormat(assetOverview?.totalUSDT)} USD`}</div>
       </div>
       {assetOverview?.digitalAssets.map((it) => (
         <div className={classNames('gradient-block1', 'shadow-block', 'rounded-xl')}>
           <div className="flex flex-row gap-4 items-center h-[80px] px-8">
             <div className="gradient-text1 text-[20px] font-bold flex-auto">{it.name}</div>
-            <div className="gradient-text1 text-[20px] font-bold">{`${it.totalUSDT} USD`}</div>
-            <img src={arrowUp} alt="" />
+            <div className="gradient-text1 text-[20px] font-bold">{`${currencyUSDTFormat(it.totalUSDT)} USD`}</div>
+            {it.details?.filter((x) => x.amount > 0).length > 0 && <img src={arrowUp} alt="" />}
           </div>
-          {it.details?.length > 0 && (
+          {it.details?.filter((x) => x.amount > 0).length > 0 && (
             <div className="flex flex-col gap-6 p-8 bg-divider rounded-b-xl bg-[#314C40]">
-              {it.details?.map((d) => (
+              {it.details?.filter((x) => x.amount > 0).map((d) => (
                 <Cell
                   icon={symbolIcon}
                   amount={d.amount}

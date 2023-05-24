@@ -46,7 +46,7 @@ export default function AddBeneficiary({ trustId, onClose }: {
     gender: z.nativeEnum(Gender).optional(),
     remark: z.string().optional(),
     areaCodeId: z.number().optional(),
-    userEmail: z.string().email().optional(),
+    userEmail: z.string().optional(),
     userMobile: z.string().optional(),
     roleType: z.nativeEnum(RoleType).optional(),
   });

@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useQueryClient } from '@tanstack/react-query';
 import TextField from '../../../components/TextField';
 import Button from '../../../components/Button';
 import { useFiatListQuery } from '../../../api/trust/trust';
 import Dropdown from '../../../components/Dropdown';
+import { addSuccessNotification } from '../../../utils/Notification';
 
 export default function AssetFiatDeclaration() {
   const { t } = useTranslation();
@@ -19,7 +21,7 @@ export default function AssetFiatDeclaration() {
     fiatId: z.number(),
     amount: z.coerce.number().gt(0),
     expectedTime: z.string().nonempty(),
-    bank: z.string(),
+    bank: z.string().nonempty(),
     bankCardNo: z.string().optional(),
     address: z.string().optional(),
   });
@@ -29,10 +31,20 @@ export default function AssetFiatDeclaration() {
     handleSubmit,
     control,
     resetField,
+    reset,
+    setValue,
     formState: { errors },
   } = useForm<FormValid>({
     resolver: zodResolver(valid),
   });
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const one = fiatListQuery.data?.data?.[0];
+    if (one) {
+      setValue('fiatId', one.id);
+    }
+  }, [fiatListQuery.data?.data]);
 
   const submit = async (data: FormValid) => {
     await axios.post('/trust/assetDeclare/apply', {
@@ -46,13 +58,23 @@ export default function AssetFiatDeclaration() {
       bankName: data.bank,
       payAddress: data.address,
     });
+    addSuccessNotification({
+      title: '提交成功',
+    });
+    reset();
+    await queryClient.invalidateQueries(['trust']);
   };
 
   return (
     <form onSubmit={handleSubmit(submit)}>
       <div className="flex flex-col gap-3">
         <div className="font-blod text-[#C2D7C7F6]">{t('Declaration information')}</div>
-        <TextField requiredLabel label={'Payer\'s name'} {...register('name')} />
+        <TextField
+          requiredLabel
+          label={'Payer\'s name'}
+          placeholder={t('Please enter the payer\'s name') ?? ''}
+          {...register('name')}
+        />
         <Controller
           name="fiatId"
           control={control}
@@ -87,7 +109,7 @@ export default function AssetFiatDeclaration() {
         <TextField
           label={t('Bank card number (optional)')}
           placeholder={t('Please enter your payment card number') ?? ''}
-          {...register('bank')}
+          {...register('bankCardNo')}
         />
         <TextField
           label={t('Payer\'s address (optional)')}

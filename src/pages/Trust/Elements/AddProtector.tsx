@@ -44,7 +44,7 @@ export default function AddProtector({ trustId, onClose }: {
     userName: z.string().optional(),
     gender: z.nativeEnum(Gender).optional(),
     areaCodeId: z.number().optional(),
-    userEmail: z.string().email().optional(),
+    userEmail: z.string().optional(),
     userMobile: z.string().optional(),
     roleType: z.nativeEnum(RoleType).optional(),
     accountType: z.nativeEnum(AccountType).optional(),
@@ -184,7 +184,7 @@ export default function AddProtector({ trustId, onClose }: {
                 <Controller
                   render={({ field }) => {
                     const enums = [
-                      { value: RoleType.No, name: t('No') },
+                      // { value: RoleType.No, name: t('No') },
                       { value: RoleType.ReadOnly, name: t('Read Only') },
                       { value: RoleType.Approval, name: t('Approval') },
                     ];

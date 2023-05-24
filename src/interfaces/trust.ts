@@ -33,6 +33,8 @@ export interface TrustDetail {
   bankName: string;
   bankAddress: string;
   bankAccount: string;
+  payType: number
+  roleType: number
 }
 
 export interface Trust {
@@ -49,6 +51,7 @@ export interface Trust {
   bankAccount: boolean;
   digitalCurrencyAccount: boolean;
   stepId: number;
+  roleType: number
 }
 
 export interface IDigitalAssetsDetail {
@@ -69,6 +72,7 @@ export interface IFiatAssetsDetail {
   totalAmountUSDT: number;
   amount: number;
   details: IFiatAssetsDetails2[];
+  e_expand: boolean
 }
 
 export interface IFiatAssetsDetails2 {
@@ -180,4 +184,51 @@ export interface ILaw {
   id: number;
   title?: string;
   lawFilePath: string;
+}
+
+export interface IDistributionBill {
+  beneficiaryUserName: string
+  billCertificate: string
+  billId: number
+  billStatus: number
+  billStatusName: string
+  coinName: string
+  createTimeStamp: number
+  quantity: number
+}
+
+export interface ITrustManageFeeRecord {
+  amount: string
+  coinName: string
+  createTimeStamp: number
+  currencyPrice: string
+  managementFeeApr: string
+  totalAmount: string
+  totalTrustAmount: string
+}
+
+export interface ITrustExcessFeeRecord {
+  amount: string
+  coinName: string
+  createTimeStamp: number
+  currencyPrice: string
+  managementFeeApr: string
+  totalAmount: string
+  totalTrustAmount: string
+}
+
+export interface ITrustEstablishment {
+  amount: string
+  billCertificate: string
+  billCode: string
+  billId: number
+  billStatusName: string
+  billType: number
+  billTypeName: string
+  coinName: string
+  createTimeStamp: number
+  initialCost: string
+  trustCoinQuantity: string
+  trustId: number
+  trustName: string
 }

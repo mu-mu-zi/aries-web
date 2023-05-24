@@ -43,9 +43,6 @@ export default function ChangeEmail() {
       await trigger('email', {
         shouldFocus: true,
       });
-      // sendValidateCodeMutation.mutate({
-      //   account: getValues('email'),
-      // });
       await axios.post('/user/send/sendSmsCode', {
         account: getValues('email'),
       });
@@ -59,8 +56,12 @@ export default function ChangeEmail() {
   const submit = async (data: FormValid) => {
     try {
       await axios.post('/user/user/updateCheck', data);
-      await queryClient.invalidateQueries(['user']);
-      navigate(-1);
+      navigate('/personal/verify', {
+        state: {
+          account: data.email,
+        },
+        replace: true,
+      });
     } catch (e) {
       console.log(e);
     }
@@ -87,15 +88,7 @@ export default function ChangeEmail() {
             <div>
               <TextInput
                 {...register('securityCode')}
-                suffix={(
-                  <SendButton onClick={sendValidCode} />
-                  // <div
-                  //   className="cursor-pointer font-bold gradient-text1 text-[20px] px-2"
-                  //   onClick={sendValidCode}
-                  // >
-                  //   {t('Send')}
-                  // </div>
-                )}
+                suffix={(<SendButton onClick={sendValidCode} />)}
               />
             </div>
           </div>

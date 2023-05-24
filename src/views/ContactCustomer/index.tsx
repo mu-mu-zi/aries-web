@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,6 +17,7 @@ import Select from '../../components/Select';
 import CenterContainer from '../CenterContainer';
 import { useAreaCodeListQuery } from '../../api/base/areaCode';
 import Dropdown from '../../components/Dropdown';
+import { useTrustContactEmailQuery } from '../../api/base/email';
 
 export default function ContactCustomer() {
   const navigate = useNavigate();
@@ -41,6 +42,11 @@ export default function ContactCustomer() {
   } = useForm<FormValid>({
     resolver: zodResolver(valid),
   });
+  // const { trustId } = useParams();
+  const location = useLocation();
+  const emailQuery = useTrustContactEmailQuery(
+    { trustId: location.state?.trustId && Number(location.state.trustId) },
+  );
 
   useEffect(() => {
     setValue('areaCodeId', areaCodeListQuery.data?.data?.[0].id);
@@ -53,7 +59,14 @@ export default function ContactCustomer() {
         contactEmail: isPhone ? undefined : data.account,
         contactMobile: isPhone ? data.account : undefined,
       });
-      navigate(-1);
+      navigate('/status', {
+        replace: true,
+        state: {
+          title: 'Submit successfully',
+          description: 'Applications will be processed within 1 business day, please keep it open for customer service to contact you.',
+          navTo: '/contactCustomer',
+        },
+      });
     } catch (e) {
       console.log(e);
     }
@@ -108,7 +121,7 @@ export default function ContactCustomer() {
               </Button>
             </div>
             <div className="text-[#708077] text-[14px] leading-[16px] mt-10">
-              The application will be processed within one working day, please keep your communication channels open so that customer service can contact you in a timely manner. Additionally, you can also contact the platform through sales@aries-trust.com.
+              {`The application will be processed within one working day, please keep your communication channels open so that customer service can contact you in a timely manner. Additionally, you can also contact the platform through ${emailQuery.data?.data}.`}
             </div>
           </div>
         </form>

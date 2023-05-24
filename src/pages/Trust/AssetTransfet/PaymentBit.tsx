@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -23,6 +23,12 @@ export default function PaymentBit() {
   });
   const { t } = useTranslation();
 
+  useEffect(() => setMainNet(mainNetListQuery.data?.data?.[0]), [mainNetListQuery.data?.data]);
+  useEffect(() => {
+    const one = mainNetCoinListQuery.data?.data?.[0];
+    if (one) { setCoin(one); }
+  }, [mainNetCoinListQuery.data?.data]);
+
   return (
     <div className="flex flex-col gap-4">
       <div className="text-[#C2D7C7F6] font-blod text-[16px]">{t('Receiving address')}</div>
@@ -45,7 +51,7 @@ export default function PaymentBit() {
       )}
       {addressQuery.data?.data && (
         <>
-          <PaymentRow title="Receiving address" value={addressQuery.data?.data} />
+          <PaymentRow title="Receiving address" value={addressQuery.data?.data} canCopy />
           <div className="grid place-items-center p-3 bg-[#3B5649] shadow-btn rounded-xl self-start">
             <QrCode text={addressQuery.data?.data} size={136} />
           </div>

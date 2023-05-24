@@ -40,14 +40,17 @@ export default function CreatingCommand({ onClose }: {
       trustId: Number(trustId),
       ...data,
     }).then((resp) => {
-      queryClient.invalidateQueries(['trust', 'investment']);
       onClose?.();
+      queryClient.invalidateQueries(['trust']);
     });
   };
 
   return (
     <ModalContainer>
-      <ModalNav title={t('Investment instructions')} onClose={onClose} />
+      <ModalNav
+        title={t('Investment instructions')}
+        onClose={onClose}
+      />
       <div className="flex flex-col">
         <form onSubmit={handleSubmit(submit)}>
           {/* todo: 这里的表单输入框缺少内阴影，文字颜色 */}
@@ -62,13 +65,13 @@ export default function CreatingCommand({ onClose }: {
                   <textarea
                     {...register('investmentSuggestion')}
                     className="w-full text-[16px] placeholder:text-[#708077] h-[320px] bg-[#3B5649] py-4 px-6 outline-none rounded-xl resize-none"
-                    placeholder={t(`To better handle investment instructions, please describe them as completely as possible, including the following:
-1.Investment objective: specify the target and purpose of the trust assets to be invested, such as capital appreciation or income growth.
-2.Investment target: determine the specific investment targets, such as stocks, bonds, real estate, etc.
-3.Investment scope: determine the scope and limitations of the investment, such as investment regions, industries, risk levels, etc.
-4.Investment strategy: develop an investment strategy, such as diversified investment, portfolio adjustment, dynamic asset allocation, etc.
-5.Investment risk: determine risk management measures for investment, such as using hedging tools to reduce market risk, establishing risk control systems, etc.
-6.Investment returns: determine the distribution method and proportion of investment returns, such as reinvestment of returns, proportional distribution, etc.
+                    placeholder={t(`To better handle investment instructions, please describe them as completely as possible, including the following: \r\n
+1.Investment objective: specify the target and purpose of the trust assets to be invested, such as capital appreciation or income growth. \r\n
+2.Investment target: determine the specific investment targets, such as stocks, bonds, real estate, etc. \r\n
+3.Investment scope: determine the scope and limitations of the investment, such as investment regions, industries, risk levels, etc. \r\n
+4.Investment strategy: develop an investment strategy, such as diversified investment, portfolio adjustment, dynamic asset allocation, etc. \r\n
+5.Investment risk: determine risk management measures for investment, such as using hedging tools to reduce market risk, establishing risk control systems, etc. \r\n
+6.Investment returns: determine the distribution method and proportion of investment returns, such as reinvestment of returns, proportional distribution, etc. \r\n
 7.Investment term: determine the investment term and subsequent processing methods, such as long-term holding, regular adjustment, early exit, etc.`) ?? ''}
                   />
                 </div>

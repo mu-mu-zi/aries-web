@@ -47,8 +47,8 @@ export default function EditPersonal({ onClose }: {
       method: 'get',
       params: data,
     });
-    await queryClient.invalidateQueries(['user']);
     onClose?.();
+    await queryClient.invalidateQueries(['user']);
   };
 
   useEffect(() => {
