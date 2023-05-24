@@ -35,6 +35,7 @@ export interface TrustDetail {
   bankAccount: string;
   payType: number
   roleType: number
+  surname: string
 }
 
 export interface Trust {
@@ -58,6 +59,7 @@ export interface IDigitalAssetsDetail {
   amount: number;
   symbol: string;
   price: number
+  image: string
 }
 
 export interface IDigitalAssets {
@@ -80,6 +82,7 @@ export interface IFiatAssetsDetails2 {
   symbol: string;
   amount: number;
   name: number
+  image: string
 }
 
 export interface IFiatAssets {
@@ -231,4 +234,27 @@ export interface ITrustEstablishment {
   trustCoinQuantity: string
   trustId: number
   trustName: string
+}
+
+export interface ITrustAssetRecode {
+  id: number
+  trustId: number
+  trustName: string
+  payType: number
+  coinId: number
+  symbol: string
+  payAddress: string
+  bankAddress: any
+  payUserName: string
+  bankName: string
+  amount: string
+  declareNo: string
+  estimateTime: string
+  status: number
+  payNo: string
+  remarks: any
+  adminRemarks: any
+  createTime: number
+  updateTime: number
+  proofs: any[]
 }

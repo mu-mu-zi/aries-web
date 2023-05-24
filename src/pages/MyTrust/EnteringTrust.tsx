@@ -6,7 +6,7 @@ import icon from '../../assets/icon/my_trust_logo.svg';
 import Button from '../../components/Button';
 import Divide from '../../components/Divide';
 import bankIcon from '../../assets/icon/coin_bank.svg';
-import setterLogo from '../../assets/icon/trust_setter.png';
+import setterLogo from '../../assets/icon/trust_banhuren.png';
 import befLogo from '../../assets/icon/trust_bef.png';
 import { Trust } from '../../interfaces/trust';
 
@@ -32,6 +32,28 @@ export default function EnteringTrust({ trust }: {
     }
   };
 
+  /*
+  * 1-委托人，2-明确受益人，3-非明确受益人，4-保护人，5-继位保护人，6-第二位继位保护人
+  * */
+  const userType = (type: number) => {
+    switch (type) {
+      case 1:
+        return 'Trustor';
+      case 2:
+        return 'Clear Beneficiary';
+      case 3:
+        return 'Non-Clear Beneficiary';
+      case 4:
+        return 'Protector';
+      case 5:
+        return 'Successor Protector';
+      case 6:
+        return 'Second Successor Protector';
+      default:
+        return undefined;
+    }
+  };
+
   return (
     <div
       className="m-auto gradient-bg1 flex h-[720px] w-[475px] flex-col flex-shrink-0 overflow-clip rounded-xl shadow-block"
@@ -39,7 +61,7 @@ export default function EnteringTrust({ trust }: {
       <div className="flex flex-auto flex-col px-12">
         <img className="mt-20 self-center" src={logo(trust.userType)} width="224px" alt="Logo" />
         <div className="gradient-text1 mt-12 text-center font-title text-[32px]">{trust.trustName}</div>
-        <div className="gradient-text1 mt-4 text-center font-title font-bold text-[24px]">{trust.userTypeName}</div>
+        <div className="gradient-text1 mt-4 text-center font-title font-bold text-[24px]">{`[${userType(trust.userType)}]`}</div>
         <div className="mt-4 text-center font-title text-[20px] text-[#C39770]">
           {moment.unix(trust.createTime / 1000).format('yyyy-MM-DD')}
         </div>
@@ -75,7 +97,7 @@ function BottomItem({ icon, title, onTap }: { icon: string; title?: string | nul
   return (
     <div className="flex flex-row items-center gap-2 cursor-pointer" onClick={onTap}>
       <img src={icon} width="32px" />
-      <div className="gradient-text1 font-blod text-[14px]">{title}</div>
+      <div className="gradient-text1 font-bold text-[14px]">{title}</div>
     </div>
   );
 }

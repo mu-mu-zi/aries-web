@@ -56,11 +56,11 @@ export default function SCGAVerify() {
         <div className="flex flex-col flex-1">
           <GANavbar title={t('Cancel')} />
           <div className="item-center flex w-[418px] flex-col self-center pt-[64px]">
-            <div className="text-shadow-block font-blod gradient-text1 text-center font-title text-[32px] leading-[36px]">
+            <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]">
               {t('Security verification')}
             </div>
             <div className="mt-16 flex flex-col gap-4">
-              <div className="font-blod text-[#c2d7c7]">
+              <div className="font-bold text-[#c2d7c7]">
                 {t('Please enter the 6-digit Google security code')}
               </div>
               <TextInput {...register('googleCode')} maxLength={6} />

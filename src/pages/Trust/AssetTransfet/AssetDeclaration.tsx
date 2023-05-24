@@ -8,6 +8,7 @@ import Dropdown from '../../../components/Dropdown';
 import AssetDigitalDeclaration from './AssetDigitalDeclaration';
 import AssetFiatDeclaration from './AssetFiatDeclaration';
 import { useAllBankQuery } from '../../../api/assets/assets';
+import Opening from './Opening';
 
 export default function AssetDeclaration({ assetModeChange }: {
   assetModeChange?(isDigital: boolean): void
@@ -32,7 +33,7 @@ export default function AssetDeclaration({ assetModeChange }: {
           />
         </div>
         {/* eslint-disable-next-line no-nested-ternary */}
-        {isDigital ? <AssetDigitalDeclaration /> : (bankListQuery.data?.data?.length === 0 ? <div className="text-[#C2D7C7F6]">Opening in progress</div> : <AssetFiatDeclaration />)}
+        {isDigital ? <AssetDigitalDeclaration /> : (bankListQuery.data?.data?.length === 0 ? <Opening /> : <AssetFiatDeclaration />)}
       </div>
     </div>
   );

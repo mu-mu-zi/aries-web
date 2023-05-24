@@ -62,6 +62,7 @@ export default function SignIn() {
       await axios.post('/user/send/login/sendSmsCode', {
         account: getValues('account'),
         areaCodeId: getValues('areaCodeId'),
+        type: isPhone ? 2 : 1,
       });
       return true;
     } catch (e) {

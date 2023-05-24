@@ -16,7 +16,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
           <div
             className={classNames('text-[#99AC9B] font-bold text-[16px]')}
           >
-            {requiredLabel && <span className="gradient-text1 font-blod text-[16px] pr-1">*</span>}
+            {requiredLabel && <span className="gradient-text1 font-bold text-[16px] pr-1">*</span>}
             {label}
           </div>
           <input

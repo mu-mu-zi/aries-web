@@ -21,13 +21,13 @@ export default function SimpleNotification() {
   return (
     <div className={classNames('flex flex-col', 'p-8', 'rounded-xl', 'gradient-bg2', 'shadow-[-4px_8px_10px_0_#030c08]')}>
       <div className={classNames('item-center flex flex-row justify-between')}>
-        <div className="gradient-text1 font-blod text-[20px] font-title">{t('Notification')}</div>
+        <div className="gradient-text1 font-bold text-[20px] font-title">{t('Notification')}</div>
         <div
           className="flex flex-row items-center gap-2 cursor-pointer"
           onClick={() => navigate(`/trust/${trustId}/notification`)}
         >
           <div
-            className="gradient-text1 font-blod text-[16px]"
+            className="gradient-text1 font-bold text-[16px]"
           >
             {t('More')}
           </div>

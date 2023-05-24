@@ -26,7 +26,7 @@ export default function Information() {
               title="Establishment time"
               value={moment.unix(detailQuery.data.data.createTime / 1000).format('yyyy-MM-DD')}
             />
-            <InformationCell title="Principal" value={CallFormat(detailQuery.data?.data?.userName)} />
+            <InformationCell title="Principal" value={`${detailQuery.data?.data?.surname}`} />
             <InformationCell title="Trust Type" value={detailQuery.data.data.trustEntrustTypeName} />
             <InformationCell title="Status" value={detailQuery.data.data.trustStatusName} alignRight />
           </div>

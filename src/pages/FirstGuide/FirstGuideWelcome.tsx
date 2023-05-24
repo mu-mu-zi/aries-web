@@ -17,7 +17,7 @@ export default function FirstGuideWelcome() {
         className="w-[1024px] h-[680px] bg-cover bg-center bg-no-repeat flex flex-col items-center gap-4 p-8 rounded-xl"
         style={{ backgroundImage: `url(${bg})` }}
       >
-        <div className="mt-[94px] gradient-text1 font-blod text-center text-[40px] font-title text-shadow-block">
+        <div className="mt-[94px] gradient-text1 font-bold text-center text-[40px] font-title text-shadow-block">
           {`Dear ${userQuery.data?.data?.userName}`}
         </div>
         <div className="mt-4 max-w-[548px] text-center text-[20px] font-title text-[#C39770] leading-[23px] font-[400]">

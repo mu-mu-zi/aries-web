@@ -31,7 +31,7 @@ function StepTitle({ index, title, current }: { index: number; title: string; cu
         {index + 1}
       </div>
       <div
-        className={classNames('transition', {
+        className={classNames('transition font-bold', {
           'gradient-text1': isHighlight,
           'text-[#708077]': !isHighlight,
         })}

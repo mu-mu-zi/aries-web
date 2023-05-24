@@ -64,6 +64,7 @@ export default function CreatingCommand({ onClose }: {
                   </div>
                   <textarea
                     {...register('investmentSuggestion')}
+                    maxLength={1000}
                     className="w-full text-[16px] placeholder:text-[#708077] h-[320px] bg-[#3B5649] py-4 px-6 outline-none rounded-xl resize-none"
                     placeholder={t(`To better handle investment instructions, please describe them as completely as possible, including the following: \r\n
 1.Investment objective: specify the target and purpose of the trust assets to be invested, such as capital appreciation or income growth. \r\n
@@ -82,6 +83,7 @@ export default function CreatingCommand({ onClose }: {
                 type="text"
                 className="w-full h-[48px] rounded-xl bg-[#3B5649] placeholder:text-[#708077] text-[16px] px-6 outline-none"
                 placeholder={t('Investment time') ?? ''}
+                maxLength={50}
                 {...register('investmentTime')}
               />
             </div>

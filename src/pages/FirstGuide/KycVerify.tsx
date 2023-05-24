@@ -49,8 +49,11 @@ export default function KycVerify() {
           >
             {t('Set up your proprietary trust')}
           </div>
-          <div className="text-center font-title text-[20px] font-[400] text-[#C39770] mt-4">
-            {t('In order to protect your assets and comply with the relevant laws and regulations, you are required to complete the trust contract.')}
+          <div className="text-center font-title text-[20px] font-[400] text-[#C39770] mt-4 px-16">
+            {stepId() === 0 && t('Welcome to Aries Customized Trust Services! In order to protect your assets and comply with the relevant laws and regulations, we require you to complete identity verification. Please contact your trust manager to submit your personal information and proof of identity.')}
+            {stepId() === 1 && t('In order to protect your assets and comply with the relevant laws and regulations, you are required to complete the trust contract.')}
+            {stepId() === 2 && t('In the process of setting up a trust, you will need to pay a set-up fee. Once the set-up fee has been paid, we will carry out the subsequent work of setting up the trust for you.')}
+            {stepId() === 3 && t('Thank you for choosing the Aries Trust Services platform! As agreed in the trust deed, you will need to complete the first transfer of trust assets to complete the creation of the trust.')}
           </div>
           {/* Step */}
           {detailQuery.data?.data && (

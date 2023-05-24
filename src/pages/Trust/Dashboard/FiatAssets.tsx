@@ -25,7 +25,7 @@ export default function FiatAssets({ asset }: {
           'font-bold text-[24px] font-title text-t4',
         )}
       >
-        <div>{t('Digital Assets')}</div>
+        <div>{asset?.name}</div>
         {/* todo: 这里的 total 是错误的 */}
         <div>{`${currencyUSDTFormat(asset?.totalUSDT)} USD`}</div>
       </div>
@@ -40,7 +40,7 @@ export default function FiatAssets({ asset }: {
             <div className="flex flex-col gap-6 p-8 bg-divider rounded-b-xl">
               {it.details?.filter((x) => x.amount > 0).map((d) => (
                 <Cell
-                  icon={symbolIcon}
+                  icon={d.image}
                   amount={d.amount}
                   symbol={d.symbol}
                   rate={Number((d.amount / it.totalAmountUSDT * 100).toFixed(3))}

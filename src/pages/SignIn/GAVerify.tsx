@@ -65,7 +65,7 @@ export default function GAVerify() {
         <div className="flex flex-col">
           <GANavbar title={t('Cancel')} />
           <div className="item-center flex w-[418px] flex-col self-center pt-[64px]">
-            <div className="text-shadow-block font-blod gradient-text1 text-center font-title text-[32px] leading-[36px]">
+            <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]">
               {t('Security verification')}
             </div>
             <div className="mt-16 flex flex-col gap-4">

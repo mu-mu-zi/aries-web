@@ -45,6 +45,7 @@ export default function ChangeEmail() {
       });
       await axios.post('/user/send/sendSmsCode', {
         account: getValues('email'),
+        type: 1,
       });
       return true;
     } catch (e) {
@@ -73,7 +74,7 @@ export default function ChangeEmail() {
       <form onSubmit={handleSubmit(submit)}>
         <div className="m-auto flex flex-col w-[420px]">
           <div
-            className="text-shadow-block font-blod gradient-text1 text-center font-title text-[32px] leading-[36px] my-16"
+            className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px] my-16"
           >
             {t('Binding email verification')}
           </div>

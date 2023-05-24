@@ -51,6 +51,7 @@ export default function GABindVerify() {
     // });
     await axios.post('/user/send/login/sendSmsCode', {
       account,
+      type: 1,
     });
     return true;
   };
@@ -108,11 +109,11 @@ export default function GABindVerify() {
         />
         <div className="item-center flex w-[420px] flex-col self-center pt-[64px]">
           <form onSubmit={handleSubmit(submit)}>
-            <div className="text-shadow-block font-blod gradient-text1 text-center font-title text-[32px] leading-[36px]">
+            <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]">
               {t('Verify identity')}
             </div>
             <div className="mt-16 flex flex-col gap-4">
-              <div className="font-blod text-[#c2d7c7]">{t('Email verification code')}</div>
+              <div className="font-bold text-[#c2d7c7]">{t('Email verification code')}</div>
               <TextInput
                 placeholder={t('Please enter the verification code') ?? ''}
                 {...register('securityCode')}
@@ -153,7 +154,7 @@ export default function GABindVerify() {
               <div className="text-[14px] leading-[16px] text-[#708077]">
                 {t('To ensure the security of your funds and account, please enter the verification code received in your Aries trust company@gmail.com email.')}
               </div>
-              <div className="font-blod text-[#c2d7c7]">{t('Google Captcha')}</div>
+              <div className="font-bold text-[#c2d7c7]">{t('Google Captcha')}</div>
               <TextInput
                 {...register('googleCaptcha')}
                 placeholder="Please enter the verification code"

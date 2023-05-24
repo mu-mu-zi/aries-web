@@ -8,12 +8,18 @@ export default function SendButton({
   onClick?(): Promise<boolean> | boolean
 }) {
   const [duration, setDuration] = useState(0);
+  const [sendCount, setSendCount] = useState(0);
+  const { t } = useTranslation();
 
   useInterval(() => {
     setDuration((d) => d - 1);
   }, 1000);
 
-  const { t } = useTranslation();
+  useEffect(() => {
+    if (duration === 0) {
+      setSendCount((x) => x + 1);
+    }
+  }, [duration]);
 
   return (
     <div
@@ -25,14 +31,16 @@ export default function SendButton({
         try {
           const flag = await onClick?.();
           if (flag) {
-            setDuration(60);
+            setDuration(5);
           }
         } catch (e) {
           console.log(e);
         }
       }}
     >
-      {duration <= 0 ? t('Send') : `${duration}S`}
+      {/* {sendCount} */}
+      {/* eslint-disable-next-line no-nested-ternary */}
+      {duration <= 0 ? (sendCount > 1 ? t('Resend') : t('Send')) : `${duration}S`}
     </div>
   );
 }

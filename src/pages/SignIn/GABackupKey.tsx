@@ -22,12 +22,12 @@ export default function GABackupKey() {
           description={t('Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After binding, it generates a dynamic verification code every 30 seconds, which can be used for security verification for login, modifying security settings and other operations.')}
         />
         <div className="item-center flex flex-col self-center w-[418px] pt-[64px]">
-          <div className="text-shadow-block font-blod gradient-text1 text-center font-title text-[32px] leading-[36px]">
+          <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]">
             {t('Backup key')}
           </div>
           <img className="mt-16 self-center" src={logo} width="44px" alt="Key" />
           <div className="self-center flex flex-row items-center bg-[#3B5649] rounded-xl shadow-block px-8 py-4 gap-2 mt-10">
-            <div className="font-title gradient-text1 text-[24px] font-blod">{location.state.secret}</div>
+            <div className="font-title gradient-text1 text-[24px] font-bold">{location.state.secret}</div>
             <CopyIcon text={location.state.secret} />
           </div>
           <div className="text-center size-[14px] leading-[16px] mt-4 text-[#99AC9B]">

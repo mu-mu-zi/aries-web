@@ -17,7 +17,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
     background: #C2D7C7F6;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 /*input:-webkit-autofill, textarea:-webkit-autofill {*/
@@ -115,4 +115,8 @@ body {
 
 .input-inner-shadow {
     box-shadow: inset -1px 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+textarea, input {
+    color: #99AC9B;
 }

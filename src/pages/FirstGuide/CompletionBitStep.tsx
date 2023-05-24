@@ -23,14 +23,14 @@ export default function CompletionBitStep({ trust }: {
   return (
     <div className="flex flex-col text-[20px] gap-4">
       <div className="flex flex-row items-center justify-between px-8 h-[70px] gradient-block1 rounded-xl shadow-block">
-        <div className="gradient-text1 font-blod">{t('Initial assets')}</div>
+        <div className="gradient-text1 font-bold">{t('Initial assets')}</div>
         <div className="gradient-text1 text-[20px]">
           {`${trust.transferredAssets} ${trust.coinName}`}
         </div>
       </div>
       <div className="flex flex-col rounded-xl overflow-clip shadow-block">
         <div className="flex flex-row items-center justify-between px-8 h-[70px] gradient-block1">
-          <div className="gradient-text1 font-blod">{t('Receiving address')}</div>
+          <div className="gradient-text1 font-bold">{t('Receiving address')}</div>
         </div>
         <div className="flex flex-col p-8 gap-4 bg-[#314C40]">
           <div className="flex flex-row justify-between">

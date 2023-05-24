@@ -23,7 +23,7 @@ export default function GAGuide() {
       />
       <div className="flex flex-col items-center px-[100px] py-16">
         <div className="flex w-[480px] flex-col items-center">
-          <div className="text-shadow-block font-title font-blod gradient-text1 text-center text-[32px] leading-[36px]">
+          <div className="text-shadow-block font-title font-bold gradient-text1 text-center text-[32px] leading-[36px]">
             {t('Download and install the Google Authenticator app')}
           </div>
           <div className="mt-[64px] flex flex-row gap-2">

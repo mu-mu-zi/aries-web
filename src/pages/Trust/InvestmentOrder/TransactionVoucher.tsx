@@ -52,7 +52,7 @@ export default function TransactionVoucher({ selected, onClose }: {
       </Slider>
       <div className="mt-16 flex flex-col gap-8">
         <div className="w-[420px] self-center">
-          {trustQuery.data?.data?.roleType! > 2 && (
+          {selected.billStatus === 1 && trustQuery.data?.data?.roleType! > 2 && (
             <Button
               block
               onClick={async () => {

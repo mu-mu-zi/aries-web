@@ -39,7 +39,7 @@ export default function DigitalAssets({ assetOverview }: {
             <div className="flex flex-col gap-6 p-8 bg-divider rounded-b-xl bg-[#314C40]">
               {it.details?.filter((x) => x.amount > 0).map((d) => (
                 <Cell
-                  icon={symbolIcon}
+                  icon={d.image}
                   amount={d.amount}
                   symbol={d.symbol}
                   rate={Number((d.amount * d.price / it.totalUSDT * 100).toFixed(3))}
@@ -63,7 +63,6 @@ export function Cell({
 }) {
   return (
     <div className="flex flex-row items-center relative">
-      {/* todo: 设计图图标带阴影，需要删除 */}
       <img src={icon} width="24px" alt="" className="absolute z-[1] mt-[4px]" />
       <div className="flex-auto ml-[12px] max-w-[60%]">
         <div className={classNames('gradient-border1 shadow-block h-[10px] rounded-full overflow-clip', rate > 0 && `w-[${rate}%]`, rate <= 0 && 'w-0')} />

@@ -7,7 +7,7 @@ export default function PaymentRow({
   canCopy,
 }: {
   title: string,
-  value: string,
+  value?: string,
   canCopy?: boolean
 }) {
   return (
@@ -15,7 +15,7 @@ export default function PaymentRow({
       <div className="text-[#99AC9B] text-[16px]">{title}</div>
       <div className="flex flex-row items-center gap-2">
         <div className="text-[#C2D7C7F6] font-bold text-[16px]">{value}</div>
-        {canCopy && <CopyIcon text={value} />}
+        {canCopy && value && <CopyIcon text={value} />}
       </div>
     </div>
   );

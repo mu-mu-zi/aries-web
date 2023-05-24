@@ -31,6 +31,7 @@ export default function Ledger() {
             <Dropdown title="All" />
           </div>
           <div>Reset</div>
+          <div className="ml-12 gradient-text2 font-title font-bold text-[16px] cursor-pointer">Download</div>
         </div>
       </form>
       <SimpleTable

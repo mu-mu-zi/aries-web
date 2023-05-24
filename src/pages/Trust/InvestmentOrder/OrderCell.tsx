@@ -63,7 +63,7 @@ export default function OrderCell({ item }: {
         {item.entrustFlag && <OrderCellFlag title={t('Settlor') ?? ''} />}
       </div>
       {/* Content */}
-      <div className="flex flex-col gap-2 text-[#99AC9B] text-[16px] leading-[18px]">
+      <div className="flex flex-col gap-2 text-[#99AC9B] text-[16px] leading-[18px] break-all">
         <div>
           {item.investmentSuggestion}
         </div>

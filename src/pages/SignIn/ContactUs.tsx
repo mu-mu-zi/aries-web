@@ -9,7 +9,7 @@ export default function ContactUs() {
 
   return (
     <div
-      className="underline gradient-text1 text-center font-title cursor-pointer"
+      className="underline gradient-text1 text-center font-title font-bold text-[14px] cursor-pointer"
       onClick={() => navigate('/contactCustomer', {
         state: {
           trustId: trustId && Number(trustId),

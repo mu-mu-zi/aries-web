@@ -55,7 +55,6 @@ export default function BillRecords({ trustInvestmentId }: {
                 {moment.unix(it.createTimeStamp / 1000).format('yyyy-MM-DD HH:mm:ss')}
               </td>
               <td>
-                {it.billStatus === 1 && (
                 <div
                   className="gradient-text2 text-right cursor-pointer"
                   onClick={() => {
@@ -65,7 +64,6 @@ export default function BillRecords({ trustInvestmentId }: {
                 >
                   {t('View credentials')}
                 </div>
-                )}
               </td>
             </tr>
           ))}

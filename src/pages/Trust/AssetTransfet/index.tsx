@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from './Header';
 import EntrustedDeclaration from './EntrustedDeclaration';
 import DeclarationRecord from './DeclarationRecord';
 import TrustHeader from '../TrustHeader';

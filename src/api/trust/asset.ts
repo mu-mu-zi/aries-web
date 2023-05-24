@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import useUserId from '../../hooks/useUserId';
+import { IResponseData } from '../../interfaces/base';
+import { ITrustAssetRecode } from '../../interfaces/trust';
 
 export const useTrustAssetDeclareQuery = (data: {
   pageIndex: number,
@@ -25,7 +27,7 @@ export const useAssetDeclareDetailQuery = (data: {
 }) => {
   const userId = useUserId();
 
-  return useQuery({
+  return useQuery<IResponseData<ITrustAssetRecode>>({
     queryKey: ['trust', 'asset', data, userId],
     queryFn: () => axios.request({
       url: '/trust/assetDeclare/detail',

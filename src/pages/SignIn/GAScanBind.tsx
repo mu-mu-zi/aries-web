@@ -28,7 +28,7 @@ export default function GAScanBind() {
           description={t('Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After binding, it generates a dynamic verification code every 30 seconds, which can be used for security verification for login, modifying security settings and other operations.')}
         />
         <div className="item-center flex flex-col self-center w-[418px] pt-[64px]">
-          <div className="text-shadow-block font-blod gradient-text1 text-center font-title text-[32px] leading-[36px]">
+          <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]">
             {t('Please scan this QR code using Google Authenticator app')}
           </div>
           <div className="mt-12 rounded-xl bg-[#3B5649] p-5 shadow-block self-center">

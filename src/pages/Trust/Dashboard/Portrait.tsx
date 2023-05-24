@@ -22,7 +22,7 @@ export default function Portrait() {
       {/* 昵称描述 */}
       <div className="flex flex-col gap-4">
         <GradientText className={classNames('text-[40px] font-bold font-title')}>
-          {CallFormat(userQuery.data?.data?.userName, userQuery.data?.data?.gender)}
+          {CallFormat(userQuery.data?.data?.surname, userQuery.data?.data?.gender)}
         </GradientText>
         <GradientText
           className={classNames('text-[20px] font-normal leading-[23px]', 'font-title')}

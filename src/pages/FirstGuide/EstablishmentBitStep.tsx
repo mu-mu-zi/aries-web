@@ -13,17 +13,17 @@ export default function EstablishmentBitStep({ trust }: {
   return (
     <div className="flex flex-col text-[20px] gap-4">
       <div className="flex flex-row items-center justify-between px-8 h-[70px] gradient-block1 rounded-xl shadow-block">
-        <div className="gradient-text1 font-blod">{t('Set-up fee')}</div>
+        <div className="gradient-text1 font-bold">{t('Set-up fee')}</div>
         <div className="gradient-text1 text-[20px]">
           {`${trust.initialCost} ${trust.coinName}`}
         </div>
       </div>
       <div className="flex flex-row items-center justify-between px-8 h-[70px] gradient-block1 rounded-xl shadow-block">
-        <div className="gradient-text1 font-blod">{t('Transfer network')}</div>
+        <div className="gradient-text1 font-bold">{t('Transfer network')}</div>
         <div className="gradient-text1 text-[20px]">{trust.mainne}</div>
       </div>
       <div className="flex flex-row items-center justify-between px-8 h-[70px] gradient-block1 rounded-xl shadow-block">
-        <div className="gradient-text1 font-blod">{t('Receiving address')}</div>
+        <div className="gradient-text1 font-bold">{t('Receiving address')}</div>
         <div className="flex flex-row gap-2">
           <div className="gradient-text1 text-[20px]">{trust.safeHeronAddress}</div>
           <CopyIcon text={trust.safeHeronAddress} />
