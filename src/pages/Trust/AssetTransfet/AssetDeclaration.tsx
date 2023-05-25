@@ -20,10 +20,10 @@ export default function AssetDeclaration({ assetModeChange }: {
 
   return (
     <div className="flex flex-col">
-      <div className="gradient-text1 font-blod text-[20px] font-title">{t('Asset Transfer Information Declaration')}</div>
+      <div className="gradient-text1 font-bold text-[20px] font-title">{t('Asset Transfer Information Declaration')}</div>
       <div className="mt-[40px] flex flex-col gap-8">
         <div className="flex flex-col gap-3">
-          <div className="font-blod text-[#C2D7C7F6]">{t('Please select a payment method')}</div>
+          <div className="font-bold text-[#C2D7C7F6]">{t('Please select a payment method')}</div>
           <MethodSwitch
             titles={['Digital currency', 'Fiat currency']}
             onSelected={(idx) => {

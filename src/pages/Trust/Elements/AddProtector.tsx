@@ -15,6 +15,8 @@ import ContactUs from '../../SignIn/ContactUs';
 import ModalContainer from '../../../views/ModalContainer';
 import ModalNav from '../../../views/ModalContainer/ModalNav';
 import { AccountType, Gender } from '../../../interfaces/base';
+import FooterNote from '../../../views/FooterNote';
+import ContactUsFooter from '../../../views/ContactUsFooter';
 
 enum UserType {
   Protect = 4,
@@ -206,8 +208,9 @@ export default function AddProtector({ trustId, onClose }: {
             <Button block>{t('Submit')}</Button>
           </div>
           <div className="flex flex-col gap-5 mt-6">
-            <Divide />
-            <ContactUs />
+            {/* <Divide /> */}
+            {/* <ContactUs /> */}
+            <ContactUsFooter />
           </div>
         </div>
       </form>

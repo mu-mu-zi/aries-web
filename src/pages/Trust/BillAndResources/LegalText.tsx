@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useLedgerOrderListQuery, useTrustLawListQuery } from '../../../api/trust/order';
 import SimpleTable from '../../../views/SimpleTable';
+import TextButton from '../../../components/TextButton';
 
 export default function LegalText() {
   const { trustId } = useParams();
@@ -28,9 +29,9 @@ export default function LegalText() {
           Cell: ({ row }) => (
             <div className="flex flex-row gap-4 justify-end">
               {/* eslint-disable-next-line react/prop-types */}
-              <a href={row.original.lawFilePath} target="_blank" className="font-title gradient-text2 text-[14px] font-bold cursor-pointer" rel="noreferrer">{t('Check')}</a>
+              <TextButton onClick={() => window.open(row.original.lawFilePath)}>{t('Check')}</TextButton>
               {/* eslint-disable-next-line react/prop-types */}
-              <a href={row.original.lawFilePath} target="_blank" className="font-title gradient-text2 text-[14px] font-bold cursor-pointer" rel="noreferrer">{t('Downloads')}</a>
+              <TextButton onClick={() => window.open(row.original.lawFilePath)}>{t('Downloads')}</TextButton>
             </div>
           ),
         },

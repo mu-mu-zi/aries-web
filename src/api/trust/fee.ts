@@ -66,3 +66,21 @@ export const useEstablishmentFeeListQuery = (data: {
     enabled: !!userId && !!data.trustId && !!data.year,
   });
 };
+
+export const useTrustFeeStatisticsQuery = (data: {
+  trustId: number,
+  year: number,
+  type?: number
+}) => {
+  const userId = useUserId();
+
+  return useQuery({
+    queryKey: ['trust', 'fee', 'statistics', data, userId],
+    queryFn: () => axios.request({
+      url: '/trust/trust/fee/statistics',
+      method: 'get',
+      params: data,
+    }),
+    enabled: !!userId && !!data.trustId && !!data.type,
+  });
+};

@@ -22,7 +22,7 @@ export default function GANavbar({ title, description }: { title: string; descri
       <div className="flex-auto flex flex-col gap-2">
         <div
           onClick={() => navigate(-1)}
-          className={classNames('color-[#3D3228] font-bold font-title text-[24px] leading-[32px] cursor-pointer')}
+          className={classNames('color-[#3D3228] font-bold font-title text-[24px] cursor-pointer')}
         >
           {title}
         </div>

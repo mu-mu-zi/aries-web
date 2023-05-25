@@ -9,6 +9,7 @@ import ViewCredentials from './ViewCredentials';
 import SimpleTable from '../../../views/SimpleTable';
 import { useTrustAssetDeclareQuery } from '../../../api/trust/asset';
 import { unixFormatTime } from '../../../utils/DateFormat';
+import TextButton from '../../../components/TextButton';
 
 export default function DeclarationRecord() {
   const { t } = useTranslation();
@@ -26,17 +27,17 @@ export default function DeclarationRecord() {
   const statusTitle = (status: any) => {
     switch (status) {
       case 1:
-        return t('待核实');
+        return t('To be verified');
       case 2:
-        return t('待上账');
+        return t('Pending accounting');
       case 3:
-        return t('已上账');
+        return t('Already recorded in account');
       case 4:
-        return t('核实失败');
+        return t('Verification failed');
       case 5:
-        return t('申请取消');
+        return t('Application for cancellation');
       case 6:
-        return t('已取消');
+        return t('Cancelled');
       default:
         return undefined;
     }
@@ -44,7 +45,7 @@ export default function DeclarationRecord() {
 
   return (
     <div className="flex flex-col gap-4 gradient-bg2 rounded-xl shadow-block p-8">
-      <div className="gradient-text1 font-blod text-[20px]">{t('Commission declaration record')}</div>
+      <div className="gradient-text1 font-bold text-[20px]">{t('Commission declaration record')}</div>
       <div className="h-[1px] bg-[#3B5649]" />
       <SimpleTable
         columns={[
@@ -54,7 +55,7 @@ export default function DeclarationRecord() {
           },
           {
             Header: 'Type',
-            accessor: (x) => (x.payType === 1 ? t('数字资产') : t('法币')),
+            accessor: (x) => (x.payType === 1 ? t('Digital') : t('Fiat')),
           },
           {
             Header: 'Amount',
@@ -69,9 +70,8 @@ export default function DeclarationRecord() {
             accessor: 'reconciliation',
             // eslint-disable-next-line react/prop-types
             Cell: ({ row }) => (
-              <div className="flex flex-row gap-4 gradient-text2 justify-end font-title text-[14px] font-bold">
-                <div
-                  className="cursor-pointer"
+              <div className="flex flex-row gap-4 justify-end">
+                <TextButton
                   onClick={() => {
                     // eslint-disable-next-line react/prop-types
                     setRecordId(row.original?.id);
@@ -79,12 +79,21 @@ export default function DeclarationRecord() {
                   }}
                 >
                   {t('View details')}
-                </div>
+                </TextButton>
+                {/* <div */}
+                {/*  className="cursor-pointer" */}
+                {/*  onClick={() => { */}
+                {/*    // eslint-disable-next-line react/prop-types */}
+                {/*    setRecordId(row.original?.id); */}
+                {/*    setDetailVisible(true); */}
+                {/*  }} */}
+                {/* > */}
+                {/*  {t('View details')} */}
+                {/* </div> */}
                 {
                   // eslint-disable-next-line react/prop-types
                   row.original?.status === 1 && (
-                    <div
-                      className="cursor-pointer"
+                    <TextButton
                       onClick={async () => {
                         await axios.post('/trust/assetDeclare/cancel', {
                           // eslint-disable-next-line react/prop-types
@@ -94,7 +103,7 @@ export default function DeclarationRecord() {
                       }}
                     >
                       {t('Apply for cancellation')}
-                    </div>
+                    </TextButton>
                   )
                 }
               </div>

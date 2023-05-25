@@ -8,7 +8,7 @@ import SimpleTable from '../../../views/SimpleTable';
 import FeeIntroduction from './FeeIntroduction';
 import ViewCredentials from './ViewCredentials';
 import { unixFormatTime } from '../../../utils/DateFormat';
-import { useTrustManageFeeListQuery } from '../../../api/trust/fee';
+import { useTrustFeeStatisticsQuery, useTrustManageFeeListQuery } from '../../../api/trust/fee';
 import { useExcessFeeListQuery, useTrustFeeListQuery } from '../../../api/trust/order';
 
 export default function ExcessFee() {
@@ -24,6 +24,11 @@ export default function ExcessFee() {
     trustId: Number(trustId),
   });
   const total = useMemo(() => query.data?.data?.find((x) => x.feeType === 2)?.feeAmount, [query.data?.data]);
+  const statisticsQuery = useTrustFeeStatisticsQuery({
+    trustId: Number(trustId),
+    type: 2,
+    year: 2023,
+  });
 
   return (
     <div className="flex flex-col gap-4">
@@ -34,11 +39,13 @@ export default function ExcessFee() {
           <div className="flex items-center gap-4 justify-between">
             <div className="flex flex-col gap-4">
               <SectionTitle title={`Excess transfer fee: ${total} USD`} />
-              <div className="flex flex-row items-center flex-wrap gap-4 text-[#C2D7C7F6] text-[16px]">
-                <div>Total amount of deposit: xxx USD</div>
-                <div>Accumulated transfer amount: xxx USD</div>
-                <div>Exceeding amount: xxx USD</div>
-              </div>
+              {statisticsQuery.data?.data && (
+                <div className="flex flex-row items-center flex-wrap gap-4 text-[#C2D7C7F6] text-[16px]">
+                  <div>{`Total amount of deposit: ${statisticsQuery.data?.data.trustAmount} ${statisticsQuery.data?.data.coinName}`}</div>
+                  <div>{`Accumulated transfer amount: ${statisticsQuery.data.data.totalAmount} ${statisticsQuery.data.data.coinName}`}</div>
+                  <div>{`Exceeding amount: ${statisticsQuery.data?.data.excessAmount} ${statisticsQuery.data.data.coinName}`}</div>
+                </div>
+              )}
               <ViewCredentials />
             </div>
             <div className="max-w-[260px] w-full"><Dropdown title="2023" items={['2023']} block /></div>
@@ -52,13 +59,27 @@ export default function ExcessFee() {
               },
               {
                 Header: 'Trust total amount',
-                accessor: 'managementFeeApr',
+                accessor: (x) => `${x.totalTrustAmount} ${x.coinName}`,
               },
               {
-                Header: () => (<div className="text-right">Management fee</div>),
+                Header: 'Cumulative transferred amount',
+                accessor: (x) => `${x.amount} ${x.coinName}`,
+              },
+              {
+                Header: 'Transferred amount',
+                accessor: (x) => `${x.amount} ${x.coinName}`,
+              },
+              {
+                Header: () => (<div className="text-right">Currency Price</div>),
                 accessor: 'totalAmount',
                 // eslint-disable-next-line react/prop-types
-                Cell: ({ row }) => (<div className="text-right gradient-text2">{`${row.original.totalAmount} ${row.original.coinName}`}</div>),
+                Cell: ({ row }) => (
+                  <div
+                    className="text-right gradient-text2"
+                  >
+                    {`1 ${row.original.coinName}≈${row.original.managementFeeApr} USD`}
+                  </div>
+                ),
               },
             ]}
             data={listQuery.data?.data?.records}

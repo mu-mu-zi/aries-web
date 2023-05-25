@@ -7,6 +7,7 @@ import Divide from '../../components/Divide';
 import welcomeIcon from '../../assets/icon/welcome_badge.svg';
 import ContactUs from './ContactUs';
 import useUserId from '../../hooks/useUserId';
+import ContactUsFooter from '../../views/ContactUsFooter';
 
 export default function Welcome() {
   const navigate = useNavigate();
@@ -17,29 +18,31 @@ export default function Welcome() {
     <div className="flex flex-col items-center pt-9">
       <div
         className={classNames(
-          'flex flex-col items-center gap-[10px]',
+          'flex flex-col items-center',
           'gradient-bg2',
           'rounded-xl',
           'w-[587px] pb-[56px] pt-[46px]',
           'shadow-block',
         )}
       >
-        <img src={welcomeIcon} width="313px" />
-        <div className="gradient-text1 px-[72px] text-center font-title text-[40px] leading-[46px]">
+        <img src={welcomeIcon} className="" width="313px" />
+        <div className="gradient-text1 px-[72px] mt-16 text-center font-title text-[40px] leading-[46px]">
           {t('Exclusive Trust Service for Digital Assets')}
         </div>
-        <div className="mt-[48px] px-[85px] self-stretch">
+        <div className="mt-12 px-[85px] self-stretch">
           <Button
+            size="large"
             block
             onClick={() => (userId ? navigate('/my') : navigate('/signIn'))}
           >
             {userId ? t('My Trust') : t('Sign In')}
           </Button>
         </div>
-        <div className="mb-[46px] mt-[52px] self-stretch">
+        <div className="mt-[52px] self-stretch flex flex-col gap-12">
+          {/* <ContactUsFooter /> */}
           <Divide />
+          <div className="self-center"><ContactUs /></div>
         </div>
-        <ContactUs />
       </div>
     </div>
   );

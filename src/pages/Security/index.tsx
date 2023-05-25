@@ -18,6 +18,7 @@ import { useLoginLogQuery, useUserInfoQuery } from '../../api/user/user';
 import { CallFormat } from '../../utils/CallFormat';
 import { unixFormatTime } from '../../utils/DateFormat';
 import footerImg from '../../assets/icon/footer_graat.svg';
+import TextButton from '../../components/TextButton';
 
 export default function Security() {
   const { t } = useTranslation();
@@ -60,7 +61,7 @@ export default function Security() {
                   className="cursor-pointer"
                   onClick={() => setEditVisible(true)}
                 >
-                  <img src={editIcon} width="32px" alt="Edit" />
+                  <img src={editIcon} width="32px" alt="" />
                 </div>
               </div>
               <div className="text-[#99AC9B] text-[16px]">
@@ -73,7 +74,7 @@ export default function Security() {
                 <div className="font-bold text-[20px]">{t('Login Log')}</div>
                 <div className="text-[16px]">
                   {/* eslint-disable-next-line no-unsafe-optional-chaining */}
-                  {loginLogQuery.data?.data?.records[0] && `Last Login: ${unixFormatTime(loginLogQuery.data?.data?.records[0]?.createTimeStamp)}`}
+                  {loginLogQuery.data?.data?.records[0] && `Last Login: ${unixFormatTime(loginLogQuery.data.data.records[0].createTimeStamp)}`}
                 </div>
               </div>
               <img width="32px" src={arrowR} alt="" />
@@ -105,11 +106,8 @@ export default function Security() {
                   </div>
                 </div>
                 <div className="flex flex-row items-center gap-4 font-title text-[14px]">
-                  <NavLink
-                    className="gradient-text2 cursor-pointer"
-                    to="/personal/changeEmail"
-                  >
-                    {user.data?.data?.emailAuth ? t('Change') : t('Bind')}
+                  <NavLink to="/personal/changeEmail">
+                    <TextButton>{user.data?.data?.emailAuth ? t('Change') : t('Bind')}</TextButton>
                   </NavLink>
                 </div>
               </div>
@@ -126,9 +124,8 @@ export default function Security() {
                 <div className="flex flex-row items-center gap-4 font-title text-[14px]">
                   <NavLink
                     to="/personal/changeMobile"
-                    className="gradient-text2 cursor-pointer"
                   >
-                    {user.data?.data?.mobileAuth ? t('Change') : t('Bind')}
+                    <TextButton>{user.data?.data?.mobileAuth ? t('Change') : t('Bind')}</TextButton>
                   </NavLink>
                 </div>
               </div>
@@ -140,7 +137,7 @@ export default function Security() {
                 </div>
                 <div className="flex flex-row items-center gap-4 font-title text-[14px]">
                   <NavLink to="/personal/gaUnbind">
-                    <div className="gradient-text2 cursor-pointer">{t('Change')}</div>
+                    <TextButton>{t('Change')}</TextButton>
                   </NavLink>
                 </div>
               </div>

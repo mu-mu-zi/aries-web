@@ -27,8 +27,8 @@ export default function Protector() {
   return (
     <div className="flex flex-col gap-4 rounded-xl shadow-block p-8 gradient-bg2 h-full">
       <div className="flex flex-row items-center justify-between">
-        <div className="gradient-text1 font-title text-[20px]">{t('Protector')}</div>
-        {trustQuery.data?.data?.roleType! > 2 && <Button onClick={() => setAddProtectorVisible(true)}>{t('Add')}</Button>}
+        <div className="gradient-text1 font-title font-bold text-[20px]">{t('Protector')}</div>
+        {trustQuery.data?.data?.roleType! > 2 && <Button onClick={() => setAddProtectorVisible(true)}>{t('+ Add')}</Button>}
       </div>
       <Hr />
       {/* <div className="flex-1 flex flex-col gap-4 gradient-block1 shadow-block rounded-xl p-8"> */}

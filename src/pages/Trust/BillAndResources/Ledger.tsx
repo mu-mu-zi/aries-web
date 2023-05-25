@@ -6,6 +6,7 @@ import Dropdown from '../../../components/Dropdown';
 import { useLedgerOrderListQuery } from '../../../api/trust/order';
 import SimpleTable from '../../../views/SimpleTable';
 import { unixFormatTime } from '../../../utils/DateFormat';
+import TextButton from '../../../components/TextButton';
 
 export default function Ledger() {
   const { trustId } = useParams();
@@ -30,8 +31,8 @@ export default function Ledger() {
           <div className="flex-auto">
             <Dropdown title="All" />
           </div>
-          <div>Reset</div>
-          <div className="ml-12 gradient-text2 font-title font-bold text-[16px] cursor-pointer">Download</div>
+          <TextButton>Reset</TextButton>
+          <TextButton>Download</TextButton>
         </div>
       </form>
       <SimpleTable
@@ -52,12 +53,14 @@ export default function Ledger() {
             Header: t('Amount') ?? '',
             // accessor: 'amount',
             // eslint-disable-next-line react/prop-types
-            Cell: ({ row }) => <div className="font-title gradient-text1 text-[16px]">{row.original?.amount}</div>,
+            Cell: ({ row }) => <div className="gradient-text1 text-[16px]">{row.original?.amount}</div>,
           },
           {
             accessor: 'Reconciliation',
             Header: () => (<div className="text-right">{t('Reconciliation')}</div>),
-            Cell: ({ }) => <div className="font-title gradient-text2 text-right text-[14px] font-bold cursor-pointer">{t('View credentials')}</div>,
+            Cell: ({ }) => (
+              <div className="flex justify-end"><TextButton>{t('View credentials')}</TextButton></div>
+            ),
           },
         ]}
         data={listQuery.data?.data?.records}

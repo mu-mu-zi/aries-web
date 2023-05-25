@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useTrustReportListQuery } from '../../../api/trust/order';
 import SimpleTable from '../../../views/SimpleTable';
 import { IReport } from '../../../interfaces/trust';
+import TextButton from '../../../components/TextButton';
 
 export default function Report() {
   const { trustId } = useParams();
@@ -29,9 +30,9 @@ export default function Report() {
           Cell: ({ row }) => (
             <div className="flex flex-row gap-4 justify-end">
               {/* eslint-disable-next-line react/prop-types */}
-              <a href={row.original.reportFilePath} target="_blank" className="font-title gradient-text2 text-[14px] font-bold cursor-pointer" rel="noreferrer">{t('Check')}</a>
+              <TextButton onClick={() => window.open(row.original.reportFilePath)}>{t('Check')}</TextButton>
               {/* eslint-disable-next-line react/prop-types */}
-              <a href={row.original.reportFilePath} target="_blank" className="font-title gradient-text2 text-[14px] font-bold cursor-pointer" rel="noreferrer">{t('Downloads')}</a>
+              <TextButton onClick={() => window.open(row.original.reportFilePath)}>{t('Downloads')}</TextButton>
             </div>
           ),
         },

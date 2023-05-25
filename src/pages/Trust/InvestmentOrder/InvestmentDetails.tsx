@@ -10,22 +10,22 @@ export default function InvestmentDetails({ trustInvestment }: {
   return (
     <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8 shadow-block">
       {/* 标题 */}
-      <div className="gradient-text1 font-blod text-[20px]">{t('Investment Instruction Details')}</div>
+      <div className="gradient-text1 font-bold text-[20px]">{t('Investment Instruction Details')}</div>
       {/* 分割线 */}
       <div className="h-[1px] bg-[#3B5649]" />
       {/* 状态 */}
       <div className="flex flex-row">
         <div className="flex-1 flex flex-col gap-4">
           <div className="text-[#99ac9b] text-[16px]">{t('Investment number')}</div>
-          <div className="font-blod text-[20px] text-[#C2D7C7F6]">{trustInvestment.investmentCode}</div>
+          <div className="font-bold text-[20px] text-[#C2D7C7F6]">{trustInvestment.investmentCode}</div>
         </div>
         <div className="flex-1 flex flex-col gap-4">
           <div className="text-[#99ac9b] text-[16px]">{t('Investment time')}</div>
-          <div className="font-blod text-[20px] text-[#C2D7C7F6]">{trustInvestment.investmentTime}</div>
+          <div className="font-bold text-[20px] text-[#C2D7C7F6]">{trustInvestment.investmentTime}</div>
         </div>
         <div className="flex-1 flex flex-col gap-4 items-end">
           <div className="text-[#99ac9b] text-[16px]">{t('Status')}</div>
-          <div className="font-blod text-[20px] text-[#C2D7C7F6]">{trustInvestment.investmentStatusName}</div>
+          <div className="font-bold text-[20px] text-[#C2D7C7F6]">{trustInvestment.investmentStatusName}</div>
         </div>
       </div>
       {/* advice */}

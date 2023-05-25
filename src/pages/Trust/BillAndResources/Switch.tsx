@@ -11,7 +11,7 @@ export default function Switch({ titles, onSelect }: {
     <div className="flex flex-row items-center gap-6">
       {titles.map((it, idx) => (
         <div
-          className={classNames('font-title text-[20px]', 'cursor-pointer', {
+          className={classNames('font-title font-bold text-[20px]', 'cursor-pointer', {
             'text-[#99AC9B]': idx !== index,
             'gradient-text1': idx === index,
           })}

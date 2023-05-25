@@ -15,7 +15,7 @@ export default function ViewCredentials({ onClose, recordId }: {
     <div className="flex flex-col bg-[#1A342F] rounded-xl w-full max-w-[720px] p-8 max-h-[780px]">
       {/* Header */}
       <div className="flex flex-row justify-between items-center">
-        <div className="gradient-text1 font-title font-blod text-[32px]">
+        <div className="gradient-text1 font-title font-bold text-[32px]">
           {t('View Credentials')}
         </div>
         <div onClick={onClose} className="cursor-pointer">
@@ -24,7 +24,7 @@ export default function ViewCredentials({ onClose, recordId }: {
       </div>
       {/* Content */}
       <div className="mt-8 overflow-auto flex-auto">
-        <div className="text-[#C2D7C7F6] font-blod text-[16px]">{t('Bank transfer information')}</div>
+        <div className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Bank transfer information')}</div>
         {query.data?.data && (
           <div className="mt-4 flex flex-col gap-4">
             <PaymentRow title="Payee Name" value={query.data?.data?.payUserName} />

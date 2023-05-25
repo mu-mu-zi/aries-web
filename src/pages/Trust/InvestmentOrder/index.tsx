@@ -18,7 +18,7 @@ export default function InvestmentOrder() {
   const listQuery = useInvestmentOrderQuery({
     trustId: Number(trustId),
     pageIndex: page,
-    pageSize: 5,
+    pageSize: 4,
   });
   const [creatingVisible, setCreatingVisible] = useState(false);
   const trustDetailQuery = useTrustDetailQuery({ trustId: Number(trustId) });
@@ -32,14 +32,16 @@ export default function InvestmentOrder() {
         btn={(trustDetailQuery.data?.data?.roleType ?? 0) > 2 && <Button onClick={() => setCreatingVisible(true)}>{t('Creating a command')}</Button>}
       />
       <div
-        className="gradient-bg2 roundex-xl shadow-block grid grid-cols-2  gap-4 p-8 rounded-xl"
+        className="gradient-bg2 roundex-xl shadow-block p-8 rounded-xl flex flex-col gap-8"
       >
-        {listQuery.data?.data?.records.map((it) => <OrderCell item={it} key={it.trustInvestmentId} />)}
-        <div className="mx-auto">
+        <div className="grid grid-cols-2 gap-4">
+          {listQuery.data?.data?.records.map((it) => <OrderCell item={it} key={it.trustInvestmentId} />)}
+        </div>
+        <div className="w-full flex flex-col items-center">
           <Paginate
             page={page}
             total={listQuery.data?.data?.total ?? 0}
-            pageSize={5}
+            pageSize={4}
             onPageChanged={(page) => setPage(page)}
           />
         </div>

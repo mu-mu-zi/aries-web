@@ -77,11 +77,12 @@ export default function AssetDigitalDeclaration() {
   return (
     <form onSubmit={handleSubmit(submit)}>
       <div className="flex flex-col gap-3">
-        <div className="font-blod text-[#C2D7C7F6]">{t('Declaration information')}</div>
+        <div className="font-bold text-[#C2D7C7F6]">{t('Declaration information')}</div>
         <TextField
           requiredLabel
           label={t('Payer\'s name')}
           placeholder={t('Please enter the payer\'s name') ?? ''}
+          maxLength={30}
           {...register('name')}
         />
         <Dropdown
@@ -115,22 +116,26 @@ export default function AssetDigitalDeclaration() {
           requiredLabel
           label={t('Expected transfer time')}
           placeholder={t('Please enter the expected transfer time') ?? ''}
+          maxLength={30}
           {...register('expectedTime')}
         />
         <TextField
           requiredLabel
           label={t('Payer\'s address')}
           placeholder={t('Please enter the payer\'s address') ?? ''}
+          maxLength={100}
           {...register('address')}
         />
         <TextField
           label={t('Transaction hash (optional)')}
           placeholder={t('Please enter the transaction hash') ?? ''}
+          maxLength={66}
           {...register('hash')}
         />
         <TextField
           label={t('Remark (optional)')}
           placeholder={t('Please enter the remark') ?? ''}
+          maxLength={100}
           {...register('remark')}
         />
         <div className="mt-4">

@@ -11,6 +11,7 @@ import ModalTitle from '../../../views/ModalContainer/ModalTitle';
 import ModalContainer from '../../../views/ModalContainer';
 import Divide from '../../../components/Divide';
 import ContactUs from '../../SignIn/ContactUs';
+import ContactUsFooter from '../../../views/ContactUsFooter';
 
 export default function NewPlan({ trustId, onClose }: {
   trustId: number,
@@ -50,11 +51,11 @@ export default function NewPlan({ trustId, onClose }: {
         <div className="flex flex-col gap-8">
           <label>
             <div className="flex flex-col gap-4">
-              <div className="text-[#C2D7C7F6] text-[16px]">{t('Allocation Plan Explanation')}</div>
+              <div className="text-[#C2D7C7F6] text-[16px] font-bold">{t('Allocation Plan Explanation')}</div>
               <textarea
                 maxLength={1000}
                 {...register('planDescription')}
-                className="bg-[#3B5649] rounded-xl p-4 outline-none h-[158px] placeholder:text-[#99AC9B] resize-none"
+                className="bg-[#3B5649] rounded-xl p-4 text-[20px] outline-none h-[158px] placeholder:text-[#99AC9B] resize-none"
                 placeholder={t('Regarding profit distribution, I want to make it clear that it will be based on the proportion of the beneficiary\'s ownership of the rights and interests. Distribution will be made according to a predetermined ratio and the profits will be directly paid to the beneficiary\'s designated bank account at the end of each quarter.') ?? ''}
               />
             </div>
@@ -63,9 +64,10 @@ export default function NewPlan({ trustId, onClose }: {
             <Button type="submit" block>{t('Submit')}</Button>
           </div>
         </div>
-        <div className="mt-12 flex flex-col items-center gap-9 self-stretch px-8">
-          <Divide />
-          <ContactUs />
+        <div className="mt-12 self-stretch px-8">
+          {/* <Divide /> */}
+          {/* <ContactUs /> */}
+          <ContactUsFooter />
         </div>
       </form>
     </ModalContainer>

@@ -16,6 +16,7 @@ import ModalContainer from '../../../views/ModalContainer';
 import ModalNav from '../../../views/ModalContainer/ModalNav';
 import TextArea from '../../../components/TextArea';
 import { AccountType } from '../../../interfaces/base';
+import ContactUsFooter from '../../../views/ContactUsFooter';
 
 enum UserType {
   Define = 2,
@@ -200,8 +201,9 @@ export default function AddBeneficiary({ trustId, onClose }: {
           </div>
           <DevTool control={control} />
           <div className="flex flex-col gap-5 mt-6">
-            <Divide />
-            <ContactUs />
+            {/* <Divide /> */}
+            {/* <ContactUs /> */}
+            <ContactUsFooter />
           </div>
         </div>
       </form>

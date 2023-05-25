@@ -28,11 +28,11 @@ export default function Fees() {
   const linkTo = (type: number) => {
     switch (type) {
       case 1:
-        return `/trust/${trustId}/billAndResources/managerFee`;
+        return `/trust/${trustId}/managerFee`;
       case 2:
-        return `/trust/${trustId}/billAndResources/excessFee`;
+        return `/trust/${trustId}/excessFee`;
       case 3:
-        return `/trust/${trustId}/billAndResources/establishmentFee`;
+        return `/trust/${trustId}/establishmentFee`;
       default:
         return `/trust/${trustId}`;
     }
@@ -65,7 +65,7 @@ function FeesCell({
   return (
     <NavLink to={to} className="flex flex-col gap-2 p-8 gradient-block1 rounded-xl">
       <div className="flex flex-row gap-2 items-center">
-        <div className="gradient-text1">{title}</div>
+        <div className="gradient-text1 font-title font-bold">{title}</div>
         <div>
           <img src={alertIcon} width="16px" alt="" />
         </div>

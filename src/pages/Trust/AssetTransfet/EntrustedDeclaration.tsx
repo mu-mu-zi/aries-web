@@ -44,7 +44,7 @@ export default function EntrustedDeclaration() {
         </div>
         <div className="w-[1px] bg-[#3B5649] my-[120px]" />
         <div className="flex-1">
-          <div className="gradient-text1 font-blod text-[20px] font-title">{t('Payment information')}</div>
+          <div className="gradient-text1 font-bold text-[20px] font-title">{t('Payment information')}</div>
           <div className="mt-[40px]">
             {/* eslint-disable-next-line no-nested-ternary */}
             {isDigital ? <PaymentBit /> : <PaymentFiat />}

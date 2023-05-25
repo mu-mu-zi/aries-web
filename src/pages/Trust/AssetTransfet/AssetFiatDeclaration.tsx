@@ -24,6 +24,7 @@ export default function AssetFiatDeclaration() {
     bank: z.string().nonempty(),
     bankCardNo: z.string().optional(),
     address: z.string().optional(),
+    remark: z.string().optional(),
   });
   type FormValid = z.infer<typeof valid>;
   const {
@@ -50,13 +51,13 @@ export default function AssetFiatDeclaration() {
     await axios.post('/trust/assetDeclare/apply', {
       trustId: Number(trustId),
       payUserName: data.name,
-      amount: data.amount,
       coinId: data.fiatId,
       estimateTime: data.expectedTime,
       payNo: data.bankCardNo,
       payType: 2,
       bankName: data.bank,
       payAddress: data.address,
+      ...data,
     });
     addSuccessNotification({
       title: '提交成功',
@@ -68,12 +69,13 @@ export default function AssetFiatDeclaration() {
   return (
     <form onSubmit={handleSubmit(submit)}>
       <div className="flex flex-col gap-3">
-        <div className="font-blod text-[#C2D7C7F6]">{t('Declaration information')}</div>
+        <div className="font-bold text-[#C2D7C7F6]">{t('Declaration information')}</div>
         <TextField
           requiredLabel
           label={'Payer\'s name'}
           placeholder={t('Please enter the payer\'s name') ?? ''}
           {...register('name')}
+          maxLength={100}
         />
         <Controller
           name="fiatId"
@@ -99,22 +101,32 @@ export default function AssetFiatDeclaration() {
           label={t('Expected transfer time')}
           placeholder={t('Please enter the expected transfer time') ?? ''}
           {...register('expectedTime')}
+          maxLength={30}
         />
         <TextField
           requiredLabel
           label={t('payment Bank')}
           placeholder={t('Please enter the payment bank(English)') ?? ''}
           {...register('bank')}
+          maxLength={60}
         />
         <TextField
           label={t('Bank card number (optional)')}
           placeholder={t('Please enter your payment card number') ?? ''}
           {...register('bankCardNo')}
+          maxLength={60}
         />
         <TextField
           label={t('Payer\'s address (optional)')}
           placeholder={t('Please enter the payer\'s address') ?? ''}
           {...register('address')}
+          maxLength={100}
+        />
+        <TextField
+          label={t('Remark (optional)')}
+          placeholder={t('Please enter the remark') ?? ''}
+          maxLength={100}
+          {...register('remark')}
         />
         <div className="mt-4">
           <Button type="submit" block>{t('Submit')}</Button>

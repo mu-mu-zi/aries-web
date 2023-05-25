@@ -12,6 +12,7 @@ import Button from '../../components/Button';
 import Divide from '../../components/Divide';
 import ContactUs from './ContactUs';
 import CenterContainer from '../../views/CenterContainer';
+import ContactUsFooter from '../../views/ContactUsFooter';
 
 export default function GAVerify() {
   const { t } = useTranslation();
@@ -64,12 +65,12 @@ export default function GAVerify() {
       <form onSubmit={handleSubmit(submit)}>
         <div className="flex flex-col">
           <GANavbar title={t('Cancel')} />
-          <div className="item-center flex w-[418px] flex-col self-center pt-[64px]">
+          <div className="item-center flex w-[420px] flex-col self-center pt-[64px]">
             <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]">
               {t('Security verification')}
             </div>
             <div className="mt-16 flex flex-col gap-4">
-              <div className="font-blod text-[#c2d7c7]">
+              <div className="font-bold text-[#c2d7c7]">
                 {t('Please enter the 6-digit Google security code')}
               </div>
               <TextInput {...register('googleCode')} maxLength={6} />
@@ -81,9 +82,10 @@ export default function GAVerify() {
             </div>
           </div>
           <div className="flex-auto" />
-          <div className="mt-12 flex flex-col items-center gap-9 self-stretch px-8 pb-16">
-            <Divide />
-            <ContactUs />
+          <div className="mt-12 self-stretch px-8 pb-16">
+            {/* <Divide /> */}
+            {/* <ContactUs /> */}
+            <ContactUsFooter />
           </div>
         </div>
       </form>

@@ -1,9 +1,10 @@
 export const CallFormat = (
   name?: string,
-  gender?: boolean, // 男
+  gender?: boolean, // 男,
+  dear?: boolean,
 ) => {
   if (gender) {
-    return `Dear Mrs. ${name}`;
+    return `${dear ? 'Dear ' : ' '}Mrs. ${name}`;
   }
-  return `Dear Mr. ${name}`;
+  return `${dear ? 'Dear ' : ' '}Mr. ${name}`;
 };

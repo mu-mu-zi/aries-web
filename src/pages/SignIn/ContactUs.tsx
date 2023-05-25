@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import TextButton from '../../components/TextButton';
 
 export default function ContactUs() {
   const navigate = useNavigate();
@@ -8,8 +9,7 @@ export default function ContactUs() {
   const { t } = useTranslation();
 
   return (
-    <div
-      className="underline gradient-text1 text-center font-title font-bold text-[14px] cursor-pointer"
+    <TextButton
       onClick={() => navigate('/contactCustomer', {
         state: {
           trustId: trustId && Number(trustId),
@@ -17,6 +17,6 @@ export default function ContactUs() {
       })}
     >
       {t('Contact Us')}
-    </div>
+    </TextButton>
   );
 }

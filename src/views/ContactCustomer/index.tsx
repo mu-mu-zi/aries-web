@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import GANavbar from '../../pages/SignIn/GANavbar';
 import logo from '../../assets/icon/bakcup_key_logo.svg';
 import Copy from '../Icons/Copy';
@@ -18,8 +19,10 @@ import CenterContainer from '../CenterContainer';
 import { useAreaCodeListQuery } from '../../api/base/areaCode';
 import Dropdown from '../../components/Dropdown';
 import { useTrustContactEmailQuery } from '../../api/base/email';
+import FooterNote from '../FooterNote';
 
 export default function ContactCustomer() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [isPhone, setIsPhone] = useState(true);
   const areaCodeListQuery = useAreaCodeListQuery();
@@ -73,64 +76,81 @@ export default function ContactCustomer() {
   };
 
   return (
-    <CenterContainer>
-      <GANavbar title="Cancel" />
-      <div className="flex flex-col items-center">
-        <form onSubmit={handleSubmit(submit)}>
-          <div className="item-center flex w-[418px] flex-col self-center py-[64px]">
-            <div className="text-shadow-block font-blod gradient-text1 text-center font-title text-[32px] leading-[36px]">
-              Contact customer service
-            </div>
-            <div className="mt-16 flex flex-col gap-4">
-              <div className="flex flex-row gap-2">
-                {/* <div className="gradient-text1">*</div> */}
-                <div className="font-blod text-[#c2d7c7]">Name</div>
+    <div>
+      <CenterContainer>
+        <GANavbar title="Cancel" />
+        <div className="flex flex-col items-center">
+          <form onSubmit={handleSubmit(submit)}>
+            <div className="item-center flex w-[420px] flex-col self-center py-[64px]">
+              <div
+                className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]"
+              >
+                Contact customer service
               </div>
-              <TextInput placeholder="Please enter your name" {...register('contactName')} />
-              <div className="flex flex-row gap-2">
-                <div className="gradient-text1">*</div>
-                <div className="font-blod text-[#c2d7c7]">Description</div>
-              </div>
-              <TextArea {...register('problemDescription')} />
-              <div className="flex flex-row gap-2">
-                <div className="gradient-text1">*</div>
-                <div className="font-blod text-[#c2d7c7]">Contact</div>
-              </div>
-              <PhotoEmailSwitch onSelected={setIsPhone} />
-              <div className="flex flex-row gap-2">
-                {isPhone && areaCodeListQuery.data?.data && (
-                  <Controller
-                    render={({ field }) => (
-                      <Dropdown
-                        block
-                        items={areaCodeListQuery.data?.data?.map((x) => `+${x.code}`) ?? []}
-                        title={`+${areaCodeListQuery.data?.data?.find((x) => x.id === field.value)?.code}` ?? ''}
-                        onSelected={(idx) => field.onChange(areaCodeListQuery.data?.data?.[idx].id)}
+              <div className="mt-16 flex flex-col gap-4">
+                <div className="flex flex-row gap-2">
+                  {/* <div className="gradient-text1">*</div> */}
+                  <div className="font-bold text-[#c2d7c7]">Name</div>
+                </div>
+                <TextInput placeholder="Please enter your name" {...register('contactName')} />
+                <div className="flex flex-row gap-2">
+                  <div className="gradient-text1">*</div>
+                  <div className="font-bold text-[#c2d7c7]">Description</div>
+                </div>
+                <TextArea
+                  {...register('problemDescription')}
+                  placeholder="Please provide a detailed explanation of the subject you would like to consult about."
+                />
+                <div className="flex flex-row gap-2">
+                  <div className="gradient-text1">*</div>
+                  <div className="font-bold text-[#c2d7c7]">Contact</div>
+                </div>
+                <PhotoEmailSwitch onSelected={setIsPhone} />
+                <div className="flex flex-row gap-2">
+                  {isPhone && areaCodeListQuery.data?.data && (
+                    <div className="w-[160px]">
+                      <Controller
+                        render={({ field }) => (
+                          <Dropdown
+                            block
+                            items={areaCodeListQuery.data?.data?.map((x) => `+${x.code}`) ?? []}
+                            title={`+${areaCodeListQuery.data?.data?.find((x) => x.id === field.value)?.code}` ?? ''}
+                            onSelected={(idx) => field.onChange(areaCodeListQuery.data?.data?.[idx].id)}
+                          />
+                        )}
+                        name="areaCodeId"
+                        control={control}
                       />
-                    )}
-                    name="areaCodeId"
-                    control={control}
+                    </div>
+                  )}
+                  <TextInput
+                    block
+                    className="w-full"
+                    placeholder={isPhone ? t('Please input your phone') ?? '' : t('Please input your email') ?? ''}
+                    type="text"
+                    {...register('account')}
                   />
-                )}
-                <TextInput block className="w-full" placeholder="Please input your email" type="text" {...register('account')} />
+                </div>
+              </div>
+              <div className="mt-[40px] flex flex-row gap-4">
+                <Button size="medium" block type="submit">
+                  Confirm
+                </Button>
+              </div>
+              <div className="text-[#708077] text-[14px] leading-[16px] mt-10">
+                {`The application will be processed within one working day, please keep your communication channels open so that customer service can contact you in a timely manner. Additionally, you can also contact the platform through ${emailQuery.data?.data}.`}
               </div>
             </div>
-            <div className="mt-[40px] flex flex-row gap-4">
-              <Button size="medium" block type="submit">
-                Confirm
-              </Button>
-            </div>
-            <div className="text-[#708077] text-[14px] leading-[16px] mt-10">
-              {`The application will be processed within one working day, please keep your communication channels open so that customer service can contact you in a timely manner. Additionally, you can also contact the platform through ${emailQuery.data?.data}.`}
-            </div>
-          </div>
-        </form>
-      </div>
-      {/* <div className="flex-auto" /> */}
-      {/* <div className="mt-12 flex flex-col items-center gap-9 self-stretch pb-16 px-8"> */}
-      {/*  <Divide /> */}
-      {/*  <ContactUs /> */}
-      {/* </div> */}
-    </CenterContainer>
+          </form>
+        </div>
+        {/* <div className="flex-auto" /> */}
+        {/* <div className="mt-12 flex flex-col items-center gap-9 self-stretch pb-16 px-8"> */}
+        {/*  <Divide /> */}
+        {/*  <ContactUs /> */}
+        {/* </div> */}
+
+      </CenterContainer>
+      <FooterNote />
+    </div>
   );
 }

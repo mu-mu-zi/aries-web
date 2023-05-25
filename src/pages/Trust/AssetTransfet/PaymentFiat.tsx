@@ -19,7 +19,7 @@ export default function PaymentFiat() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-4">
-        <div className="text-[#C2D7C7F6] font-blod text-[16px]">{t('Choosing a Bank')}</div>
+        <div className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Choosing a Bank')}</div>
         <Dropdown
           title={bank?.bankName}
           items={bankListQuery.data?.data?.map((x) => x.bankName)}
@@ -28,7 +28,7 @@ export default function PaymentFiat() {
       </div>
       {bank && (
         <div className="flex flex-col gap-4">
-          <div className="text-[#C2D7C7F6] font-blod text-[16px]">{t('Receiving address')}</div>
+          <div className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Receiving address')}</div>
           <div className="flex flex-col gap-4">
             <PaymentRow title={t('Payee Name')} value={bank.userName} />
             <PaymentRow title={t('Payee account number')} value={bank.address} />

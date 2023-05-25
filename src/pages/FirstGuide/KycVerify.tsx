@@ -13,6 +13,7 @@ import CompletionBitStep from './CompletionBitStep';
 import CompletionFiatStep from './CompletionFiatStep';
 import { useTrustDetailQuery } from '../../api/trust/trust';
 import ContractSigningStep from './ContractSigningStep';
+import ContactUsFooter from '../../views/ContactUsFooter';
 
 export default function KycVerify() {
   const location = useLocation();
@@ -47,7 +48,7 @@ export default function KycVerify() {
           <div
             className="gradient-text1 text-shadow-block text-center font-title text-[40px] font-bold mt-12"
           >
-            {t('Set up your proprietary trust')}
+            {t('Set Up Your Captive Trust')}
           </div>
           <div className="text-center font-title text-[20px] font-[400] text-[#C39770] mt-4 px-16">
             {stepId() === 0 && t('Welcome to Aries Customized Trust Services! In order to protect your assets and comply with the relevant laws and regulations, we require you to complete identity verification. Please contact your trust manager to submit your personal information and proof of identity.')}
@@ -76,9 +77,10 @@ export default function KycVerify() {
           )}
         </div>
         <div className="flex-auto" />
-        <div className="flex flex-col items-center py-12 pb-16 gap-9 px-8">
-          <Divide />
-          <ContactUs />
+        <div className="self-stretch py-12 pb-16 gap-9 px-8">
+          <ContactUsFooter />
+          {/* <Divide /> */}
+          {/* <ContactUs /> */}
         </div>
       </div>
     </CenterContainer>

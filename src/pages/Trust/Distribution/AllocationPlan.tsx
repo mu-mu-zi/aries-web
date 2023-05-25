@@ -12,6 +12,7 @@ import { IDistribution } from '../../../interfaces/trust';
 import ModifyPlan from './ModifyPlan';
 import { useTrustDetailQuery } from '../../../api/trust/trust';
 import PlanDetail from './PlanDetail';
+import TextButton from '../../../components/TextButton';
 
 export default function AllocationPlan() {
   const { t } = useTranslation();
@@ -33,7 +34,7 @@ export default function AllocationPlan() {
     <>
       <div className="flex flex-col p-8 gradient-bg2 rounded-xl shadow-block">
         <div className="flex flex-row items-center justify-between">
-          <div className="gradient-text1 text-[20px] font-title">{t('Allocation plan')}</div>
+          <div className="gradient-text1 text-[20px] font-title font-bold">{t('Allocation plan')}</div>
           {trustQuery.data?.data?.roleType! > 2 && (
           <Button
             size="medium"
@@ -72,9 +73,8 @@ export default function AllocationPlan() {
               Header: t('Operation') ?? '',
               // eslint-disable-next-line react/prop-types
               Cell: ({ row }) => (
-                <div className="flex flex-row gap-4 gradient-text2 font-title text-[14px] font-bold">
-                  <div
-                    className="cursor-pointer"
+                <div className="flex flex-row gap-4">
+                  <TextButton
                     onClick={() => {
                       // eslint-disable-next-line react/prop-types
                       setSelectRow(row.original);
@@ -82,9 +82,8 @@ export default function AllocationPlan() {
                     }}
                   >
                     {t('View')}
-                  </div>
-                  <div
-                    className="cursor-pointer"
+                  </TextButton>
+                  <TextButton
                     onClick={() => {
                       console.log();
                       // eslint-disable-next-line react/prop-types
@@ -93,7 +92,7 @@ export default function AllocationPlan() {
                     }}
                   >
                     {t('Modify')}
-                  </div>
+                  </TextButton>
                 </div>
               ),
             },

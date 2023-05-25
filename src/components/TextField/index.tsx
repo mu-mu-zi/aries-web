@@ -14,7 +14,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
       <label>
         <div className="flex flex-col gap-2">
           <div
-            className={classNames('text-[#99AC9B] font-bold text-[16px]')}
+            className={classNames('text-[#99AC9B] font-bold text-[20px]')}
           >
             {requiredLabel && <span className="gradient-text1 font-bold text-[16px] pr-1">*</span>}
             {label}

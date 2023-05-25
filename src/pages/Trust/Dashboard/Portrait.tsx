@@ -10,7 +10,10 @@ import LargeAvatar from '../../../components/LargeAvatar';
 import { CallFormat } from '../../../utils/CallFormat';
 import { useTrustDetailQuery } from '../../../api/trust/trust';
 
-export default function Portrait() {
+export default function Portrait({ trustName, description }: {
+  trustName?: string,
+  description: string
+}) {
   const userQuery = useUserInfoQuery();
   const { t } = useTranslation();
   const { trustId } = useParams();
@@ -27,11 +30,13 @@ export default function Portrait() {
         <GradientText
           className={classNames('text-[20px] font-normal leading-[23px]', 'font-title')}
         >
-          <span className="font-bold">
-            {query.data?.data?.trustName}
-            &nbsp;
-          </span>
-          {t('has been exclusively established in accordance with your wishes to achieve the purpose of wealth inheritance and planning for your family.')}
+          {trustName && (
+            <span className="font-bold">
+              {trustName}
+              &nbsp;
+            </span>
+          )}
+          {description}
         </GradientText>
       </div>
     </div>

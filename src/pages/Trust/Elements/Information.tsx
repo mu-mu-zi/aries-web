@@ -16,7 +16,7 @@ export default function Information() {
 
   return (
     <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8 shadow-block">
-      <div className="gradient-text1 font-title font-blod text-[20px]">{t('Trust information')}</div>
+      <div className="gradient-text1 font-title font-bold text-[20px]">{t('Trust information')}</div>
       <Hr />
       {
         detailQuery.data?.data && (
@@ -26,7 +26,7 @@ export default function Information() {
               title="Establishment time"
               value={moment.unix(detailQuery.data.data.createTime / 1000).format('yyyy-MM-DD')}
             />
-            <InformationCell title="Principal" value={`${detailQuery.data?.data?.surname}`} />
+            <InformationCell title="Principal" value={`${detailQuery.data?.data?.surname} ${detailQuery.data?.data?.userName}`} />
             <InformationCell title="Trust Type" value={detailQuery.data.data.trustEntrustTypeName} />
             <InformationCell title="Status" value={detailQuery.data.data.trustStatusName} alignRight />
           </div>

@@ -120,3 +120,7 @@ body {
 textarea, input {
     color: #99AC9B;
 }
+
+textarea::-webkit-scrollbar {
+    display: none;
+}

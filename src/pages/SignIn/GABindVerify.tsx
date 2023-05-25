@@ -16,6 +16,7 @@ import Dropdown from '../../components/Dropdown';
 import { useAreaCodeListQuery } from '../../api/base/areaCode';
 import SendButton from '../../views/SendButton';
 import { useUserInfoQuery } from '../../api/user/user';
+import ContactUsFooter from '../../views/ContactUsFooter';
 
 export default function GABindVerify() {
   const navigate = useNavigate();
@@ -91,7 +92,7 @@ export default function GABindVerify() {
         state: {
           title: 'Bind Google Authenticator',
           description: 'Congratulations! You have successfully bound Google Authenticator.',
-          navTo: userQuery.data?.data?.userName ? '/' : '/personalRealName',
+          navTo: location.state.userName ? '/' : '/personalRealName',
         },
         replace: true,
       });
@@ -171,9 +172,10 @@ export default function GABindVerify() {
           </form>
         </div>
         <div className="flex-auto" />
-        <div className="mt-12 flex flex-col items-center gap-9 self-stretch px-8 pb-16">
-          <Divide />
-          <ContactUs />
+        <div className="mt-12 self-stretch px-8 pb-16">
+          {/* <Divide /> */}
+          {/* <ContactUs /> */}
+          <ContactUsFooter />
         </div>
       </div>
     </div>

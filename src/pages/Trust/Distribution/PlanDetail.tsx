@@ -7,7 +7,7 @@ export default function PlanDetail({ detail, onClose }: {
 }) {
   return (
     <div className="flex flex-col gap-4 bg-[#1A342F] rounded-xl p-8 w-[720px]">
-      <div className="text-[#99AC9B] text-[16px] font-blod">Allocation Plan Explanation:</div>
+      <div className="text-[#99AC9B] text-[16px] font-bold">Allocation Plan Explanation:</div>
       <div className="text-[20px] text-[#C2D7C7F6]">
         {detail}
       </div>

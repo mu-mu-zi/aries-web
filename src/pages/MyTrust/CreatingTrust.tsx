@@ -18,7 +18,7 @@ export default function CreatingTrust() {
         <div className="mt-4 text-[#C39770] font-title text-[20px] text-center leading-[24px]">{t('The most professional digital asset family trust service provider.')}</div>
         <div className="flex-1" />
         <div className="mt-12 self-center">
-          <Button onClick={() => navigate('/contactCustomer')}>{t('Creating a Trust')}</Button>
+          <Button size="large" onClick={() => navigate('/contactCustomer')}>{t('Creating a Trust')}</Button>
         </div>
       </div>
       <div className="mt-[52px]">

@@ -15,6 +15,7 @@ import { useAreaCodeListQuery } from '../../api/base/areaCode';
 import Button from '../../components/Button';
 import { useSendValidateCodeMutation } from '../../api/user/verify';
 import SendButton from '../../views/SendButton';
+import ContactUsFooter from '../../views/ContactUsFooter';
 
 export default function ChangeMobile() {
   const { t } = useTranslation();
@@ -54,7 +55,7 @@ export default function ChangeMobile() {
       await axios.post('/user/send/sendSmsCode', {
         account: getValues('mobile'),
         areaCodeId: getValues('areaCodeId'),
-        type: 2,
+        type: 4,
       });
       return true;
     } catch (e) {
@@ -98,21 +99,24 @@ export default function ChangeMobile() {
           <div className="flex flex-col gap-4">
             <div className="text-[#C2D7C7F6] text-[16px] font-bold">{t('New Mobile Phone')}</div>
             <div className="flex flex-row gap-4">
-              <Controller
-                render={({ field }) => (
-                  <Dropdown
-                    block
-                    items={areaCodeListQuery.data?.data?.map((x) => `+${x.code}`) ?? []}
-                    title={`+${areaCodeListQuery.data?.data?.find((x) => x.id === field.value)?.code}` ?? ''}
-                    onSelected={(idx) => field.onChange(areaCodeListQuery.data?.data?.[idx].id)}
-                  />
-                )}
-                name="areaCodeId"
-                control={control}
-              />
+              <div className="w-[160px]">
+                <Controller
+                  render={({ field }) => (
+                    <Dropdown
+                      block
+                      items={areaCodeListQuery.data?.data?.map((x) => `+${x.code}`) ?? []}
+                      title={`+${areaCodeListQuery.data?.data?.find((x) => x.id === field.value)?.code}` ?? ''}
+                      onSelected={(idx) => field.onChange(areaCodeListQuery.data?.data?.[idx].id)}
+                    />
+                  )}
+                  name="areaCodeId"
+                  control={control}
+                />
+              </div>
               <div className="flex-auto">
                 <TextInput
                   {...register('mobile')}
+                  placeholder="Please enter your mobile phone number"
                 />
               </div>
             </div>
@@ -120,6 +124,7 @@ export default function ChangeMobile() {
             <div>
               <TextInput
                 {...register('securityCode')}
+                placeholder="Please enter the verification code"
                 suffix={(
                   <SendButton onClick={sendValidCode} />
                   // <div
@@ -137,6 +142,10 @@ export default function ChangeMobile() {
           </div>
         </div>
       </form>
+      <div className="flex-auto" />
+      <div className="pb-16">
+        <ContactUsFooter />
+      </div>
     </CenterContainer>
   );
 }

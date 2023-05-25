@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
@@ -14,6 +14,7 @@ import ContactUs from './ContactUs';
 import CenterContainer from '../../views/CenterContainer';
 import { useUserInfoQuery } from '../../api/user/user';
 import Dropdown from '../../components/Dropdown';
+import ContactUsFooter from '../../views/ContactUsFooter';
 
 export default function PersonalRealName() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export default function PersonalRealName() {
   const valid = z.object({
     firstName: z.string().nonempty(),
     lastName: z.string().nonempty(),
-    gender: z.boolean(),
+    gender: z.boolean().default(true),
   });
   type FormValid = z.infer<typeof valid>;
   const {
@@ -32,6 +33,7 @@ export default function PersonalRealName() {
     trigger,
     getValues,
     control,
+    setValue,
   } = useForm<FormValid>({
     resolver: zodResolver(valid),
   });
@@ -56,22 +58,26 @@ export default function PersonalRealName() {
     }
   };
 
+  useEffect(() => {
+    setValue('gender', userQuery.data?.data?.gender ?? true);
+  }, [userQuery.data?.data]);
+
   return (
     <CenterContainer>
       <GANavbar title={t('Cancel')} />
-      <div className="item-center flex w-[418px] flex-col self-center pt-[64px]">
+      <div className="item-center flex w-[420px] flex-col self-center pt-[64px]">
         <form onSubmit={handleSubmit(submit)}>
-          <div className="text-shadow-block font-blod gradient-text1 text-center font-title text-[32px] leading-[36px]">
+          <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]">
             {t('Personal Information')}
           </div>
           <div className="flex flex-row gap-4 mt-16">
             <div className="flex flex-col gap-4">
-              <div className="font-blod text-[#c2d7c7]">{t('FirstName')}</div>
-              <TextInput {...register('firstName')} placeholder="Please enter the firstname" />
+              <div className="font-bold text-[#c2d7c7]">{t('FirstName')}</div>
+              <TextInput {...register('firstName')} placeholder="firstname" />
             </div>
             <div className="flex flex-col gap-4">
-              <div className="font-blod text-[#c2d7c7]">{t('LastName')}</div>
-              <TextInput {...register('lastName')} placeholder="Please enter the lastname" />
+              <div className="font-bold text-[#c2d7c7]">{t('LastName')}</div>
+              <TextInput {...register('lastName')} placeholder="lastname" />
             </div>
           </div>
           <label className="mt-4 flex flex-col gap-4">
@@ -99,9 +105,10 @@ export default function PersonalRealName() {
         </form>
       </div>
       <div className="flex-auto" />
-      <div className="mt-12 flex flex-col items-center gap-9 self-stretch px-8 pb-16">
-        <Divide />
-        <ContactUs />
+      <div className="mt-12 self-stretch px-8 pb-16">
+        {/* <Divide /> */}
+        {/* <ContactUs /> */}
+        <ContactUsFooter />
       </div>
     </CenterContainer>
   );

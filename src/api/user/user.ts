@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { useEffect } from 'react';
 import { IPage, IResponseData } from '../../interfaces/base';
 import { IUser, IUserLoginLog } from '../../interfaces/user';
 import useUserId from '../../hooks/useUserId';
@@ -9,6 +10,11 @@ import useUserId from '../../hooks/useUserId';
 * */
 export const useUserInfoQuery = () => {
   const token = localStorage.getItem('TOKEN');
+
+  useEffect(() => {
+    console.log(token);
+    console.log(!!token);
+  }, [token]);
 
   return useQuery<IResponseData<IUser>>({
     queryKey: ['user', 'info', token],

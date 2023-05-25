@@ -4,6 +4,7 @@ import Hr from '../../../components/Hr';
 import { useDistributionBillQuery } from '../../../api/trust/distribution';
 import SimpleTable from '../../../views/SimpleTable';
 import { unixFormatTime } from '../../../utils/DateFormat';
+import TextButton from '../../../components/TextButton';
 
 export default function AllocationRecord() {
   const { trustId } = useParams();
@@ -16,13 +17,13 @@ export default function AllocationRecord() {
 
   return (
     <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8">
-      <div className="gradient-text1 font-title font-blod text-[20px]">Allocation Record</div>
+      <div className="gradient-text1 font-title font-bold text-[20px]">Allocation Record</div>
       <Hr />
       <SimpleTable
         columns={[
           {
             Header: 'Beneficiary',
-            accessor: 'beneficiary',
+            accessor: 'beneficiaryUserName',
           },
           {
             Header: 'Time',
@@ -46,7 +47,7 @@ export default function AllocationRecord() {
             accessor: 'reconciliation',
             // eslint-disable-next-line react/prop-types
             Cell: ({ row }) => (
-              <div className="gradient-text2 font-title font-bold text-[14px] text-right cursor-pointer">View credentials</div>
+              <TextButton>View credentials</TextButton>
             ),
           },
         ]}

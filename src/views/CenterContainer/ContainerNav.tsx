@@ -19,7 +19,7 @@ export default function ContainerNav({ title, description }: { title: string; de
         </svg>
       </div>
       <div className="flex-auto flex flex-col gap-2">
-        <div className="color-[#3D3228] font-blod text-[24px]">{title}</div>
+        <div className="color-[#3D3228] font-bold text-[24px]">{title}</div>
         {description && <div className="text-[14px] leading-[16px] text-[#695D52]">{description}</div>}
       </div>
     </div>

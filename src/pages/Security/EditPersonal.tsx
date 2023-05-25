@@ -14,10 +14,12 @@ import Divide from '../../components/Divide';
 import ContactUs from '../SignIn/ContactUs';
 import Button from '../../components/Button';
 import { useUserInfoQuery } from '../../api/user/user';
+import ContactUsFooter from '../../views/ContactUsFooter';
 
 export default function EditPersonal({ onClose }: {
   onClose?(): void
 }) {
+  const { t } = useTranslation();
   const [isMeal, setIsMeal] = React.useState(true);
   const valid = z.object({
     gender: z.boolean().optional(),
@@ -38,7 +40,6 @@ export default function EditPersonal({ onClose }: {
     resolver: zodResolver(valid),
   });
   const queryClient = useQueryClient();
-  const { t } = useTranslation();
   const userQuery = useUserInfoQuery();
 
   const submit = async (data: FormValid) => {
@@ -67,12 +68,12 @@ export default function EditPersonal({ onClose }: {
         <div className="flex flex-col gap-4">
           <div className="flex flex-row gap-4">
             <label className="flex-1 flex flex-col gap-4">
-              <div className="flexfont-bold text-[#C2D7C7F6] text-[16px]">FirstName</div>
-              <TextInput {...register('nickname')} />
+              <div className="fle font-bold text-[#C2D7C7F6] text-[16px]">FirstName</div>
+              <TextInput {...register('nickname')} placeholder="firstname" />
             </label>
             <label className="flex-1 flex flex-col gap-4">
-              <div className="flexfont-bold text-[#C2D7C7F6] text-[16px]">LastName</div>
-              <TextInput {...register('surname')} />
+              <div className="flex font-bold text-[#C2D7C7F6] text-[16px]">LastName</div>
+              <TextInput {...register('surname')} placeholder="lastname" />
             </label>
           </div>
           <label className="flex flex-col gap-4">
@@ -81,7 +82,6 @@ export default function EditPersonal({ onClose }: {
               render={({ field }) => (
                 <Dropdown
                   title={field.value ? t('Female') ?? '' : t('Male') ?? ''}
-                  // title={`${field.value}`}
                   items={[
                     t('Female'),
                     t('Male'),
@@ -94,13 +94,14 @@ export default function EditPersonal({ onClose }: {
             />
           </label>
           <div className="mt-8 self-center w-[420px]">
-            <Button block>Submit</Button>
+            <Button block>{t('Confirm')}</Button>
           </div>
         </div>
       </form>
-      <div className="mt-12 flex w-full flex-col gap-8">
-        <Divide />
-        <ContactUs />
+      <div className="mt-12 w-full self-stretch">
+        {/* <Divide /> */}
+        {/* <ContactUs /> */}
+        <ContactUsFooter />
       </div>
     </ModalContainer>
   );

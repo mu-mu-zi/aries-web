@@ -14,6 +14,7 @@ import ModalContainer from '../../../views/ModalContainer';
 import ModalNav from '../../../views/ModalContainer/ModalNav';
 import { IInvestmentOrderRecode } from '../../../interfaces/trust';
 import { useTrustDetailQuery } from '../../../api/trust/trust';
+import ContactUsFooter from '../../../views/ContactUsFooter';
 
 export default function TransactionVoucher({ selected, onClose }: {
   selected: IInvestmentOrderRecode,
@@ -34,7 +35,7 @@ export default function TransactionVoucher({ selected, onClose }: {
   return (
     <ModalContainer>
       {/* <div className="flex flex-row justify-between"> */}
-      {/*  <div className="gradient-text1 font-blod text-[32px] font-title">{t('Transaction voucher')}</div> */}
+      {/*  <div className="gradient-text1 font-bold text-[32px] font-title">{t('Transaction voucher')}</div> */}
       {/*  <img className="cursor-pointer" src={closeIcon} alt="" /> */}
       {/* </div> */}
       <ModalNav title="Transaction voucher" onClose={onClose} />
@@ -51,29 +52,49 @@ export default function TransactionVoucher({ selected, onClose }: {
         {/* </div> */}
       </Slider>
       <div className="mt-16 flex flex-col gap-8">
-        <div className="w-[420px] self-center">
+        <div className="w-[420px] self-center flex flex-row items-center gap-4">
           {selected.billStatus === 1 && trustQuery.data?.data?.roleType! > 2 && (
-            <Button
-              block
-              onClick={async () => {
-                await axios.request({
-                  url: '/trust/trust/investment/bill/check',
-                  method: 'get',
-                  params: {
-                    billId: selected.billId,
-                    status: 2,
-                  },
-                });
-                onClose?.();
-                await queryClient.invalidateQueries(['trust']);
-              }}
-            >
-              {t('Confirm')}
-            </Button>
+            <>
+              <Button
+                block
+                onClick={async () => {
+                  await axios.request({
+                    url: '/trust/trust/investment/bill/check',
+                    method: 'get',
+                    params: {
+                      billId: selected.billId,
+                      status: 2,
+                    },
+                  });
+                  onClose?.();
+                  await queryClient.invalidateQueries(['trust']);
+                }}
+              >
+                {t('Confirm')}
+              </Button>
+              <Button
+                block
+                onClick={async () => {
+                  await axios.request({
+                    url: '/trust/trust/investment/bill/check',
+                    method: 'get',
+                    params: {
+                      billId: selected.billId,
+                      status: 3,
+                    },
+                  });
+                  onClose?.();
+                  await queryClient.invalidateQueries(['trust']);
+                }}
+              >
+                {t('Refuse')}
+              </Button>
+            </>
           )}
         </div>
-        <Divide />
-        <ContactUs />
+        <div className="self-stretch"><ContactUsFooter /></div>
+        {/* <Divide /> */}
+        {/* <ContactUs /> */}
       </div>
     </ModalContainer>
   );

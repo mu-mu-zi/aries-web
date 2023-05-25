@@ -44,14 +44,14 @@ export default function CompletionBitStep({ trust }: {
           <div className="flex flex-row justify-between">
             <Text>{t('Digital asset address')}</Text>
             <div className="flex flex-row gap-2">
-              <Text>{trust.safeHeronAddress}</Text>
-              <CopyIcon text={trust.safeHeronAddress} />
+              <Text>{trust.collectionAddress}</Text>
+              <CopyIcon text={trust.collectionAddress} />
             </div>
           </div>
           <div className="flex flex-row justify-between">
             <Text>{t('Payment code')}</Text>
             <div className="grid place-items-center p-3 gradient-block1 rounded-xl shadow-btn">
-              <QrCode text={trust.safeHeronAddress} size={136} />
+              <QrCode text={trust.collectionAddress} size={136} />
             </div>
           </div>
         </div>

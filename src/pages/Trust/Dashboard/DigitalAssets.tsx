@@ -63,7 +63,7 @@ export function Cell({
 }) {
   return (
     <div className="flex flex-row items-center relative">
-      <img src={icon} width="24px" alt="" className="absolute z-[1] mt-[4px]" />
+      <img src={icon} width="24px" alt="" className="absolute z-[1]" />
       <div className="flex-auto ml-[12px] max-w-[60%]">
         <div className={classNames('gradient-border1 shadow-block h-[10px] rounded-full overflow-clip', rate > 0 && `w-[${rate}%]`, rate <= 0 && 'w-0')} />
       </div>

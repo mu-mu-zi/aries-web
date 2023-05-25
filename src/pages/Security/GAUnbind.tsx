@@ -18,6 +18,7 @@ import { useSendValidateCodeMutation } from '../../api/user/verify';
 import { useUserInfoQuery } from '../../api/user/user';
 import { useAreaCodeListQuery } from '../../api/base/areaCode';
 import Dropdown from '../../components/Dropdown';
+import ContactUsFooter from '../../views/ContactUsFooter';
 
 export default function GAUnbind() {
   const { t } = useTranslation();
@@ -86,7 +87,11 @@ export default function GAUnbind() {
             {userQuery.data?.data?.emailAuth && (
               <>
                 <div className="text-[#C2D7C7F6] text-[16px] font-bold">{t('Email verification code')}</div>
-                <TextInput {...register('emailCode')} suffix={<SendButton onClick={emailSend} />} />
+                <TextInput
+                  {...register('emailCode')}
+                  placeholder="Please enter the verification code"
+                  suffix={<SendButton onClick={emailSend} />}
+                />
                 {/* todo: 邮箱需要修改 */}
                 <div className="text-[#708077] text-[14px]">Please enter the verification code received in your Aries trust company@Gmail.com email.</div>
               </>
@@ -94,7 +99,11 @@ export default function GAUnbind() {
             {userQuery.data?.data?.mobileAuth && (
               <>
                 <div className="text-[#C2D7C7F6] text-[16px] font-bold">{t('Mobile verification code')}</div>
-                <TextInput {...register('mobileCode')} suffix={<SendButton onClick={mobileSend} />} />
+                <TextInput
+                  {...register('mobileCode')}
+                  placeholder="Please enter the google verification code"
+                  suffix={<SendButton onClick={mobileSend} />}
+                />
               </>
             )}
             <div className="text-[#C2D7C7F6] text-[16px] font-bold">{t('Google Captcha')}</div>
@@ -105,9 +114,10 @@ export default function GAUnbind() {
           </div>
         </form>
         <div className="flex-auto" />
-        <div className="flex flex-col items-center py-12 pb-16 gap-9 px-8">
-          <Divide />
-          <ContactUs />
+        <div className="self-stretch py-12 pb-16 gap-9 px-8">
+          {/* <Divide /> */}
+          {/* <ContactUs /> */}
+          <ContactUsFooter />
         </div>
       </div>
     </CenterContainer>

@@ -31,7 +31,7 @@ export default function PaymentBit() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="text-[#C2D7C7F6] font-blod text-[16px]">{t('Receiving address')}</div>
+      <div className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Receiving address')}</div>
       <Dropdown
         title={mainNet?.name}
         items={mainNetListQuery.data?.data?.map((x) => x.name)}

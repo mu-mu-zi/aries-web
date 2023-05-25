@@ -22,12 +22,12 @@ export default function BillingRecord() {
       className={classNames('flex flex-col', 'p-8', 'rounded-xl', 'gradient-bg2', 'shadow-[-4px_8px_10px_0_#030c08]')}
     >
       <div className={classNames('item-center flex flex-row justify-between')}>
-        <div className="gradient-text1 font-blod text-[20px]">{t('Billing Record')}</div>
+        <div className="gradient-text1 font-bold text-[20px]">{t('Billing Record')}</div>
         <div
           className="flex cursor-pointer flex-row items-center gap-2"
           onClick={() => navigate(`/trust/${trustId}/billAndResources`)}
         >
-          <div className="gradient-text1 font-blod text-[16px]">{t('More')}</div>
+          <div className="gradient-text1 font-bold text-[16px]">{t('More')}</div>
           <img src={moreIcon} width="24px" alt="" />
         </div>
       </div>
@@ -61,8 +61,8 @@ function RecordCell({
     <div className="flex flex-row items-center gap-4">
       <img src={cellIcon} width="32px" alt="" />
       <div className="flex flex-1 flex-col gap-2">
-        <div className="font-blod text-[16px] text-t2">{title}</div>
-        <div className="text-[14px] font-normal text-[#99ac9b]">{datetime}</div>
+        <div className="font-bold text-[16px] text-t2">{title}</div>
+        <div className="text-[16px] text-[#99ac9b]">{datetime}</div>
       </div>
       <div className="flex flex-col items-end gap-2 text-[16px]">
         <div className="gradient-text1">{amount}</div>

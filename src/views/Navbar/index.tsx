@@ -26,7 +26,7 @@ export default function Navbar() {
       </div>
       <div className={classNames('flex-1')} />
       <div className={classNames('flex flex-row items-center gap-6')}>
-        {!userQuery.data?.data && <Button size="medium" onClick={() => navigate('/signIn')}>Sign in</Button>}
+        {!userQuery.data?.data && <Button onClick={() => navigate('/signIn')}>Sign in</Button>}
         <div className={classNames('cursor-pointer')}><LanguageIcon /></div>
         <div className={classNames('cursor-pointer')}><NotifyIcon /></div>
       </div>

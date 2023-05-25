@@ -13,6 +13,7 @@ import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
 import { useSendValidateCodeMutation } from '../../api/user/verify';
 import SendButton from '../../views/SendButton';
+import ContactUsFooter from '../../views/ContactUsFooter';
 
 export default function ChangeEmail() {
   const valid = z.object({
@@ -45,7 +46,7 @@ export default function ChangeEmail() {
       });
       await axios.post('/user/send/sendSmsCode', {
         account: getValues('email'),
-        type: 1,
+        type: 3,
       });
       return true;
     } catch (e) {
@@ -83,6 +84,7 @@ export default function ChangeEmail() {
             <div className="flex-auto">
               <TextInput
                 {...register('email')}
+                placeholder="Please enter the new email"
               />
             </div>
             <div className="text-[#C2D7C7F6] text-[16px] font-bold">{t('New Email Verification Code')}</div>
@@ -90,6 +92,7 @@ export default function ChangeEmail() {
               <TextInput
                 {...register('securityCode')}
                 suffix={(<SendButton onClick={sendValidCode} />)}
+                placeholder="Please enter the new mobile verification code"
               />
             </div>
           </div>
@@ -98,6 +101,10 @@ export default function ChangeEmail() {
           </div>
         </div>
       </form>
+      <div className="flex-auto" />
+      <div className="pb-16">
+        <ContactUsFooter />
+      </div>
     </CenterContainer>
   );
 }

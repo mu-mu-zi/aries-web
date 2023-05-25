@@ -8,6 +8,7 @@ import appstoreIcon from '../../assets/icon/appstore.svg';
 import googlePayIcon from '../../assets/icon/icons_google_selected.svg';
 import GANavbar from './GANavbar';
 import CenterContainer from '../../views/CenterContainer';
+import ContactUsFooter from '../../views/ContactUsFooter';
 
 export default function GAGuide() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function GAGuide() {
         description={t('Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After binding, it generates a dynamic verification code every 30 seconds, which can be used for security verification for login, modifying security settings and other operations.')}
       />
       <div className="flex flex-col items-center px-[100px] py-16">
-        <div className="flex w-[480px] flex-col items-center">
+        <div className="flex w-[420px] flex-col items-center">
           <div className="text-shadow-block font-title font-bold gradient-text1 text-center text-[32px] leading-[36px]">
             {t('Download and install the Google Authenticator app')}
           </div>
@@ -36,13 +37,16 @@ export default function GAGuide() {
           </div>
           <div className="mt-[40px] w-full">
             <Button
+              size="large"
               block
               onClick={() => {
                 navigate('/gaBind', {
                   state: {
                     account: location.state.account,
                     areaCodeId: location.state.areaCodeId,
+                    nickname: location.state.userName,
                   },
+                  replace: true,
                 });
               }}
             >
@@ -51,9 +55,8 @@ export default function GAGuide() {
           </div>
         </div>
         <div className="flex-auto" />
-        <div className="mt-[150px] flex w-full flex-col gap-8">
-          <Divide />
-          <ContactUs />
+        <div className="mt-[150px] self-stretch">
+          <ContactUsFooter />
         </div>
       </div>
     </CenterContainer>

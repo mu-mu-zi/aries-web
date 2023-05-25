@@ -12,6 +12,7 @@ import TextArea from '../../../components/TextArea';
 import Button from '../../../components/Button';
 import Divide from '../../../components/Divide';
 import ContactUs from '../../SignIn/ContactUs';
+import ContactUsFooter from '../../../views/ContactUsFooter';
 
 export default function CreatingCommand({ onClose }: {
   onClose?(): void
@@ -91,8 +92,9 @@ export default function CreatingCommand({ onClose }: {
               <Button type="submit">{t('Submit')}</Button>
             </div>
             <div className="flex flex-col mt-9 gap-[46px]">
-              <Divide />
-              <ContactUs />
+              {/* <Divide /> */}
+              {/* <ContactUs /> */}
+              <ContactUsFooter />
             </div>
           </div>
         </form>

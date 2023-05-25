@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import CancelNav from '../../../views/CancelNav';
 import Section, { SectionTitle } from './Section';
 import ViewCredentials from './ViewCredentials';
@@ -10,9 +11,11 @@ import FeeIntroduction from './FeeIntroduction';
 import { useExcessFeeListQuery, useTrustFeeListQuery } from '../../../api/trust/order';
 import { useEstablishmentFeeListQuery } from '../../../api/trust/fee';
 import { unixFormatTime } from '../../../utils/DateFormat';
+import TextButton from '../../../components/TextButton';
 
 export default function EstablishmentFee() {
   const { trustId } = useParams();
+  const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const listQuery = useEstablishmentFeeListQuery({
     pageIndex: page,
@@ -45,7 +48,16 @@ export default function EstablishmentFee() {
               },
               {
                 Header: 'Type',
-                accessor: (x) => x.billTypeName,
+                accessor: (x) => {
+                  switch (x.billType) {
+                    case 10:
+                      return t('Establishment fee');
+                    case 11:
+                      return t('Additional establishment fee');
+                    default:
+                      return null;
+                  }
+                },
               },
               {
                 Header: 'Entrusted assets',
@@ -55,15 +67,30 @@ export default function EstablishmentFee() {
                 Header: 'Asset transfer amount',
                 accessor: (x) => x.amount,
               },
-              {
-                Header: 'Trust total amount',
-                accessor: 'managementFeeApr',
-              },
+              // {
+              //   Header: 'Trust total amount',
+              //   accessor: 'managementFeeApr',
+              // },
               {
                 Header: () => (<div className="text-right">Establishment Fee</div>),
                 accessor: 'totalAmount',
                 // eslint-disable-next-line react/prop-types
-                Cell: ({ row }) => (<div className="text-right gradient-text2">{`${row.original.amount} ${row.original.coinName}`}</div>),
+                Cell: ({ row }) => (<div className="text-right">{`${row.original.amount} ${row.original.coinName}`}</div>),
+              },
+              {
+                Header: () => (<div className="text-right">Management fee</div>),
+                accessor: 'manag',
+                // eslint-disable-next-line react/prop-types
+                Cell: ({ row }) => (
+                  <div className="flex justify-end">
+                    <TextButton
+                      className="text-right"
+                      onClick={() => window.open(row.original.billCertificate)}
+                    >
+                      View credentials
+                    </TextButton>
+                  </div>
+                ),
               },
             ]}
             data={listQuery.data?.data?.records}

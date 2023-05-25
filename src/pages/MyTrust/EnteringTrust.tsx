@@ -26,6 +26,7 @@ export default function EnteringTrust({ trust }: {
       /* 收益 */
       case 2:
       case 3:
+      case 21:
         return befLogo;
       default:
         return icon;
@@ -38,17 +39,15 @@ export default function EnteringTrust({ trust }: {
   const userType = (type: number) => {
     switch (type) {
       case 1:
-        return 'Trustor';
+        return 'Settlor';
       case 2:
-        return 'Clear Beneficiary';
       case 3:
-        return 'Non-Clear Beneficiary';
+      case 21:
+        return 'Beneficiary';
       case 4:
-        return 'Protector';
       case 5:
-        return 'Successor Protector';
       case 6:
-        return 'Second Successor Protector';
+        return 'Protector';
       default:
         return undefined;
     }
@@ -69,6 +68,7 @@ export default function EnteringTrust({ trust }: {
         <div className="self-center">
           {trust.roleType > 1 && (
             <Button
+              size="large"
               onClick={() => {
                 if (trust.trustStatus === 2) {
                   navigate(`/trust/${trust.trustId}/dashboard`);

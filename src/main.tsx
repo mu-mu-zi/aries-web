@@ -41,6 +41,10 @@ import GAUnbind from './pages/Security/GAUnbind';
 import ManagerFee from './pages/Trust/BillAndResources/ManagerFee';
 import ExcessFee from './pages/Trust/BillAndResources/ExcessFee';
 import EstablishmentFee from './pages/Trust/BillAndResources/EstablishmentFee';
+import Ledger from './pages/Trust/BillAndResources/Ledger';
+import Fees from './pages/Trust/BillAndResources/Fees';
+import LegalText from './pages/Trust/BillAndResources/LegalText';
+import Report from './pages/Trust/BillAndResources/Report';
 
 const router = createBrowserRouter([
   {
@@ -187,24 +191,37 @@ const router = createBrowserRouter([
           },
           {
             path: 'billAndResources',
+            element: <BillAndResources />,
             children: [
               {
                 path: '',
-                element: <BillAndResources />,
+                element: <Ledger />,
               },
               {
-                path: 'managerFee',
-                element: <ManagerFee />,
+                path: 'fees',
+                element: <Fees />,
               },
               {
-                path: 'excessFee',
-                element: <ExcessFee />,
+                path: 'legalText',
+                element: <LegalText />,
               },
               {
-                path: 'establishmentFee',
-                element: <EstablishmentFee />,
+                path: 'report',
+                element: <Report />,
               },
             ],
+          },
+          {
+            path: 'managerFee',
+            element: <ManagerFee />,
+          },
+          {
+            path: 'excessFee',
+            element: <ExcessFee />,
+          },
+          {
+            path: 'establishmentFee',
+            element: <EstablishmentFee />,
           },
         ],
       },

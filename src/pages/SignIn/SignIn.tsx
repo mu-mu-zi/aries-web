@@ -22,6 +22,7 @@ import { IResponseData } from '../../interfaces/base';
 import Dropdown from '../../components/Dropdown';
 import { useAreaCodeListQuery } from '../../api/base/areaCode';
 import SendButton from '../../views/SendButton';
+import ContactUsFooter from '../../views/ContactUsFooter';
 
 export default function SignIn() {
   const { t } = useTranslation();
@@ -93,6 +94,7 @@ export default function SignIn() {
           state: {
             account: data.account,
             areaCodeId: isPhone ? data.areaCodeId : undefined,
+            nickname: resp.data?.userName,
           },
         });
       }
@@ -107,7 +109,7 @@ export default function SignIn() {
 
   return (
     <div className="flex flex-col items-center pt-9">
-      <div className="gradient-bg2 flex w-[580px] flex-col overflow-clip rounded-xl">
+      <div className="gradient-bg2 flex w-[580px] h-[800px] flex-col overflow-clip rounded-xl">
         {/* Logo */}
         <div className="gradient-border1 grid h-[102px] place-items-center">
           <img height="54px" src={logo} />
@@ -119,18 +121,20 @@ export default function SignIn() {
             <div className="flex flex-row gap-2">
               {/* {isPhone ? <Select /> : null} */}
               {isPhone && areaCodeListQuery.data?.data && (
-                <Controller
-                  render={({ field }) => (
-                    <Dropdown
-                      block
-                      items={areaCodeListQuery.data?.data?.map((x) => `+${x.code}`) ?? []}
-                      title={`+${areaCodeListQuery.data?.data?.find((x) => x.id === field.value)?.code}` ?? ''}
-                      onSelected={(idx) => field.onChange(areaCodeListQuery.data?.data?.[idx].id)}
-                    />
-                  )}
-                  name="areaCodeId"
-                  control={control}
-                />
+                <div className="w-[160px]">
+                  <Controller
+                    render={({ field }) => (
+                      <Dropdown
+                        block
+                        items={areaCodeListQuery.data?.data?.map((x) => `+${x.code}`) ?? []}
+                        title={`+${areaCodeListQuery.data?.data?.find((x) => x.id === field.value)?.code}` ?? ''}
+                        onSelected={(idx) => field.onChange(areaCodeListQuery.data?.data?.[idx].id)}
+                      />
+                    )}
+                    name="areaCodeId"
+                    control={control}
+                  />
+                </div>
               )}
               <TextInput
                 block
@@ -158,6 +162,7 @@ export default function SignIn() {
             </div>
             <Button
               block
+              size="large"
               type="submit"
               disabled={getUserInfoMutation.isLoading}
             >
@@ -173,8 +178,12 @@ export default function SignIn() {
               <a href="#" className="gradient-text1">{t('Aries Digital Group Privacy Policy')}</a>
               .
             </div>
-            <Divide />
-            <ContactUs />
+            <div className="flex-auto" />
+            <div className="self-stretch">
+              <ContactUsFooter />
+            </div>
+            {/* <Divide /> */}
+            {/* <ContactUs /> */}
           </div>
         </form>
       </div>

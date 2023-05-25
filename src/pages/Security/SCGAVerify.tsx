@@ -12,6 +12,7 @@ import Divide from '../../components/Divide';
 import CenterContainer from '../../views/CenterContainer';
 import ContactUs from '../SignIn/ContactUs';
 import GANavbar from '../SignIn/GANavbar';
+import ContactUsFooter from '../../views/ContactUsFooter';
 
 export default function SCGAVerify() {
   const { t } = useTranslation();
@@ -55,7 +56,7 @@ export default function SCGAVerify() {
       <form className="flex flex-col flex-1" onSubmit={handleSubmit(submit)}>
         <div className="flex flex-col flex-1">
           <GANavbar title={t('Cancel')} />
-          <div className="item-center flex w-[418px] flex-col self-center pt-[64px]">
+          <div className="item-center flex w-[420px] flex-col self-center pt-[64px]">
             <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]">
               {t('Security verification')}
             </div>
@@ -72,9 +73,10 @@ export default function SCGAVerify() {
             </div>
           </div>
           <div className="flex-1" />
-          <div className="mt-12 flex flex-col items-center gap-9 self-stretch px-8 pb-16">
-            <Divide />
-            <ContactUs />
+          <div className="mt-12 self-stretch px-8 pb-16">
+            {/* <Divide /> */}
+            {/* <ContactUs /> */}
+            <ContactUsFooter />
           </div>
         </div>
       </form>

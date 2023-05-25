@@ -36,6 +36,7 @@ export interface TrustDetail {
   payType: number
   roleType: number
   surname: string
+  collectionAddress: string
 }
 
 export interface Trust {

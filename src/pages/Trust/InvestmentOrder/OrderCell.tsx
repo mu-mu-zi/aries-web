@@ -55,15 +55,15 @@ export default function OrderCell({ item }: {
     <div className="flex flex-col gap-4 gradient-block1 rounded-xl shadow-block p-8">
       {/* Header */}
       <div className="flex flex-row items-center gap-2 flex-wrap">
-        <div className="text-[#C2D7C7F6] text-[20px] font-blod">
-          {item.investmentCode}
+        <div className="text-[#C2D7C7F6] text-[20px] font-bold">
+          {`Investment code ${item.investmentCode}`}
         </div>
         {item.benefitFlag && <OrderCellFlag title={t('Beneficiary') ?? ''} />}
         {item.protectionFlag && <OrderCellFlag title={t('Protector') ?? ''} />}
         {item.entrustFlag && <OrderCellFlag title={t('Settlor') ?? ''} />}
       </div>
       {/* Content */}
-      <div className="flex flex-col gap-2 text-[#99AC9B] text-[16px] leading-[18px] break-all">
+      <div className="flex-auto flex flex-col gap-2 text-[#99AC9B] text-[16px] leading-[18px] break-all">
         <div>
           {item.investmentSuggestion}
         </div>
@@ -99,10 +99,11 @@ export default function OrderCell({ item }: {
         {(item.investmentStatus === 7 || item.investmentStatus === 8) && (
           <StepProgress
             items={[
+              'Initiated',
               'Canceling',
               'Cancelled',
             ]}
-            current={item.investmentStatus - 7}
+            current={item.investmentStatus - 7 + 1}
           />
         )}
       </div>
@@ -110,10 +111,11 @@ export default function OrderCell({ item }: {
       <div className="h-[1px] mx-[-32px] bg-[#3B5649]" />
       {/* 操作 */}
       <div className="flex flex-row flex-wrap items-center justify-center gap-4">
-        {trustQuery.data?.data?.roleType! > 2 && (
+        {item.investmentStatus < 7 && trustQuery.data?.data?.roleType! > 2 && (
           <Button size="medium" onClick={cancelInvestment}>{t('Cancel')}</Button>
         )}
-        <Button size="medium" onClick={navTo}>{t('Approval')}</Button>
+        {item.investmentStatus < 7
+          && <Button size="medium" onClick={navTo}>{t('Approval')}</Button>}
         <Button
           size="medium"
           onClick={navTo}

@@ -31,7 +31,7 @@ export default function SendButton({
         try {
           const flag = await onClick?.();
           if (flag) {
-            setDuration(5);
+            setDuration(60);
           }
         } catch (e) {
           console.log(e);
