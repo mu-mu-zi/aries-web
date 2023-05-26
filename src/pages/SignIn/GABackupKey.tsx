@@ -44,7 +44,7 @@ export default function GABackupKey() {
                   state: {
                     account: location.state.account,
                     areaCodeId: location.state.areaCodeId,
-                    nickname: location.state.userName,
+                    userName: location.state.userName,
                   },
                   replace: true,
                 });

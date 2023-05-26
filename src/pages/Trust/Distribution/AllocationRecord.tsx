@@ -47,11 +47,21 @@ export default function AllocationRecord() {
             accessor: 'reconciliation',
             // eslint-disable-next-line react/prop-types
             Cell: ({ row }) => (
-              <TextButton>View credentials</TextButton>
+              <div className="flex justify-end">
+                <TextButton>View credentials</TextButton>
+              </div>
             ),
           },
         ]}
         data={listQuery.data?.data?.records}
+        pagination={{
+          pageIndex: page,
+          pageSize: 5,
+          total: listQuery.data?.data?.total ?? 0,
+          onPageChanged(page: number) {
+            setPage(page);
+          },
+        }}
       />
     </div>
   );

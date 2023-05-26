@@ -8,13 +8,14 @@ import { useTranslation } from 'react-i18next';
 import { useQueryClient } from '@tanstack/react-query';
 import TextField from '../../../components/TextField';
 import Button from '../../../components/Button';
-import { useFiatListQuery } from '../../../api/trust/trust';
+import { useFiatListQuery, useTrustDetailQuery } from '../../../api/trust/trust';
 import Dropdown from '../../../components/Dropdown';
 import { addSuccessNotification } from '../../../utils/Notification';
 
 export default function AssetFiatDeclaration() {
   const { t } = useTranslation();
   const { trustId } = useParams();
+  const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
   const fiatListQuery = useFiatListQuery();
   const valid = z.object({
     name: z.string().nonempty(),
@@ -75,7 +76,7 @@ export default function AssetFiatDeclaration() {
           label={'Payer\'s name'}
           placeholder={t('Please enter the payer\'s name') ?? ''}
           {...register('name')}
-          maxLength={100}
+          maxLength={30}
         />
         <Controller
           name="fiatId"
@@ -108,7 +109,7 @@ export default function AssetFiatDeclaration() {
           label={t('payment Bank')}
           placeholder={t('Please enter the payment bank(English)') ?? ''}
           {...register('bank')}
-          maxLength={60}
+          maxLength={100}
         />
         <TextField
           label={t('Bank card number (optional)')}
@@ -128,9 +129,11 @@ export default function AssetFiatDeclaration() {
           maxLength={100}
           {...register('remark')}
         />
-        <div className="mt-4">
-          <Button type="submit" block>{t('Submit')}</Button>
-        </div>
+        {trustQuery.data?.data?.roleType! > 2 && (
+          <div className="mt-4">
+            <Button type="submit" block>{t('Submit')}</Button>
+          </div>
+        )}
       </div>
     </form>
   );

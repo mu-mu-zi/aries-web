@@ -92,7 +92,7 @@ export default function ChangeEmail() {
               <TextInput
                 {...register('securityCode')}
                 suffix={(<SendButton onClick={sendValidCode} />)}
-                placeholder="Please enter the new mobile verification code"
+                placeholder="Please enter the verification code"
               />
             </div>
           </div>

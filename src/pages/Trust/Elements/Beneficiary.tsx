@@ -10,6 +10,7 @@ import AddBeneficiary from './AddBeneficiary';
 import SimpleTable from '../../../views/SimpleTable';
 import { useElementsUserQuery } from '../../../api/trust/elements';
 import { useTrustDetailQuery } from '../../../api/trust/trust';
+import { unixFormatTime } from '../../../utils/DateFormat';
 
 export default function Beneficiary() {
   const { trustId } = useParams();
@@ -56,7 +57,18 @@ export default function Beneficiary() {
           },
           {
             Header: t('Identity category') ?? '',
-            accessor: '',
+            accessor: (x) => {
+              switch (x.roleType) {
+                case 1:
+                  return 'No';
+                case 2:
+                  return 'ReadOnly';
+                case 3:
+                  return 'Approval';
+                default:
+                  return undefined;
+              }
+            },
           },
           {
             Header: t('Permissions') ?? '',
@@ -76,7 +88,7 @@ export default function Beneficiary() {
           },
           {
             Header: t('Add time') ?? '',
-            accessor: (originalRow) => moment.unix(originalRow.createTimeStamp / 1000).format(),
+            accessor: (originalRow) => unixFormatTime(originalRow.createTimeStamp),
           },
         ]}
         data={listQuery.data?.data?.records ?? []}

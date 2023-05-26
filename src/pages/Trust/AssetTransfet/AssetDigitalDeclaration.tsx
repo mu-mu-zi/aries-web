@@ -9,13 +9,14 @@ import { useQueryClient } from '@tanstack/react-query';
 import TextField from '../../../components/TextField';
 import Dropdown from '../../../components/Dropdown';
 import Button from '../../../components/Button';
-import { useAllCoinInMainNetQuery, useAllMainNetsQuery } from '../../../api/trust/trust';
+import { useAllCoinInMainNetQuery, useAllMainNetsQuery, useTrustDetailQuery } from '../../../api/trust/trust';
 import { IMainNet } from '../../../interfaces/base';
 import { addSuccessNotification } from '../../../utils/Notification';
 
 export default function AssetDigitalDeclaration() {
   const { t } = useTranslation();
   const { trustId } = useParams();
+  const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
   const mainNetListQuery = useAllMainNetsQuery();
   const [mainNet, setMainNet] = useState<IMainNet>();
   const mainNetCoinListQuery = useAllCoinInMainNetQuery({
@@ -138,9 +139,11 @@ export default function AssetDigitalDeclaration() {
           maxLength={100}
           {...register('remark')}
         />
-        <div className="mt-4">
-          <Button type="submit" block>{t('Submit')}</Button>
-        </div>
+        {trustQuery.data?.data?.roleType! > 2 && (
+          <div className="mt-4">
+            <Button type="submit" block>{t('Submit')}</Button>
+          </div>
+        )}
       </div>
     </form>
   );

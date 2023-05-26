@@ -6,7 +6,7 @@ export default function GANavbar({ title, description }: { title: string; descri
   const navigate = useNavigate();
 
   return (
-    <div className="gradient-border1 flex flex-row gap-4 p-8">
+    <div className={classNames('gradient-border1 flex flex-row gap-4 p-8', !description && 'items-center')}>
       <div className="cursor-pointer" onClick={() => navigate(-1)}>
         <svg
           className="flex-shrink-0"

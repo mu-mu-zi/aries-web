@@ -72,23 +72,23 @@ export default function TransactionVoucher({ selected, onClose }: {
               >
                 {t('Confirm')}
               </Button>
-              <Button
-                block
-                onClick={async () => {
-                  await axios.request({
-                    url: '/trust/trust/investment/bill/check',
-                    method: 'get',
-                    params: {
-                      billId: selected.billId,
-                      status: 3,
-                    },
-                  });
-                  onClose?.();
-                  await queryClient.invalidateQueries(['trust']);
-                }}
-              >
-                {t('Refuse')}
-              </Button>
+              {/* <Button */}
+              {/*  block */}
+              {/*  onClick={async () => { */}
+              {/*    await axios.request({ */}
+              {/*      url: '/trust/trust/investment/bill/check', */}
+              {/*      method: 'get', */}
+              {/*      params: { */}
+              {/*        billId: selected.billId, */}
+              {/*        status: 3, */}
+              {/*      }, */}
+              {/*    }); */}
+              {/*    onClose?.(); */}
+              {/*    await queryClient.invalidateQueries(['trust']); */}
+              {/*  }} */}
+              {/* > */}
+              {/*  {t('Refuse')} */}
+              {/* </Button> */}
             </>
           )}
         </div>

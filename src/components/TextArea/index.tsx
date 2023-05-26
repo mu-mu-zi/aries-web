@@ -1,5 +1,6 @@
 import React, { forwardRef, InputHTMLAttributes } from 'react';
 import classNames from 'classnames';
+import { css } from '@emotion/react';
 
 type TextAreaProps = InputHTMLAttributes<HTMLTextAreaElement> & {
   block?: boolean;
@@ -16,6 +17,17 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
       <textarea
         {...rest}
         ref={ref}
+        css={css`
+            &::placeholder {
+              //background: linear-gradient(0, #708077 0%, #708077 100%);
+              background: #708077;
+              background-clip: text;
+              //-webkit-text-fill-color: transparent;
+              //color: transparent;
+              font-weight: normal;
+              font-size: 16px;
+            }
+          `}
         className={classNames(
           'inline-block w-full border-none bg-transparent outline-none',
           'h-[48px] p-4 min-h-[100px]',

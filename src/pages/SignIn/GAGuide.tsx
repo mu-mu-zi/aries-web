@@ -35,6 +35,8 @@ export default function GAGuide() {
               <ChannelButton icon={appstoreIcon} text="App Store" />
             </a>
           </div>
+          {/* {location.state?.areaCodeId} */}
+          {/* {location.state?.account} */}
           <div className="mt-[40px] w-full">
             <Button
               size="large"
@@ -44,7 +46,7 @@ export default function GAGuide() {
                   state: {
                     account: location.state.account,
                     areaCodeId: location.state.areaCodeId,
-                    nickname: location.state.userName,
+                    userName: location.state.userName,
                   },
                   replace: true,
                 });
@@ -52,6 +54,7 @@ export default function GAGuide() {
             >
               {t('Next')}
             </Button>
+            {/* {location.state?.userName} */}
           </div>
         </div>
         <div className="flex-auto" />

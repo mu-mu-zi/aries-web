@@ -9,7 +9,7 @@ import icon2 from '../../assets/icon/icon_coin_company.svg';
 import icon3 from '../../assets/icon/icon_coin_bank.svg';
 import icon4 from '../../assets/icon/icon_coin_exchange.svgicon_coin_exchange.svg';
 
-function Text({ children }: {
+export function Text({ children }: {
   children: ReactNode
 }) {
   return <div className="gradient-text1 text-[20px] font-[400]">{children}</div>;

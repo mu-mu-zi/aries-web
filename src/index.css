@@ -4,6 +4,7 @@
 
 body {
     line-height: normal;
+    word-break: break-word;
 }
 
 ::-webkit-scrollbar {
@@ -74,6 +75,10 @@ body {
 /* 渐变：块背景 1 */
 .gradient-block1 {
     background: linear-gradient(180deg, #3B5649 0%, #32473D 100%);;
+}
+
+.gradient-block2 {
+    background: linear-gradient(89.97deg, #1A4132 0.03%, #234838 99.97%);
 }
 
 /* 渐变文字 */

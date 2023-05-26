@@ -28,7 +28,7 @@ export default function EstablishmentFaitStep({ trust }: {
         <div className="flex flex-col p-8 gap-4 bg-[#314C40]">
           <Row title="Bank Name" value={trust.bankName} />
           <Row title="Bank Address" value={trust.bankAddress} />
-          <Row title="Payee Name" value={trust.bankAccount} />
+          <Row title="Payee Name" value={trust.userName} />
           {/* <Row title="Payee Account Number" value="" /> */}
           {/* <Row title="Payee Country/Region" value="" /> */}
           {/* <Row title="Swift Code" value="" /> */}

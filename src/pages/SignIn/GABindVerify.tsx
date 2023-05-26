@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
@@ -42,19 +42,22 @@ export default function GABindVerify() {
     resolver: zodResolver(valid),
   });
   const queryClient = useQueryClient();
+  const isPhone = useMemo(() => !!location.state?.areaCodeId, [location.state?.areaCodeId]);
 
   const sendValidCode = async () => {
-    /* 验证账号 */
-    const { account } = location.state;
-    if (!account) return false;
-    // sendValidateCodeMutation.mutate({
-    //   account,
-    // });
-    await axios.post('/user/send/login/sendSmsCode', {
-      account,
-      type: 1,
-    });
-    return true;
+    try {
+      /* 验证账号 */
+      const { account, areaCodeId } = location.state;
+      if (!account) return false;
+      await axios.post('/user/send/login/sendSmsCode', {
+        account,
+        type: areaCodeId ? 2 : 1,
+        areaCodeId,
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
   };
 
   const submit = async (data: FormValid) => {
@@ -67,6 +70,7 @@ export default function GABindVerify() {
       userEmail: '',
       userMobile: '',
       userMobileCode: '',
+      areaCodeId,
     };
     // 手机验证
     if (areaCodeId) {
@@ -108,13 +112,15 @@ export default function GABindVerify() {
           title={t('Bind Google Authentication')}
           description={t('Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After binding, it generates a dynamic verification code every 30 seconds, which can be used for security verification for login, modifying security settings and other operations.')}
         />
+        {/* {location.state?.areaCodeId} */}
+        {/* {location.state?.account} */}
         <div className="item-center flex w-[420px] flex-col self-center pt-[64px]">
           <form onSubmit={handleSubmit(submit)}>
             <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]">
               {t('Verify identity')}
             </div>
             <div className="mt-16 flex flex-col gap-4">
-              <div className="font-bold text-[#c2d7c7]">{t('Email verification code')}</div>
+              <div className="font-bold text-[#c2d7c7]">{isPhone ? t('Phone verification code') : t('Email verification code')}</div>
               <TextInput
                 placeholder={t('Please enter the verification code') ?? ''}
                 {...register('securityCode')}
@@ -152,9 +158,13 @@ export default function GABindVerify() {
               {/*    type="text" */}
               {/*  /> */}
               {/* </div> */}
-              <div className="text-[14px] leading-[16px] text-[#708077]">
-                {t('To ensure the security of your funds and account, please enter the verification code received in your Aries trust company@gmail.com email.')}
-              </div>
+              {
+                !isPhone && (
+                <div className="text-[14px] leading-[16px] text-[#708077]">
+                  {t('To ensure the security of your funds and account, please enter the verification code received in your Aries trust company@gmail.com email.')}
+                </div>
+                )
+              }
               <div className="font-bold text-[#c2d7c7]">{t('Google Captcha')}</div>
               <TextInput
                 {...register('googleCaptcha')}

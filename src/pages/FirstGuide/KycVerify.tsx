@@ -65,6 +65,7 @@ export default function KycVerify() {
                   titles={['KYC Certification', 'Contract Signing', 'Establishment Fee', 'Trust Completion']}
                 />
               </div>
+              {/* <EstablishmentBitStep trust={detailQuery.data.data} /> */}
               <div className="mt-12 max-w-[824px] w-full">
                 {detailQuery.data.data.stepId === 1 && <KYCCertificationStep trust={detailQuery.data.data} />}
                 {[2, 3].includes(detailQuery.data.data.stepId) && <ContractSigningStep trust={detailQuery.data.data} />}

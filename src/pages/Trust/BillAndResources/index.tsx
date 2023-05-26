@@ -39,7 +39,7 @@ export default function BillAndResources() {
         {/*  onSelect={setSelected} */}
         {/* /> */}
         <div className="flex gap-4 font-title font-bold text-[20px]">
-          <Link to={`/trust/${trustId}/billAndResources`}>General ledger</Link>
+          <Link to={`/trust/${trustId}/billAndResources/`}>General ledger</Link>
           <Link to={`/trust/${trustId}/billAndResources/fees`}>Trust fees</Link>
           <Link to={`/trust/${trustId}/billAndResources/legalText`}>Legal text</Link>
           <Link to={`/trust/${trustId}/billAndResources/report`}>Report</Link>

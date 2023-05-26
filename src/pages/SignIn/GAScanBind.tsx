@@ -49,7 +49,7 @@ export default function GAScanBind() {
                       secret: googleAuth.data?.data.secret,
                       account: location.state.account,
                       areaCodeId: location.state.areaCodeId,
-                      nickname: location.state.userName,
+                      userName: location.state.userName,
                     },
                     replace: true,
                   });

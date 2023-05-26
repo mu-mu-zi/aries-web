@@ -73,7 +73,11 @@ export default function GAVerify() {
               <div className="font-bold text-[#c2d7c7]">
                 {t('Please enter the 6-digit Google security code')}
               </div>
-              <TextInput {...register('googleCode')} maxLength={6} />
+              <TextInput
+                {...register('googleCode')}
+                maxLength={6}
+                placeholder="Please enter the 6-digit Google security code"
+              />
             </div>
             <div className="mt-[40px] flex flex-row gap-4">
               <Button size="medium" block>
@@ -81,14 +85,14 @@ export default function GAVerify() {
               </Button>
             </div>
           </div>
-          <div className="flex-auto" />
-          <div className="mt-12 self-stretch px-8 pb-16">
-            {/* <Divide /> */}
-            {/* <ContactUs /> */}
-            <ContactUsFooter />
-          </div>
         </div>
       </form>
+      <div className="flex-auto" />
+      <div className="mt-12 self-stretch px-8 pb-16">
+        {/* <Divide /> */}
+        {/* <ContactUs /> */}
+        <ContactUsFooter />
+      </div>
     </CenterContainer>
   );
 }

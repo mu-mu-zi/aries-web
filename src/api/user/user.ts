@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { IPage, IResponseData } from '../../interfaces/base';
-import { IUser, IUserLoginLog } from '../../interfaces/user';
+import { IGoogleQr, IUser, IUserLoginLog } from '../../interfaces/user';
 import useUserId from '../../hooks/useUserId';
 
 /*
@@ -39,6 +39,16 @@ export const useLoginLogQuery = (data: {
       method: 'get',
       params: data,
     }),
+    enabled: !!userId,
+  });
+};
+
+export const useGoogleSecretKeyQuery = () => {
+  const userId = useUserId();
+
+  return useQuery<IResponseData<IGoogleQr>>({
+    queryKey: ['user', 'googleSecretKey', userId],
+    queryFn: () => axios.get('/user/user/achieveGoogleSecretKey'),
     enabled: !!userId,
   });
 };

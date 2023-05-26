@@ -20,11 +20,11 @@ import { useAreaCodeListQuery } from '../../api/base/areaCode';
 import Dropdown from '../../components/Dropdown';
 import ContactUsFooter from '../../views/ContactUsFooter';
 
-export default function GAUnbind() {
+export default function GAChangeVerify() {
   const { t } = useTranslation();
   const valid = z.object({
-    emailCode: z.string().optional(),
-    mobileCode: z.string().optional(),
+    userEmailCode: z.string().optional(),
+    userMobileCode: z.string().optional(),
     googleCode: z.string().nonempty(),
   });
   type FormValid = z.infer<typeof valid>;
@@ -47,9 +47,12 @@ export default function GAUnbind() {
 
   const submit = async (data: FormValid) => {
     try {
-      await axios.post('/user/user/unbindingGoogleAuthenticator', data);
-      /* 跳转到绑定 */
-      navigate('/personal/gaChangeScan');
+      await axios.post('/user/user/verificationMethod', {
+        isReset: true,
+        ...data,
+      });
+      await queryClient.invalidateQueries();
+      navigate(-2);
     } catch (e) {
       console.log(e);
     }
@@ -88,7 +91,7 @@ export default function GAUnbind() {
               <>
                 <div className="text-[#C2D7C7F6] text-[16px] font-bold">{t('Email verification code')}</div>
                 <TextInput
-                  {...register('emailCode')}
+                  {...register('userEmailCode')}
                   placeholder="Please enter the verification code"
                   suffix={<SendButton onClick={emailSend} />}
                 />
@@ -100,7 +103,7 @@ export default function GAUnbind() {
               <>
                 <div className="text-[#C2D7C7F6] text-[16px] font-bold">{t('Mobile verification code')}</div>
                 <TextInput
-                  {...register('mobileCode')}
+                  {...register('userMobileCode')}
                   placeholder="Please enter the verification code"
                   suffix={<SendButton onClick={mobileSend} />}
                 />

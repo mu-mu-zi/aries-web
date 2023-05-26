@@ -29,6 +29,7 @@ export interface ITrustBill {
   billCertificate: string;
   billStatusName: string;
   billTypeName: string;
+  billType: number
   coinName: string;
   createTimeStamp: number;
 }

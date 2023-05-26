@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { retry } from '@reduxjs/toolkit/query';
 import moreIcon from '../../../assets/icon/arrow_r.svg';
 import cellIcon from '../../../assets/icon/money_small_icon.svg';
 import { useLedgerOrderListQuery } from '../../../api/trust/order';
@@ -16,6 +17,19 @@ export default function BillingRecord() {
   });
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  const typeTitle = (type: number) => [
+    'Fiat Out',
+    'Fiat In',
+    'Digital Asset Out',
+    'Digital Asset In',
+    'Exchange',
+    'Custom',
+    'Distribute Profit',
+    'Management Fee',
+    'Exceed Transfer',
+    'Establishment Fee',
+    'Additional Establishment Fee'][type - 1];
 
   return (
     <div
@@ -35,7 +49,7 @@ export default function BillingRecord() {
       <div className="flex flex-col gap-6">
         {listQuery.data?.data?.records.map((x) => (
           <RecordCell
-            title={x.billTypeName}
+            title={typeTitle(x.billType)}
             datetime={unixFormatTime(x.createTimeStamp)}
             amount={x.amount}
             status={x.billStatusName}

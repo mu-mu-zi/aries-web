@@ -55,7 +55,7 @@ export default function Security() {
               <LargeAvatar isMale={!user.data?.data?.gender} />
               <div className="flex flex-row items-center gap-4">
                 <div className="gradient-text1 font-bold font-title text-[40px]">
-                  {CallFormat(user.data?.data?.surname, user.data?.data?.gender)}
+                  {CallFormat(user.data?.data?.surname, user.data?.data?.gender, true)}
                 </div>
                 <div
                   className="cursor-pointer"

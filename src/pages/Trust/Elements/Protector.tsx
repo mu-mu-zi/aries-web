@@ -10,6 +10,7 @@ import AddProtector from './AddProtector';
 import { useElementsUserQuery } from '../../../api/trust/elements';
 import SimpleTable from '../../../views/SimpleTable';
 import { useTrustDetailQuery } from '../../../api/trust/trust';
+import { unixFormatTime } from '../../../utils/DateFormat';
 
 export default function Protector() {
   const { trustId } = useParams();
@@ -76,7 +77,7 @@ export default function Protector() {
           },
           {
             Header: t('Add time') ?? '',
-            accessor: (originalRow) => moment.unix(originalRow.createTimeStamp / 1000).format(),
+            accessor: (originalRow) => unixFormatTime(originalRow.createTimeStamp),
           },
         ]}
         data={listQuery.data?.data?.records ?? []}

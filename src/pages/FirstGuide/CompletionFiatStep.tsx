@@ -23,10 +23,10 @@ export default function CompletionFiatStep({ trust }: {
       <div className="text-[#C39770] text-[20px] text-center font-title py-4">{t('We are in the process of setting up your account...')}</div>
       <div className="flex flex-col gap-2 self-stretch">
         {/* todo：Logo 阴影导致图片无法居中，待 UI 调整 */}
-        <VerifyStatusRow icon={digitalIcon} title="Digital asset account" isOpening />
-        <VerifyStatusRow icon={icon2} title="Trust Asset Holding Company" isOpening />
         <VerifyStatusRow icon={icon3} title="Bank Account" isOpening={false} />
         <VerifyStatusRow icon={icon4} title="Exchange Account" isOpening={false} />
+        <VerifyStatusRow icon={digitalIcon} title="Digital asset account" isOpening />
+        <VerifyStatusRow icon={icon2} title="Trust Asset Holding Company" isOpening />
       </div>
     </div>
   );

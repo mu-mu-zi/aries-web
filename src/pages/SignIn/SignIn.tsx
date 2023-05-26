@@ -94,7 +94,7 @@ export default function SignIn() {
           state: {
             account: data.account,
             areaCodeId: isPhone ? data.areaCodeId : undefined,
-            nickname: resp.data?.userName,
+            userName: resp.data?.userName,
           },
         });
       }

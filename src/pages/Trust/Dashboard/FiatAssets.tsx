@@ -33,6 +33,7 @@ export default function FiatAssets({ asset }: {
         <div key={it.name} className={classNames('gradient-block1', 'shadow-block', 'rounded-xl')}>
           <div className="flex flex-row gap-4 items-center h-[80px] px-8">
             <div className="gradient-text1 text-[20px] font-bold flex-auto">{it.name}</div>
+            {/* <div className="font-bold text-[20px] text-[#708077]">Opening in progress</div> */}
             <div className="gradient-text1 text-[20px] font-bold">{`${currencyUSDTFormat(it.totalAmountUSDT)} USD`}</div>
             {it.details?.filter((x) => x.amount > 0).length > 0 && <img src={arrowUp} alt="" />}
           </div>

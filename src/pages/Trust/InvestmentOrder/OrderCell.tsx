@@ -63,7 +63,7 @@ export default function OrderCell({ item }: {
         {item.entrustFlag && <OrderCellFlag title={t('Settlor') ?? ''} />}
       </div>
       {/* Content */}
-      <div className="flex-auto flex flex-col gap-2 text-[#99AC9B] text-[16px] leading-[18px] break-all">
+      <div className="flex-auto flex flex-col gap-2 text-[#99AC9B] text-[16px] leading-[18px]">
         <div>
           {item.investmentSuggestion}
         </div>
@@ -114,7 +114,7 @@ export default function OrderCell({ item }: {
         {item.investmentStatus < 7 && trustQuery.data?.data?.roleType! > 2 && (
           <Button size="medium" onClick={cancelInvestment}>{t('Cancel')}</Button>
         )}
-        {item.investmentStatus < 7
+        {item.investmentStatus < 7 && trustQuery.data?.data?.roleType! > 2
           && <Button size="medium" onClick={navTo}>{t('Approval')}</Button>}
         <Button
           size="medium"

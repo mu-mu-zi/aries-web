@@ -113,7 +113,7 @@ function SidebarCell({
       <img src={isSelected ? selectedIcon : icon} alt="" />
       <div
         className={classNames({
-          'text-[#3D3228] font-[600]': isSelected,
+          'text-[#3D3228] font-bold': isSelected,
           'text-transparent bg-clip-text bg-gradient-to-r from-[#BE9D66] to-[#E8D2A3]': !isSelected,
         })}
       >

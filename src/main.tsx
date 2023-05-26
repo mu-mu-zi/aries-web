@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom';
+import {
+  BrowserRouter, createBrowserRouter, redirect, RouterProvider,
+} from 'react-router-dom';
 import { initReactI18next } from 'react-i18next';
 import i18n from 'i18next';
 import App from './App';
@@ -97,10 +99,6 @@ const router = createBrowserRouter([
           {
             path: '/first/:trustId',
             children: [
-              // {
-              //   path: '',
-              //   element: <FirstGuideWelcome />,
-              // },
               {
                 path: 'KycVerify',
                 element: <KycVerify />,
@@ -256,10 +254,13 @@ const queryClient = new QueryClient({
 });
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <Provider store={store}>
-    <QueryClientProvider client={queryClient}>
-      <Updater />
-      <RouterProvider router={router} />
-    </QueryClientProvider>
-  </Provider>,
+  <BrowserRouter>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <Updater />
+        <App />
+        {/* <RouterProvider router={router} /> */}
+      </QueryClientProvider>
+    </Provider>
+  </BrowserRouter>,
 );

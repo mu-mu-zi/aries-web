@@ -24,3 +24,8 @@ export interface IUserLoginLog {
   remark: string;
   createTimeStamp: number;
 }
+
+export interface IGoogleQr {
+  qrCode: string;
+  secret: string;
+}
