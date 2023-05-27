@@ -39,13 +39,13 @@ export default function DeclarationRecord() {
       case 6:
         return t('Cancelled');
       default:
-        return undefined;
+        return '--';
     }
   };
 
   return (
     <div className="flex flex-col gap-4 gradient-bg2 rounded-xl shadow-block p-8">
-      <div className="gradient-text1 font-bold text-[20px]">{t('Commission declaration record')}</div>
+      <div className="gradient-text1 font-bold font-title text-[20px]">{t('Commission declaration record')}</div>
       <div className="h-[1px] bg-[#3B5649]" />
       <SimpleTable
         columns={[

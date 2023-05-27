@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { use } from 'i18next';
-import useUserId from '../../hooks/useUserId';
+import useAuthToken, { containsToken } from '../../hooks/useUserId';
 import { IPage, IResponseData } from '../../interfaces/base';
 import { IDistribution, IDistributionBill } from '../../interfaces/trust';
 
@@ -13,7 +13,7 @@ export const useDistributionListQuery = (data: {
   pageSize?: number
   trustId?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IPage<IDistribution>>>({
     queryKey: ['trust', 'distribution', 'list', data, userId],
@@ -22,7 +22,7 @@ export const useDistributionListQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.trustId,
+    enabled: containsToken() && !!data.trustId,
   });
 };
 
@@ -31,7 +31,7 @@ export const useDistributionBillQuery = (data: {
   pageSize?: number,
   trustId?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IPage<IDistributionBill>>>({
     queryKey: ['trust', 'distribution', 'allocationRecord', data, userId],
@@ -40,6 +40,6 @@ export const useDistributionBillQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.trustId,
+    enabled: containsToken() && !!data.trustId,
   });
 };

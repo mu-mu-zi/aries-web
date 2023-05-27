@@ -25,8 +25,7 @@ export default function DigitalAssets({ assetOverview }: {
         )}
       >
         <div>{t('Digital Assets')}</div>
-        {/* todo: 这里的 total 是错误的 */}
-        <div>{`${currencyUSDTFormat(assetOverview?.totalUSDT)} USD`}</div>
+        <div>{`${currencyUSDTFormat(assetOverview?.digitalAssets.reduce((x, y) => x + y.totalUSDT, 0))} USD`}</div>
       </div>
       {assetOverview?.digitalAssets.map((it) => (
         <div className={classNames('gradient-block1', 'shadow-block', 'rounded-xl')}>

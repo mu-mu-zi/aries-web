@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 import { ReactNotifications, Store } from 'react-notifications-component';
-import useUserId from '../hooks/useUserId';
+import useAuthToken from '../hooks/useUserId';
 import { useAppDispatch, useAppSelector } from '../state';
 import { appendMessage } from '../state/msg';
 import 'react-notifications-component/dist/theme.css';
@@ -9,7 +9,7 @@ import { IStationMessage } from '../interfaces/message';
 import { addNotification } from '../utils/Notification';
 
 export default function StationMessage() {
-  const userId = useUserId();
+  const userId = useAuthToken();
   const action = useAppDispatch();
 
   useEffect(() => {

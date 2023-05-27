@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import useUserId from '../../hooks/useUserId';
+import useAuthToken, { containsToken } from '../../hooks/useUserId';
 import { IPage, IResponseData } from '../../interfaces/base';
 import { ILaw, IReport, ITrustFee } from '../../interfaces/trust';
 import { ITrustBill } from '../../interfaces/asset';
@@ -17,12 +17,12 @@ export const useLedgerOrderListQuery = (data: {
   timeType?: number,
   billType?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IPage<ITrustBill>>>({
     queryKey: ['trust', 'order', data, userId],
     queryFn: () => axios.post('/trust/trust/bill/list', data),
-    enabled: !!userId && !!data.trustId,
+    enabled: containsToken() && !!data.trustId,
   });
 };
 
@@ -32,7 +32,7 @@ export const useExcessFeeListQuery = (data: {
   trustId?: number,
   year?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery({
     queryKey: ['trust', 'order', 'excess', data, userId],
@@ -41,7 +41,7 @@ export const useExcessFeeListQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.trustId,
+    enabled: containsToken() && !!data.trustId,
   });
 };
 
@@ -50,7 +50,7 @@ export const useManagementFeeListQuery = (data: {
   pageSize?: number,
   trustId?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery({
     queryKey: ['trust', 'order', 'management', data, userId],
@@ -59,14 +59,14 @@ export const useManagementFeeListQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.trustId,
+    enabled: containsToken() && !!data.trustId,
   });
 };
 
 export const useTrustFeeListQuery = (data: {
   trustId?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<ITrustFee[]>>({
     queryKey: ['trust', 'order', 'trust', data, userId],
@@ -75,7 +75,7 @@ export const useTrustFeeListQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.trustId,
+    enabled: containsToken() && !!data.trustId,
   });
 };
 
@@ -87,7 +87,7 @@ export const useTrustReportListQuery = (data: {
   pageSize?: number,
   trustId?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IPage<IReport>>>({
     queryKey: ['trust', 'report', data, userId],
@@ -96,7 +96,7 @@ export const useTrustReportListQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.trustId,
+    enabled: containsToken() && !!data.trustId,
   });
 };
 
@@ -105,7 +105,7 @@ export const useTrustLawListQuery = (data: {
   pageSize?: number,
   trustId?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IPage<ILaw>>>({
     queryKey: ['trust', 'law', data, userId],
@@ -114,6 +114,6 @@ export const useTrustLawListQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.trustId,
+    enabled: containsToken() && !!data.trustId,
   });
 };

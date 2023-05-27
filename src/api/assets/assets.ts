@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useId } from 'react';
-import useUserId from '../../hooks/useUserId';
+import useAuthToken, { containsToken } from '../../hooks/useUserId';
 import { IResponseData } from '../../interfaces/base';
 import { IBank } from '../../interfaces/asset';
 
@@ -9,7 +9,7 @@ export const useAssetByCoinId = (data: {
   mainnetCoinId?: number,
   trustId?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery({
     queryKey: ['asset', 'rechargeAddress', data, userId],
@@ -21,7 +21,7 @@ export const useAssetByCoinId = (data: {
 export const useAllBankQuery = (data: {
   trustId?: number | string
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IBank[]>>({
     queryKey: ['asset', 'bankList', data, userId],
@@ -30,6 +30,6 @@ export const useAllBankQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!data.trustId && !!userId,
+    enabled: !!data.trustId && containsToken(),
   });
 };

@@ -89,7 +89,7 @@ export default function Approval({ trustInvestmentId }: {
                 case 2:
                   return 'Bank';
                 default:
-                  return undefined;
+                  return '--';
               }
             },
           },

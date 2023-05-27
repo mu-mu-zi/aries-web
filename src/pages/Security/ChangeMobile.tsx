@@ -116,7 +116,7 @@ export default function ChangeMobile() {
               <div className="flex-auto">
                 <TextInput
                   {...register('mobile')}
-                  placeholder="Please enter your mobile phone number"
+                  placeholder="Please input your phone"
                 />
               </div>
             </div>

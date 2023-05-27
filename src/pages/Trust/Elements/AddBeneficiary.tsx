@@ -63,6 +63,9 @@ export default function AddBeneficiary({ trustId, onClose }: {
     watch,
   } = useForm<FormValid>({
     resolver: zodResolver(valid),
+    defaultValues: {
+      userType: UserType.Define,
+    },
   });
   const userType = watch('userType');
   const queryClient = useQueryClient();

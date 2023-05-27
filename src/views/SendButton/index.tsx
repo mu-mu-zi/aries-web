@@ -25,7 +25,7 @@ export default function SendButton({
 
   return (
     <div
-      className="cursor-pointer font-bold gradient-text1 text-[20px] px-2"
+      className="cursor-pointer font-bold gradient-text1 text-[20px] px-2 break-keep"
       onClick={async () => {
         if (duration > 0) {
           return;

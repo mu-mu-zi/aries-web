@@ -41,7 +41,7 @@ export default function Security() {
       case 1: return t('Low');
       case 2: return t('Medium');
       case 3: return t('High');
-      default: return undefined;
+      default: return '--';
     }
   }, [securityLevel]);
 
@@ -136,8 +136,10 @@ export default function Security() {
                   <div className="text-[20px] font-bold">{t('Google verification')}</div>
                 </div>
                 <div className="flex flex-row items-center gap-4 font-title text-[14px]">
-                  <NavLink to="/personal/gaUnbind">
-                    <TextButton>{t('Change')}</TextButton>
+                  <NavLink
+                    to={user.data?.data?.googleSecretAuth ? '/personal/gaUnbind' : '/personal/gaChangeScan'}
+                  >
+                    <TextButton>{user.data?.data?.googleSecretAuth ? t('Change') : t('Bind')}</TextButton>
                   </NavLink>
                 </div>
               </div>

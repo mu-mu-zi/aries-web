@@ -64,7 +64,7 @@ export default function OrderCell({ item }: {
       </div>
       {/* Content */}
       <div className="flex-auto flex flex-col gap-2 text-[#99AC9B] text-[16px] leading-[18px]">
-        <div>
+        <div className="line-clamp-2">
           {item.investmentSuggestion}
         </div>
         <div>{item.investmentTime}</div>

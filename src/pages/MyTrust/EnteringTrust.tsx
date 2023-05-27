@@ -49,7 +49,7 @@ export default function EnteringTrust({ trust }: {
       case 6:
         return 'Protector';
       default:
-        return undefined;
+        return '--';
     }
   };
 

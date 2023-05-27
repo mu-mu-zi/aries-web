@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import useUserId from '../../hooks/useUserId';
+import useAuthToken, { containsToken } from '../../hooks/useUserId';
 import { IPage, IResponseData } from '../../interfaces/base';
 import { ITrustEstablishment, ITrustExcessFeeRecord, ITrustManageFeeRecord } from '../../interfaces/trust';
 
@@ -13,7 +13,7 @@ export const useTrustManageFeeListQuery = (data: {
   trustId?: number,
   year?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IPage<ITrustManageFeeRecord>>>({
     queryKey: ['trust', 'fee', 'manage', data, userId],
@@ -22,7 +22,7 @@ export const useTrustManageFeeListQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.trustId && !!data.year,
+    enabled: containsToken() && !!data.trustId && !!data.year,
   });
 };
 
@@ -35,7 +35,7 @@ export const useTrustExcessFeeListQuery = (data: {
   trustId?: number,
   year?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IPage<ITrustExcessFeeRecord>>>({
     queryKey: ['trust', 'fee', 'excess', data, userId],
@@ -44,7 +44,7 @@ export const useTrustExcessFeeListQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.trustId && !!data.year,
+    enabled: containsToken() && !!data.trustId && !!data.year,
   });
 };
 
@@ -54,7 +54,7 @@ export const useEstablishmentFeeListQuery = (data: {
   trustId?: number,
   year?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IPage<ITrustEstablishment>>>({
     queryKey: ['trust', 'fee', 'establishment', data, userId],
@@ -63,7 +63,7 @@ export const useEstablishmentFeeListQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.trustId && !!data.year,
+    enabled: containsToken() && !!data.trustId && !!data.year,
   });
 };
 
@@ -72,7 +72,7 @@ export const useTrustFeeStatisticsQuery = (data: {
   year: number,
   type?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery({
     queryKey: ['trust', 'fee', 'statistics', data, userId],
@@ -81,6 +81,6 @@ export const useTrustFeeStatisticsQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.trustId && !!data.type,
+    enabled: containsToken() && !!data.trustId && !!data.type,
   });
 };

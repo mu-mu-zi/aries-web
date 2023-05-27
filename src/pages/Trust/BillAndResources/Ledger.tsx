@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 import Dropdown from '../../../components/Dropdown';
 import { useLedgerOrderListQuery } from '../../../api/trust/order';
 import SimpleTable from '../../../views/SimpleTable';
@@ -79,6 +80,12 @@ export default function Ledger() {
     setValue('timeType', TimeType.All);
   };
 
+  const download = () => {
+    axios.post('/trust/trust/bill/export', {
+
+    });
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <form>
@@ -136,7 +143,7 @@ export default function Ledger() {
           </div>
           <div className="flex-auto" />
           <TextButton type="button" onClick={reset}>Reset</TextButton>
-          <TextButton>Download</TextButton>
+          <TextButton type="button" onClick={download}>Download</TextButton>
         </div>
       </form>
       <SimpleTable
@@ -147,7 +154,18 @@ export default function Ledger() {
           },
           {
             Header: t('Type') ?? '',
-            accessor: 'billTypeName',
+            accessor: (x) => [
+              'Fiat Out',
+              'Fiat In',
+              'Digital Asset Out',
+              'Digital Asset In',
+              'Exchange',
+              'Custom',
+              'Distribute Profit',
+              'Management Fee',
+              'Exceed Transfer',
+              'Establishment Fee',
+              'Additional Establishment Fee'][x.billType - 1],
           },
           {
             Header: t('Currency') ?? '',
@@ -159,13 +177,13 @@ export default function Ledger() {
             // eslint-disable-next-line react/prop-types
             Cell: ({ row }) => <div className="gradient-text1 text-[16px]">{row.original?.amount}</div>,
           },
-          {
-            accessor: 'Reconciliation',
-            Header: () => (<div className="text-right">{t('Reconciliation')}</div>),
-            Cell: ({}) => (
-              <div className="flex justify-end"><TextButton>{t('View credentials')}</TextButton></div>
-            ),
-          },
+          // {
+          //   accessor: 'Reconciliation',
+          //   Header: () => (<div className="text-right">{t('Reconciliation')}</div>),
+          //   Cell: ({}) => (
+          //     <div className="flex justify-end"><TextButton>{t('View credentials')}</TextButton></div>
+          //   ),
+          // },
         ]}
         data={listQuery.data?.data?.records}
         pagination={{

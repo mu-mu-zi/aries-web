@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { IPage, IResponseData } from '../../interfaces/base';
 import { ITrustUser } from '../../interfaces/trust';
-import useUserId from '../../hooks/useUserId';
+import useAuthToken, { containsToken } from '../../hooks/useUserId';
 
 export const useElementsUserQuery = (data: {
   pageIndex?: number,
@@ -10,7 +10,7 @@ export const useElementsUserQuery = (data: {
   trustId?: number
   beneficiary: boolean
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IPage<ITrustUser>>>({
     queryKey: ['trust', 'elements', data, userId],
@@ -22,6 +22,6 @@ export const useElementsUserQuery = (data: {
         ...data,
       },
     }),
-    enabled: !!userId && !!data.trustId,
+    enabled: containsToken() && !!data.trustId,
   });
 };

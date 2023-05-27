@@ -32,7 +32,8 @@ export default function Dashboard() {
       <div className="flex flex-auto flex-col gap-6">
         <Portrait trustName={trustQuery.data?.data?.trustName} description={t('has been exclusively established in accordance with your wishes to achieve the purpose of wealth inheritance and planning for your family.')} />
         <DigitalAssets assetOverview={assetsOverviewQuery.data?.data} />
-        {assetsOverviewQuery.data?.data?.fiatAssets.map((f) => <FiatAssets asset={f} />)}
+        <FiatAssets asset={assetsOverviewQuery.data?.data} />
+        {/* {assetsOverviewQuery.data?.data?.fiatAssets.map((f) => <FiatAssets asset={f} />)} */}
       </div>
       <div className="flex flex-col w-[402px] flex-shrink-0 gap-6 pb-4">
         <AssetOverview assetOverview={assetsOverviewQuery.data?.data} />

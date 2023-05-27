@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import useUserId from '../../hooks/useUserId';
+import useAuthToken, { containsToken } from '../../hooks/useUserId';
 import { IResponseData } from '../../interfaces/base';
 import { ITrustAssetRecode } from '../../interfaces/trust';
 
@@ -9,23 +9,23 @@ export const useTrustAssetDeclareQuery = (data: {
   pageSize?: number,
   trustId?: number
 }) => {
-  const userId = useUserId();
+  const token = useAuthToken();
 
   return useQuery({
-    queryKey: ['trust', 'asset', data, userId],
+    queryKey: ['trust', 'asset', data, token],
     queryFn: () => axios.request({
       url: '/trust/assetDeclare/list',
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.trustId,
+    enabled: !!token && !!data.trustId,
   });
 };
 
 export const useAssetDeclareDetailQuery = (data: {
   recordId?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<ITrustAssetRecode>>({
     queryKey: ['trust', 'asset', data, userId],
@@ -34,6 +34,6 @@ export const useAssetDeclareDetailQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.recordId,
+    enabled: containsToken() && !!data.recordId,
   });
 };

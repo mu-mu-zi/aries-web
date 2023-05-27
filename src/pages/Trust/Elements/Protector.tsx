@@ -57,15 +57,48 @@ export default function Protector() {
           },
           {
             Header: t('Identity category') ?? '',
-            accessor: '',
+            accessor: (x) => {
+              switch (x.userType) {
+                case 1: return 'Principal';
+                case 2: return 'Explicit Beneficiary';
+                case 3: return 'Non-Explicit Beneficiary';
+                case 4: return 'Guardian';
+                case 5: return 'Succession Guardian';
+                case 6: return 'Second Succession Guardia';
+                case 21: return 'Beneficiary Entrustor Himself/Herself';
+                default: return '--';
+              }
+            },
           },
           {
             Header: t('Permissions') ?? '',
-            accessor: 'roleTypeName',
+            accessor: (x) => {
+              switch (x.roleType) {
+                case 1:
+                  return 'No';
+                case 2:
+                  return 'ReadOnly';
+                case 3:
+                  return 'Approval';
+                default:
+                  return '--';
+              }
+            },
           },
           {
             Header: t('KYC certification') ?? '',
-            accessor: 'kycStatusName',
+            accessor: (x) => {
+              switch (x.kycStatus) {
+                case 0:
+                  return 'In progress';
+                case 1:
+                  return 'Successful';
+                case 2:
+                  return 'Failure';
+                default:
+                  return '--';
+              }
+            },
           },
           {
             Header: t('Description') ?? '',
@@ -73,7 +106,18 @@ export default function Protector() {
           },
           {
             Header: t('Audit status') ?? '',
-            accessor: 'trustUserStatus',
+            accessor: (x) => {
+              switch (x.trustUserStatus) {
+                case 0:
+                  return 'Pending';
+                case 1:
+                  return 'Successful';
+                case 2:
+                  return 'Failure';
+                default:
+                  return '--';
+              }
+            },
           },
           {
             Header: t('Add time') ?? '',

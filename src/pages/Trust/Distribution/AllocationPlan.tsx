@@ -36,13 +36,13 @@ export default function AllocationPlan() {
         <div className="flex flex-row items-center justify-between">
           <div className="gradient-text1 text-[20px] font-title font-bold">{t('Allocation plan')}</div>
           {trustQuery.data?.data?.roleType! > 2 && (
-          <Button
-            size="medium"
-            onClick={() => setAddedVisible(true)}
-          >
-            {t('Add')}
-          </Button>
-        )}
+            <Button
+              size="medium"
+              onClick={() => setAddedVisible(true)}
+            >
+              {t('Add')}
+            </Button>
+          )}
         </div>
         <div className="mt-4"><Hr /></div>
         <SimpleTable
@@ -52,21 +52,38 @@ export default function AllocationPlan() {
               accessor: 'planDescription',
               // eslint-disable-next-line react/prop-types
               Cell: ({ row }) => (
-              // eslint-disable-next-line react/prop-types
+                // eslint-disable-next-line react/prop-types
                 <div className="pr-4 line-clamp-1">{row.original?.planDescription}</div>
               ),
             },
             {
               Header: t('Update Time') ?? '',
-              accessor: (originalRow) => (<div className="break-keep">{moment.unix(originalRow.updateTimeStamp / 1000).format('yyyy-MM-DD HH:mm:ss')}</div>),
+              accessor: (originalRow) => (
+                <div
+                  className="break-keep"
+                >
+                  {moment.unix(originalRow.updateTimeStamp / 1000).format('yyyy-MM-DD HH:mm:ss')}
+                </div>
+              ),
             },
             {
               Header: t('Status') ?? '',
-              accessor: 'planStatusName',
+              accessor: (x) => {
+                switch (x.planStatus) {
+                  case 1:
+                    return 'Checking';
+                  case 2:
+                    return 'Approved';
+                  case 3:
+                    return 'Rejected';
+                  default:
+                    return '--';
+                }
+              },
             },
             {
               Header: t('Remark') ?? '',
-              accessor: 'remark',
+              accessor: (x) => x.remark ?? '--',
             },
             {
               id: 'operation',
@@ -83,16 +100,18 @@ export default function AllocationPlan() {
                   >
                     {t('View')}
                   </TextButton>
-                  <TextButton
-                    onClick={() => {
-                      console.log();
-                      // eslint-disable-next-line react/prop-types
-                      setSelectRow(row.original);
-                      setModifyVisible(true);
-                    }}
-                  >
-                    {t('Modify')}
-                  </TextButton>
+                  {trustQuery.data?.data?.roleType! > 2 && (
+                    <TextButton
+                      onClick={() => {
+                        console.log();
+                        // eslint-disable-next-line react/prop-types
+                        setSelectRow(row.original);
+                        setModifyVisible(true);
+                      }}
+                    >
+                      {t('Modify')}
+                    </TextButton>
+                  )}
                 </div>
               ),
             },
@@ -114,11 +133,11 @@ export default function AllocationPlan() {
       </Modal>
       <Modal visible={modifyVisible} onClose={() => setModifyVisible(false)}>
         {selectRow && (
-        <ModifyPlan
-          trustId={Number(trustId)}
-          row={selectRow}
-          onClose={() => setModifyVisible(false)}
-        />
+          <ModifyPlan
+            trustId={Number(trustId)}
+            row={selectRow}
+            onClose={() => setModifyVisible(false)}
+          />
         )}
       </Modal>
       <Modal visible={detailVisible} onClose={() => setDetailVisible(false)}>

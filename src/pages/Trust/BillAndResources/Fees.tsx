@@ -21,7 +21,7 @@ export default function Fees() {
       case 3:
         return t('Establishment Fee');
       default:
-        return undefined;
+        return '--';
     }
   };
 

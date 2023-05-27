@@ -42,7 +42,7 @@ export default function Sidebar() {
             [t('Investment Order'), keyIcon, keySelIcon, `/trust/${trustId}/orders`],
             [t('Distribution'), distIcon, distSelIcon, `/trust/${trustId}/distribution`],
             [t('Trust Elements'), eleIcon, eleSelIcon, `/trust/${trustId}/elements`],
-            [t('Bill and Resources'), billIcon, billSelIcon, `/trust/${trustId}/billAndResources`],
+            [t('Bill and Resources'), billIcon, billSelIcon, `/trust/${trustId}/billAndResources/`],
           ].map(([title, icon, selectIcon, to], idx) => (
             <SidebarCell
               key={title}

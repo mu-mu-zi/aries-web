@@ -46,7 +46,7 @@ function MethodSwitchItem({
           'rounded-xl',
         )}
       >
-        <div className={classNames('gradient-text1', {
+        <div className={classNames('gradient-text1 text-center text-[20px]', {
           'font-bold': isSelected,
           'font-normal': !isSelected,
         })}

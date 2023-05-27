@@ -6,8 +6,8 @@ import { addNotification } from '../utils/Notification';
 import { useUserInfoQuery } from '../api/user/user';
 
 export default function Axios() {
-  const navigate = useNavigate();
-  const userQuery = useUserInfoQuery();
+  // const navigate = useNavigate();
+  // const userQuery = useUserInfoQuery();
 
   useEffectOnce(() => {
     /* 默认 URL */
@@ -34,13 +34,17 @@ export default function Axios() {
           if (response.data.code === 200) {
             return Promise.resolve(response.data);
           }
-          if (response.data.code === 406 || response.data.code === 407 || response.data.code === 4008 || response.data.code === 401) {
+          if (response.data.code === 406 || response.data.code === 407 || response.data.code === 4008) {
             /* 删除本地 token */
             localStorage.removeItem('TOKEN');
             /* 跳转到首页 */
             // navigate('/');
             /* 删除用户缓存 */
-            userQuery.remove();
+            // userQuery.remove();
+            addNotification({
+              title: response.data.msg,
+              type: 'danger',
+            });
             return Promise.reject(response.data.msg);
           }
           /* 服务端错误处理 */

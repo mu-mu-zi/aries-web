@@ -44,7 +44,7 @@ export default function BillRecords({ trustInvestmentId }: {
       case 6:
         return t('Customization');
       default:
-        return undefined;
+        return '--';
     }
   };
 

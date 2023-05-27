@@ -25,7 +25,7 @@ export default function CompletionBitStep({ trust }: {
       <div className="flex flex-row items-center justify-between px-8 h-[70px] gradient-block1 rounded-xl shadow-block">
         <div className="gradient-text1 font-bold">{t('Initial assets')}</div>
         <div className="gradient-text1 text-[20px]">
-          {`${trust.transferredAssets} ${trust.coinName}`}
+          {(trust.transferredAssets && trust.coinName) ? `${trust.transferredAssets} ${trust.coinName}` : '--'}
         </div>
       </div>
       <div className="flex flex-col rounded-xl overflow-clip shadow-block">

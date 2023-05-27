@@ -29,7 +29,8 @@ export default function Beneficiary() {
     <div className="flex flex-col gap-4 rounded-xl shadow-block p-8 gradient-bg2">
       <div className="flex flex-row items-center justify-between">
         <div className="gradient-text1 font-title font-bold text-[20px]">{t('Beneficiary')}</div>
-        {trustQuery.data?.data?.roleType! > 2 && <Button onClick={() => setAddBeneficiaryVisible(true)}>{t('+ Add')}</Button>}
+        {trustQuery.data?.data?.roleType! > 2
+          && <Button onClick={() => setAddBeneficiaryVisible(true)}>{t('+ Add')}</Button>}
       </div>
       <Hr />
       {/* <div className="flex flex-col gap-4 gradient-block1 shadow-block rounded-xl p-8"> */}
@@ -58,6 +59,21 @@ export default function Beneficiary() {
           {
             Header: t('Identity category') ?? '',
             accessor: (x) => {
+              switch (x.userType) {
+                case 1: return 'Principal';
+                case 2: return 'Explicit Beneficiary';
+                case 3: return 'Non-Explicit Beneficiary';
+                case 4: return 'Guardian';
+                case 5: return 'Succession Guardian';
+                case 6: return 'Second Succession Guardia';
+                case 21: return 'Beneficiary Entrustor Himself/Herself';
+                default: return '--';
+              }
+            },
+          },
+          {
+            Header: t('Permissions') ?? '',
+            accessor: (x) => {
               switch (x.roleType) {
                 case 1:
                   return 'No';
@@ -66,17 +82,24 @@ export default function Beneficiary() {
                 case 3:
                   return 'Approval';
                 default:
-                  return undefined;
+                  return '--';
               }
             },
           },
           {
-            Header: t('Permissions') ?? '',
-            accessor: 'roleTypeName',
-          },
-          {
             Header: t('KYC certification') ?? '',
-            accessor: 'kycStatusName',
+            accessor: (x) => {
+              switch (x.kycStatus) {
+                case 0:
+                  return 'In progress';
+                case 1:
+                  return 'Successful';
+                case 2:
+                  return 'Failure';
+                default:
+                  return '--';
+              }
+            },
           },
           {
             Header: t('Description') ?? '',
@@ -84,7 +107,18 @@ export default function Beneficiary() {
           },
           {
             Header: t('Audit status') ?? '',
-            accessor: 'trustUserStatus',
+            accessor: (x) => {
+              switch (x.trustUserStatus) {
+                case 0:
+                  return 'Pending';
+                case 1:
+                  return 'Successful';
+                case 2:
+                  return 'Failure';
+                default:
+                  return '--';
+              }
+            },
           },
           {
             Header: t('Add time') ?? '',

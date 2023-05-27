@@ -3,23 +3,18 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { IPage, IResponseData } from '../../interfaces/base';
 import { IGoogleQr, IUser, IUserLoginLog } from '../../interfaces/user';
-import useUserId from '../../hooks/useUserId';
+import useAuthToken, { containsToken } from '../../hooks/useUserId';
 
 /*
 * 获取用户信息，会检查是否存在本地 token
 * */
 export const useUserInfoQuery = () => {
-  const token = localStorage.getItem('TOKEN');
-
-  useEffect(() => {
-    console.log(token);
-    console.log(!!token);
-  }, [token]);
+  const token = useAuthToken();
 
   return useQuery<IResponseData<IUser>>({
-    queryKey: ['user', 'info', token],
+    queryKey: ['user', 'info'],
     queryFn: () => axios.get('/user/user/getUserInfo'),
-    enabled: !!token,
+    enabled: containsToken(),
   });
 };
 
@@ -30,7 +25,7 @@ export const useLoginLogQuery = (data: {
   pageIndex: number,
   pageSize?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IPage<IUserLoginLog>>>({
     queryKey: ['user', 'loginLog', data, userId],
@@ -39,16 +34,16 @@ export const useLoginLogQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId,
+    enabled: containsToken(),
   });
 };
 
 export const useGoogleSecretKeyQuery = () => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IGoogleQr>>({
     queryKey: ['user', 'googleSecretKey', userId],
     queryFn: () => axios.get('/user/user/achieveGoogleSecretKey'),
-    enabled: !!userId,
+    enabled: containsToken(),
   });
 };

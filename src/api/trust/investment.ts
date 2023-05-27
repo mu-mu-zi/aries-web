@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import useUserId from '../../hooks/useUserId';
+import useAuthToken, { containsToken } from '../../hooks/useUserId';
 import { IPage, IResponseData } from '../../interfaces/base';
 import { IInvestment, IInvestmentApproveRecode, IInvestmentOrderRecode } from '../../interfaces/trust';
 
@@ -12,7 +12,7 @@ export const useInvestmentOrderQuery = (data: {
   pageSize?: number,
   trustId?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IPage<IInvestment>>>({
     queryKey: ['trust', 'investment', data, userId],
@@ -21,7 +21,7 @@ export const useInvestmentOrderQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.pageIndex && !!data.trustId,
+    enabled: containsToken() && !!data.pageIndex && !!data.trustId,
   });
 };
 
@@ -33,7 +33,7 @@ export const useInvestmentApprovalRecodeQuery = (data: {
   pageSize?: number,
   trustInvestmentId?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IPage<IInvestmentApproveRecode>>>({
     queryKey: ['trust', 'investment', 'approvalList', data, userId],
@@ -42,7 +42,7 @@ export const useInvestmentApprovalRecodeQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.trustInvestmentId,
+    enabled: containsToken() && !!data.trustInvestmentId,
   });
 };
 
@@ -54,7 +54,7 @@ export const useInvestmentOrderRecodeQuery = (data: {
   pageSize?: number,
   trustInvestmentId?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IPage<IInvestmentOrderRecode>>>({
     queryKey: ['trust', 'investment', 'order', 'record', data, userId],
@@ -63,6 +63,6 @@ export const useInvestmentOrderRecodeQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.trustInvestmentId,
+    enabled: containsToken() && !!data.trustInvestmentId,
   });
 };

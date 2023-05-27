@@ -8,7 +8,7 @@ import { EventSourcePolyfill } from 'event-source-polyfill';
 import { ReactNotifications } from 'react-notifications-component';
 import { useQueryClient } from '@tanstack/react-query';
 import fullBgIcon from './assets/icon/full_bg.svg';
-import useUserId from './hooks/useUserId';
+import useAuthToken from './hooks/useUserId';
 import Button from './components/Button';
 import { useUserInfoQuery } from './api/user/user';
 import Home from './pages/Home';
@@ -48,6 +48,7 @@ import EstablishmentFee from './pages/Trust/BillAndResources/EstablishmentFee';
 import GAChangeScan from './pages/Security/GAChangeScan';
 import GAChangeBankup from './pages/Security/GAChangeBankup';
 import GAChangeVerify from './pages/Security/GAChangeVerify';
+import LoginLog from './pages/Security/LoginLog';
 
 export default function App() {
   const userQuery = useUserInfoQuery();
@@ -61,13 +62,11 @@ export default function App() {
         style={{ backgroundImage: `url(${fullBgIcon})` }}
       />
       <div className="relative z-[2]">
-        {/* 路由表 */}
         <Routes>
           {/*  navbar */}
           <Route path="/" element={<Home />}>
             {/* 欢迎 */}
             <Route path="/" element={<Welcome />} />
-
             {/* 登录 + Google 绑定 + 绑定用户信息 */}
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/gaGuide" element={<GAGuide />} />
@@ -76,10 +75,8 @@ export default function App() {
             <Route path="/gaBindVerify" element={<GABindVerify />} />
             <Route path="/gaVerify" element={<GAVerify />} />
             <Route path="/personalRealName" element={<PersonalRealName />} />
-
             {/* 我的信托列表 */}
             <Route path="/my" element={<MyTrust />} />
-
             {/* 个人中心 */}
             <Route path="/personal">
               <Route path="" element={<Security />} />
@@ -91,19 +88,18 @@ export default function App() {
               <Route path="gaChangeBankup" element={<GAChangeBankup />} />
               <Route path="gaChangeVerify" element={<GAChangeVerify />} />
             </Route>
-
+            <Route path="loginLog" element={<LoginLog />} />
             {/* First create trust */}
             <Route path="/first/:trustId/KycVerify" element={<KycVerify />} />
-
             {/* Universal */}
             <Route path="/status" element={<Status />} />
             <Route path="/contactCustomer" element={<ContactCustomer />} />
           </Route>
+
           {/* 合约详情 */}
           <Route path="/trust/:trustId" element={<Trust />}>
             {/* 仪表盘 */}
             <Route path="dashboard" element={<Dashboard />} />
-
             {/* 资产 */}
             <Route path="assets" element={<AssetTransfet />} />
             {/* 订单 */}

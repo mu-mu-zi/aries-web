@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import useUserId from '../../hooks/useUserId';
+import useAuthToken, { containsToken } from '../../hooks/useUserId';
 
 export const useTrustContactEmailQuery = (data: {
   trustId?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery({
     queryKey: ['trust', 'email', data.trustId, userId],
@@ -14,6 +14,6 @@ export const useTrustContactEmailQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId,
+    enabled: containsToken(),
   });
 };

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { use } from 'i18next';
 import { useId } from 'react';
 import { useUserInfoQuery } from '../user/user';
-import useUserId from '../../hooks/useUserId';
+import useAuthToken, { containsToken } from '../../hooks/useUserId';
 import {
   IFiat,
   IMainNet, IMainNetCoin, IPage, IResponseData,
@@ -19,7 +19,7 @@ import { IStationMessage } from '../../interfaces/message';
 export const useTrustDetailQuery = (data: {
   trustId?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<TrustDetail>>({
     queryKey: ['trust', 'detail', data, userId],
@@ -28,7 +28,7 @@ export const useTrustDetailQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.trustId,
+    enabled: containsToken() && !!data.trustId,
   });
 };
 
@@ -36,12 +36,12 @@ export const useTrustDetailQuery = (data: {
 * 我的信托列表
 * */
 export const useMyTrustQuery = () => {
-  const userId = useUserId();
+  const token = useAuthToken();
 
   return useQuery<IResponseData<Trust[]>>({
-    queryKey: ['trust', 'list', userId],
+    queryKey: ['trust', 'list'],
     queryFn: () => axios.get('/trust/trust/list'),
-    enabled: !!userId,
+    enabled: containsToken(),
   });
 };
 
@@ -49,12 +49,12 @@ export const useMyTrustQuery = () => {
 * 信托用户列表
 * */
 export const useTrustUserListQuery = () => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery({
     queryKey: ['trust', 'user', 'list', userId],
     queryFn: () => axios.get('/trust/trust/user/trustUserListByUserType'),
-    enabled: !!userId,
+    enabled: containsToken(),
   });
 };
 
@@ -64,7 +64,7 @@ export const useTrustUserListQuery = () => {
 export const useAssetOverviewQuery = (data: {
   trustId: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IAssetsOverview>>({
     queryKey: ['trust', 'asset', data, userId],
@@ -73,7 +73,7 @@ export const useAssetOverviewQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.trustId,
+    enabled: containsToken() && !!data.trustId,
   });
 };
 
@@ -85,7 +85,7 @@ export const useTrustMessageListQuery = (data: {
   pageIndex: number,
   pageSize?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IPage<IStationMessage>>>({
     queryKey: ['trust', 'notify', data, userId],
@@ -94,7 +94,7 @@ export const useTrustMessageListQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.trustId,
+    enabled: containsToken() && !!data.trustId,
   });
 };
 
@@ -118,12 +118,12 @@ export const useTrustMessageListQuery = (data: {
 * 获取全部主网
 * */
 export const useAllMainNetsQuery = () => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IMainNet[]>>({
     queryKey: ['mainNets', userId],
     queryFn: () => axios.get('/asset/asset/mainnets'),
-    enabled: !!userId,
+    enabled: containsToken(),
   });
 };
 
@@ -133,7 +133,7 @@ export const useAllMainNetsQuery = () => {
 export const useAllCoinInMainNetQuery = (data: {
   mainnetId?: number
 }) => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IMainNetCoin[]>>({
     queryKey: ['mainNets', 'coins', data, userId],
@@ -142,7 +142,7 @@ export const useAllCoinInMainNetQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!userId && !!data.mainnetId,
+    enabled: containsToken() && !!data.mainnetId,
   });
 };
 
@@ -150,11 +150,11 @@ export const useAllCoinInMainNetQuery = (data: {
 * 获取法币列表
 * */
 export const useFiatListQuery = () => {
-  const userId = useUserId();
+  const userId = useAuthToken();
 
   return useQuery<IResponseData<IFiat[]>>({
     queryKey: ['fiat', 'list', useId()],
     queryFn: () => axios.get('/asset/asset/legalCoins'),
-    enabled: !!userId,
+    enabled: containsToken(),
   });
 };

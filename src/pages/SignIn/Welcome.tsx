@@ -6,12 +6,12 @@ import Button from '../../components/Button';
 import Divide from '../../components/Divide';
 import welcomeIcon from '../../assets/icon/welcome_badge.svg';
 import ContactUs from './ContactUs';
-import useUserId from '../../hooks/useUserId';
+import useAuthToken from '../../hooks/useUserId';
 import ContactUsFooter from '../../views/ContactUsFooter';
 
 export default function Welcome() {
   const navigate = useNavigate();
-  const userId = useUserId();
+  const userId = useAuthToken();
   const { t } = useTranslation();
 
   return (

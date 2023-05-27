@@ -63,6 +63,10 @@ export default function AddProtector({ trustId, onClose }: {
     watch,
   } = useForm<FormValid>({
     resolver: zodResolver(valid),
+    defaultValues: {
+      userType: UserType.Protect,
+      guardiansType: GuardiansType.Other,
+    },
   });
   const guardiansType = watch('guardiansType');
   const queryClient = useQueryClient();

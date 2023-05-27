@@ -7,6 +7,20 @@ export default function InvestmentDetails({ trustInvestment }: {
 }) {
   const { t } = useTranslation();
 
+  const statusText = (status: number) => {
+    switch (status) {
+      case 1: return '待处理';
+      case 2: return '待审批';
+      case 3: return '投资中';
+      case 4: return '核对中';
+      case 5: return '已完成';
+      case 6: return '审批失败';
+      case 7: return '申请取消';
+      case 8: return '已取消';
+      default: return '--';
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8 shadow-block">
       {/* 标题 */}
@@ -25,7 +39,7 @@ export default function InvestmentDetails({ trustInvestment }: {
         </div>
         <div className="flex-1 flex flex-col gap-4 items-end">
           <div className="text-[#99ac9b] text-[16px]">{t('Status')}</div>
-          <div className="font-bold text-[20px] text-[#C2D7C7F6]">{trustInvestment.investmentStatusName}</div>
+          <div className="font-bold text-[20px] text-[#C2D7C7F6]">{statusText(trustInvestment.investmentStatus)}</div>
         </div>
       </div>
       {/* advice */}
@@ -59,7 +73,7 @@ function AdviceCell({ title, description }: {
   return (
     <div className="flex flex-col gap-2 bg-[#344D41] rounded-xl p-8">
       <div className="font-bold text-[16px] text-[#C2D7C7F6]">{title}</div>
-      <div className="text-[16px] text-[#99AC9B] leading-[18px]">{description}</div>
+      <div className="text-[16px] text-[#99AC9B] leading-[18px] break-words">{description}</div>
     </div>
   );
 }
