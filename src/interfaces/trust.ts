@@ -157,7 +157,7 @@ export interface ITrustUser {
   trustId: number;
   userId: null;
   userType: null;
-  roleType: null;
+  roleType: number;
   remark: string;
   kycStatus: null;
   trustUserStatus: null;

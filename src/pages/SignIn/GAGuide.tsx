@@ -48,7 +48,6 @@ export default function GAGuide() {
                     areaCodeId: location.state.areaCodeId,
                     userName: location.state.userName,
                   },
-                  replace: true,
                 });
               }}
             >

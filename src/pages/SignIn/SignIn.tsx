@@ -20,9 +20,10 @@ import PhotoEmailSwitch from '../../components/PhotoEmailSwitch';
 import { useGetUserInfoMutation, useSendValidateCodeMutation } from '../../api/user/verify';
 import { IResponseData } from '../../interfaces/base';
 import Dropdown from '../../components/Dropdown';
-import { useAreaCodeListQuery } from '../../api/base/areaCode';
+// import { useAreaCodeListQuery } from '../../api/base/areaCode';
 import SendButton from '../../views/SendButton';
 import ContactUsFooter from '../../views/ContactUsFooter';
+import AreaSelect from '../../components/AreaSelect';
 
 export default function SignIn() {
   const { t } = useTranslation();
@@ -30,9 +31,9 @@ export default function SignIn() {
   const [isPhone, setIsPhone] = useState(true);
   const sendValidateCodeMutation = useSendValidateCodeMutation();
   const getUserInfoMutation = useGetUserInfoMutation();
-  const areaCodeListQuery = useAreaCodeListQuery();
+  // const areaCodeListQuery = useAreaCodeListQuery();
   const valid = z.object({
-    account: z.string().nonempty(),
+    account: z.string().nonempty().email().or(z.string()),
     areaCodeId: z.number().optional(),
     securityCode: z.string().nonempty(),
   });
@@ -49,6 +50,8 @@ export default function SignIn() {
   } = useForm<FormValid>({
     resolver: zodResolver(valid),
   });
+
+  useEffect(() => setValue('account', ''), [isPhone]);
 
   const sendValidCode = async () => {
     /* 验证账号 */
@@ -103,15 +106,11 @@ export default function SignIn() {
     }
   };
 
-  useEffect(() => {
-    setValue('areaCodeId', areaCodeListQuery.data?.data?.[0].id);
-  }, [areaCodeListQuery.data?.data]);
-
   return (
-    <div className="flex flex-col items-center pt-9">
-      <div className="gradient-bg2 flex w-[580px] h-[800px] flex-col overflow-clip rounded-xl">
+    <div className="flex flex-col items-center pt-9 ">
+      <div className="gradient-bg2 flex w-[580px] h-[800px] flex-col rounded-xl block-gradient-border">
         {/* Logo */}
-        <div className="gradient-border1 grid h-[102px] place-items-center">
+        <div className="gradient-border1 grid h-[102px] place-items-center rounded-t-xl">
           <img height="54px" src={logo} />
         </div>
         {/* Form */}
@@ -119,22 +118,17 @@ export default function SignIn() {
           <div className="flex flex-col gap-10 px-[80px] py-[64px]">
             <PhotoEmailSwitch onSelected={setIsPhone} />
             <div className="flex flex-row gap-2">
-              {/* {isPhone ? <Select /> : null} */}
-              {isPhone && areaCodeListQuery.data?.data && (
-                <div className="w-[160px]">
-                  <Controller
-                    render={({ field }) => (
-                      <Dropdown
-                        block
-                        items={areaCodeListQuery.data?.data?.map((x) => `+${x.code}`) ?? []}
-                        title={`+${areaCodeListQuery.data?.data?.find((x) => x.id === field.value)?.code}` ?? ''}
-                        onSelected={(idx) => field.onChange(areaCodeListQuery.data?.data?.[idx].id)}
-                      />
-                    )}
-                    name="areaCodeId"
-                    control={control}
+              {isPhone && (
+              <Controller
+                render={({ field }) => (
+                  <AreaSelect
+                    defaultId={field.value}
+                    onSelected={(x) => field.onChange(x.id)}
                   />
-                </div>
+                )}
+                name="areaCodeId"
+                control={control}
+              />
               )}
               <TextInput
                 block
@@ -148,6 +142,7 @@ export default function SignIn() {
               <TextInput
                 placeholder={t('Please enter the verification code') ?? ''}
                 type="text"
+                maxLength={6}
                 {...register('securityCode')}
                 suffix={(
                   <SendButton onClick={sendValidCode} />

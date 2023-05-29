@@ -24,7 +24,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
     >
       {/* 外层边框 */}
       <div
-        className={classNames('overflow-clip rounded-full p-0.5 shadow-block', {
+        className={classNames('overflow-clip rounded-full p-[1px] shadow-block', {
           'bg-gradient-to-r from-[#BE9D66] to-[#E8D2A3]': variant === 'normal' || !variant,
         })}
       >

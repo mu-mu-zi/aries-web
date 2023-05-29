@@ -38,7 +38,7 @@ export default function GAScanBind() {
             </div>
           </div>
           <div className="flex flex-row gap-4 mt-[40px]">
-            <Button size="medium" block onClick={() => navigate(-1)}>{t('Cancel')}</Button>
+            <Button size="medium" block onClick={() => navigate(-1)}>{t('Back')}</Button>
             <Button
               size="medium"
               block

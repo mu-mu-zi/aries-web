@@ -13,6 +13,7 @@ import ModifyPlan from './ModifyPlan';
 import { useTrustDetailQuery } from '../../../api/trust/trust';
 import PlanDetail from './PlanDetail';
 import TextButton from '../../../components/TextButton';
+import { unixFormatTime } from '../../../utils/DateFormat';
 
 export default function AllocationPlan() {
   const { t } = useTranslation();
@@ -62,7 +63,8 @@ export default function AllocationPlan() {
                 <div
                   className="break-keep"
                 >
-                  {moment.unix(originalRow.updateTimeStamp / 1000).format('yyyy-MM-DD HH:mm:ss')}
+                  {/* {moment.unix(originalRow.updateTimeStamp / 1000).format('yyyy-MM-DD HH:mm:ss')} */}
+                  {unixFormatTime(originalRow.updateTimeStamp)}
                 </div>
               ),
             },

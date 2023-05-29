@@ -9,10 +9,10 @@ import useAuthToken, { containsToken } from '../../hooks/useUserId';
 * 获取用户信息，会检查是否存在本地 token
 * */
 export const useUserInfoQuery = () => {
-  const token = useAuthToken();
+  const token = localStorage.getItem('TOKEN');
 
   return useQuery<IResponseData<IUser>>({
-    queryKey: ['user', 'info'],
+    queryKey: ['user', 'info', token],
     queryFn: () => axios.get('/user/user/getUserInfo'),
     enabled: containsToken(),
   });

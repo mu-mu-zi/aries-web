@@ -39,7 +39,7 @@ export default function Dropdown({
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items
-          className="absolute z-10 right-0 mt-1 min-w-[136px] w-full max-h-[260px] overflow-y-auto origin-top-left rounded-xl"
+          className="absolute z-[200] right-0 mt-1 min-w-[136px] w-full max-h-[260px] overflow-y-auto origin-top-left rounded-xl"
           css={css`
             &::-webkit-scrollbar {
               display: none;

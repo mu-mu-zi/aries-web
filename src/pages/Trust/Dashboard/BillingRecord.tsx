@@ -33,7 +33,7 @@ export default function BillingRecord() {
 
   return (
     <div
-      className={classNames('flex flex-col', 'p-8', 'rounded-xl', 'gradient-bg2', 'shadow-[-4px_8px_10px_0_#030c08]')}
+      className={classNames('flex flex-col', 'p-8', 'rounded-xl block-gradient-border', 'gradient-bg2', 'shadow-[-4px_8px_10px_0_#030c08]')}
     >
       <div className={classNames('item-center flex flex-row justify-between')}>
         <div className="gradient-text1 font-bold text-[20px]">{t('Billing Record')}</div>

@@ -18,7 +18,7 @@ export const useTrustAssetDeclareQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!token && !!data.trustId,
+    enabled: containsToken() && !!data.trustId,
   });
 };
 

@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import React, { useEffect, useMemo } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import CenterContainer from '../../views/CenterContainer';
 import ContainerLogo from '../../views/CenterContainer/ContainerLogo';
@@ -22,6 +22,7 @@ export default function KycVerify() {
     trustId: Number(trustId),
   });
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const stepId = () => {
     switch (detailQuery.data?.data?.stepId) {
@@ -40,11 +41,19 @@ export default function KycVerify() {
     }
   };
 
+  useEffect(() => {
+    if (detailQuery.data?.data) {
+      if (detailQuery.data.data.trustStatus === 21) {
+        navigate(`/first/${trustId}/welcome`, { replace: true });
+      }
+    }
+  }, [detailQuery.data?.data]);
+
   return (
     <CenterContainer>
       <div className="flex-1 flex flex-col">
         <ContainerLogo />
-        <div className="flex flex-col items-center">
+        <div className="flex-1 flex flex-col items-center">
           <div
             className="gradient-text1 text-shadow-block text-center font-title text-[40px] font-bold mt-12"
           >
@@ -65,8 +74,9 @@ export default function KycVerify() {
                   titles={['KYC Certification', 'Contract Signing', 'Establishment Fee', 'Trust Completion']}
                 />
               </div>
-              {/* <EstablishmentBitStep trust={detailQuery.data.data} /> */}
-              <div className="mt-12 max-w-[824px] w-full">
+              {/* <ContractSigningStep trust={detailQuery.data.data} /> */}
+
+              <div className="flex-auto flex flex-col justify-center mt-12 max-w-[824px] w-full">
                 {detailQuery.data.data.stepId === 1 && <KYCCertificationStep trust={detailQuery.data.data} />}
                 {[2, 3].includes(detailQuery.data.data.stepId) && <ContractSigningStep trust={detailQuery.data.data} />}
                 {[4, 5].includes(detailQuery.data.data.stepId) && detailQuery.data.data.payType === 1 && <EstablishmentBitStep trust={detailQuery.data.data} />}
@@ -77,7 +87,7 @@ export default function KycVerify() {
             </>
           )}
         </div>
-        <div className="flex-auto" />
+        {/* <div className="flex-auto" /> */}
         <div className="self-stretch py-12 pb-16 gap-9 px-8">
           <ContactUsFooter />
           {/* <Divide /> */}

@@ -19,9 +19,9 @@ export default function Status() {
   return (
     <div className="flex flex-col justify-center flex-1">
       <div className="flex-1 flex flex-col items-center justify-center h-full">
-        <div className="flex flex-col items-center gap-8 w-[1000px] p-12 gradient-bg2 shadow-block rounded-xl overflow-clip">
+        <div className="flex flex-col items-center gap-8 w-[1000px] p-12 gradient-bg2 shadow-block rounded-xl block-gradient-border">
           <img src={sucIcon} width="44px" alt="" />
-          <div className="gradient-text1 font-title font-bold text-[32px]">{location.state?.title}</div>
+          <div className="gradient-text1 font-title font-bold text-[32px] text-shadow-block">{location.state?.title}</div>
           <div className="text-[#708077] text-[14px]">{location.state?.description}</div>
           <div className="mt-8">
             <Button

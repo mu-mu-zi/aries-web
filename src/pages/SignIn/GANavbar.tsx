@@ -26,7 +26,7 @@ export default function GANavbar({ title, description }: { title: string; descri
         >
           {title}
         </div>
-        {description && <div className="text-[14px] leading-[16px] text-[#695D52]">{description}</div>}
+        {description && <div className="text-[14px] leading-[16px] text-[#695D52] max-w-[872px]">{description}</div>}
       </div>
     </div>
   );

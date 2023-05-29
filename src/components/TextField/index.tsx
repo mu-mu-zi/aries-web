@@ -10,7 +10,11 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
   const { label, requiredLabel, ...rest } = props;
 
   return (
-    <div className={classNames('bg-[#3B5649]', 'rounded-xl overflow-clip px-6 py-3')}>
+    <div className={classNames(
+      'bg-[#3B5649]',
+      'rounded-xl overflow-clip px-6 py-3',
+    )}
+    >
       <label>
         <div className="flex flex-col gap-2">
           <div

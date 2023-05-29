@@ -17,7 +17,7 @@ const TextInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       'w-full': block,
     })}
     >
-      <div className="flex flex-row items-center gap-2">
+      <div className={classNames('flex flex-row items-center gap-2')}>
         <input
           {...rest}
           ref={ref}
@@ -33,11 +33,12 @@ const TextInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
             }
           `}
           className={classNames(
-            'flex-auto inline-block w-full border-none bg-transparent outline-none',
+            'flex-auto inline-block w-full border-none bg-transparent outline-none ',
             'h-[48px] px-4',
             'gradient-text1',
             'caret-[#BE9D66]',
             'text-[20px] font-bold leading-[22px]',
+            'overflow-hidden',
             // 'placeholder:text-[#708077]',
             // 'focus:ring-2 focus:ring-sky-500 rounded-xl',
           )}

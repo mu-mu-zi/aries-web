@@ -19,7 +19,7 @@ export default function Notification() {
   return (
     <div className="flex flex-col">
       <CancelNav />
-      <div className="mt-10 gradient-bg2 rounded-xl shadow-block p-8">
+      <div className="mt-10 gradient-bg2 rounded-xl shadow-block p-8 block-gradient-border">
         <div className="gradient-text1 font-title font-bold text-[20px] mb-6">Notification</div>
         <Hr />
         <div className="py-6 flex flex-col">

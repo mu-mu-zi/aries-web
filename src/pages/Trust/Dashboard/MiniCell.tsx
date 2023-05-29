@@ -16,7 +16,7 @@ export default function MiniCell({
     <a
       href={link}
       target="_blank"
-      className={classNames('flex flex-col', 'px-8 py-4', 'rounded-xl', 'gradient-bg2', 'shadow-[-4px_8px_10px_0_#030c08]', 'cursor-pointer')}
+      className={classNames('flex flex-col', 'px-8 py-4', 'rounded-xl block-gradient-border', 'gradient-bg2', 'shadow-[-4px_8px_10px_0_#030c08]', 'cursor-pointer')}
       rel="noreferrer"
     >
       <div className={classNames('flex flex-row gap-4 items-center')}>

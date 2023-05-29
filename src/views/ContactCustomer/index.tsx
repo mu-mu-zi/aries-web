@@ -16,16 +16,17 @@ import TextArea from '../../components/TextArea';
 import PhotoEmailSwitch from '../../components/PhotoEmailSwitch';
 import Select from '../../components/Select';
 import CenterContainer from '../CenterContainer';
-import { useAreaCodeListQuery } from '../../api/base/areaCode';
+// import { useAreaCodeListQuery } from '../../api/base/areaCode';
 import Dropdown from '../../components/Dropdown';
 import { useTrustContactEmailQuery } from '../../api/base/email';
 import FooterNote from '../FooterNote';
+import AreaSelect from '../../components/AreaSelect';
 
 export default function ContactCustomer() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [isPhone, setIsPhone] = useState(true);
-  const areaCodeListQuery = useAreaCodeListQuery();
+  // const areaCodeListQuery = useAreaCodeListQuery();
   const valid = z.object({
     contactName: z.string().optional(),
     account: z.string().nonempty(),
@@ -51,9 +52,10 @@ export default function ContactCustomer() {
     { trustId: location.state?.trustId && Number(location.state.trustId) },
   );
 
-  useEffect(() => {
-    setValue('areaCodeId', areaCodeListQuery.data?.data?.[0].id);
-  }, [areaCodeListQuery.data?.data]);
+  // useEffect(() => {
+  //   setValue('areaCodeId', areaCodeListQuery.data?.data?.[0].id);
+  // }, [areaCodeListQuery.data?.data]);
+  useEffect(() => setValue('account', ''), [isPhone]);
 
   const submit = async (data: FormValid) => {
     try {
@@ -92,13 +94,14 @@ export default function ContactCustomer() {
                   {/* <div className="gradient-text1">*</div> */}
                   <div className="font-bold text-[#c2d7c7]">Name</div>
                 </div>
-                <TextInput placeholder="Please enter your name" {...register('contactName')} />
+                <TextInput placeholder="Please enter your name" {...register('contactName')} maxLength={30} />
                 <div className="flex flex-row gap-2">
                   <div className="gradient-text1">*</div>
                   <div className="font-bold text-[#c2d7c7]">Description</div>
                 </div>
                 <TextArea
                   {...register('problemDescription')}
+                  // maxLength={200}
                   placeholder="Please provide a detailed explanation of the subject you would like to consult about."
                 />
                 <div className="flex flex-row gap-2">
@@ -107,21 +110,22 @@ export default function ContactCustomer() {
                 </div>
                 <PhotoEmailSwitch onSelected={setIsPhone} />
                 <div className="flex flex-row gap-2">
-                  {isPhone && areaCodeListQuery.data?.data && (
-                    <div className="w-[160px]">
-                      <Controller
-                        render={({ field }) => (
-                          <Dropdown
-                            block
-                            items={areaCodeListQuery.data?.data?.map((x) => `+${x.code}`) ?? []}
-                            title={`+${areaCodeListQuery.data?.data?.find((x) => x.id === field.value)?.code}` ?? ''}
-                            onSelected={(idx) => field.onChange(areaCodeListQuery.data?.data?.[idx].id)}
-                          />
-                        )}
-                        name="areaCodeId"
-                        control={control}
-                      />
-                    </div>
+                  {isPhone && (
+                    // <div className="w-[160px]">
+                    <Controller
+                      render={({ field }) => (
+                        <AreaSelect defaultId={field.value} onSelected={(x) => field.onChange(x.id)} />
+                        // <Dropdown
+                        //   block
+                        //   items={areaCodeListQuery.data?.data?.map((x) => `+${x.code}`) ?? []}
+                        //   title={`+${areaCodeListQuery.data?.data?.find((x) => x.id === field.value)?.code}` ?? ''}
+                        //   onSelected={(idx) => field.onChange(areaCodeListQuery.data?.data?.[idx].id)}
+                        // />
+                      )}
+                      name="areaCodeId"
+                      control={control}
+                    />
+                    // </div>
                   )}
                   <TextInput
                     block

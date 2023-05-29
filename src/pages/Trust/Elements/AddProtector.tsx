@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,6 +17,8 @@ import ModalNav from '../../../views/ModalContainer/ModalNav';
 import { AccountType, Gender } from '../../../interfaces/base';
 import FooterNote from '../../../views/FooterNote';
 import ContactUsFooter from '../../../views/ContactUsFooter';
+import AreaSelect from '../../../components/AreaSelect';
+// import { useAreaCodeListQuery } from '../../../api/base/areaCode';
 
 enum UserType {
   Protect = 4,
@@ -29,7 +31,7 @@ enum GuardiansType {
   Self
 }
 
-enum RoleType {
+export enum ProtectorRoleType {
   No = 1,
   ReadOnly,
   Approval
@@ -48,7 +50,8 @@ export default function AddProtector({ trustId, onClose }: {
     areaCodeId: z.number().optional(),
     userEmail: z.string().optional(),
     userMobile: z.string().optional(),
-    roleType: z.nativeEnum(RoleType).optional(),
+    account: z.string().optional(),
+    roleType: z.nativeEnum(ProtectorRoleType).optional(),
     accountType: z.nativeEnum(AccountType).optional(),
   });
   type FormValid = z.infer<typeof valid>;
@@ -59,6 +62,7 @@ export default function AddProtector({ trustId, onClose }: {
     clearErrors,
     trigger,
     getValues,
+    setValue,
     control,
     watch,
   } = useForm<FormValid>({
@@ -71,16 +75,24 @@ export default function AddProtector({ trustId, onClose }: {
   const guardiansType = watch('guardiansType');
   const queryClient = useQueryClient();
   const { t } = useTranslation();
+  const accountType = watch('accountType');
+  // const areaCodeListQuery = useAreaCodeListQuery();
 
   const submit = async (data: FormValid) => {
     axios.post('/trust/trust/user/add', {
       trustId,
       ...data,
+      userEmail: data.accountType === AccountType.Email ? data.account : undefined,
+      userMobile: data.accountType === AccountType.Mobile ? data.account : undefined,
     }).then((resp) => {
       onClose?.();
-      queryClient.invalidateQueries(['trust', 'elements']);
+      queryClient.invalidateQueries(['trust']);
     });
   };
+
+  // useEffect(() => {
+  //   setValue('areaCodeId', areaCodeListQuery.data?.data?.[0].id);
+  // }, [areaCodeListQuery.data?.data]);
 
   return (
     <ModalContainer>
@@ -182,8 +194,35 @@ export default function AddProtector({ trustId, onClose }: {
                 />
               </div>
               <div className="flex flex-col gap-4">
-                <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Email')}</label>
-                <TextInput placeholder="Please provide additional instructions" {...register('userEmail')} />
+                <label className="text-[#C2D7C7F6] font-bold text-[16px]">{accountType === AccountType.Email ? t('Email') : t('Mobile')}</label>
+                <div className="flex gap-4 items-center">
+                  {accountType === AccountType.Mobile && (
+                    <Controller
+                      render={({ field }) => (
+                        <AreaSelect defaultId={field.value} onSelected={(e) => field.onChange(e.id)} />
+                      )}
+                      name="areaCodeId"
+                      control={control}
+                    />
+                    // <div className="w-[160px]">
+                    //   <Controller
+                    //     render={({ field }) => (
+                    //       <Dropdown
+                    //         block
+                    //         items={areaCodeListQuery.data?.data?.map((x) => `+${x.code}`) ?? []}
+                    //         title={`+${areaCodeListQuery.data?.data?.find((x) => x.id === field.value)?.code}` ?? ''}
+                    //         onSelected={(idx) => field.onChange(areaCodeListQuery.data?.data?.[idx].id)}
+                    //       />
+                    //     )}
+                    //     name="areaCodeId"
+                    //     control={control}
+                    //   />
+                    // </div>
+                  )}
+                  <div className="flex-auto">
+                    <TextInput placeholder="Please enter the account" {...register('account')} />
+                  </div>
+                </div>
               </div>
               <div className="flex flex-col gap-4">
                 <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Permissions')}</label>
@@ -191,8 +230,8 @@ export default function AddProtector({ trustId, onClose }: {
                   render={({ field }) => {
                     const enums = [
                       // { value: RoleType.No, name: t('No') },
-                      { value: RoleType.ReadOnly, name: t('Read Only') },
-                      { value: RoleType.Approval, name: t('Approval') },
+                      { value: ProtectorRoleType.ReadOnly, name: t('Read Only') },
+                      { value: ProtectorRoleType.Approval, name: t('Approval') },
                     ];
                     return (
                       <Dropdown

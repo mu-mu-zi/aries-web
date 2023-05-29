@@ -18,12 +18,24 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
         {...rest}
         ref={ref}
         css={css`
+          //display: inline-block;
+          //position: relative;
+          //
+          //&[data-text]::after {
+          //  content: attr(data-text);
+          //  color: green;
+          //  position: absolute;
+          //  left: 0;
+          //  z-index: 2;
+          //  -webkit-mask-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#ff0000), to(rgba(0, 0, 255, 0)));
+          //}
+          //
             &::placeholder {
               //background: linear-gradient(0, #708077 0%, #708077 100%);
               background: #708077;
               background-clip: text;
-              //-webkit-text-fill-color: transparent;
-              //color: transparent;
+              -webkit-text-fill-color: transparent;
+              color: transparent;
               font-weight: normal;
               font-size: 16px;
             }
@@ -34,9 +46,9 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
           'gradient-text1',
           'caret-[#BE9D66]',
           'text-[20px] font-bold leading-[22px]',
-          'placeholder:text-[#708077]',
-          // 'focus:ring-2 focus:ring-sky-500',
-          'resize-none',
+          // 'placeholder:text-[#708077]',
+          // 'focus:ring-2 focus:ring-sky-500 focus:rounded-xl',
+          // 'resize-none',
         )}
       />
     </div>

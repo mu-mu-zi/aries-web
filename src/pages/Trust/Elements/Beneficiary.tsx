@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
+import { useQueryClient } from '@tanstack/react-query';
 import Button from '../../../components/Button';
 import Hr from '../../../components/Hr';
 import BlockRow from './BlockRow';
@@ -11,6 +13,9 @@ import SimpleTable from '../../../views/SimpleTable';
 import { useElementsUserQuery } from '../../../api/trust/elements';
 import { useTrustDetailQuery } from '../../../api/trust/trust';
 import { unixFormatTime } from '../../../utils/DateFormat';
+import TextButton from '../../../components/TextButton';
+import EditRole from './EditRole';
+import { ITrustUser } from '../../../interfaces/trust';
 
 export default function Beneficiary() {
   const { trustId } = useParams();
@@ -22,8 +27,11 @@ export default function Beneficiary() {
     beneficiary: true,
   });
   const [addBeneficiaryVisible, setAddBeneficiaryVisible] = useState(false);
+  const [editRoleVisible, setEditRoleVisible] = useState(false);
+  const [selected, setSelected] = useState<ITrustUser>();
   const { t } = useTranslation();
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
+  const queryClient = useQueryClient();
 
   return (
     <div className="flex flex-col gap-4 rounded-xl shadow-block p-8 gradient-bg2">
@@ -50,7 +58,7 @@ export default function Beneficiary() {
         columns={[
           {
             Header: t('Real name') ?? '',
-            accessor: 'userName',
+            accessor: (x) => `${x.surname} ${x.userName}`,
           },
           {
             Header: t('Account') ?? '',
@@ -60,14 +68,22 @@ export default function Beneficiary() {
             Header: t('Identity category') ?? '',
             accessor: (x) => {
               switch (x.userType) {
-                case 1: return 'Principal';
-                case 2: return 'Explicit Beneficiary';
-                case 3: return 'Non-Explicit Beneficiary';
-                case 4: return 'Guardian';
-                case 5: return 'Succession Guardian';
-                case 6: return 'Second Succession Guardia';
-                case 21: return 'Beneficiary Entrustor Himself/Herself';
-                default: return '--';
+                case 1:
+                  return 'Principal';
+                case 2:
+                  return 'Explicit Beneficiary';
+                case 3:
+                  return 'Non-Explicit Beneficiary';
+                case 4:
+                  return 'Guardian';
+                case 5:
+                  return 'Succession Guardian';
+                case 6:
+                  return 'Second Succession Guardia';
+                case 21:
+                  return 'Beneficiary Entrustor Himself/Herself';
+                default:
+                  return '--';
               }
             },
           },
@@ -124,6 +140,36 @@ export default function Beneficiary() {
             Header: t('Add time') ?? '',
             accessor: (originalRow) => unixFormatTime(originalRow.createTimeStamp),
           },
+          {
+            Header: () => <div className="text-right">{t('Action')}</div>,
+            accessor: 'action',
+            Cell: ({ row }) => (
+              <div className="flex gap-4 justify-end">
+                {/* 移除保护人委托人 */}
+                <TextButton onClick={async () => {
+                  await axios.request({
+                    url: '/trust/trust/user/delete',
+                    method: 'get',
+                    params: {
+                      trustUserId: row.original.id,
+                    },
+                  });
+                  queryClient.invalidateQueries(['trust']);
+                }}
+                >
+                  Remove
+                </TextButton>
+                {/* 权限编辑 */}
+                <TextButton onClick={async () => {
+                  setSelected(row.original);
+                  setEditRoleVisible(true);
+                }}
+                >
+                  Edit
+                </TextButton>
+              </div>
+            ),
+          },
         ]}
         data={listQuery.data?.data?.records ?? []}
         pagination={{
@@ -141,6 +187,19 @@ export default function Beneficiary() {
           trustId={Number(trustId)}
           onClose={() => setAddBeneficiaryVisible(false)}
         />
+      </Modal>
+      <Modal
+        visible={editRoleVisible}
+        onClose={() => setEditRoleVisible(false)}
+      >
+        {selected && (
+          <EditRole
+            defaultVal={selected.roleType}
+            trustUserId={selected?.id}
+            isBeneficiary
+            onClose={() => setEditRoleVisible(false)}
+          />
+        )}
       </Modal>
     </div>
   );

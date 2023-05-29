@@ -83,7 +83,7 @@ body {
 
 /* 渐变文字 */
 .gradient-text1 {
-    background: linear-gradient(90deg, #BE9D66 -4.08%, #E8D2A3 100%);
+    background-image: linear-gradient(90deg, #BE9D66 -4.08%, #E8D2A3 100%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
@@ -100,6 +100,50 @@ body {
 .gradient-border-gold {
     position: relative;
     background-image: linear-gradient(90deg, #BE9D66 -4.08%, #E8D2A3 100%);
+}
+
+.block-gradient-border {
+    position: relative;
+}
+
+.block-gradient-border::before {
+    position: absolute;
+    content: '';
+    display: block;
+    background: #344D41;
+    top: -2px;
+    left: -2px;
+    bottom: -2px;
+    right: -2px;
+    border-radius: 0.75rem;
+    overflow: clip;
+    z-index: -1;
+}
+
+.block-gradient-border-gold {
+    position: relative;
+}
+
+.block-gradient-border-gold::before {
+    position: absolute;
+    content: '';
+    display: block;
+    background-image: linear-gradient(90deg, #BE9D66 -4.08%, #E8D2A3 100%);
+    top: -2px;
+    left: -2px;
+    bottom: -2px;
+    right: -2px;
+    border-radius: 0.75rem;
+    overflow: clip;
+    z-index: -1;
+}
+
+
+.gradient-border-container {
+    display: block;
+    background: #344D41;
+    padding: 1px;
+    border-radius: 0.75rem;
 }
 
 /*.gradient-border-gold::before {*/

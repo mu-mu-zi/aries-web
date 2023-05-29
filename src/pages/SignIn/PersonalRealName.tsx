@@ -15,6 +15,7 @@ import CenterContainer from '../../views/CenterContainer';
 import { useUserInfoQuery } from '../../api/user/user';
 import Dropdown from '../../components/Dropdown';
 import ContactUsFooter from '../../views/ContactUsFooter';
+import { Trust } from '../../interfaces/trust';
 
 export default function PersonalRealName() {
   const navigate = useNavigate();
@@ -50,7 +51,25 @@ export default function PersonalRealName() {
           gender: data.gender,
         },
       });
-      navigate('/', {
+
+      const trustResp = await axios.get<Trust[]>('/trust/trust/list');
+      const trustList = trustResp.data ?? [];
+      let navTo = '/';
+      /* 无信托 */
+      if (trustList.length === 1) {
+        /* 进入引导 */
+        if (trustList[0].trustStatus === 1) {
+          navTo = `/first/${trustList[0].trustId}/KycVerify`;
+        } else if (trustList[0].trustStatus === 21) {
+          navTo = `/first/${trustList[0].trustId}/welcome`;
+        } else if (trustList[0].trustStatus === 2) {
+          navTo = '/my';
+        }
+      } else {
+        navTo = '/my';
+      }
+
+      navigate(navTo, {
         replace: true,
       });
     } catch (e) {
@@ -73,11 +92,11 @@ export default function PersonalRealName() {
           <div className="flex flex-row gap-4 mt-16">
             <div className="flex flex-col gap-4">
               <div className="font-bold text-[#c2d7c7]">{t('FirstName')}</div>
-              <TextInput {...register('firstName')} placeholder="firstname" />
+              <TextInput {...register('firstName')} placeholder="firstname" maxLength={15} />
             </div>
             <div className="flex flex-col gap-4">
               <div className="font-bold text-[#c2d7c7]">{t('LastName')}</div>
-              <TextInput {...register('lastName')} placeholder="lastname" />
+              <TextInput {...register('lastName')} placeholder="lastname" maxLength={15} />
             </div>
           </div>
           <label className="mt-4 flex flex-col gap-4">

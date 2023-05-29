@@ -16,7 +16,7 @@ import Divide from '../../components/Divide';
 import ContactUs from '../SignIn/ContactUs';
 import { useSendValidateCodeMutation } from '../../api/user/verify';
 import { useUserInfoQuery } from '../../api/user/user';
-import { useAreaCodeListQuery } from '../../api/base/areaCode';
+// import { useAreaCodeListQuery } from '../../api/base/areaCode';
 import Dropdown from '../../components/Dropdown';
 import ContactUsFooter from '../../views/ContactUsFooter';
 

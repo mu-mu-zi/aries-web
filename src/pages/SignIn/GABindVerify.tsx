@@ -13,10 +13,11 @@ import ContactUs from './ContactUs';
 import TextInput from '../../components/TextInput';
 import { useSendValidateCodeMutation } from '../../api/user/verify';
 import Dropdown from '../../components/Dropdown';
-import { useAreaCodeListQuery } from '../../api/base/areaCode';
+// import { useAreaCodeListQuery } from '../../api/base/areaCode';
 import SendButton from '../../views/SendButton';
 import { useUserInfoQuery } from '../../api/user/user';
 import ContactUsFooter from '../../views/ContactUsFooter';
+import { Trust } from '../../interfaces/trust';
 
 export default function GABindVerify() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export default function GABindVerify() {
     securityCode: z.string().nonempty(),
     googleCaptcha: z.string().nonempty(),
   });
-  const areaCodeListQuery = useAreaCodeListQuery();
+  // const areaCodeListQuery = useAreaCodeListQuery();
   type FormValid = z.infer<typeof valid>;
   const {
     register,
@@ -92,11 +93,32 @@ export default function GABindVerify() {
       localStorage.setItem('TOKEN', token);
       await queryClient.invalidateQueries();
       /* 这里需要检查是否设置你用户名，如果没有设置需要跳转到指定页面 */
+
+      /*
+        * 判断信托列表
+        * */
+      const trustResp = await axios.get<Trust[]>('/trust/trust/list');
+      const trustList = trustResp.data ?? [];
+      let navTo = '/';
+      /* 无信托 */
+      if (trustList.length === 1) {
+        /* 进入引导 */
+        if (trustList[0].trustStatus === 1) {
+          navTo = `/first/${trustList[0].trustId}/KycVerify`;
+        } else if (trustList[0].trustStatus === 21) {
+          navTo = `/first/${trustList[0].trustId}/welcome`;
+        } else if (trustList[0].trustStatus === 2) {
+          navTo = '/my';
+        }
+      } else {
+        navTo = '/my';
+      }
+
       navigate('/status', {
         state: {
           title: 'Bind Google Authenticator',
           description: 'Congratulations! You have successfully bound Google Authenticator.',
-          navTo: location.state.userName ? '/' : '/personalRealName',
+          navTo: location.state.userName ? navTo : '/personalRealName',
         },
         replace: true,
       });
@@ -116,11 +138,17 @@ export default function GABindVerify() {
         {/* {location.state?.account} */}
         <div className="item-center flex w-[420px] flex-col self-center pt-[64px]">
           <form onSubmit={handleSubmit(submit)}>
-            <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]">
+            <div
+              className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]"
+            >
               {t('Verify identity')}
             </div>
             <div className="mt-16 flex flex-col gap-4">
-              <div className="font-bold text-[#c2d7c7]">{isPhone ? t('Phone verification code') : t('Email verification code')}</div>
+              <div
+                className="font-bold text-[#c2d7c7]"
+              >
+                {isPhone ? t('Phone verification code') : t('Email verification code')}
+              </div>
               <TextInput
                 placeholder={t('Please enter the verification code') ?? ''}
                 {...register('securityCode')}
@@ -132,7 +160,7 @@ export default function GABindVerify() {
                   // >
                   //   {t('Send')}
                   // </div>
-                  )}
+                )}
               />
               {/* <div className="flex flex-row gap-2"> */}
               {/*  /!* {isPhone ? <Select /> : null} *!/ */}
@@ -160,9 +188,9 @@ export default function GABindVerify() {
               {/* </div> */}
               {
                 !isPhone && (
-                <div className="text-[14px] leading-[16px] text-[#708077]">
-                  {t('To ensure the security of your funds and account, please enter the verification code received in your Aries trust company@gmail.com email.')}
-                </div>
+                  <div className="text-[14px] leading-[16px] text-[#708077]">
+                    {t(`To ensure the security of your funds and account, please enter the verification code received in your Aries trust ${location.state?.account} email.`)}
+                  </div>
                 )
               }
               <div className="font-bold text-[#c2d7c7]">{t('Google Captcha')}</div>

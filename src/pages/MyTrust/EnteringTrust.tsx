@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
 import icon from '../../assets/icon/my_trust_logo.svg';
 import Button from '../../components/Button';
 import Divide from '../../components/Divide';
@@ -55,7 +56,10 @@ export default function EnteringTrust({ trust }: {
 
   return (
     <div
-      className="m-auto gradient-bg1 flex h-[720px] w-[475px] flex-col flex-shrink-0 overflow-clip rounded-xl shadow-block"
+      className={classNames(
+        'm-auto gradient-bg1 flex h-[720px] w-[475px] flex-col flex-shrink-0 rounded-xl shadow-block',
+        trust.userType === 1 ? 'block-gradient-border-gold' : 'block-gradient-border',
+      )}
     >
       <div className="flex flex-auto flex-col px-12">
         <img className="mt-20 self-center" src={logo(trust.userType)} width="224px" alt="Logo" />
@@ -70,10 +74,15 @@ export default function EnteringTrust({ trust }: {
             <Button
               size="large"
               onClick={() => {
-                if (trust.trustStatus === 2) {
-                  navigate(`/trust/${trust.trustId}/dashboard`);
-                } else {
-                  navigate(`/first/${trust.trustId}/KycVerify`);
+                switch (trust.trustStatus) {
+                  case 2:
+                    navigate(`/trust/${trust.trustId}/dashboard`);
+                    break;
+                  case 21:
+                    navigate(`/first/${trust.trustId}/dashboard`);
+                    break;
+                  default:
+                    navigate(`/first/${trust.trustId}/KycVerify`);
                 }
               }}
             >

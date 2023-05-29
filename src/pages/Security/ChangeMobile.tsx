@@ -11,15 +11,16 @@ import CenterContainer from '../../views/CenterContainer';
 import GANavbar from '../SignIn/GANavbar';
 import Dropdown from '../../components/Dropdown';
 import TextInput from '../../components/TextInput';
-import { useAreaCodeListQuery } from '../../api/base/areaCode';
+// import { useAreaCodeListQuery } from '../../api/base/areaCode';
 import Button from '../../components/Button';
 import { useSendValidateCodeMutation } from '../../api/user/verify';
 import SendButton from '../../views/SendButton';
 import ContactUsFooter from '../../views/ContactUsFooter';
+import AreaSelect from '../../components/AreaSelect';
 
 export default function ChangeMobile() {
   const { t } = useTranslation();
-  const areaCodeListQuery = useAreaCodeListQuery();
+  // const areaCodeListQuery = useAreaCodeListQuery();
   const valid = z.object({
     areaCodeId: z.number(),
     mobile: z.string().nonempty(),
@@ -64,12 +65,12 @@ export default function ChangeMobile() {
     }
   };
 
-  useEffect(() => {
-    const codeId = areaCodeListQuery.data?.data?.[0].id;
-    if (codeId) {
-      setValue('areaCodeId', codeId);
-    }
-  }, [areaCodeListQuery.data?.data]);
+  // useEffect(() => {
+  //   const codeId = areaCodeListQuery.data?.data?.[0].id;
+  //   if (codeId) {
+  //     setValue('areaCodeId', codeId);
+  //   }
+  // }, [areaCodeListQuery.data?.data]);
 
   const submit = async (data: FormValid) => {
     try {
@@ -99,20 +100,19 @@ export default function ChangeMobile() {
           <div className="flex flex-col gap-4">
             <div className="text-[#C2D7C7F6] text-[16px] font-bold">{t('New Mobile Phone')}</div>
             <div className="flex flex-row gap-4">
-              <div className="w-[160px]">
-                <Controller
-                  render={({ field }) => (
-                    <Dropdown
-                      block
-                      items={areaCodeListQuery.data?.data?.map((x) => `+${x.code}`) ?? []}
-                      title={`+${areaCodeListQuery.data?.data?.find((x) => x.id === field.value)?.code}` ?? ''}
-                      onSelected={(idx) => field.onChange(areaCodeListQuery.data?.data?.[idx].id)}
-                    />
-                  )}
-                  name="areaCodeId"
-                  control={control}
-                />
-              </div>
+              <Controller
+                render={({ field }) => (
+                  <AreaSelect defaultId={field.value} onSelected={(e) => field.onChange(e.id)} />
+                  // <Dropdown
+                  //   block
+                  //   items={areaCodeListQuery.data?.data?.map((x) => `+${x.code}`) ?? []}
+                  //   title={`+${areaCodeListQuery.data?.data?.find((x) => x.id === field.value)?.code}` ?? ''}
+                  //   onSelected={(idx) => field.onChange(areaCodeListQuery.data?.data?.[idx].id)}
+                  // />
+                )}
+                name="areaCodeId"
+                control={control}
+              />
               <div className="flex-auto">
                 <TextInput
                   {...register('mobile')}

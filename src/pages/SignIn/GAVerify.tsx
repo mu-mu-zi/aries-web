@@ -13,6 +13,9 @@ import Divide from '../../components/Divide';
 import ContactUs from './ContactUs';
 import CenterContainer from '../../views/CenterContainer';
 import ContactUsFooter from '../../views/ContactUsFooter';
+import { useMyTrustQuery } from '../../api/trust/trust';
+import { IResponseData } from '../../interfaces/base';
+import { Trust } from '../../interfaces/trust';
 
 export default function GAVerify() {
   const { t } = useTranslation();
@@ -22,6 +25,7 @@ export default function GAVerify() {
     googleCode: z.string().nonempty().max(6),
   });
   type FormValid = z.infer<typeof valid>;
+  const trustListQuery = useMyTrustQuery();
   const {
     register,
     handleSubmit,
@@ -53,20 +57,37 @@ export default function GAVerify() {
       if (token) {
         localStorage.setItem('TOKEN', token);
         await queryClient.invalidateQueries();
+        /*
+        * 判断信托列表
+        * */
+        const trustResp = await axios.get<Trust[]>('/trust/trust/list');
+        const trustList = trustResp.data ?? [];
+        /* 无信托 */
+        if (trustList.length === 1) {
+          /* 进入引导 */
+          if (trustList[0].trustStatus === 1) {
+            navigate(`/first/${trustList[0].trustId}/KycVerify`, { replace: true });
+          } else if (trustList[0].trustStatus === 21) {
+            navigate(`/first/${trustList[0].trustId}/welcome`, { replace: true });
+          } else if (trustList[0].trustStatus === 2) {
+            navigate('/my', { replace: true });
+          }
+        } else {
+          navigate('/my', { replace: true });
+        }
       }
-      navigate('/', {
-        replace: true,
-      });
     }
   };
 
   return (
     <CenterContainer>
       <form onSubmit={handleSubmit(submit)}>
-        <div className="flex flex-col">
+        <div className="flex-1 flex flex-col">
           <GANavbar title={t('Cancel')} />
-          <div className="item-center flex w-[420px] flex-col self-center pt-[64px]">
-            <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]">
+          <div className="flex-auto item-center flex w-[420px] flex-col self-center pt-[64px]">
+            <div
+              className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]"
+            >
               {t('Security verification')}
             </div>
             <div className="mt-16 flex flex-col gap-4">

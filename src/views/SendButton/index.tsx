@@ -21,8 +21,6 @@ export default function SendButton({
     }
   }, [duration]);
 
-  // useEffect(() => console.log(duration), [duration]);
-
   return (
     <div
       className="cursor-pointer font-bold gradient-text1 text-[20px] px-2 break-keep"
@@ -32,7 +30,7 @@ export default function SendButton({
         }
         try {
           await onClick?.();
-          setDuration(5);
+          setDuration(60);
         } catch (e) {
           console.log(e);
         }

@@ -49,13 +49,17 @@ import GAChangeScan from './pages/Security/GAChangeScan';
 import GAChangeBankup from './pages/Security/GAChangeBankup';
 import GAChangeVerify from './pages/Security/GAChangeVerify';
 import LoginLog from './pages/Security/LoginLog';
+import UnbindEmailMobile from './pages/Security/UnbindEmailMobile';
+import FirstGuideWelcome from './pages/FirstGuide/FirstGuideWelcome';
 
 export default function App() {
   const userQuery = useUserInfoQuery();
   const queryClient = useQueryClient();
+  const token = useAuthToken();
+  const authToken = () => !!localStorage.getItem('TOKEN');
 
   return (
-    <div className={classNames('min-h-screen font-text gradient-bg1', 'relative', 'min-w-[1280px] transition')}>
+    <div className={classNames('min-h-screen font-text gradient-bg1', 'relative', 'min-w-[1280px] overflow-x-clip transition')}>
       <ReactNotifications />
       <div
         className="bg-cover bg-center bg-no-repeat opacity-20 absolute inset-0 z-[1]"
@@ -66,7 +70,7 @@ export default function App() {
           {/*  navbar */}
           <Route path="/" element={<Home />}>
             {/* 欢迎 */}
-            <Route path="/" element={<Welcome />} />
+            <Route path="/" element={<MyTrust />} />
             {/* 登录 + Google 绑定 + 绑定用户信息 */}
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/gaGuide" element={<GAGuide />} />
@@ -75,52 +79,67 @@ export default function App() {
             <Route path="/gaBindVerify" element={<GABindVerify />} />
             <Route path="/gaVerify" element={<GAVerify />} />
             <Route path="/personalRealName" element={<PersonalRealName />} />
-            {/* 我的信托列表 */}
-            <Route path="/my" element={<MyTrust />} />
-            {/* 个人中心 */}
-            <Route path="/personal">
-              <Route path="" element={<Security />} />
-              <Route path="changeMobile" element={<ChangeMobile />} />
-              <Route path="changeEmail" element={<ChangeEmail />} />
-              <Route path="verify" element={<SCGAVerify />} />
-              <Route path="gaUnbind" element={<GAUnbind />} />
-              <Route path="gaChangeScan" element={<GAChangeScan />} />
-              <Route path="gaChangeBankup" element={<GAChangeBankup />} />
-              <Route path="gaChangeVerify" element={<GAChangeVerify />} />
-            </Route>
-            <Route path="loginLog" element={<LoginLog />} />
-            {/* First create trust */}
-            <Route path="/first/:trustId/KycVerify" element={<KycVerify />} />
+
+            {/* {token && ( */}
+            {/*  */}
+            {/* )} */}
+            <>
+              {/* 我的信托列表 */}
+              <Route path="/my" element={<MyTrust />} />
+              {/* 个人中心 */}
+              <Route path="/personal">
+                <Route path="" element={<Security />} />
+                <Route path="changeMobile" element={<ChangeMobile />} />
+                <Route path="changeEmail" element={<ChangeEmail />} />
+                <Route path="verify" element={<SCGAVerify />} />
+                <Route path="gaUnbind" element={<GAUnbind />} />
+                <Route path="gaChangeScan" element={<GAChangeScan />} />
+                <Route path="gaChangeBankup" element={<GAChangeBankup />} />
+                <Route path="gaChangeVerify" element={<GAChangeVerify />} />
+                <Route path="unbindEmailOrMobile" element={<UnbindEmailMobile />} />
+              </Route>
+              <Route path="loginLog" element={<LoginLog />} />
+              {/* First create trust */}
+              <Route path="/first/:trustId/KycVerify" element={<KycVerify />} />
+              <Route path="/first/:trustId/welcome" element={<FirstGuideWelcome />} />
+            </>
+
             {/* Universal */}
             <Route path="/status" element={<Status />} />
             <Route path="/contactCustomer" element={<ContactCustomer />} />
           </Route>
 
-          {/* 合约详情 */}
-          <Route path="/trust/:trustId" element={<Trust />}>
-            {/* 仪表盘 */}
-            <Route path="dashboard" element={<Dashboard />} />
-            {/* 资产 */}
-            <Route path="assets" element={<AssetTransfet />} />
-            {/* 订单 */}
-            <Route path="orders">
-              <Route path="" element={<InvestmentOrder />} />
-              <Route path="detail" element={<OrderDetail />} />
+          {/* {token && ( */}
+          {/*  */}
+          {/* )} */}
+          <>
+            {/* 合约详情 */}
+            <Route path="/trust/:trustId" element={<Trust />}>
+              {/* 仪表盘 */}
+              <Route path="dashboard" element={<Dashboard />} />
+              {/* 资产 */}
+              <Route path="assets" element={<AssetTransfet />} />
+              {/* 订单 */}
+              <Route path="orders">
+                <Route path="" element={<InvestmentOrder />} />
+                <Route path="detail" element={<OrderDetail />} />
+              </Route>
+              <Route path="distribution" element={<Distribution />} />
+              <Route path="elements" element={<Elements />} />
+              <Route path="billAndResources" element={<BillAndResources />}>
+                <Route path="" element={<Ledger />} />
+                <Route path="fees" element={<Fees />} />
+                <Route path="legalText" element={<LegalText />} />
+                <Route path="report" element={<Report />} />
+              </Route>
+              <Route path="managerFee" element={<ManagerFee />} />
+              <Route path="excessFee" element={<ExcessFee />} />
+              <Route path="establishmentFee" element={<EstablishmentFee />} />
+              {/* 通知 */}
+              <Route path="notification" element={<Notification />} />
             </Route>
-            <Route path="distribution" element={<Distribution />} />
-            <Route path="elements" element={<Elements />} />
-            <Route path="billAndResources" element={<BillAndResources />}>
-              <Route path="" element={<Ledger />} />
-              <Route path="fees" element={<Fees />} />
-              <Route path="legalText" element={<LegalText />} />
-              <Route path="report" element={<Report />} />
-            </Route>
-            <Route path="managerFee" element={<ManagerFee />} />
-            <Route path="excessFee" element={<ExcessFee />} />
-            <Route path="establishmentFee" element={<EstablishmentFee />} />
-            {/* 通知 */}
-            <Route path="notification" element={<Notification />} />
-          </Route>
+          </>
+
           {/* 404 */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

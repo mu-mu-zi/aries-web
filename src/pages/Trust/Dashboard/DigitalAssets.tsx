@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { css } from '@emotion/react';
 import GradientBox from '../../../components/GradientBox';
 import symbolIcon from '../../../assets/icon/dashboard/icon_usdt.svg';
 import arrowUp from '../../../assets/icon/arrow_up.svg';
@@ -64,7 +65,12 @@ export function Cell({
     <div className="flex flex-row items-center relative">
       <img src={icon} width="24px" alt="" className="absolute z-[1]" />
       <div className="flex-auto ml-[12px] max-w-[60%]">
-        <div className={classNames('gradient-border1 shadow-block h-[10px] rounded-full overflow-clip', rate > 0 && `w-[${rate}%]`, rate <= 0 && 'w-0')} />
+        <div
+          className={classNames('gradient-border1 shadow-block h-[10px] rounded-full overflow-clip', rate <= 0 && 'w-0')}
+          css={css`
+            width: ${rate}%;
+          `}
+        />
       </div>
       <div className="flex-1 ml-[36px] gradient-text1 text-[20px] text-right">
         {`${amount} ${symbol}`}

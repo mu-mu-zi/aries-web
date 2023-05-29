@@ -15,7 +15,7 @@ export default function EntrustedDeclaration() {
   const bankListQuery = useAllBankQuery({ trustId });
 
   return (
-    <div className="flex flex-col gradient-bg2 rounded-xl overflow-clip p-8 gap-8">
+    <div className="flex flex-col gradient-bg2 rounded-xl block-gradient-border p-8 gap-8">
       {/* Header */}
       <div className="flex flex-col gap-4">
         <div className="flex flex-row items-center justify-between font-title">

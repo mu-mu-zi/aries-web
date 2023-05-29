@@ -1,34 +1,28 @@
-import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import { useSendValidateCodeMutation } from '../../api/user/verify';
+import { useUserInfoQuery } from '../../api/user/user';
 import CenterContainer from '../../views/CenterContainer';
-import CancelNav from '../../views/CancelNav';
 import GANavbar from '../SignIn/GANavbar';
 import TextInput from '../../components/TextInput';
 import SendButton from '../../views/SendButton';
 import Button from '../../components/Button';
-import Divide from '../../components/Divide';
-import ContactUs from '../SignIn/ContactUs';
-import { useSendValidateCodeMutation } from '../../api/user/verify';
-import { useUserInfoQuery } from '../../api/user/user';
-// import { useAreaCodeListQuery } from '../../api/base/areaCode';
-import Dropdown from '../../components/Dropdown';
 import ContactUsFooter from '../../views/ContactUsFooter';
 
-export default function GAChangeVerify() {
+export default function UnbindEmailMobile() {
   const { t } = useTranslation();
   const valid = z.object({
-    userEmailCode: z.string().optional(),
-    userMobileCode: z.string().optional(),
+    emailCode: z.string().optional(),
+    mobileCode: z.string().optional(),
     googleCode: z.string().nonempty(),
   });
   type FormValid = z.infer<typeof valid>;
-  const sendValidateCodeMutation = useSendValidateCodeMutation();
   const {
     register,
     handleSubmit,
@@ -44,15 +38,17 @@ export default function GAChangeVerify() {
   const queryClient = useQueryClient();
   const userQuery = useUserInfoQuery();
   const navigate = useNavigate();
+  const location = useLocation();
+  const isPhone = useMemo(() => !!location.state?.isPhone, [location.state?.isPhone]);
 
   const submit = async (data: FormValid) => {
     try {
-      await axios.post('/user/user/verificationMethod', {
-        isReset: true,
+      await axios.post('/user/user/unbindingMobileOrEmail', {
+        type: isPhone ? 1 : 2,
         ...data,
       });
-      await queryClient.invalidateQueries();
-      navigate(-2);
+      /* 跳转到绑定 */
+      navigate(-1);
     } catch (e) {
       console.log(e);
     }
@@ -82,28 +78,34 @@ export default function GAChangeVerify() {
 
   return (
     <CenterContainer>
-      <GANavbar title="Change Google Authenticator" />
+      <GANavbar title={isPhone ? t('Unbind Mobile') : t('Unbind Email')} />
       <div className="flex-auto flex flex-col ">
-        <div className="gradient-text1 my-16 text-center font-title font-bold text-[32px]">{t('Change Google Authenticator')}</div>
+        <div className="gradient-text1 my-16 text-center font-title font-bold text-[32px]">
+          {isPhone ? t('Unbind Mobile') : t('Unbind Email')}
+        </div>
         <form onSubmit={handleSubmit(submit)}>
           <div className="flex flex-col flex-auto max-w-[420px] mx-auto gap-4">
+            {/* {isPhone ? 'Hone' : 'Email'} */}
             {userQuery.data?.data?.emailAuth && (
               <>
                 <div className="text-[#C2D7C7F6] text-[16px] font-bold">{t('Email verification code')}</div>
                 <TextInput
-                  {...register('userEmailCode')}
+                  {...register('emailCode')}
                   placeholder="Please enter the verification code"
                   suffix={<SendButton onClick={emailSend} />}
                 />
                 {/* todo: 邮箱需要修改 */}
-                <div className="text-[#708077] text-[14px]">Please enter the verification code received in your Aries trust company@Gmail.com email.</div>
+                <div className="text-[#708077] text-[14px]">
+                  Please enter the verification code received in your Aries
+                  trust company@Gmail.com email.
+                </div>
               </>
             )}
             {userQuery.data?.data?.mobileAuth && (
               <>
                 <div className="text-[#C2D7C7F6] text-[16px] font-bold">{t('Mobile verification code')}</div>
                 <TextInput
-                  {...register('userMobileCode')}
+                  {...register('mobileCode')}
                   placeholder="Please enter the verification code"
                   suffix={<SendButton onClick={mobileSend} />}
                 />

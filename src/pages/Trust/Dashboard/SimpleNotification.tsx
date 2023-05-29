@@ -19,31 +19,33 @@ export default function SimpleNotification() {
   });
 
   return (
-    <div className={classNames('flex flex-col', 'p-8', 'rounded-xl', 'gradient-bg2', 'shadow-[-4px_8px_10px_0_#030c08]')}>
-      <div className={classNames('item-center flex flex-row justify-between')}>
-        <div className="gradient-text1 font-bold text-[20px] font-title">{t('Notification')}</div>
-        <div
-          className="flex flex-row items-center gap-2 cursor-pointer"
-          onClick={() => navigate(`/trust/${trustId}/notification`)}
-        >
+    <div className="gradient-border-container">
+      <div className={classNames('flex flex-col', 'p-8', 'rounded-xl', 'gradient-bg2', 'shadow-[-4px_8px_10px_0_#030c08]')}>
+        <div className={classNames('item-center flex flex-row justify-between')}>
+          <div className="gradient-text1 font-bold text-[20px] font-title">{t('Notification')}</div>
           <div
-            className="gradient-text1 font-bold text-[16px]"
+            className="flex flex-row items-center gap-2 cursor-pointer"
+            onClick={() => navigate(`/trust/${trustId}/notification`)}
           >
-            {t('More')}
+            <div
+              className="gradient-text1 font-bold text-[16px]"
+            >
+              {t('More')}
+            </div>
+            <img src={moreIcon} width="24px" alt="" />
           </div>
-          <img src={moreIcon} width="24px" alt="" />
         </div>
-      </div>
-      <div className="my-6 h-[1px] bg-[#3B5649]" />
-      <div className="flex flex-col gap-6">
-        {listQuery.data?.data?.records.map((it) => (
-          <NotificationCell
-            simple
-            title={it.title}
-            content={it.content}
-            datetime={moment.unix(it.createTime / 1000).format('YYYY-MM-DD HH:mm:ss')}
-          />
-        ))}
+        <div className="my-6 h-[1px] bg-[#3B5649]" />
+        <div className="flex flex-col gap-6">
+          {listQuery.data?.data?.records.map((it) => (
+            <NotificationCell
+              simple
+              title={it.title}
+              content={it.content}
+              datetime={moment.unix(it.createTime / 1000).format('YYYY-MM-DD HH:mm:ss')}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

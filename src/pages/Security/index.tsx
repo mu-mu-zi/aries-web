@@ -26,9 +26,15 @@ export default function Security() {
   const user = useUserInfoQuery();
   const securityLevel = useMemo(() => {
     let summary = 0;
-    if (user.data?.data?.emailAuth) { summary += 1; }
-    if (user.data?.data?.mobileAuth) { summary += 1; }
-    if (user.data?.data?.googleSecretAuth) { summary += 1; }
+    if (user.data?.data?.emailAuth) {
+      summary += 1;
+    }
+    if (user.data?.data?.mobileAuth) {
+      summary += 1;
+    }
+    if (user.data?.data?.googleSecretAuth) {
+      summary += 1;
+    }
     return summary;
   }, [user.data?.data]);
   const navigate = useNavigate();
@@ -38,10 +44,14 @@ export default function Security() {
   });
   const securityLevelText = useMemo(() => {
     switch (securityLevel) {
-      case 1: return t('Low');
-      case 2: return t('Medium');
-      case 3: return t('High');
-      default: return '--';
+      case 1:
+        return t('Low');
+      case 2:
+        return t('Medium');
+      case 3:
+        return t('High');
+      default:
+        return '--';
     }
   }, [securityLevel]);
 
@@ -102,13 +112,24 @@ export default function Security() {
                   <div className="text-[20px] font-bold">{t('Email verification')}</div>
                   <div className="flex flex-row gap-2 items-center">
                     <img src={user.data?.data?.emailAuth ? statusOkIcon : statusWarningIcon} alt="" />
-                    <div className={classNames('text-[16px]', !user.data?.data?.emailAuth && 'text-[#708077]')}>{user.data?.data?.userEmail ?? t('Unbound')}</div>
+                    <div
+                      className={classNames('text-[16px]', !user.data?.data?.emailAuth && 'text-[#708077]')}
+                    >
+                      {user.data?.data?.userEmail ?? t('Unbound')}
+                    </div>
                   </div>
                 </div>
                 <div className="flex flex-row items-center gap-4 font-title text-[14px]">
                   <NavLink to="/personal/changeEmail">
                     <TextButton>{user.data?.data?.emailAuth ? t('Change') : t('Bind')}</TextButton>
                   </NavLink>
+                  {user.data?.data?.emailAuth && (
+                    <NavLink to={{ pathname: '/personal/unbindEmailOrMobile' }} state={{ isPhone: false }}>
+                      <TextButton>
+                        {t('Unbind')}
+                      </TextButton>
+                    </NavLink>
+                  )}
                 </div>
               </div>
               <Hr />
@@ -118,15 +139,22 @@ export default function Security() {
                   <div className="text-[20px] font-bold">{t('Mobile Phone verification')}</div>
                   <div className="flex flex-row gap-2 items-center">
                     <img src={user.data?.data?.mobileAuth ? statusOkIcon : statusWarningIcon} alt="" />
-                    <div className={classNames('text-[16px]', !user.data?.data?.mobileAuth && 'text-[#708077]')}>{user.data?.data?.userMobile ?? t('Unbound')}</div>
+                    <div
+                      className={classNames('text-[16px]', !user.data?.data?.mobileAuth && 'text-[#708077]')}
+                    >
+                      {user.data?.data?.userMobile ?? t('Unbound')}
+                    </div>
                   </div>
                 </div>
                 <div className="flex flex-row items-center gap-4 font-title text-[14px]">
-                  <NavLink
-                    to="/personal/changeMobile"
-                  >
+                  <NavLink to="/personal/changeMobile">
                     <TextButton>{user.data?.data?.mobileAuth ? t('Change') : t('Bind')}</TextButton>
                   </NavLink>
+                  {user.data?.data?.mobileAuth && (
+                    <NavLink to="/personal/unbindEmailOrMobile" state={{ isPhone: true }}>
+                      <TextButton>{t('Unbind')}</TextButton>
+                    </NavLink>
+                  )}
                 </div>
               </div>
               <Hr />

@@ -9,7 +9,7 @@ export default function ContractSigningStep({ trust }: {
   trust: TrustDetail
 }) {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center justify-center">
       <img src={trust.contractStatus === 1 ? waitIcon : okIcon} alt="" width="44px" />
       <div
         className="text-[#708077] text-[14px] leading-[16px] mt-4"

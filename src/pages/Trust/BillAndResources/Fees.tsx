@@ -65,7 +65,7 @@ function FeesCell({
   return (
     <NavLink to={to} className="flex flex-col gap-2 p-8 gradient-block1 rounded-xl">
       <div className="flex flex-row gap-2 items-center">
-        <div className="gradient-text1 font-title font-bold">{title}</div>
+        <div className="gradient-text1 font-title font-bold text-[20px]">{title}</div>
         <div>
           <img src={alertIcon} width="16px" alt="" />
         </div>

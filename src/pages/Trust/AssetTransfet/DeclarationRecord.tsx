@@ -44,7 +44,7 @@ export default function DeclarationRecord() {
   };
 
   return (
-    <div className="flex flex-col gap-4 gradient-bg2 rounded-xl shadow-block p-8">
+    <div className="flex flex-col gap-4 gradient-bg2 rounded-xl block-gradient-border shadow-block p-8">
       <div className="gradient-text1 font-bold font-title text-[20px]">{t('Commission declaration record')}</div>
       <div className="h-[1px] bg-[#3B5649]" />
       <SimpleTable
