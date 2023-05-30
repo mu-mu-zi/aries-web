@@ -166,11 +166,11 @@ export default function SignIn() {
             <div className="text-[#99AC9B] leading-[15px] text-[14px]">
               {t('After mobile phone verification, the user will automatically log in without registration. Registration represents agreement to the')}
               {' '}
-              <a href="#" className="gradient-text1">{t('Aries Digital Group Agreement')}</a>
+              <a href="https://aries-trust.com/userPolicy" target="_blank" className="gradient-text1" rel="noreferrer">{t('Aries Digital Group Agreement')}</a>
               {' '}
               and
               {' '}
-              <a href="#" className="gradient-text1">{t('Aries Digital Group Privacy Policy')}</a>
+              <a href="https://aries-trust.com/privacyPolicy" target="_blank" className="gradient-text1" rel="noreferrer">{t('Aries Digital Group Privacy Policy')}</a>
               .
             </div>
             <div className="flex-auto" />

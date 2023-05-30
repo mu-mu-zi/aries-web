@@ -14,37 +14,26 @@ export default function MyTrust() {
   const navigate = useNavigate();
 
   useAsync(async () => {
-    const trustResp = await axios.get<Trust[]>('/trust/trust/list');
-    const trustList = trustResp.data ?? [];
-    let navTo = '/';
+    const trustList = trustListQuery.data?.data ?? [];
     /* 无信托 */
     if (trustList.length === 1) {
       /* 进入引导 */
       if (trustList[0].trustStatus === 1) {
-        navTo = `/first/${trustList[0].trustId}/KycVerify`;
+        navigate(`/first/${trustList[0].trustId}/KycVerify`);
       } else if (trustList[0].trustStatus === 21) {
-        navTo = `/first/${trustList[0].trustId}/welcome`;
-      } else if (trustList[0].trustStatus === 2) {
-        navTo = '/my';
+        navigate(`/first/${trustList[0].trustId}/welcome`);
       }
-    } else {
-      navTo = '/my';
     }
-    navigate(navTo);
   }, [trustListQuery.data?.data]);
 
   return (
     <div>
       <div className="flex-auto flex flex-row justify-center">
-        <div
-          className="flex flex-row overflow-auto gap-8 px-16 py-3"
-          css={css`
-            &::-webkit-scrollbar {
-              display: none;
-            }
-          `}
-        >
+        <div className="flex flex-row overflow-auto gap-8 px-16 py-3 scrollbar-none">
           <CreatingTrust />
+          {/* <CreatingTrust /> */}
+          {/* <CreatingTrust /> */}
+          {/* <CreatingTrust /> */}
           {trustListQuery.data?.data?.map((trust) => (
             <EnteringTrust
               key={trust.trustId}

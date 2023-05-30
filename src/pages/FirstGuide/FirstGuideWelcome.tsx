@@ -41,9 +41,9 @@ export default function FirstGuideWelcome() {
           <div className="mt-4 max-w-[548px] text-center text-[20px] font-title text-[#C39770] leading-[23px]">
             {t('Welcome to the digital trust exclusively established for you, opening the door to digital wealth. You will be able to see all trust assets and view all records.')}
           </div>
-          {/* <div className="mt-10"> */}
-          {/*  <Button onClick={() => navigate(`/first/${trustId}/KycVerify`)}>Open</Button> */}
-          {/* </div> */}
+          <div className="mt-[96px] pr-[6px]">
+            <div className="gradient-text1 font-bold font-title text-[20px]">Open</div>
+          </div>
         </div>
       </div>
       <FooterNote />

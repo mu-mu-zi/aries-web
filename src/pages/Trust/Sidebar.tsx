@@ -8,7 +8,7 @@ import personIcon from '../../assets/icon/db_icon_person.svg';
 import messageIcon from '../../assets/icon/db_icon_message.svg';
 import exitIcon from '../../assets/icon/db_icon_exit.svg';
 import languageIcon from '../../assets/icon/db_icon_language.svg';
-import LogoDark from '../../assets/icon/LogoDark.svg';
+import LogoDark from '../../assets/icon/ADG-logo.svg';
 import dashboardIcon from '../../assets/icon/dashboard/icons-app_center-1.svg';
 import dashboardSelIcon from '../../assets/icon/dashboard/icons-app_center.svg';
 import assetIcon from '../../assets/icon/dashboard/icons-credit_card.svg';
@@ -21,6 +21,7 @@ import eleIcon from '../../assets/icon/dashboard/icons-id_card.svg';
 import eleSelIcon from '../../assets/icon/dashboard/icons-id_card-1.svg';
 import billIcon from '../../assets/icon/dashboard/icons-file.svg';
 import billSelIcon from '../../assets/icon/dashboard/icons-file-1.svg';
+import Logo from '../../components/Logo';
 
 export default function Sidebar() {
   const { t } = useTranslation();
@@ -34,6 +35,7 @@ export default function Sidebar() {
         <div className="bg-gradient-to-r from-[#BE9D66] to-[#E8D2A3] h-[133px] grid place-items-center">
           <img src={LogoDark} width="184px" alt="Aries" />
         </div>
+        {/* <Logo /> */}
         {/* 侧边栏 */}
         <div className="flex-auto flex flex-col p-6 gap-5">
           {[

@@ -2,11 +2,14 @@ import React from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
+import BigNumber from 'bignumber.js';
 import GradientBox from '../../../components/GradientBox';
-import symbolIcon from '../../../assets/icon/dashboard/icon_usdt.svg';
+import symbolIcon from '../../../assets/icon/dash_bit_icon.svg';
 import arrowUp from '../../../assets/icon/arrow_up.svg';
 import { IAssetsOverview, IDigitalAssets } from '../../../interfaces/trust';
 import { currencyFormat, currencyUSDTFormat } from '../../../utils/CurrencyFormat';
+import DigtalAssetsSection from './DigtalAssetsSection';
+import Empty from '../../../views/Empty';
 
 export default function DigitalAssets({ assetOverview }: {
   assetOverview?: IAssetsOverview
@@ -26,29 +29,13 @@ export default function DigitalAssets({ assetOverview }: {
         )}
       >
         <div>{t('Digital Assets')}</div>
-        <div>{`${currencyUSDTFormat(assetOverview?.digitalAssets.reduce((x, y) => x + y.totalUSDT, 0))} USD`}</div>
-      </div>
-      {assetOverview?.digitalAssets.map((it) => (
-        <div className={classNames('gradient-block1', 'shadow-block', 'rounded-xl')}>
-          <div className="flex flex-row gap-4 items-center h-[80px] px-8">
-            <div className="gradient-text1 text-[20px] font-bold flex-auto">{it.name}</div>
-            <div className="gradient-text1 text-[20px] font-bold">{`${currencyUSDTFormat(it.totalUSDT)} USD`}</div>
-            {it.details?.filter((x) => x.amount > 0).length > 0 && <img src={arrowUp} alt="" />}
-          </div>
-          {it.details?.filter((x) => x.amount > 0).length > 0 && (
-            <div className="flex flex-col gap-6 p-8 bg-divider rounded-b-xl bg-[#314C40]">
-              {it.details?.filter((x) => x.amount > 0).map((d) => (
-                <Cell
-                  icon={d.image}
-                  amount={d.amount}
-                  symbol={d.symbol}
-                  rate={Number((d.amount * d.price / it.totalUSDT * 100).toFixed(3))}
-                />
-              ))}
-            </div>
-          )}
+        {/* {assetOverview?.digitalAssets.reduce((x, y) => x + Number(y.totalUSDT), 0)} */}
+        <div>
+          {`${currencyUSDTFormat(assetOverview?.digitalAssets.reduce((x, y) => BigNumber(y.totalUSDT).plus(x), BigNumber(0)).toFixed())} USD`}
         </div>
-      ))}
+      </div>
+      {assetOverview?.digitalAssets.map((it) => <DigtalAssetsSection asset={it} key={it.name} />)}
+      {assetOverview?.digitalAssets.length === 0 && <Empty />}
     </div>
   );
 }
@@ -64,7 +51,7 @@ export function Cell({
   return (
     <div className="flex flex-row items-center relative">
       <img src={icon} width="24px" alt="" className="absolute z-[1]" />
-      <div className="flex-auto ml-[12px] max-w-[60%]">
+      <div className="ml-[12px] w-[70%]">
         <div
           className={classNames('gradient-border1 shadow-block h-[10px] rounded-full overflow-clip', rate <= 0 && 'w-0')}
           css={css`
@@ -72,7 +59,8 @@ export function Cell({
           `}
         />
       </div>
-      <div className="flex-1 ml-[36px] gradient-text1 text-[20px] text-right">
+      {/* {rate} */}
+      <div className="flex-auto ml-[36px] gradient-text1 text-[20px] text-right">
         {`${amount} ${symbol}`}
       </div>
     </div>

@@ -24,11 +24,11 @@ export default function Portrait({ trustName, description }: {
       <LargeAvatar isMale={!userQuery.data?.data?.gender} />
       {/* 昵称描述 */}
       <div className="flex flex-col gap-4">
-        <GradientText className={classNames('text-[40px] font-bold font-title')}>
+        <div className={classNames('text-[40px] font-bold font-title gradient-text1 text-shadow-block')}>
           {CallFormat(userQuery.data?.data?.surname, userQuery.data?.data?.gender, true)}
-        </GradientText>
-        <GradientText
-          className={classNames('text-[20px] font-normal leading-[23px]', 'font-title')}
+        </div>
+        <div
+          className={classNames('text-[#C39770] text-[20px] font-normal leading-[23px]', 'font-title')}
         >
           {trustName && (
             <span className="font-bold">
@@ -37,7 +37,7 @@ export default function Portrait({ trustName, description }: {
             </span>
           )}
           {description}
-        </GradientText>
+        </div>
       </div>
     </div>
   );

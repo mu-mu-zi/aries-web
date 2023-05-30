@@ -14,6 +14,28 @@ export default function Information() {
     trustId: Number(trustId),
   });
 
+  const trustEntrustTypeTitle = (type: number) => {
+    switch (type) {
+      case 1:
+        return 'Irrevocable';
+      case 2:
+        return 'Revocable';
+      default:
+        return '--';
+    }
+  };
+
+  const trustStatusTitle = (type: number) => {
+    switch (type) {
+      case 1:
+        return 'To be effective';
+      case 2:
+        return 'Effective';
+      default:
+        return '--';
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8 shadow-block">
       <div className="gradient-text1 font-title font-bold text-[20px]">{t('Trust information')}</div>
@@ -27,8 +49,8 @@ export default function Information() {
               value={moment.unix(detailQuery.data.data.createTime / 1000).format('yyyy-MM-DD')}
             />
             <InformationCell title="Principal" value={`${detailQuery.data?.data?.surname} ${detailQuery.data?.data?.userName}`} />
-            <InformationCell title="Trust Type" value={detailQuery.data.data.trustEntrustTypeName} />
-            <InformationCell title="Status" value={detailQuery.data.data.trustStatusName} alignRight />
+            <InformationCell title="Trust Type" value={trustEntrustTypeTitle(detailQuery.data.data.trustEntrustType)} />
+            <InformationCell title="Status" value={trustStatusTitle(detailQuery.data.data.trustStatus)} alignRight />
           </div>
         )
       }

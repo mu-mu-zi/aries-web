@@ -10,6 +10,7 @@ import Modal from '../../../components/Modal';
 import CreatingCommand from './CreatingCommand';
 import Paginate from '../../../components/Paginate';
 import { useTrustDetailQuery } from '../../../api/trust/trust';
+import Empty from '../../../views/Empty';
 
 export default function InvestmentOrder() {
   const { trustId } = useParams();
@@ -29,22 +30,26 @@ export default function InvestmentOrder() {
         title={t('Investment Order')}
         description={t('The principal can use the investment instruction function to indicate investment intentions and directions to Aries Digital Group, and request investment operations to be carried out according to the principal\'s instructions. Throughout the process, the principal can adjust investment instructions based on market fluctuations and investment directions.') ?? ''}
         logo={logo}
-        btn={(trustDetailQuery.data?.data?.roleType ?? 0) > 2 && <Button onClick={() => setCreatingVisible(true)}>{t('Creating a command')}</Button>}
+        btn={(trustDetailQuery.data?.data?.roleType ?? 0) > 2
+          && <Button onClick={() => setCreatingVisible(true)}>{t('Creating a command')}</Button>}
       />
-      <div
-        className="gradient-bg2 roundex-xl shadow-block p-8 rounded-xl flex flex-col gap-8"
-      >
-        <div className="grid grid-cols-2 gap-4">
-          {listQuery.data?.data?.records.map((it) => <OrderCell item={it} key={it.trustInvestmentId} />)}
-        </div>
-        <div className="w-full flex flex-col items-center">
-          <Paginate
-            page={page}
-            total={listQuery.data?.data?.total ?? 0}
-            pageSize={4}
-            onPageChanged={(page) => setPage(page)}
-          />
-        </div>
+      <div className="gradient-bg2 roundex-xl shadow-block p-8 rounded-xl flex flex-col gap-8">
+        {listQuery.data?.data?.records.length === 0 && <Empty />}
+        {listQuery.data?.data?.records.length !== 0 && (
+          <>
+            <div className="grid grid-cols-2 gap-4">
+              {listQuery.data?.data?.records.map((it) => <OrderCell item={it} key={it.trustInvestmentId} />)}
+            </div>
+            <div className="w-full flex flex-col items-center">
+              <Paginate
+                page={page}
+                total={listQuery.data?.data?.total ?? 0}
+                pageSize={4}
+                onPageChanged={(page) => setPage(page)}
+              />
+            </div>
+          </>
+        )}
       </div>
 
       <Modal

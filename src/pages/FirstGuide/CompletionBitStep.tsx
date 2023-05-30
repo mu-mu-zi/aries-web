@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import VerifyStatusRow from './VerifyStatusRow';
+import VerifyStatusRow, { VerifyStatusRowStatus } from './VerifyStatusRow';
 import digitalIcon from '../../assets/icon/digital_account.svg';
 import { TrustDetail } from '../../interfaces/trust';
 import CopyIcon from '../../views/CopyIcon';
@@ -16,7 +16,7 @@ export function Text({ children }: {
 }
 
 export default function CompletionBitStep({ trust }: {
-    trust: TrustDetail
+  trust: TrustDetail
 }) {
   const { t } = useTranslation();
 
@@ -56,12 +56,27 @@ export default function CompletionBitStep({ trust }: {
           </div>
         </div>
       </div>
-      <div className="text-[#C39770] text-[20px] text-center font-title py-4">{t('We are in the process of setting up your account...')}</div>
+      <div
+        className="text-[#C39770] text-[20px] text-center font-title py-4"
+      >
+        {t('We are in the process of setting up your account...')}
+      </div>
       <div className="flex flex-col gap-2 self-stretch">
-        {/* todo：Logo 阴影导致图片无法居中，待 UI 调整 */}
-        <VerifyStatusRow icon={icon2} title="Trust Asset Holding Company" isOpening={false} />
-        <VerifyStatusRow icon={icon3} title="Bank Account" isOpening />
-        <VerifyStatusRow icon={icon4} title="Exchange Account" isOpening />
+        {trust.trustCompanyModel?.companyType === 1 ? (
+          <>
+            <VerifyStatusRow icon={icon3} title="Bank Account" status={VerifyStatusRowStatus.Success} />
+            <VerifyStatusRow icon={icon4} title="Exchange Account" status={VerifyStatusRowStatus.Opening} />
+            <VerifyStatusRow icon={digitalIcon} title="Digital asset account" status={VerifyStatusRowStatus.NotOpen} />
+            <VerifyStatusRow icon={icon2} title="Trust Asset Holding Company" status={VerifyStatusRowStatus.NotOpen} />
+          </>
+        ) : (
+          <>
+            <VerifyStatusRow icon={icon3} title="Bank Account" status={VerifyStatusRowStatus.Success} />
+            <VerifyStatusRow icon={icon4} title="Exchange Account" status={VerifyStatusRowStatus.Success} />
+            <VerifyStatusRow icon={digitalIcon} title="Digital asset account" status={VerifyStatusRowStatus.Opening} />
+            <VerifyStatusRow icon={icon2} title="Trust Asset Holding Company" status={VerifyStatusRowStatus.Opening} />
+          </>
+        )}
       </div>
     </div>
   );

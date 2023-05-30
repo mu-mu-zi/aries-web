@@ -45,6 +45,8 @@ export default function KycVerify() {
     if (detailQuery.data?.data) {
       if (detailQuery.data.data.trustStatus === 21) {
         navigate(`/first/${trustId}/welcome`, { replace: true });
+      } else if (detailQuery.data.data.trustStatus === 2) {
+        navigate('/my', { replace: true });
       }
     }
   }, [detailQuery.data?.data]);

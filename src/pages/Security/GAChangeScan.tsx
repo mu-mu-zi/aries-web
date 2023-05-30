@@ -61,6 +61,7 @@ export default function GAChangeScan() {
                 navigate('/personal/gaChangeBankup', {
                   state: {
                     secret: googleAuth.data?.data.secret,
+                    ticket: location.state?.ticket,
                   },
                   replace: true,
                 });

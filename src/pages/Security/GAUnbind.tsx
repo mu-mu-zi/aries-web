@@ -47,9 +47,14 @@ export default function GAUnbind() {
 
   const submit = async (data: FormValid) => {
     try {
-      await axios.post('/user/user/unbindingGoogleAuthenticator', data);
+      const resp = await axios.post('/user/user/unbindingGoogleAuthenticator', data);
+      const ticket = resp.data as string;
       /* 跳转到绑定 */
-      navigate('/personal/gaChangeScan');
+      navigate('/personal/gaChangeScan', {
+        state: {
+          ticket,
+        },
+      });
     } catch (e) {
       console.log(e);
     }

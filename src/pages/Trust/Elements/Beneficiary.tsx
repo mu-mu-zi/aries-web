@@ -106,11 +106,11 @@ export default function Beneficiary() {
             Header: t('KYC certification') ?? '',
             accessor: (x) => {
               switch (x.kycStatus) {
-                case 0:
-                  return 'In progress';
                 case 1:
-                  return 'Successful';
+                  return 'In progress';
                 case 2:
+                  return 'Successful';
+                case 3:
                   return 'Failure';
                 default:
                   return '--';

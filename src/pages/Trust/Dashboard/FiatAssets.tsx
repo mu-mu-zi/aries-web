@@ -1,12 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import BigNumber from 'bignumber.js';
 import { IAssetsOverview, IFiatAssets } from '../../../interfaces/trust';
 import arrowUp from '../../../assets/icon/arrow_up.svg';
 import symbolIcon from '../../../assets/icon/dashboard/icon_usdt.svg';
 import { Cell } from './DigitalAssets';
 import { currencyUSDTFormat } from '../../../utils/CurrencyFormat';
 import FiatAssetsCell from './FiatAssetsCell';
+import Empty from '../../../views/Empty';
 
 export default function FiatAssets({ asset }: {
   asset?: IAssetsOverview
@@ -27,32 +29,10 @@ export default function FiatAssets({ asset }: {
         )}
       >
         <div>Fiat Assets</div>
-        {/* todo: 这里的 total 是错误的 */}
-        <div>{`${currencyUSDTFormat(asset?.fiatAssets.reduce((x, y) => x + y.totalUSDT, 0))} USD`}</div>
+        <div>{`${currencyUSDTFormat(asset?.fiatAssets.reduce((x, y) => BigNumber(y.totalUSDT).plus(x), BigNumber(0)).toFixed())} USD`}</div>
       </div>
-      {asset?.fiatAssets.map((it) => (
-        <FiatAssetsCell key={it.name} asset={it} />
-        // <div key={it.name} className={classNames('gradient-block1', 'shadow-block', 'rounded-xl')}>
-        //   <div className="flex flex-row gap-4 items-center h-[80px] px-8">
-        //     <div className="gradient-text1 text-[20px] font-bold flex-auto">{it.name}</div>
-        //     {/* <div className="font-bold text-[20px] text-[#708077]">Opening in progress</div> */}
-        //     <div className="gradient-text1 text-[20px] font-bold">{`${currencyUSDTFormat(it.totalAmountUSDT)} USD`}</div>
-        //     {it.details?.filter((x) => x.amount > 0).length > 0 && <img src={arrowUp} alt="" />}
-        //   </div>
-        //   {it.details?.filter((x) => x.amount > 0).length > 0 && (
-        //     <div className="flex flex-col gap-6 p-8 bg-divider rounded-b-xl">
-        //       {it.details?.filter((x) => x.amount > 0).map((d) => (
-        //         <Cell
-        //           icon={d.image}
-        //           amount={d.amount}
-        //           symbol={d.symbol}
-        //           rate={Number((d.amount / it.totalAmountUSDT * 100).toFixed(3))}
-        //         />
-        //       ))}
-        //     </div>
-        //   )}
-        // </div>
-      ))}
+      {asset?.fiatAssets.map((it) => (<FiatAssetsCell key={it.name} asset={it} />))}
+      {asset?.fiatAssets.length === 0 && <Empty />}
     </div>
   );
 }

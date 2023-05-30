@@ -29,7 +29,7 @@ export default function LegalText() {
           Cell: ({ row }) => (
             <div className="flex flex-row gap-4 justify-end">
               {/* eslint-disable-next-line react/prop-types */}
-              <TextButton onClick={() => window.open(row.original.lawFilePath)}>{t('Check')}</TextButton>
+              {/* <TextButton onClick={() => window.open(row.original.lawFilePath)}>{t('Check')}</TextButton> */}
               {/* eslint-disable-next-line react/prop-types */}
               <TextButton onClick={() => window.open(row.original.lawFilePath)}>{t('Downloads')}</TextButton>
             </div>

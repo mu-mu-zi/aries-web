@@ -18,6 +18,7 @@ import { AccountType, Gender } from '../../../interfaces/base';
 import FooterNote from '../../../views/FooterNote';
 import ContactUsFooter from '../../../views/ContactUsFooter';
 import AreaSelect from '../../../components/AreaSelect';
+import { BeneficiaryRoleType } from './AddBeneficiary';
 // import { useAreaCodeListQuery } from '../../../api/base/areaCode';
 
 enum UserType {
@@ -70,6 +71,9 @@ export default function AddProtector({ trustId, onClose }: {
     defaultValues: {
       userType: UserType.Protect,
       guardiansType: GuardiansType.Other,
+      accountType: AccountType.Email,
+      gender: Gender.Male,
+      roleType: ProtectorRoleType.ReadOnly,
     },
   });
   const guardiansType = watch('guardiansType');
@@ -220,7 +224,7 @@ export default function AddProtector({ trustId, onClose }: {
                     // </div>
                   )}
                   <div className="flex-auto">
-                    <TextInput placeholder="Please enter the account" {...register('account')} />
+                    <TextInput placeholder={accountType === AccountType.Email ? 'Please enter the email' : 'Please enter the mobile'} {...register('account')} />
                   </div>
                 </div>
               </div>

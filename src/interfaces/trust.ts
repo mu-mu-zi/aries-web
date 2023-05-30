@@ -1,5 +1,17 @@
 import { useTrustReportListQuery } from '../api/trust/order';
 
+export interface ITrustCompany {
+  companyName: string
+  companyStatus: number
+  companyType: number
+  id: number
+  mainnetCoinId: number
+  mainnetId: number
+  payType: number
+  trustId: number
+  trustMoney: number
+}
+
 export interface TrustDetail {
   id: number;
   trustName: string;
@@ -37,6 +49,7 @@ export interface TrustDetail {
   roleType: number
   surname: string
   collectionAddress: string
+  trustCompanyModel?: ITrustCompany
 }
 
 export interface Trust {
@@ -54,6 +67,8 @@ export interface Trust {
   digitalCurrencyAccount: boolean;
   stepId: number;
   roleType: number
+  roleTypeArr: number[]
+  userTypeArr: number[]
 }
 
 export interface IDigitalAssetsDetail {
@@ -87,7 +102,7 @@ export interface IFiatAssetsDetails2 {
 }
 
 export interface IFiatAssets {
-  totalUSDT: number;
+  totalUSDT: string;
   name: string;
   status: number;
   details: IFiatAssetsDetail[];
@@ -173,9 +188,10 @@ export interface ITrustUser {
 
 export interface ITrustFee {
   feeAmount: string;
-  feeStatus: string;
+  feeStatus: number;
   feeType: number;
   trustId: number;
+  year: number
 }
 
 export interface IReport {

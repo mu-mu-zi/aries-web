@@ -173,3 +173,7 @@ textarea, input {
 textarea::-webkit-scrollbar {
     display: none;
 }
+
+.scrollbar-none::-webkit-scrollbar {
+    display: none;
+}

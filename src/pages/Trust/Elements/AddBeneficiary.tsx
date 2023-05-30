@@ -207,7 +207,7 @@ export default function AddBeneficiary({ trustId, onClose }: {
                     // </div>
                   )}
                   <div className="flex-auto">
-                    <TextInput placeholder="Please enter the account" {...register('account')} />
+                    <TextInput placeholder={accountType === AccountType.Email ? 'Please enter the email' : 'Please enter the mobile'} {...register('account')} />
                     {/* {accountType === AccountType.Email && <TextInput placeholder="Please provide additional instructions" {...register('userEmail')} />} */}
                   </div>
                 </div>

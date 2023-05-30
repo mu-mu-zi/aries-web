@@ -38,12 +38,23 @@ export default function Fees() {
     }
   };
 
+  const statusTitle = (type: number, year: number) => {
+    switch (type) {
+      case 1:
+        return `Unbilled in ${year}`;
+      case 2:
+        return `Unsettled in ${year}`;
+      default:
+        return '--';
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4">
       {query.data?.data?.map((it) => (
         <FeesCell
           title={titleFormat(it.feeType)}
-          subtitle={it.feeStatus}
+          subtitle={statusTitle(it.feeStatus, it.year)}
           amount={it.feeAmount}
           suffix="USD"
           to={linkTo(it.feeType)}

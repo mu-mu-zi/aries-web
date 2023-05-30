@@ -39,6 +39,9 @@ export default function GAChangeBankup() {
             block
             onClick={() => {
               navigate('/personal/gaChangeVerify', {
+                state: {
+                  ticket: location.state?.ticket,
+                },
                 replace: true,
               });
             }}

@@ -101,7 +101,7 @@ export default function ContactCustomer() {
                 </div>
                 <TextArea
                   {...register('problemDescription')}
-                  // maxLength={200}
+                  maxLength={200}
                   placeholder="Please provide a detailed explanation of the subject you would like to consult about."
                 />
                 <div className="flex flex-row gap-2">

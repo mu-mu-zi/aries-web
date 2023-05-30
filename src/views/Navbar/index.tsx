@@ -18,10 +18,10 @@ export default function Navbar() {
 
   return (
     <div className={classNames('flex flex-row items-center', 'h-[76px]', 'bg-transparent', 'px-12')}>
-      <a className="cursor-pointer" href="https://aries-trust.com/">
+      <a className="cursor-pointer" href="https://aries-trust.com">
         <img src={navLogoIcon} height="52px" alt="Trust" />
       </a>
-      {userQuery.isSuccess && !window.location.pathname.startsWith('/first') && (
+      {!window.location.pathname.startsWith('/first') && userQuery.data?.data && (
         <div className="flex pl-8">
           <NavLink
             to="/my"
@@ -35,7 +35,7 @@ export default function Navbar() {
       <div className={classNames('flex flex-row items-center gap-6')}>
         {!userQuery.data?.data && <Button onClick={() => navigate('/signIn')}>Sign in</Button>}
         {/* 个人中心 */}
-        <Popover className="relative">
+        <Popover className="relative z-[500]">
           <Popover.Button className="active:outline:none">
             {userQuery.data?.data && <div className={classNames('cursor-pointer')}><img src={personalLogo} /></div>}
           </Popover.Button>
@@ -48,9 +48,9 @@ export default function Navbar() {
             leaveFrom="transform scale-100 opacity-100"
             leaveTo="transform scale-95 opacity-0"
           >
-            <Popover.Panel className="absolute z-[500] pt-4 left-[50%] translate-x-[-50%] min-w-[170px]">
+            <Popover.Panel className="absolute mt-4 left-[50%] translate-x-[-50%] min-w-[170px]">
               {({ close }) => (
-                <div className="gradient-block2 rounded-xl shadow-block ">
+                <div className="gradient-block2 rounded-xl shadow-block">
                   <div className="flex flex-col divide-y divide-[#3B5649]">
                     <div
                       className="px-1 py-3 text-center gradient-text1 text-[20px] cursor-pointer"
@@ -70,6 +70,7 @@ export default function Navbar() {
                         localStorage.removeItem('TOKEN');
                         navigate('/signIn', { replace: true });
                         close();
+                        userQuery.remove();
                         // queryClient.invalidateQueries();
                       }}
                     >
@@ -83,7 +84,7 @@ export default function Navbar() {
         </Popover>
 
         {/* 语言 */}
-        <Popover className="relative">
+        <Popover className="relative z-[500]">
           <Popover.Button className="active:outline:none">
             <div className={classNames('cursor-pointer')}><LanguageIcon /></div>
           </Popover.Button>

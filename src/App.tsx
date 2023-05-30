@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 import { ReactNotifications } from 'react-notifications-component';
 import { useQueryClient } from '@tanstack/react-query';
+import { css } from '@emotion/react';
 import fullBgIcon from './assets/icon/full_bg.svg';
 import useAuthToken from './hooks/useUserId';
 import Button from './components/Button';
@@ -59,13 +60,15 @@ export default function App() {
   const authToken = () => !!localStorage.getItem('TOKEN');
 
   return (
-    <div className={classNames('min-h-screen font-text gradient-bg1', 'relative', 'min-w-[1280px] overflow-x-clip transition')}>
+    <div className={classNames('min-h-screen font-text gradient-bg1', 'relative', 'min-w-[1280px] transition')}>
       <ReactNotifications />
       <div
-        className="bg-cover bg-center bg-no-repeat opacity-20 absolute inset-0 z-[1]"
-        style={{ backgroundImage: `url(${fullBgIcon})` }}
+        className="bg-cover bg-center bg-no-repeat absolute opacity-50 inset-0 z-[0]"
+        css={css`
+          background-image: url(${fullBgIcon});
+        `}
       />
-      <div className="relative z-[2]">
+      <div className="absolute inset-0">
         <Routes>
           {/*  navbar */}
           <Route path="/" element={<Home />}>

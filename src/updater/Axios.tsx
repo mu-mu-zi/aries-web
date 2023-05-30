@@ -36,9 +36,9 @@ export default function Axios() {
           }
           if (response.data.code === 406 || response.data.code === 407 || response.data.code === 4008) {
             /* 跳转到首页 */
-            navigate('/', {
-              replace: true,
-            });
+            // navigate('/', {
+            //   replace: true,
+            // });
 
             /* 删除本地 token */
             localStorage.removeItem('TOKEN');

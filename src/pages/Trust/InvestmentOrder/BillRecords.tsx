@@ -68,7 +68,13 @@ export default function BillRecords({ trustInvestmentId }: {
             Header: () => (<div className="text-right">Amount</div>),
             accessor: 'quantity',
             // eslint-disable-next-line react/prop-types
-            Cell: ({ row }) => <div className="gradient-text1 text-right">{`${row.original.quantity} ${row.original.coinName}`}</div>,
+            Cell: ({ row }) => (
+              <div
+                className="gradient-text1 text-right"
+              >
+                {`${row.original.quantity} ${row.original.coinName}`}
+              </div>
+            ),
           },
           {
             Header: () => (<div className="text-right">Time</div>),
@@ -82,16 +88,18 @@ export default function BillRecords({ trustInvestmentId }: {
             // eslint-disable-next-line react/prop-types
             Cell: ({ row }) => (
               <div className="flex justify-end">
-                <TextButton
-                  className="gradient-text2 text-right cursor-pointer"
-                  onClick={() => {
-                    // eslint-disable-next-line react/prop-types
-                    setSelected(row.original);
-                    setTransactionVoucherVisible(true);
-                  }}
-                >
-                  {t('View credentials')}
-                </TextButton>
+                {row.original.billCertificate && (
+                  <TextButton
+                    className="gradient-text2 text-right cursor-pointer"
+                    onClick={() => {
+                      // eslint-disable-next-line react/prop-types
+                      setSelected(row.original);
+                      setTransactionVoucherVisible(true);
+                    }}
+                  >
+                    {t('View credentials')}
+                  </TextButton>
+                )}
               </div>
             ),
           },

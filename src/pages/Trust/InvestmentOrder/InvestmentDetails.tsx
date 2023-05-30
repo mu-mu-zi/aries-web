@@ -9,14 +9,22 @@ export default function InvestmentDetails({ trustInvestment }: {
 
   const statusText = (status: number) => {
     switch (status) {
-      case 1: return '待处理';
-      case 2: return '待审批';
-      case 3: return '投资中';
-      case 4: return '核对中';
-      case 5: return '已完成';
-      case 6: return '审批失败';
-      case 7: return '申请取消';
-      case 8: return '已取消';
+      case 1: return t('Pending');
+      case 2: return t('Pending approval');
+      case 3: return t('Investment');
+      case 4: return t('Checking');
+      case 5: return t('Completed');
+      case 6: return t('Approval failed');
+      case 7: return t('Cancellation');
+      case 8: return t('Cancelled');
+      // case 1: return '待处理';
+      // case 2: return '待审批';
+      // case 3: return '投资中';
+      // case 4: return '核对中';
+      // case 5: return '已完成';
+      // case 6: return '审批失败';
+      // case 7: return '申请取消';
+      // case 8: return '已取消';
       default: return '--';
     }
   };

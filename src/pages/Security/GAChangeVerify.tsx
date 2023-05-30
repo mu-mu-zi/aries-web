@@ -5,7 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import CenterContainer from '../../views/CenterContainer';
 import CancelNav from '../../views/CancelNav';
 import GANavbar from '../SignIn/GANavbar';
@@ -44,11 +44,13 @@ export default function GAChangeVerify() {
   const queryClient = useQueryClient();
   const userQuery = useUserInfoQuery();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const submit = async (data: FormValid) => {
     try {
       await axios.post('/user/user/verificationMethod', {
         isReset: true,
+        ticket: location.state?.ticket,
         ...data,
       });
       await queryClient.invalidateQueries();

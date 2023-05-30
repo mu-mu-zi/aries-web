@@ -25,6 +25,7 @@ export default function ViewCredentials({ onClose, recordId }: {
       {/* Content */}
       <div className="mt-8 overflow-auto flex-auto">
         <div className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Bank transfer information')}</div>
+        {/* <PaymentRow title="Payee Name" value="11111111111111111111111111111111111111111111111111111111111111111111111111111111" /> */}
         {query.data?.data && (
           <div className="mt-4 flex flex-col gap-4">
             <PaymentRow title="Payee Name" value={query.data?.data?.payUserName} />

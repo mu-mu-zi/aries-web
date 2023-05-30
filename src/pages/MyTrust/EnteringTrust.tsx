@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -10,12 +10,15 @@ import bankIcon from '../../assets/icon/coin_bank.svg';
 import setterLogo from '../../assets/icon/trust_banhuren.png';
 import befLogo from '../../assets/icon/trust_bef.png';
 import { Trust } from '../../interfaces/trust';
+import Modal from '../../components/Modal';
+import Warning from './Warning';
 
 export default function EnteringTrust({ trust }: {
   trust: Trust
 }) {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [warningVisible, setWarningVisible] = useState(false);
 
   const logo = (type: number) => {
     switch (type) {
@@ -55,50 +58,69 @@ export default function EnteringTrust({ trust }: {
   };
 
   return (
-    <div
-      className={classNames(
-        'm-auto gradient-bg1 flex h-[720px] w-[475px] flex-col flex-shrink-0 rounded-xl shadow-block',
-        trust.userType === 1 ? 'block-gradient-border-gold' : 'block-gradient-border',
-      )}
-    >
-      <div className="flex flex-auto flex-col px-12">
-        <img className="mt-20 self-center" src={logo(trust.userType)} width="224px" alt="Logo" />
-        <div className="gradient-text1 mt-12 text-center font-title text-[32px]">{trust.trustName}</div>
-        <div className="gradient-text1 mt-4 text-center font-title font-bold text-[24px]">{`[${userType(trust.userType)}]`}</div>
-        <div className="mt-4 text-center font-title text-[20px] text-[#C39770]">
-          {moment.unix(trust.createTime / 1000).format('yyyy-MM-DD')}
-        </div>
-        <div className="flex-auto" />
-        <div className="self-center">
-          {trust.roleType > 1 && (
+    <>
+      <div
+        className={classNames(
+          'm-auto gradient-bg1 flex h-[720px] w-[475px] flex-col flex-shrink-0 rounded-xl shadow-block',
+          trust.userType === 1 ? 'block-gradient-border-gold' : 'block-gradient-border',
+        )}
+      >
+        <div className="flex flex-auto flex-col px-12">
+          <img className="mt-20 self-center" src={logo(trust.userType)} width="224px" alt="Logo" />
+          <div className="gradient-text1 mt-12 text-center font-title text-[32px]">{trust.trustName}</div>
+          <div
+            className="gradient-text1 mt-4 text-center font-title font-bold text-[24px]"
+          >
+            {/* {`[${userType(trust.userType)}]`} */}
+            {`[${trust.userTypeArr.map((x) => userType(x)).join(', ')}]`}
+          </div>
+          <div className="mt-4 text-center font-title text-[20px] text-[#C39770]">
+            {moment.unix(trust.createTime / 1000).format('yyyy-MM-DD')}
+          </div>
+          <div className="flex-auto" />
+          <div className="self-center">
+            {/* {trust.roleType > 1 && ( */}
+            {/*  */}
+            {/* )} */}
             <Button
               size="large"
               onClick={() => {
-                switch (trust.trustStatus) {
-                  case 2:
-                    navigate(`/trust/${trust.trustId}/dashboard`);
-                    break;
-                  case 21:
-                    navigate(`/first/${trust.trustId}/dashboard`);
-                    break;
-                  default:
-                    navigate(`/first/${trust.trustId}/KycVerify`);
+                /* 判断是否有权限进入 */
+                if (trust.roleType === 1) {
+                  /* 1 表示无权限 */
+                  setWarningVisible(true);
+                } else {
+                  /* 其他权限根据状态进入页面 */
+                  switch (trust.trustStatus) {
+                    case 2:
+                      navigate(`/trust/${trust.trustId}/dashboard`);
+                      break;
+                    case 21:
+                      navigate(`/first/${trust.trustId}/welcome`);
+                      break;
+                    default:
+                      navigate(`/first/${trust.trustId}/KycVerify`);
+                      break;
+                  }
                 }
               }}
             >
               {t('Entering the trust')}
             </Button>
-          )}
+          </div>
+        </div>
+        <div className="mt-[52px]">
+          <Divide />
+          <div className="flex h-[84px] flex-row items-center justify-around">
+            {/* <BottomItem icon={bankIcon} title={t('Bank Account')} onTap={() => navigate(`/trust/${trust.trustId}/dashboard`)} /> */}
+            {/* <BottomItem icon={bankIcon} title={t('Exchange Account')} onTap={() => navigate(`/trust/${trust.trustId}/dashboard`)} /> */}
+          </div>
         </div>
       </div>
-      <div className="mt-[52px]">
-        <Divide />
-        <div className="flex h-[84px] flex-row items-center justify-around">
-          {/* <BottomItem icon={bankIcon} title={t('Bank Account')} onTap={() => navigate(`/trust/${trust.trustId}/dashboard`)} /> */}
-          {/* <BottomItem icon={bankIcon} title={t('Exchange Account')} onTap={() => navigate(`/trust/${trust.trustId}/dashboard`)} /> */}
-        </div>
-      </div>
-    </div>
+      <Modal visible={warningVisible}>
+        <Warning onOk={() => setWarningVisible(false)} />
+      </Modal>
+    </>
   );
 }
 

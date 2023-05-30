@@ -29,11 +29,11 @@ export default function AreaList({ data, onSelect, onClose }: {
           }}
         />
       </div>
-      <div className="flex flex-col mx-[-32px] px-8 h-[320px] overflow-y-auto">
+      <div className="flex flex-col mx-[-32px]  h-[320px] overflow-y-auto">
         {filterList.map((x) => (
           <div
             key={x.id}
-            className="flex items-center gap-4 py-2 cursor-pointer text-[#C2D7C7F6] text-[20px] hover:bg-[#3B5649]"
+            className="flex items-center gap-4 py-2 px-8 cursor-pointer text-[#C2D7C7F6] text-[20px] hover:bg-[#3B5649]"
             onClick={() => {
               onSelect?.(x);
               onClose?.();

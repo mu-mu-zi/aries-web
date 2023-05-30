@@ -36,6 +36,7 @@ function MethodSwitchItem({
   return (
     <div className={classNames('rounded-xl', 'overflow-clip', 'p-[1px]', 'flex-auto', 'cursor-pointer', {
       'gradient-border-gold': isSelected,
+      'shadow-btn': !isSelected,
     })}
     >
       <div

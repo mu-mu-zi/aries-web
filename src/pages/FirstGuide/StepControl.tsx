@@ -20,7 +20,7 @@ function StepTitle({ index, title, current }: { index: number; title: string; cu
     <div className="flex flex-row items-center gap-2">
       <div
         className={classNames(
-          'h-[24px] w-[24px] bg-cover bg-center bg-no-repeat text-center text-[12px] font-bold leading-[24px] transition',
+          'h-[24px] w-[24px] bg-cover bg-center bg-no-repeat text-center text-[12px] font-title font-bold leading-[24px] transition',
           {
             'text-[#3D3228]': isHighlight,
             'text-[#99AC9B]': !isHighlight,

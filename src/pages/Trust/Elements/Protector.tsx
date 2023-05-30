@@ -106,11 +106,11 @@ export default function Protector() {
             Header: t('KYC certification') ?? '',
             accessor: (x) => {
               switch (x.kycStatus) {
-                case 0:
-                  return 'In progress';
                 case 1:
-                  return 'Successful';
+                  return 'In progress';
                 case 2:
+                  return 'Successful';
+                case 3:
                   return 'Failure';
                 default:
                   return '--';
@@ -192,7 +192,7 @@ export default function Protector() {
         {selected && (
           <EditRole
             defaultVal={selected.roleType}
-            isBeneficiary
+            isBeneficiary={false}
             onClose={() => setEditRoleVisible(false)}
             trustUserId={selected.id}
           />

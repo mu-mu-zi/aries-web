@@ -35,15 +35,11 @@ export const useTrustDetailQuery = (data: {
 /*
 * 我的信托列表
 * */
-export const useMyTrustQuery = () => {
-  const token = useAuthToken();
-
-  return useQuery<IResponseData<Trust[]>>({
-    queryKey: ['trust', 'list'],
-    queryFn: () => axios.get('/trust/trust/list'),
-    enabled: containsToken(),
-  });
-};
+export const useMyTrustQuery = () => useQuery<IResponseData<Trust[]>>({
+  queryKey: ['trust', 'list', 'my'],
+  queryFn: () => axios.get('/trust/trust/list'),
+  enabled: !!localStorage.getItem('TOKEN'),
+});
 
 /*
 * 信托用户列表
