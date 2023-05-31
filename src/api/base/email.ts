@@ -3,7 +3,7 @@ import axios from 'axios';
 import useAuthToken, { containsToken } from '../../hooks/useUserId';
 
 export const useTrustContactEmailQuery = (data: {
-  trustId?: number
+  trustId?: string
 }) => {
   const userId = useAuthToken();
 
@@ -14,6 +14,5 @@ export const useTrustContactEmailQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: containsToken(),
   });
 };

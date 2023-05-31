@@ -24,6 +24,7 @@ import Dropdown from '../../components/Dropdown';
 import SendButton from '../../views/SendButton';
 import ContactUsFooter from '../../views/ContactUsFooter';
 import AreaSelect from '../../components/AreaSelect';
+import QrCode from '../../components/QrCode';
 
 export default function SignIn() {
   const { t } = useTranslation();
@@ -33,7 +34,7 @@ export default function SignIn() {
   const getUserInfoMutation = useGetUserInfoMutation();
   // const areaCodeListQuery = useAreaCodeListQuery();
   const valid = z.object({
-    account: z.string().nonempty().email().or(z.string()),
+    account: isPhone ? z.string().regex(/^\d+$/) : z.string().email(),
     areaCodeId: z.number().optional(),
     securityCode: z.string().nonempty(),
   });
@@ -41,7 +42,7 @@ export default function SignIn() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     clearErrors,
     trigger,
     getValues,
@@ -56,19 +57,18 @@ export default function SignIn() {
   const sendValidCode = async () => {
     /* 验证账号 */
     try {
-      await trigger('account', {
+      const result = await trigger('account', {
         shouldFocus: true,
       });
-      // await sendValidateCodeMutation.mutate({
-      //   account: getValues('account'),
-      //   areaCodeId: getValues('areaCodeId'),
-      // });
-      await axios.post('/user/send/login/sendSmsCode', {
-        account: getValues('account'),
-        areaCodeId: getValues('areaCodeId'),
-        type: isPhone ? 2 : 1,
-      });
-      return true;
+      if (result) {
+        await axios.post('/user/send/login/sendSmsCode', {
+          account: getValues('account'),
+          areaCodeId: getValues('areaCodeId'),
+          type: isPhone ? 2 : 1,
+        });
+        return true;
+      }
+      return false;
     } catch (e) {
       return false;
     }
@@ -159,28 +159,25 @@ export default function SignIn() {
               block
               size="large"
               type="submit"
-              disabled={getUserInfoMutation.isLoading}
+              disabled={!isValid}
             >
               {t('Next')}
             </Button>
             <div className="text-[#99AC9B] leading-[15px] text-[14px]">
               {t('After mobile phone verification, the user will automatically log in without registration. Registration represents agreement to the')}
-              {' '}
               <a href="https://aries-trust.com/userPolicy" target="_blank" className="gradient-text1" rel="noreferrer">{t('Aries Digital Group Agreement')}</a>
-              {' '}
               and
-              {' '}
               <a href="https://aries-trust.com/privacyPolicy" target="_blank" className="gradient-text1" rel="noreferrer">{t('Aries Digital Group Privacy Policy')}</a>
-              .
             </div>
             <div className="flex-auto" />
-            <div className="self-stretch">
-              <ContactUsFooter />
-            </div>
+
             {/* <Divide /> */}
             {/* <ContactUs /> */}
           </div>
         </form>
+        <div className="self-stretch">
+          <ContactUsFooter />
+        </div>
       </div>
     </div>
   );

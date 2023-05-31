@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { use } from 'i18next';
 import GANavbar from './GANavbar';
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
@@ -79,6 +80,12 @@ export default function PersonalRealName() {
 
   useEffect(() => {
     setValue('gender', userQuery.data?.data?.gender ?? true);
+    if (userQuery.data?.data?.userName) {
+      setValue('firstName', userQuery.data?.data?.userName);
+    }
+    if (userQuery.data?.data?.surname) {
+      setValue('lastName', userQuery.data?.data?.surname);
+    }
   }, [userQuery.data?.data]);
 
   return (

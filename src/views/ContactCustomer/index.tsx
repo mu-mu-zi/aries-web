@@ -29,7 +29,7 @@ export default function ContactCustomer() {
   // const areaCodeListQuery = useAreaCodeListQuery();
   const valid = z.object({
     contactName: z.string().optional(),
-    account: z.string().nonempty(),
+    account: isPhone ? z.string().regex(/^\d+$/) : z.string().email(),
     areaCodeId: z.number().optional(),
     problemDescription: z.string().nonempty(),
   });
@@ -46,10 +46,10 @@ export default function ContactCustomer() {
   } = useForm<FormValid>({
     resolver: zodResolver(valid),
   });
-  // const { trustId } = useParams();
+  const { trustId } = useParams();
   const location = useLocation();
   const emailQuery = useTrustContactEmailQuery(
-    { trustId: location.state?.trustId && Number(location.state.trustId) },
+    { trustId },
   );
 
   // useEffect(() => {

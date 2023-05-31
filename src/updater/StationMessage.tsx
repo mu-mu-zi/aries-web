@@ -7,6 +7,7 @@ import { appendMessage } from '../state/msg';
 import 'react-notifications-component/dist/theme.css';
 import { IStationMessage } from '../interfaces/message';
 import { addNotification } from '../utils/Notification';
+import { baseUrl } from '../utils/url';
 
 export default function StationMessage() {
   const userId = useAuthToken();
@@ -17,7 +18,7 @@ export default function StationMessage() {
     if (!userId || !token) return;
 
     // const baseUrl = 'http://8.222.208.7:8080';
-    const baseUrl = 'https://api.aries-trust.com';
+    // const baseUrl = 'https://testapi.aries-trust.com/';
     /* todo: 国际化 */
     const es = new EventSourcePolyfill(`${baseUrl}/trust/stationMessage/subscribe`, {
       headers: {

@@ -10,7 +10,7 @@ export default function ContactUs() {
 
   return (
     <TextButton
-      onClick={() => navigate('/contactCustomer', {
+      onClick={() => navigate(trustId ? `/contactCustomer/${trustId}` : '/contactCustomer', {
         state: {
           trustId: trustId && Number(trustId),
         },

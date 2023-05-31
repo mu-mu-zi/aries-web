@@ -177,3 +177,23 @@ textarea::-webkit-scrollbar {
 .scrollbar-none::-webkit-scrollbar {
     display: none;
 }
+
+.rnc__notification-item--success {
+    /*background-color: red !important;*/
+    border-left: none !important;
+    background: linear-gradient(89.97deg, #1A4132 0.03%, #234838 99.97%) !important;
+    /* 板块投影 */
+
+    box-shadow: -4px 8px 10px rgba(3, 12, 8, 0.5);
+    border-radius: 12px !important;
+}
+
+.rnc__notification-title {
+    color: #C2D7C7F6 !important;
+    font-size: 16px;
+}
+
+.rnc__notification-message {
+    color: #99AC9B !important;
+    font-size: 14px;
+}

@@ -69,11 +69,11 @@ export default function EditPersonal({ onClose }: {
           <div className="flex flex-row gap-4">
             <label className="flex-1 flex flex-col gap-4">
               <div className="fle font-bold text-[#C2D7C7F6] text-[16px]">FirstName</div>
-              <TextInput {...register('nickname')} placeholder="firstname" />
+              <TextInput {...register('nickname')} placeholder="firstname" maxLength={15} />
             </label>
             <label className="flex-1 flex flex-col gap-4">
               <div className="flex font-bold text-[#C2D7C7F6] text-[16px]">LastName</div>
-              <TextInput {...register('surname')} placeholder="lastname" />
+              <TextInput {...register('surname')} placeholder="lastname" maxLength={15} />
             </label>
           </div>
           <label className="flex flex-col gap-4">

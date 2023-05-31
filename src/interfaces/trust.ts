@@ -51,6 +51,7 @@ export interface TrustDetail {
   collectionAddress: string
   trustCompanyModel?: ITrustCompany
   bankUserName: string
+  userTypeArr: number[]
 }
 
 export interface Trust {

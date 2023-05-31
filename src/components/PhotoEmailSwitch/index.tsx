@@ -52,6 +52,7 @@ function SwitchButton({
       className={classNames(
         'flex h-[48px] flex-1 cursor-pointer flex-row items-center justify-center gap-2 overflow-clip rounded-xl transition text-[20px]',
         isSelected && 'font-bold',
+        isSelected && 'shadow-btn',
         {
           'gradient-border1': isSelected,
           'bg-divider': !isSelected,

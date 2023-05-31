@@ -150,11 +150,11 @@ export default function AddProtector({ trustId, onClose }: {
               <div className="flex flex-row gap-4">
                 <div className="flex-1 flex flex-col gap-4">
                   <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('First Name')}</label>
-                  <TextInput placeholder="" {...register('surname')} />
+                  <TextInput placeholder="" {...register('userName')} />
                 </div>
                 <div className="flex-1 flex flex-col gap-4">
                   <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Last Name')}</label>
-                  <TextInput placeholder="" {...register('userName')} />
+                  <TextInput placeholder="" {...register('surname')} />
                 </div>
               </div>
               <div className="flex flex-col gap-4">

@@ -17,7 +17,7 @@ export default function Status() {
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col justify-center flex-1">
+    <div className="flex flex-col justify-center flex-1 h-full">
       <div className="flex-1 flex flex-col items-center justify-center h-full">
         <div className="flex flex-col items-center gap-8 w-[1000px] p-12 gradient-bg2 shadow-block rounded-xl block-gradient-border">
           <img src={sucIcon} width="44px" alt="" />

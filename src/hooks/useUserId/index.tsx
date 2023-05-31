@@ -1,31 +1,20 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useUserInfoQuery } from '../../api/user/user';
+import { useAppSelector } from '../../state';
 
 export default function useAuthToken() {
-  const [token, setToken] = useState<string | null>();
-
-  useEffect(() => {
-    const token = localStorage.getItem('TOKEN');
-    if (token) {
-      setToken(token);
-    }
-
-    const handleStorage = (event: any) => {
-      if (event.key === 'TOKEN') {
-        if (event.newValue) {
-          setToken(event.newValue);
-        } else {
-          setToken(null);
-        }
-      }
-      console.info(`TOKEN => ${event.newValue}`);
-    };
-
-    window.addEventListener('storage', handleStorage);
-    return () => {
-      window.removeEventListener('storage', handleStorage);
-    };
-  }, []);
+  const token = useAppSelector((state) => state.user.token);
+  // const [token, setToken] = useState<string | null>(localStorage.getItem('TOKEN'));
+  //
+  // const handler = () => setToken(localStorage.getItem('TOKEN') ?? null);
+  //
+  // useEffect(() => {
+  //   handler();
+  //   window.onstorage = () => {
+  //     console.log(`TOKEN => ${localStorage.getItem('TOKEN')}`);
+  //     handler();
+  //   };
+  // }, []);
 
   return token;
 }

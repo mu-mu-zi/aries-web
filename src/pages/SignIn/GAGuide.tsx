@@ -19,7 +19,7 @@ export default function GAGuide() {
   // <div className="flex flex-col items-center pt-[38px]">
     <CenterContainer>
       <GANavbar
-        title={t('Bind Google Authentication')}
+        title={t('Bind Google Authenticator')}
         description={t('Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After binding, it generates a dynamic verification code every 30 seconds, which can be used for security verification for login, modifying security settings and other operations.')}
       />
       <div className="flex flex-col items-center px-[100px] py-16">

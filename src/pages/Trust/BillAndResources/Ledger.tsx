@@ -177,13 +177,21 @@ export default function Ledger() {
             // eslint-disable-next-line react/prop-types
             Cell: ({ row }) => <div className="gradient-text1 text-[16px]">{row.original?.amount}</div>,
           },
-          // {
-          //   accessor: 'Reconciliation',
-          //   Header: () => (<div className="text-right">{t('Reconciliation')}</div>),
-          //   Cell: ({}) => (
-          //     <div className="flex justify-end"><TextButton>{t('View credentials')}</TextButton></div>
-          //   ),
-          // },
+          {
+            accessor: 'Reconciliation',
+            Header: () => (<div className="text-right">{t('Reconciliation')}</div>),
+            Cell: ({ row }) => (
+              <div className="flex justify-end">
+                {row.original.billCertificate && (
+                <TextButton
+                  onClick={() => window.open(row.original.billCertificate, '_blank')}
+                >
+                  {t('View credentials')}
+                </TextButton>
+                )}
+              </div>
+            ),
+          },
         ]}
         data={listQuery.data?.data?.records}
         pagination={{

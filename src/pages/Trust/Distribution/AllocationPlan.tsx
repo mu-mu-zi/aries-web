@@ -14,6 +14,7 @@ import { useTrustDetailQuery } from '../../../api/trust/trust';
 import PlanDetail from './PlanDetail';
 import TextButton from '../../../components/TextButton';
 import { unixFormatTime } from '../../../utils/DateFormat';
+import { trustEditRole } from '../../../utils/trustRole';
 
 export default function AllocationPlan() {
   const { t } = useTranslation();
@@ -36,7 +37,7 @@ export default function AllocationPlan() {
       <div className="flex flex-col p-8 gradient-bg2 rounded-xl shadow-block">
         <div className="flex flex-row items-center justify-between">
           <div className="gradient-text1 text-[20px] font-title font-bold">{t('Allocation plan')}</div>
-          {trustQuery.data?.data?.roleType! > 2 && (
+          {trustEditRole(trustQuery.data?.data) && (
             <Button
               size="medium"
               onClick={() => setAddedVisible(true)}

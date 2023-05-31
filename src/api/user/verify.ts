@@ -38,4 +38,6 @@ export const useGoogleSecretQuery = (data: {
     params: data,
   }),
   enabled: !!data.account,
+  retry: false,
+  refetchOnWindowFocus: false,
 });

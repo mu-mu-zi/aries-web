@@ -18,9 +18,12 @@ import SendButton from '../../views/SendButton';
 import { useUserInfoQuery } from '../../api/user/user';
 import ContactUsFooter from '../../views/ContactUsFooter';
 import { Trust } from '../../interfaces/trust';
+import { useAppDispatch } from '../../state';
+import { setToken } from '../../state/user';
 
 export default function GABindVerify() {
   const navigate = useNavigate();
+  const action = useAppDispatch();
   const location = useLocation();
   const { t } = useTranslation();
   const sendValidateCodeMutation = useSendValidateCodeMutation();
@@ -34,7 +37,7 @@ export default function GABindVerify() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     clearErrors,
     trigger,
     getValues,
@@ -90,7 +93,8 @@ export default function GABindVerify() {
       });
       const token = loginResp.data as string;
       /* 存储 token，刷新接口 */
-      localStorage.setItem('TOKEN', token);
+      // localStorage.setItem('TOKEN', token);
+      action(setToken(token));
       await queryClient.invalidateQueries();
       /* 这里需要检查是否设置你用户名，如果没有设置需要跳转到指定页面 */
 
@@ -131,7 +135,7 @@ export default function GABindVerify() {
     <div className="flex flex-col items-center pt-[38px]">
       <div className="gradient-bg2 flex max-w-[1200px] w-full min-h-[800px] flex-col overflow-clip  rounded-xl">
         <GANavbar
-          title={t('Bind Google Authentication')}
+          title={t('Bind Google Authenticator')}
           description={t('Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After binding, it generates a dynamic verification code every 30 seconds, which can be used for security verification for login, modifying security settings and other operations.')}
         />
         {/* {location.state?.areaCodeId} */}
@@ -186,13 +190,16 @@ export default function GABindVerify() {
               {/*    type="text" */}
               {/*  /> */}
               {/* </div> */}
-              {
-                !isPhone && (
-                  <div className="text-[14px] leading-[16px] text-[#708077]">
-                    {t(`To ensure the security of your funds and account, please enter the verification code received in your Aries trust ${location.state?.account} email.`)}
-                  </div>
-                )
-              }
+              {!isPhone && (
+              <div className="text-[14px] leading-[16px] text-[#708077]">
+                {t(`To ensure the security of your funds and account, please enter the verification code received in your Aries trust ${location.state?.account} email.`)}
+              </div>
+              )}
+              {isPhone && (
+                <div className="text-[14px] leading-[16px] text-[#708077]">
+                  {t(`To ensure the security of your funds and account, please enter the verification code received in your Aries trust ${location.state?.account} .`)}
+                </div>
+              )}
               <div className="font-bold text-[#c2d7c7]">{t('Google Captcha')}</div>
               <TextInput
                 {...register('googleCaptcha')}
@@ -203,7 +210,7 @@ export default function GABindVerify() {
               <Button type="button" onClick={() => navigate(-1)} size="medium" block>
                 {t('Cancel')}
               </Button>
-              <Button size="medium" block type="submit">
+              <Button size="medium" block type="submit" disabled={!isValid}>
                 {t('Next')}
               </Button>
             </div>

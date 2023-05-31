@@ -19,7 +19,7 @@ export default function GAChangeScan() {
   return (
     <CenterContainer>
       <GANavbar
-        title={t('Bind Google Authentication')}
+        title={t('Bind Google Authenticator')}
       />
       <div className="item-center flex flex-col self-center w-[680px] pt-[64px]">
         <div

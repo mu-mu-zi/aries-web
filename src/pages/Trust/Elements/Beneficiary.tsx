@@ -16,6 +16,7 @@ import { unixFormatTime } from '../../../utils/DateFormat';
 import TextButton from '../../../components/TextButton';
 import EditRole from './EditRole';
 import { ITrustUser } from '../../../interfaces/trust';
+import { trustEditRole } from '../../../utils/trustRole';
 
 export default function Beneficiary() {
   const { trustId } = useParams();
@@ -37,8 +38,7 @@ export default function Beneficiary() {
     <div className="flex flex-col gap-4 rounded-xl shadow-block p-8 gradient-bg2">
       <div className="flex flex-row items-center justify-between">
         <div className="gradient-text1 font-title font-bold text-[20px]">{t('Beneficiary')}</div>
-        {trustQuery.data?.data?.roleType! > 2
-          && <Button onClick={() => setAddBeneficiaryVisible(true)}>{t('+ Add')}</Button>}
+        {trustEditRole(trustQuery.data?.data) && <Button onClick={() => setAddBeneficiaryVisible(true)}>{t('+ Add')}</Button>}
       </div>
       <Hr />
       {/* <div className="flex flex-col gap-4 gradient-block1 shadow-block rounded-xl p-8"> */}
@@ -131,6 +131,8 @@ export default function Beneficiary() {
                   return 'Successful';
                 case 2:
                   return 'Failure';
+                case 3:
+                  return 'Audit failed';
                 default:
                   return '--';
               }
@@ -145,28 +147,33 @@ export default function Beneficiary() {
             accessor: 'action',
             Cell: ({ row }) => (
               <div className="flex gap-4 justify-end">
-                {/* 移除保护人委托人 */}
-                <TextButton onClick={async () => {
-                  await axios.request({
-                    url: '/trust/trust/user/delete',
-                    method: 'get',
-                    params: {
-                      trustUserId: row.original.id,
-                    },
-                  });
-                  queryClient.invalidateQueries(['trust']);
-                }}
-                >
-                  Remove
-                </TextButton>
-                {/* 权限编辑 */}
-                <TextButton onClick={async () => {
-                  setSelected(row.original);
-                  setEditRoleVisible(true);
-                }}
-                >
-                  Edit
-                </TextButton>
+                {trustEditRole(trustQuery.data?.data)
+                  && (
+                    <>
+                      {/* 移除保护人委托人 */}
+                      <TextButton onClick={async () => {
+                        await axios.request({
+                          url: '/trust/trust/user/delete',
+                          method: 'get',
+                          params: {
+                            trustUserId: row.original.id,
+                          },
+                        });
+                        queryClient.invalidateQueries(['trust']);
+                      }}
+                      >
+                        Remove
+                      </TextButton>
+                      {/* 权限编辑 */}
+                      <TextButton onClick={async () => {
+                        setSelected(row.original);
+                        setEditRoleVisible(true);
+                      }}
+                      >
+                        Edit
+                      </TextButton>
+                    </>
+                  )}
               </div>
             ),
           },

@@ -18,7 +18,7 @@ export default function CompletionFiatStep({ trust }: {
       <div>
         <img src={logo} />
       </div>
-      <div className="text-[16px] text-center text-[#99AC9B]">{t('We will collect from you offline.')}</div>
+      <div className="text-[16px] text-center text-[#99AC9B]">{t('We will collect from you offline')}</div>
       <div className="mt-4" />
       <div
         className="text-[#C39770] text-[20px] text-center font-title py-4"

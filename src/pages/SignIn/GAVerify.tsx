@@ -16,9 +16,12 @@ import ContactUsFooter from '../../views/ContactUsFooter';
 import { useMyTrustQuery } from '../../api/trust/trust';
 import { IResponseData } from '../../interfaces/base';
 import { Trust } from '../../interfaces/trust';
+import { useAppDispatch } from '../../state';
+import { setToken } from '../../state/user';
 
 export default function GAVerify() {
   const { t } = useTranslation();
+  const action = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const valid = z.object({
@@ -55,7 +58,8 @@ export default function GAVerify() {
       });
       const token = loginResp.data as string;
       if (token) {
-        localStorage.setItem('TOKEN', token);
+        // localStorage.setItem('TOKEN', token);
+        action(setToken(token));
         await queryClient.invalidateQueries();
         /*
         * 判断信托列表

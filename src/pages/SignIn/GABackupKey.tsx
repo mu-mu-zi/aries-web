@@ -19,7 +19,7 @@ export default function GABackupKey() {
     <div className="flex flex-col items-center pt-[38px]">
       <div className="gradient-bg2 flex max-w-[1200px] w-full min-h-[800px] flex-col overflow-clip  rounded-xl">
         <GANavbar
-          title={t('Bind Google Authentication')}
+          title={t('Bind Google Authenticator')}
           description={t('Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After binding, it generates a dynamic verification code every 30 seconds, which can be used for security verification for login, modifying security settings and other operations.')}
         />
         <div className="item-center flex flex-col self-center w-[420px] pt-[64px]">

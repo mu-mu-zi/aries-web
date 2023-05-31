@@ -45,5 +45,7 @@ export const useGoogleSecretKeyQuery = () => {
     queryKey: ['user', 'googleSecretKey', userId],
     queryFn: () => axios.get('/user/user/achieveGoogleSecretKey'),
     enabled: containsToken(),
+    retry: false,
+    refetchOnWindowFocus: false,
   });
 };

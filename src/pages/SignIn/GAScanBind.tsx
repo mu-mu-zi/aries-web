@@ -11,6 +11,7 @@ import Divide from '../../components/Divide';
 import ContactUs from './ContactUs';
 import { useGoogleSecretQuery } from '../../api/user/verify';
 import ContactUsFooter from '../../views/ContactUsFooter';
+import QrCode from '../../components/QrCode';
 // import { useGoogleSecretQuery } from '../../api/user/verify';
 
 export default function GAScanBind() {
@@ -25,7 +26,7 @@ export default function GAScanBind() {
     <div className="flex flex-col items-center pt-[38px]">
       <div className="gradient-bg2 flex max-w-[1200px] w-full min-h-[800px] flex-col overflow-clip  rounded-xl">
         <GANavbar
-          title={t('Bind Google Authentication')}
+          title={t('Bind Google Authenticator')}
           description={t('Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After binding, it generates a dynamic verification code every 30 seconds, which can be used for security verification for login, modifying security settings and other operations.')}
         />
         <div className="item-center flex flex-col self-center w-[420px] pt-[64px]">
@@ -34,7 +35,7 @@ export default function GAScanBind() {
           </div>
           <div className="mt-12 rounded-xl bg-[#3B5649] p-5 shadow-block self-center">
             <div className="p-3 rounded-xl bg-[#D2D8D6]">
-              {googleAuth.data?.data.qrCode && <QRCode value={googleAuth.data?.data.qrCode} size={136} bgColor="#D2D8D6" />}
+              {googleAuth.data?.data.qrCode && <QrCode text={googleAuth.data?.data.qrCode} size={136} />}
             </div>
           </div>
           <div className="flex flex-row gap-4 mt-[40px]">

@@ -12,7 +12,7 @@ export default function Warning({ onOk }: {
       <img src={icon} alt="" className="w-[44px]" />
       <div className="text-[#708077] text-[14px]">You do not yet have the identity of a trustee party.</div>
       <div className=""><Button onClick={onOk}>I know</Button></div>
-      <div className="mt-4 flex flex-col items-center gap-4">
+      <div className="mt-4 flex flex-col items-center gap-4 w-full">
         <Divide />
         <ContactUs />
       </div>
