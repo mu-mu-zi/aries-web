@@ -50,6 +50,7 @@ export interface TrustDetail {
   surname: string
   collectionAddress: string
   trustCompanyModel?: ITrustCompany
+  bankUserName: string
 }
 
 export interface Trust {

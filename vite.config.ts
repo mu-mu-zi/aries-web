@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import eslintPlugin from 'vite-plugin-eslint';
+import { i18nextScanner } from 'vite-plugin-i18next-scanner';
 
 export default defineConfig({
   plugins: [
@@ -11,5 +12,6 @@ export default defineConfig({
       },
     }),
     eslintPlugin(),
+    // i18nextScanner(),
   ],
 });
