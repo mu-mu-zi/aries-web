@@ -15,6 +15,7 @@ import PlanDetail from './PlanDetail';
 import TextButton from '../../../components/TextButton';
 import { unixFormatTime } from '../../../utils/DateFormat';
 import { trustEditRole } from '../../../utils/trustRole';
+import useTrustPermission from '../../../hooks/useTrustRole';
 
 export default function AllocationPlan() {
   const { t } = useTranslation();
@@ -30,6 +31,7 @@ export default function AllocationPlan() {
   const [modifyVisible, setModifyVisible] = useState(false);
   const [detailVisible, setDetailVisible] = useState(false);
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
+  const { settlorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
 
   // @ts-ignore
   return (
@@ -37,7 +39,7 @@ export default function AllocationPlan() {
       <div className="flex flex-col p-8 gradient-bg2 rounded-xl shadow-block">
         <div className="flex flex-row items-center justify-between">
           <div className="gradient-text1 text-[20px] font-title font-bold">{t('Allocation plan')}</div>
-          {trustEditRole(trustQuery.data?.data) && (
+          {settlorPermission && (
             <Button
               size="medium"
               onClick={() => setAddedVisible(true)}

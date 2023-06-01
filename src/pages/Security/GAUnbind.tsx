@@ -84,7 +84,7 @@ export default function GAUnbind() {
 
   return (
     <CenterContainer>
-      <GANavbar title="Change Google Authenticator" />
+      <GANavbar title={t('Change Google Authenticator')} />
       <div className="flex-auto flex flex-col ">
         <div className="gradient-text1 my-16 text-center font-title font-bold text-[32px]">{t('Change Google Authenticator')}</div>
         <form onSubmit={handleSubmit(submit)}>

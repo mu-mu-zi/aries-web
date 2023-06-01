@@ -15,6 +15,7 @@ import { IInvestmentApproveRecode } from '../../../interfaces/trust';
 import { unixFormatTime } from '../../../utils/DateFormat';
 import TextButton from '../../../components/TextButton';
 import SimpleTable from '../../../views/SimpleTable';
+import useTrustPermission from '../../../hooks/useTrustRole';
 
 export default function Approval({ trustInvestmentId }: {
   trustInvestmentId: number
@@ -29,6 +30,7 @@ export default function Approval({ trustInvestmentId }: {
   const { t } = useTranslation();
   const { trustId } = useParams();
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
+  const { protectorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
   const queryClient = useQueryClient();
   const [selected, setSelected] = useState<IInvestmentApproveRecode>();
 
@@ -112,7 +114,8 @@ export default function Approval({ trustInvestmentId }: {
             Cell: ({ row }) => (
               <div className="flex items-center justify-end gap-2">
                 <div>{row.original.approvalRemark}</div>
-                {trustQuery.data?.data?.roleType! > 2 && (
+                {/* 保护人才能操作审批 */}
+                {protectorPermission && (
                   <div
                     className="cursor-pointer"
                     onClick={() => {
@@ -136,7 +139,8 @@ export default function Approval({ trustInvestmentId }: {
             Cell: ({ row }) => (
               <div className="flex justify-end items-center gap-4">
                 {/* 审批状态状态：1-待审批，2-已通过，3-已拒绝 */}
-                {row.original.approvalStatus === 1 && (
+                {/* 保护人才能审批 */}
+                {row.original.approvalStatus === 1 && protectorPermission && (
                   <>
                     <TextButton
                       onClick={() => audit(row.original.id, true)}

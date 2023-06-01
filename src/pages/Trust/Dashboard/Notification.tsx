@@ -6,6 +6,7 @@ import { useTrustMessageListQuery } from '../../../api/trust/trust';
 import NotificationCell from './NotificationCell';
 import Paginate from '../../../components/Paginate';
 import Hr from '../../../components/Hr';
+import { unixFormatTime } from '../../../utils/DateFormat';
 
 export default function Notification() {
   const { trustId } = useParams();
@@ -28,7 +29,7 @@ export default function Notification() {
               <NotificationCell
                 title={it.title}
                 content={it.content}
-                datetime={moment.unix(it.createTime / 1000).format('YYYY-MM-DD HH:mm:ss')}
+                datetime={unixFormatTime(it.createTime)}
               />
             ))}
           </div>

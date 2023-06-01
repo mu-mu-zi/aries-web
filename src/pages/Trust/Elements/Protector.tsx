@@ -17,6 +17,7 @@ import EditRole from './EditRole';
 import { ITrustUser } from '../../../interfaces/trust';
 import TextButton from '../../../components/TextButton';
 import { trustEditRole } from '../../../utils/trustRole';
+import useTrustPermission from '../../../hooks/useTrustRole';
 
 export default function Protector() {
   const { trustId } = useParams();
@@ -33,12 +34,13 @@ export default function Protector() {
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
   const [selected, setSelected] = useState<ITrustUser>();
   const queryClient = useQueryClient();
+  const { settlorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
 
   return (
     <div className="flex flex-col gap-4 rounded-xl shadow-block p-8 gradient-bg2 h-full">
       <div className="flex flex-row items-center justify-between">
         <div className="gradient-text1 font-title font-bold text-[20px]">{t('Protector')}</div>
-        {trustEditRole(trustQuery.data?.data) && <Button onClick={() => setAddProtectorVisible(true)}>{t('+ Add')}</Button>}
+        {settlorPermission && <Button onClick={() => setAddProtectorVisible(true)}>{t('+ Add')}</Button>}
       </div>
       <Hr />
       {/* <div className="flex-1 flex flex-col gap-4 gradient-block1 shadow-block rounded-xl p-8"> */}

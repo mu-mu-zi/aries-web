@@ -15,10 +15,6 @@ export default function Elements() {
       <Information />
       <Beneficiary />
       <Protector />
-      {/* <div className="flex flex-row gap-6"> */}
-      {/*  <div className="flex-1"><Beneficiary /></div> */}
-      {/*  <div className="flex-1"><Protector /></div> */}
-      {/* </div> */}
     </div>
   );
 }

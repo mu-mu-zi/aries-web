@@ -80,24 +80,24 @@ export default function ContactCustomer() {
   return (
     <div>
       <CenterContainer>
-        <GANavbar title="Cancel" />
+        <GANavbar title={t('Cancel')} />
         <div className="flex flex-col items-center">
           <form onSubmit={handleSubmit(submit)}>
             <div className="item-center flex w-[420px] flex-col self-center py-[64px]">
               <div
                 className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]"
               >
-                Contact customer service
+                {t('Contact customer service')}
               </div>
               <div className="mt-16 flex flex-col gap-4">
                 <div className="flex flex-row gap-2">
                   {/* <div className="gradient-text1">*</div> */}
-                  <div className="font-bold text-[#c2d7c7]">Name</div>
+                  <div className="font-bold text-[#c2d7c7]">{t('Name')}</div>
                 </div>
                 <TextInput placeholder="Please enter your name" {...register('contactName')} maxLength={30} />
                 <div className="flex flex-row gap-2">
                   <div className="gradient-text1">*</div>
-                  <div className="font-bold text-[#c2d7c7]">Description</div>
+                  <div className="font-bold text-[#c2d7c7]">{t('Description')}</div>
                 </div>
                 <TextArea
                   {...register('problemDescription')}
@@ -106,7 +106,7 @@ export default function ContactCustomer() {
                 />
                 <div className="flex flex-row gap-2">
                   <div className="gradient-text1">*</div>
-                  <div className="font-bold text-[#c2d7c7]">Contact</div>
+                  <div className="font-bold text-[#c2d7c7]">{t('Contact')}</div>
                 </div>
                 <PhotoEmailSwitch onSelected={setIsPhone} />
                 <div className="flex flex-row gap-2">
@@ -138,11 +138,11 @@ export default function ContactCustomer() {
               </div>
               <div className="mt-[40px] flex flex-row gap-4">
                 <Button size="medium" block type="submit">
-                  Confirm
+                  {t('Confirm')}
                 </Button>
               </div>
               <div className="text-[#708077] text-[14px] leading-[16px] mt-10">
-                {`The application will be processed within one working day, please keep your communication channels open so that customer service can contact you in a timely manner. Additionally, you can also contact the platform through ${emailQuery.data?.data}.`}
+                {t(`The application will be processed within one working day, please keep your communication channels open so that customer service can contact you in a timely manner. Additionally, you can also contact the platform through ${emailQuery.data?.data}.`)}
               </div>
             </div>
           </form>

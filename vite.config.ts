@@ -12,6 +12,6 @@ export default defineConfig({
       },
     }),
     eslintPlugin(),
-    i18nextScanner(),
+    // i18nextScanner(),
   ],
 });

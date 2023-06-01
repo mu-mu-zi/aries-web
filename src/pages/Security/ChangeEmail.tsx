@@ -71,7 +71,7 @@ export default function ChangeEmail() {
 
   return (
     <CenterContainer>
-      <GANavbar title="Cancel" />
+      <GANavbar title={t('Cancel')} />
       <form onSubmit={handleSubmit(submit)}>
         <div className="m-auto flex flex-col w-[420px]">
           <div

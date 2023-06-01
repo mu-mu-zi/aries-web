@@ -21,7 +21,7 @@ export const useTrustDetailQuery = (data: {
 }) => {
   const userId = useAuthToken();
 
-  return useQuery<IResponseData<TrustDetail>>({
+  return useQuery<IResponseData<TrustDetail>, IResponseData<any>>({
     queryKey: ['trust', 'detail', data, userId],
     queryFn: () => axios.request({
       url: '/trust/trust/getTrustInfo',

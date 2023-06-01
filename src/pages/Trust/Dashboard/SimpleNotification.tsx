@@ -7,6 +7,7 @@ import cellIcon from '../../../assets/icon/money_small_icon.svg';
 import moreIcon from '../../../assets/icon/arrow_r.svg';
 import { useTrustMessageListQuery } from '../../../api/trust/trust';
 import NotificationCell from './NotificationCell';
+import { unixFormatTime } from '../../../utils/DateFormat';
 
 export default function SimpleNotification() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ export default function SimpleNotification() {
               simple
               title={it.title}
               content={it.content}
-              datetime={moment.unix(it.createTime / 1000).format('YYYY-MM-DD HH:mm:ss')}
+              datetime={unixFormatTime(it.createTime)}
             />
           ))}
         </div>

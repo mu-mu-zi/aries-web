@@ -11,6 +11,7 @@ import CreatingCommand from './CreatingCommand';
 import Paginate from '../../../components/Paginate';
 import { useTrustDetailQuery } from '../../../api/trust/trust';
 import Empty from '../../../views/Empty';
+import useTrustPermission from '../../../hooks/useTrustRole';
 
 export default function InvestmentOrder() {
   const { trustId } = useParams();
@@ -23,15 +24,16 @@ export default function InvestmentOrder() {
   });
   const [creatingVisible, setCreatingVisible] = useState(false);
   const trustDetailQuery = useTrustDetailQuery({ trustId: Number(trustId) });
+  const { settlorPermission } = useTrustPermission({ trust: trustDetailQuery.data?.data });
 
   return (
     <div className="flex flex-col">
+      {/* 委托人才有新增按钮 */}
       <TrustHeader
         title={t('Investment Order')}
         description={t('The principal can use the investment instruction function to indicate investment intentions and directions to Aries Digital Group, and request investment operations to be carried out according to the principal\'s instructions. Throughout the process, the principal can adjust investment instructions based on market fluctuations and investment directions.') ?? ''}
         logo={logo}
-        btn={(trustDetailQuery.data?.data?.roleType ?? 0) > 2
-          && <Button onClick={() => setCreatingVisible(true)}>{t('Creating a command')}</Button>}
+        btn={settlorPermission && <Button onClick={() => setCreatingVisible(true)}>{t('Creating a command')}</Button>}
       />
       <div className="gradient-bg2 roundex-xl shadow-block p-8 rounded-xl flex flex-col gap-8">
         {listQuery.data?.data?.records.length === 0 && <Empty />}

@@ -1,3 +1,1 @@
-// export const baseUrl = 'https://testapi.aries-trust.com';
-
-export const baseUrl = 'https://api.aries-trust.com';
+export const BASE_URL = import.meta.env.VITE_BASE_URL;

@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import Hr from '../../../components/Hr';
 import { useTrustDetailQuery } from '../../../api/trust/trust';
 import { CallFormat } from '../../../utils/CallFormat';
+import useTrustPermission from '../../../hooks/useTrustRole';
 
 export default function Information() {
   const { trustId } = useParams();
@@ -13,6 +14,7 @@ export default function Information() {
   const detailQuery = useTrustDetailQuery({
     trustId: Number(trustId),
   });
+  const { settlorPermission } = useTrustPermission({ trust: detailQuery.data?.data });
 
   const trustEntrustTypeTitle = (type: number) => {
     switch (type) {

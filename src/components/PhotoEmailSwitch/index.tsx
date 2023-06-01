@@ -1,11 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 import mobileIcon from '../../assets/icon/mobile_nor.svg';
 import mobileSelIcon from '../../assets/icon/mobile_sel.svg';
 import emailIcon from '../../assets/icon/email_nor.svg';
 import emailSelIcon from '../../assets/icon/email_sel.svg';
 
 export default function PhotoEmailSwitch({ onSelected }: { onSelected?(isPhoto: boolean): void }) {
+  const { t } = useTranslation();
   const [isPhone, setIsPhone] = React.useState(true);
 
   return (
@@ -13,7 +15,7 @@ export default function PhotoEmailSwitch({ onSelected }: { onSelected?(isPhoto: 
       <SwitchButton
         icon={mobileIcon}
         selectedIcon={mobileSelIcon}
-        text="Phone"
+        text={t('Phone')}
         isSelected={isPhone}
         onTap={() => {
           setIsPhone(true);
@@ -23,7 +25,7 @@ export default function PhotoEmailSwitch({ onSelected }: { onSelected?(isPhoto: 
       <SwitchButton
         icon={emailIcon}
         selectedIcon={emailSelIcon}
-        text="Email"
+        text={t('Email')}
         isSelected={!isPhone}
         onTap={() => {
           setIsPhone(false);

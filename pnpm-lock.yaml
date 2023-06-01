@@ -47,6 +47,9 @@ dependencies:
   i18next:
     specifier: ^22.5.0
     version: 22.5.0
+  i18next-browser-languagedetector:
+    specifier: ^7.0.2
+    version: 7.0.2
   lodash:
     specifier: ^4.17.21
     version: 4.17.21
@@ -3887,6 +3890,12 @@ packages:
 
   /hyphenate-style-name@1.0.4:
     resolution: {integrity: sha512-ygGZLjmXfPHj+ZWh6LwbC37l43MhfztxetbFCoYTM2VjkIUpeHgSNn7QIyVFj7YQ1Wl9Cbw5sholVJPzWvC2MQ==}
+    dev: false
+
+  /i18next-browser-languagedetector@7.0.2:
+    resolution: {integrity: sha512-5ViaK+gikxfqZ9M3jJ7gJkUzzu/p3HwiqfLoL1bdiL7CUb0IylcTyVLdPaTU3pH5VFWFCiGFuJDg3VkLUikWgg==}
+    dependencies:
+      '@babel/runtime': 7.21.5
     dev: false
 
   /i18next-scanner@3.3.0:

@@ -7,7 +7,7 @@ import { addNotification } from '../utils/Notification';
 import { useUserInfoQuery } from '../api/user/user';
 import { useAppDispatch } from '../state';
 import { deleteToken } from '../state/user';
-import { baseUrl } from '../utils/url';
+import { BASE_URL } from '../utils/url';
 
 export default function Axios() {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ export default function Axios() {
 
   useEffectOnce(() => {
     /* 默认 URL */
-    axios.defaults.baseURL = baseUrl;
+    axios.defaults.baseURL = BASE_URL;
     axios.defaults.headers['Accept-Language'] = 'en-US';
 
     /*
@@ -36,19 +36,20 @@ export default function Axios() {
     axios.interceptors.response.use(
       (response) => {
         if (response.status === 200) {
+          /* success */
           if (response.data.code === 200) {
             return Promise.resolve(response.data);
           }
+          /* token */
           if (response.data.code === 406 || response.data.code === 407) {
-            navigate('/welcome', { replace: true });
+            action(deleteToken());
             addNotification({
               title: response.data.msg,
             });
-            /* 删除本地 token */
-            action(deleteToken());
             queryClient.removeQueries();
             console.log(`Token Error => ${JSON.stringify(response.data)}`);
-            return Promise.reject(response.data.msg);
+            navigate('/welcome', { replace: true });
+            return Promise.reject(response.data);
           }
           /* 服务端错误处理 */
           console.log(`Response Error => ${JSON.stringify(response.data)}`);
@@ -58,8 +59,9 @@ export default function Axios() {
               type: 'success',
             });
           }
+          return Promise.reject(response.data);
         }
-        return Promise.reject(response.data.msg);
+        return Promise.reject(response.data);
       },
       (error: any) => Promise.reject(error),
     );

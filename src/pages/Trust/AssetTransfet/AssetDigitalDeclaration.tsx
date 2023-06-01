@@ -12,11 +12,13 @@ import Button from '../../../components/Button';
 import { useAllCoinInMainNetQuery, useAllMainNetsQuery, useTrustDetailQuery } from '../../../api/trust/trust';
 import { IMainNet } from '../../../interfaces/base';
 import { addSuccessNotification } from '../../../utils/Notification';
+import useTrustPermission from '../../../hooks/useTrustRole';
 
 export default function AssetDigitalDeclaration() {
   const { t } = useTranslation();
   const { trustId } = useParams();
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
+  const { settlorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
   const mainNetListQuery = useAllMainNetsQuery();
   const [mainNet, setMainNet] = useState<IMainNet>();
   const mainNetCoinListQuery = useAllCoinInMainNetQuery({
@@ -139,7 +141,7 @@ export default function AssetDigitalDeclaration() {
           maxLength={100}
           {...register('remark')}
         />
-        {trustQuery.data?.data?.roleType! > 2 && (
+        {settlorPermission && (
           <div className="mt-4">
             <Button type="submit" block>{t('Submit')}</Button>
           </div>

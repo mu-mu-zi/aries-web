@@ -11,11 +11,13 @@ import Button from '../../../components/Button';
 import { useFiatListQuery, useTrustDetailQuery } from '../../../api/trust/trust';
 import Dropdown from '../../../components/Dropdown';
 import { addSuccessNotification } from '../../../utils/Notification';
+import useTrustPermission from '../../../hooks/useTrustRole';
 
 export default function AssetFiatDeclaration() {
   const { t } = useTranslation();
   const { trustId } = useParams();
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
+  const { settlorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
   const fiatListQuery = useFiatListQuery();
   const valid = z.object({
     name: z.string().nonempty(),
@@ -129,7 +131,7 @@ export default function AssetFiatDeclaration() {
           maxLength={100}
           {...register('remark')}
         />
-        {trustQuery.data?.data?.roleType! > 2 && (
+        {settlorPermission && (
           <div className="mt-4">
             <Button type="submit" block>{t('Submit')}</Button>
           </div>

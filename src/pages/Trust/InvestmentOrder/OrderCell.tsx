@@ -8,6 +8,7 @@ import { IInvestment } from '../../../interfaces/trust';
 import Button from '../../../components/Button';
 import Approval from './Approval';
 import { useTrustDetailQuery } from '../../../api/trust/trust';
+import useTrustPermission from '../../../hooks/useTrustRole';
 
 export default function OrderCell({ item }: {
   item: IInvestment
@@ -18,6 +19,7 @@ export default function OrderCell({ item }: {
   const { t } = useTranslation();
   const { trustId: trustInvestmentId } = useParams();
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
+  const { protectorPermission, settlorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
 
   const cancelInvestment = async () => {
     axios.request({
@@ -111,11 +113,11 @@ export default function OrderCell({ item }: {
       <div className="h-[1px] mx-[-32px] bg-[#3B5649]" />
       {/* 操作 */}
       <div className="flex flex-row flex-wrap items-center justify-center gap-4">
-        {item.investmentStatus < 7 && trustQuery.data?.data?.roleType! > 2 && (
-          <Button size="medium" onClick={cancelInvestment}>{t('Cancel')}</Button>
-        )}
-        {item.investmentStatus < 7 && trustQuery.data?.data?.roleType! > 2
-          && <Button size="medium" onClick={navTo}>{t('Approval')}</Button>}
+        {/* 委托人才能取消 */}
+        {item.investmentStatus < 3 && settlorPermission && <Button onClick={cancelInvestment}>{t('Cancel')}</Button>}
+        {/* 保护人才能审批 */}
+        {protectorPermission && <Button onClick={navTo}>{t('Approval')}</Button>}
+        {/* 任何人都可以查看 */}
         <Button
           size="medium"
           onClick={navTo}

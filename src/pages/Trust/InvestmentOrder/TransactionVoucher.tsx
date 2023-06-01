@@ -15,6 +15,7 @@ import ModalNav from '../../../views/ModalContainer/ModalNav';
 import { IInvestmentOrderRecode } from '../../../interfaces/trust';
 import { useTrustDetailQuery } from '../../../api/trust/trust';
 import ContactUsFooter from '../../../views/ContactUsFooter';
+import useTrustPermission from '../../../hooks/useTrustRole';
 
 export default function TransactionVoucher({ selected, onClose }: {
   selected: IInvestmentOrderRecode,
@@ -31,6 +32,7 @@ export default function TransactionVoucher({ selected, onClose }: {
   };
   const { trustId } = useParams();
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
+  const { settlorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
 
   return (
     <ModalContainer>
@@ -53,7 +55,8 @@ export default function TransactionVoucher({ selected, onClose }: {
       </Slider>
       <div className="mt-16 flex flex-col gap-8">
         <div className="w-[420px] self-center flex flex-row items-center gap-4">
-          {selected.billStatus === 1 && trustQuery.data?.data?.roleType! > 2 && (
+          {/* 委托人才能核对账单 */}
+          {selected.billStatus === 1 && settlorPermission && (
             <>
               <Button
                 block
