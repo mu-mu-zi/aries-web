@@ -19,6 +19,7 @@ import { CallFormat } from '../../utils/CallFormat';
 import { unixFormatTime } from '../../utils/DateFormat';
 import footerImg from '../../assets/icon/footer_graat.svg';
 import TextButton from '../../components/TextButton';
+import { addNotification, addSuccessNotification } from '../../utils/Notification';
 
 export default function Security() {
   const { t } = useTranslation();
@@ -54,6 +55,19 @@ export default function Security() {
         return '--';
     }
   }, [securityLevel]);
+
+  const checkEmailMobileBindState = (isEmail: boolean): boolean => {
+    if (isEmail && user.data?.data?.mobileAuth) {
+      return true;
+    }
+    if (!isEmail && user.data?.data?.emailAuth) {
+      return true;
+    }
+    addSuccessNotification({
+      title: t('Either phone number or email must be kept'),
+    });
+    return false;
+  };
 
   return (
     <>
@@ -124,11 +138,16 @@ export default function Security() {
                     <TextButton>{user.data?.data?.emailAuth ? t('Change') : t('Bind')}</TextButton>
                   </NavLink>
                   {user.data?.data?.emailAuth && (
-                    <NavLink to={{ pathname: '/personal/unbindEmailOrMobile' }} state={{ isPhone: false }}>
-                      <TextButton>
-                        {t('Unbind')}
-                      </TextButton>
-                    </NavLink>
+                    <TextButton onClick={() => {
+                      if (checkEmailMobileBindState(true)) {
+                        navigate('/personal/unbindEmailOrMobile', {
+                          state: { isPhone: false },
+                        });
+                      }
+                    }}
+                    >
+                      {t('Unbind')}
+                    </TextButton>
                   )}
                 </div>
               </div>
@@ -151,9 +170,16 @@ export default function Security() {
                     <TextButton>{user.data?.data?.mobileAuth ? t('Change') : t('Bind')}</TextButton>
                   </NavLink>
                   {user.data?.data?.mobileAuth && (
-                    <NavLink to="/personal/unbindEmailOrMobile" state={{ isPhone: true }}>
-                      <TextButton>{t('Unbind')}</TextButton>
-                    </NavLink>
+                    <TextButton onClick={() => {
+                      if (checkEmailMobileBindState(false)) {
+                        navigate('/personal/unbindEmailOrMobile', {
+                          state: { isPhone: true },
+                        });
+                      }
+                    }}
+                    >
+                      {t('Unbind')}
+                    </TextButton>
                   )}
                 </div>
               </div>

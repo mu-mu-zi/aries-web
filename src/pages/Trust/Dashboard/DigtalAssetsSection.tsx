@@ -25,9 +25,12 @@ export default function DigtalAssetsSection({ asset }: {
       >
         <img src={asset.name === 'SafeHeron' ? safeheronIcon : sectionIcon} />
         <div className="gradient-text1 text-[20px] font-bold flex-auto">{asset.name}</div>
-        {(asset.status === 1 || asset.status === 2) && <div className="font-bold text-[20px] text-[#708077] break-keep">{t('Opening in progress')}</div>}
-        {asset.status === 3 && <div className="gradient-text1 text-[20px] font-bold">{`${currencyUSDTFormat(asset.totalUSDT)} USD`}</div>}
-        {asset.details?.filter((x) => x.amount > 0).length > 0 && (<img src={arrowUp} alt="" />)}
+        {(asset.status === 1 || asset.status === 2)
+          && <div className="font-bold text-[20px] text-[#708077] break-keep">{t('Opening in progress')}</div>}
+        {asset.status === 3
+          && <div className="gradient-text1 text-[20px] font-bold">{`${currencyUSDTFormat(asset.totalUSDT)} USD`}</div>}
+        {asset.details?.filter((x) => x.amount > 0).length > 0 && (
+          <img src={arrowUp} alt="" className={classNames('transition', isExpanded && 'rotate-180')} />)}
       </div>
       {asset.details?.filter((x) => x.amount > 0).length > 0 && (
         <section {...getCollapseProps()}>

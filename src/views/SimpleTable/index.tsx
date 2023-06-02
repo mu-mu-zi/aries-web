@@ -31,7 +31,7 @@ export default function SimpleTable({ columns, data, pagination }: {
       {data?.length === 0 && <Empty />}
       {data?.length !== 0 && (
         <>
-          <table {...getTableProps()} className="table-auto w-full">
+          <table {...getTableProps()} className="table-auto w-full max-w-full break-words">
             {data?.length !== 0 && (
               <thead>
                 {headerGroups.map((headerGroup) => (
@@ -39,7 +39,7 @@ export default function SimpleTable({ columns, data, pagination }: {
                     {headerGroup.headers.map((column) => (
                       <th
                         {...column.getHeaderProps()}
-                        className="text-left text-[#99AC9B] text-[16px] py-4 font-normal pr-4"
+                        className="text-left text-[#99AC9B] text-[16px] py-4 font-normal pr-4 whitespace-pre"
                       >
                         {column.render('Header')}
                       </th>
@@ -55,7 +55,7 @@ export default function SimpleTable({ columns, data, pagination }: {
                   <tr {...row.getRowProps()} className="text-left text-[16px] text-[#C2D7C7F6]">
                     {row.cells.map((cell) => (
                       <td
-                        className="py-2 pr-4"
+                        className="py-2 pr-4 break-all overflow-hidden overflow-ellipsis"
                         {...cell.getCellProps()}
                       >
                         {cell.render('Cell')}

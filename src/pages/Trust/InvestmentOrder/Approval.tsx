@@ -16,6 +16,8 @@ import { unixFormatTime } from '../../../utils/DateFormat';
 import TextButton from '../../../components/TextButton';
 import SimpleTable from '../../../views/SimpleTable';
 import useTrustPermission from '../../../hooks/useTrustRole';
+import { stringShort } from '../../../utils/stringShort';
+import Tooltip from '../../../components/Tooltip';
 
 export default function Approval({ trustInvestmentId }: {
   trustInvestmentId: number
@@ -113,17 +115,19 @@ export default function Approval({ trustInvestmentId }: {
             accessor: 'approvalRemark',
             Cell: ({ row }) => (
               <div className="flex items-center justify-end gap-2">
-                <div>{row.original.approvalRemark}</div>
+                <Tooltip title="Approval opinion" content={row.original.approvalRemark}>
+                  <div>{stringShort(row.original.approvalRemark, 20)}</div>
+                </Tooltip>
                 {/* 保护人才能操作审批 */}
                 {protectorPermission && (
                   <div
-                    className="cursor-pointer"
+                    className="cursor-pointer flex-shrink-0"
                     onClick={() => {
                       setSelected(row.original);
                       setOpinionVisible(true);
                     }}
                   >
-                    <img src={editIcon} alt="" />
+                    <img className="flex-shrink-0" src={editIcon} alt="" />
                   </div>
                 )}
               </div>

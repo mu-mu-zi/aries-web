@@ -23,7 +23,7 @@ export default function ViewCredentials({ onClose, recordId }: {
         </div>
       </div>
       {/* Content */}
-      <div className="mt-8 overflow-auto flex-auto">
+      <div className="mt-8 overflow-auto scrollbar-none flex-auto">
         <div className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Bank transfer information')}</div>
         {/* <PaymentRow title="Payee Name" value="11111111111111111111111111111111111111111111111111111111111111111111111111111111" /> */}
         {query.data?.data && (
@@ -50,6 +50,7 @@ export default function ViewCredentials({ onClose, recordId }: {
                 {/* <PaymentRow title="Wire transfer code (SWIFT)" value={query.data.data.symbol} /> */}
               </>
             )}
+            {query.data.data.remarks && <PaymentRow title="Remark" value={query.data.data.remarks} />}
           </div>
         )}
       </div>

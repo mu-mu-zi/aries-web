@@ -275,5 +275,5 @@ export interface ITrustAssetRecode {
   adminRemarks: any
   createTime: number
   updateTime: number
-  proofs: any[]
+  proofs?: string[]
 }

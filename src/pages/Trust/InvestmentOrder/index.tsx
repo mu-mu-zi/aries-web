@@ -53,7 +53,6 @@ export default function InvestmentOrder() {
           </>
         )}
       </div>
-
       <Modal
         visible={creatingVisible}
         onClose={() => setCreatingVisible(false)}

@@ -15,6 +15,9 @@ import { useAssetOverviewQuery, useTrustDetailQuery } from '../../../api/trust/t
 import MiniCell from './MiniCell';
 import icon from '../../../assets/icon/dashbaor_thri.svg';
 import icon2 from '../../../assets/icon/dashboard_asi.svg';
+import { currencyUSDTFormat } from '../../../utils/CurrencyFormat';
+import Tooltip from '../../../components/Tooltip';
+import { addSuccessNotification } from '../../../utils/Notification';
 
 export default function Dashboard() {
   const location = useLocation();
@@ -30,7 +33,11 @@ export default function Dashboard() {
   return (
     <div className="flex min-h-screen flex-row gap-6 pl-6">
       <div className="flex flex-auto flex-col gap-6">
-        <Portrait trustName={trustQuery.data?.data?.trustName} description={t('has been exclusively established in accordance with your wishes to achieve the purpose of wealth inheritance and planning for your family.')} />
+        {/* <Button onClick={() => addSuccessNotification({ title: '???' })}>Click</Button> */}
+        <Portrait
+          trustName={trustQuery.data?.data?.trustName}
+          description={t('has been exclusively established in accordance with your wishes to achieve the purpose of wealth inheritance and planning for your family.')}
+        />
         <DigitalAssets assetOverview={assetsOverviewQuery.data?.data} />
         <FiatAssets asset={assetsOverviewQuery.data?.data} />
       </div>
@@ -39,7 +46,11 @@ export default function Dashboard() {
         <SimpleNotification />
         <BillingRecord />
         <MiniCell logo={icon2} title="Digital Asset Market" link="https://coinmarketcap.com" />
-        <MiniCell logo={icon} title="Foreign Exchange Rate" link="https://www.dbs.com.hk/personal-zh/rates-online/foreign-currency-foreign-exchange.page" />
+        <MiniCell
+          logo={icon}
+          title="Foreign Exchange Rate"
+          link="https://www.dbs.com.hk/personal-zh/rates-online/foreign-currency-foreign-exchange.page"
+        />
       </div>
     </div>
   );

@@ -55,7 +55,7 @@ export function Cell({
         <div
           className={classNames('gradient-border1 shadow-block h-[10px] rounded-full overflow-clip', rate <= 0 && 'w-0')}
           css={css`
-            width: ${rate}%;
+            width: ${Math.max(rate, 5)}%;
           `}
         />
       </div>

@@ -16,8 +16,8 @@ export interface IBank {
 
 export interface IBankCustomContent {
   createTime: string
-  customKey: string
-  customValue: string
+  key: string
+  value: string
   id: number
 }
 

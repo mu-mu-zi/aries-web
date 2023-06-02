@@ -26,7 +26,8 @@ export default function FiatAssetsCell({ asset }: {
         {(asset.status === 1 || asset.status === 2)
           && <div className="font-bold text-[20px] text-[#708077] break-keep">{t('Opening in progress')}</div>}
         {asset.status === 3 && <div className="gradient-text1 text-[20px] font-bold">{`${asset.totalUSDT} USD`}</div>}
-        {asset.details.filter((x) => x.totalAmountUSDT > 0).length > 0 && <img src={arrowUp} alt="" />}
+        {asset.details.filter((x) => x.totalAmountUSDT > 0).length > 0
+          && <img src={arrowUp} alt="" className={classNames('transition', isExpanded && 'rotate-180')} />}
         {/* {asset.details.length > 0 && <img src={arrowUp} alt="" />} */}
       </div>
       {/* cell */}

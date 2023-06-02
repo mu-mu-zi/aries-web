@@ -16,6 +16,7 @@ import TextButton from '../../../components/TextButton';
 import { unixFormatTime } from '../../../utils/DateFormat';
 import { trustEditRole } from '../../../utils/trustRole';
 import useTrustPermission from '../../../hooks/useTrustRole';
+import { stringShort } from '../../../utils/stringShort';
 
 export default function AllocationPlan() {
   const { t } = useTranslation();
@@ -44,7 +45,7 @@ export default function AllocationPlan() {
               size="medium"
               onClick={() => setAddedVisible(true)}
             >
-              {t('Add')}
+              {t('+ Add')}
             </Button>
           )}
         </div>
@@ -57,7 +58,10 @@ export default function AllocationPlan() {
               // eslint-disable-next-line react/prop-types
               Cell: ({ row }) => (
                 // eslint-disable-next-line react/prop-types
-                <div className="pr-4 line-clamp-1">{row.original?.planDescription}</div>
+                <div className="pr-2 line-clamp-1 text-ellipsis overflow-hidden">
+                  {/* {row.original?.planDescription.length > 40 ? `${row.original?.planDescription.substring(0, 40)}...` : row.original?.planDescription} */}
+                  {stringShort(row.original?.planDescription)}
+                </div>
               ),
             },
             {
@@ -105,10 +109,9 @@ export default function AllocationPlan() {
                   >
                     {t('View')}
                   </TextButton>
-                  {trustQuery.data?.data?.roleType! > 2 && (
+                  {row.original.planStatus === 1 && settlorPermission && (
                     <TextButton
                       onClick={() => {
-                        console.log();
                         // eslint-disable-next-line react/prop-types
                         setSelectRow(row.original);
                         setModifyVisible(true);

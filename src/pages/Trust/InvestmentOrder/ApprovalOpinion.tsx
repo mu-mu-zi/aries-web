@@ -64,6 +64,7 @@ export default function ApprovalOpinion({ onClose, record }: {
                     <div className="text-[#99AC9B] font-bold text-[20px]">{t('Approval opinion (optional)')}</div>
                   </div>
                   <textarea
+                    maxLength={100}
                     {...register('note')}
                     className="w-full text-[16px] placeholder:text-[#708077] h-[120px] bg-transparent py-4 outline-none rounded-xl resize-none"
                     placeholder={t('In order to better handle investment instructions, please express your opinions as completely as possible.') ?? ''}

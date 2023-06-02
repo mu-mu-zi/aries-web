@@ -13,6 +13,7 @@ import Button from '../../../components/Button';
 import Divide from '../../../components/Divide';
 import ContactUs from '../../SignIn/ContactUs';
 import ContactUsFooter from '../../../views/ContactUsFooter';
+import TextField from '../../../components/TextField';
 
 export default function CreatingCommand({ onClose }: {
   onClose?(): void
@@ -80,9 +81,9 @@ export default function CreatingCommand({ onClose }: {
               </label>
             </div>
             <div>
-              <input
+              <TextField
                 type="text"
-                className="w-full h-[48px] rounded-xl bg-[#3B5649] placeholder:text-[#708077] text-[16px] px-6 outline-none"
+                // className="w-full h-[48px] rounded-xl bg-[#3B5649] placeholder:text-[#708077] text-[16px] px-6 outline-none"
                 placeholder={t('Investment time') ?? ''}
                 maxLength={50}
                 {...register('investmentTime')}

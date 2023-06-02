@@ -4,6 +4,7 @@ import { NavLink, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import alertIcon from '../../../assets/icon/alert.svg';
 import { useTrustFeeListQuery } from '../../../api/trust/order';
+import { currencyUSDTFormat } from '../../../utils/CurrencyFormat';
 
 export default function Fees() {
   const { t } = useTranslation();
@@ -83,7 +84,7 @@ function FeesCell({
       </div>
       <div className="text-[#708077] text-[16px]">{subtitle}</div>
       <div className="mt-4 flex flex-row items-baseline gap-4 font-title font-bold">
-        <div className="gradient-text1 text-[40px]">{amount}</div>
+        <div className="gradient-text1 text-[40px]">{currencyUSDTFormat(amount)}</div>
         <div className="gradient-text1 text-[20px]">{suffix}</div>
       </div>
     </NavLink>

@@ -60,7 +60,7 @@ export default function Beneficiary() {
         columns={[
           {
             Header: t('Real name') ?? '',
-            accessor: (x) => `${x.surname} ${x.userName}`,
+            accessor: (x) => `${x.surname ?? ''} ${x.userName ?? ''}`,
           },
           {
             Header: t('Account') ?? '',
@@ -164,7 +164,7 @@ export default function Beneficiary() {
                         queryClient.invalidateQueries(['trust']);
                       }}
                       >
-                        Remove
+                        {t('Remove')}
                       </TextButton>
                       {/* 权限编辑 */}
                       <TextButton onClick={async () => {
@@ -172,7 +172,7 @@ export default function Beneficiary() {
                         setEditRoleVisible(true);
                       }}
                       >
-                        Edit
+                        {t('Authority')}
                       </TextButton>
                     </>
                   )}

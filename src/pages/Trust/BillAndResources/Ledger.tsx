@@ -80,10 +80,22 @@ export default function Ledger() {
     setValue('timeType', TimeType.All);
   };
 
-  const download = () => {
-    axios.post('/trust/trust/bill/export', {
-
+  const download = async () => {
+    const resp = await axios.request({
+      url: '/trust/trust/bill/export',
+      method: 'post',
+      data: {
+        trustId: Number(trustId),
+        billType: billType === BillType.All ? undefined : billType,
+        timeType: timeType === TimeType.All ? undefined : timeType,
+        pageIndex: page,
+        pageSize: 10,
+      },
+      responseType: 'blob',
     });
+    const url = window.URL.createObjectURL(resp.data);
+    window.open(url, '_blank');
+    window.URL.revokeObjectURL(url);
   };
 
   return (

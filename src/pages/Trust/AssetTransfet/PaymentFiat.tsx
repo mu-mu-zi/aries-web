@@ -34,7 +34,7 @@ export default function PaymentFiat() {
             <PaymentRow title={t('Payee account number')} value={bank.address} />
             <PaymentRow title={t('BankName')} value={bank.bankName} />
             <PaymentRow title={t('Currency')} value={bank.symbol} />
-            {bank.customContents?.map((it) => <PaymentRow key={it.id} title={it.customKey} value={it.customValue} />)}
+            {bank.customContents?.map((it) => <PaymentRow key={it.id} title={it.key} value={it.value} />)}
           </div>
         </div>
       )}

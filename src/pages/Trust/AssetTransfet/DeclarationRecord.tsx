@@ -10,6 +10,8 @@ import SimpleTable from '../../../views/SimpleTable';
 import { useTrustAssetDeclareQuery } from '../../../api/trust/asset';
 import { unixFormatTime } from '../../../utils/DateFormat';
 import TextButton from '../../../components/TextButton';
+import { numberFormatWithPrefix } from '../../../utils/CurrencyFormat';
+import RecodeViewCredentials from './RecodeViewCredentials';
 
 export default function DeclarationRecord() {
   const { t } = useTranslation();
@@ -23,6 +25,8 @@ export default function DeclarationRecord() {
   });
   const queryClient = useQueryClient();
   const [recordId, setRecordId] = useState<number>();
+  const [credentials, setCredentials] = useState<string[]>([]);
+  const [viewCredentialsVisible, setViewCredentialsVisible] = useState(false);
 
   const statusTitle = (status: any) => {
     switch (status) {
@@ -59,11 +63,17 @@ export default function DeclarationRecord() {
           },
           {
             Header: 'Amount',
-            accessor: (x) => x.amount,
+            accessor: 'amount',
+            Cell: ({ row }) => (
+              <div className="flex items-center gap-2 gradient-text1">
+                <div>{numberFormatWithPrefix(row.original.amount)}</div>
+                <div>{row.original.symbol}</div>
+              </div>
+            ),
           },
           {
             Header: 'Status',
-            accessor: (x) => statusTitle(x.status),
+            accessor: (x) => `${statusTitle(x.status)}`,
           },
           {
             Header: () => (<div className="text-right">Reconciliation</div>),
@@ -80,16 +90,16 @@ export default function DeclarationRecord() {
                 >
                   {t('View details')}
                 </TextButton>
-                {/* <div */}
-                {/*  className="cursor-pointer" */}
-                {/*  onClick={() => { */}
-                {/*    // eslint-disable-next-line react/prop-types */}
-                {/*    setRecordId(row.original?.id); */}
-                {/*    setDetailVisible(true); */}
-                {/*  }} */}
-                {/* > */}
-                {/*  {t('View details')} */}
-                {/* </div> */}
+                {row.original.proofs && row.original.proofs.length > 0 && (
+                  <TextButton
+                    onClick={() => {
+                      setCredentials(row.original.proofs ?? []);
+                      setViewCredentialsVisible(true);
+                    }}
+                  >
+                    {t('View credentials')}
+                  </TextButton>
+                )}
                 {
                   // eslint-disable-next-line react/prop-types
                   row.original?.status === 1 && (
@@ -102,7 +112,7 @@ export default function DeclarationRecord() {
                         await queryClient.invalidateQueries(['trust']);
                       }}
                     >
-                      {t('Apply for cancellation')}
+                      {t('Cancel')}
                     </TextButton>
                   )
                 }
@@ -131,6 +141,16 @@ export default function DeclarationRecord() {
           />
         </Modal>
       )}
+
+      <Modal
+        visible={viewCredentialsVisible}
+        onClose={() => setViewCredentialsVisible(false)}
+      >
+        <RecodeViewCredentials
+          images={credentials}
+          onClose={() => setViewCredentialsVisible(false)}
+        />
+      </Modal>
     </div>
   );
 }

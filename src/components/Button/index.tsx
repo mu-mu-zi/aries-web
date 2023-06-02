@@ -38,7 +38,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
           <div
             className={classNames(
               props.className,
-              'line-clamp-1 bg-gradient-to-r bg-clip-text px-8 font-bold text-transparent transition-all font-title',
+              'line-clamp-1 text-ellipsis overflow-hidden bg-gradient-to-r bg-clip-text px-8 font-bold text-transparent transition-all font-title',
               'truncate',
               (size === 'medium' || !size) && 'text-[14px]',
               size === 'large' && 'text-[20px]',

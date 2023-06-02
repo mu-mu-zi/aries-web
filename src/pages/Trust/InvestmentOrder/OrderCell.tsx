@@ -66,7 +66,7 @@ export default function OrderCell({ item }: {
       </div>
       {/* Content */}
       <div className="flex-auto flex flex-col gap-2 text-[#99AC9B] text-[16px] leading-[18px]">
-        <div className="line-clamp-2">
+        <div className="line-clamp-2 text-ellipsis overflow-hidden">
           {item.investmentSuggestion}
         </div>
         <div>{item.investmentTime}</div>
@@ -116,7 +116,7 @@ export default function OrderCell({ item }: {
         {/* 委托人才能取消 */}
         {item.investmentStatus < 3 && settlorPermission && <Button onClick={cancelInvestment}>{t('Cancel')}</Button>}
         {/* 保护人才能审批 */}
-        {protectorPermission && <Button onClick={navTo}>{t('Approval')}</Button>}
+        {item.investmentStatus < 3 && protectorPermission && <Button onClick={navTo}>{t('Approval')}</Button>}
         {/* 任何人都可以查看 */}
         <Button
           size="medium"

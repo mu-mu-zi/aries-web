@@ -2,7 +2,7 @@ import React from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import Button from '../../../components/Button';
@@ -34,14 +34,26 @@ export default function NewPlan({ trustId, onClose }: {
   });
   const queryClient = useQueryClient();
   const { t } = useTranslation();
+  const addPlanMutation = useMutation({
+    mutationFn: async (data: FormValid) => {
+      await axios.post('/trust/trust/distribution/plan/add', {
+        trustId,
+        ...data,
+      });
+    },
+    onSuccess: async () => {
+      onClose?.();
+      await queryClient.invalidateQueries(['trust']);
+    },
+  });
 
   const submit = async (data: FormValid) => {
-    await axios.post('/trust/trust/distribution/plan/add', {
-      trustId,
-      ...data,
-    });
-    onClose?.();
-    await queryClient.invalidateQueries(['trust']);
+    addPlanMutation.mutate(data);
+    // await axios.post('/trust/trust/distribution/plan/add', {
+    //   trustId,
+    //   ...data,
+    // });
+    // onClose?.();
   };
 
   return (
@@ -61,7 +73,7 @@ export default function NewPlan({ trustId, onClose }: {
             </div>
           </label>
           <div className="self-center w-[420px]">
-            <Button type="submit" block>{t('Submit')}</Button>
+            <Button type="submit" block disabled={addPlanMutation.isLoading}>{t('Submit')}</Button>
           </div>
         </div>
         <div className="mt-12 self-stretch px-8">

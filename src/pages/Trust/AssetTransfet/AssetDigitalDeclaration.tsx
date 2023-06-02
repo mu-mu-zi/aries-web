@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import TextField from '../../../components/TextField';
 import Dropdown from '../../../components/Dropdown';
 import Button from '../../../components/Button';
@@ -55,8 +55,8 @@ export default function AssetDigitalDeclaration() {
     }
   }, [mainNetCoinListQuery.data?.data]);
 
-  const submit = async (data: FormValid) => {
-    try {
+  const submitMutation = useMutation({
+    mutationFn: async (data: FormValid) => {
       await axios.post('/trust/assetDeclare/apply', {
         trustId: Number(trustId),
         estimateTime: data.expectedTime,
@@ -67,14 +67,37 @@ export default function AssetDigitalDeclaration() {
         payNo: data.hash,
         ...data,
       });
+    },
+    onSuccess: async () => {
       addSuccessNotification({
         title: '提交成功',
       });
       reset();
       await queryClient.invalidateQueries(['trust']);
-    } catch (e) {
-      console.log(e);
-    }
+    },
+  });
+
+  const submit = async (data: FormValid) => {
+    await submitMutation.mutate(data);
+    // try {
+    //   await axios.post('/trust/assetDeclare/apply', {
+    //     trustId: Number(trustId),
+    //     estimateTime: data.expectedTime,
+    //     payAddress: data.address,
+    //     payType: 1,
+    //     payUserName: data.name,
+    //     remarks: data.remark,
+    //     payNo: data.hash,
+    //     ...data,
+    //   });
+    //   addSuccessNotification({
+    //     title: '提交成功',
+    //   });
+    //   reset();
+    //   await queryClient.invalidateQueries(['trust']);
+    // } catch (e) {
+    //   console.log(e);
+    // }
   };
 
   return (
@@ -143,7 +166,7 @@ export default function AssetDigitalDeclaration() {
         />
         {settlorPermission && (
           <div className="mt-4">
-            <Button type="submit" block>{t('Submit')}</Button>
+            <Button type="submit" block disabled={submitMutation.isLoading}>{t('Submit')}</Button>
           </div>
         )}
       </div>

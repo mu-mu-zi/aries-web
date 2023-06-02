@@ -16,6 +16,7 @@ import { IInvestmentOrderRecode } from '../../../interfaces/trust';
 import { useTrustDetailQuery } from '../../../api/trust/trust';
 import ContactUsFooter from '../../../views/ContactUsFooter';
 import useTrustPermission from '../../../hooks/useTrustRole';
+import { addNotification } from '../../../utils/Notification';
 
 export default function TransactionVoucher({ selected, onClose }: {
   selected: IInvestmentOrderRecode,
@@ -68,9 +69,13 @@ export default function TransactionVoucher({ selected, onClose }: {
                       billId: selected.billId,
                       status: 2,
                     },
+                  }).then(() => {
+                    addNotification({
+                      title: t('Verification successful'),
+                    });
+                    onClose?.();
+                    queryClient.invalidateQueries(['trust']);
                   });
-                  onClose?.();
-                  await queryClient.invalidateQueries(['trust']);
                 }}
               >
                 {t('Confirm')}

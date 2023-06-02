@@ -103,7 +103,7 @@ function SidebarCell({
     <div
       onClick={onSelected}
       className={classNames(
-        'flex flex-row gap-2 items-center cursor-pointer text-[20px] h-[48px] w-full px-8 py-3 rounded-[12px] line-clamp-1 transition',
+        'flex flex-row gap-2 items-center cursor-pointer text-[20px] h-[48px] w-full px-8 py-3 rounded-[12px] line-clamp-1 text-ellipsis overflow-hidden transition',
         isSelected && 'font-bold',
         !isSelected && 'font-normal',
         {

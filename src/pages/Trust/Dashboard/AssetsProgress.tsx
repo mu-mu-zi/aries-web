@@ -18,7 +18,7 @@ export default function AssetsProgress({ scale, icon }: {
             scale === 0 && 'w-0',
           )}
           css={css`
-            width: ${scale * 100}%;
+            width: ${Math.max(scale * 100, 5)}%;
           `}
         />
       </div>

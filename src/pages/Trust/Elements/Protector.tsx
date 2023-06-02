@@ -119,10 +119,10 @@ export default function Protector() {
               }
             },
           },
-          {
-            Header: t('Description') ?? '',
-            accessor: 'remark',
-          },
+          // {
+          //   Header: t('Description') ?? '',
+          //   accessor: 'remark',
+          // },
           {
             Header: t('Audit status') ?? '',
             accessor: (x) => {
@@ -164,7 +164,7 @@ export default function Protector() {
                         await queryClient.invalidateQueries(['trust']);
                       }}
                       >
-                        Remove
+                        {t('Remove')}
                       </TextButton>
                       {/* 权限编辑 */}
                       <TextButton onClick={async () => {
@@ -172,7 +172,7 @@ export default function Protector() {
                         setEditRoleVisible(true);
                       }}
                       >
-                        Edit
+                        {t('Authority')}
                       </TextButton>
                     </>
                   )}

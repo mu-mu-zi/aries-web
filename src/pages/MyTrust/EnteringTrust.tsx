@@ -45,13 +45,17 @@ export default function EnteringTrust({ trust }: {
       case 1:
         return 'Settlor';
       case 2:
+        return 'Named Person';
       case 3:
+        return 'Others';
       case 21:
         return 'Beneficiary';
       case 4:
-      case 5:
-      case 6:
         return 'Protector';
+      case 5:
+        return 'Succession Protector';
+      case 6:
+        return 'Second Succession Protector';
       default:
         return '--';
     }

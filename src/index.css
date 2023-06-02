@@ -178,6 +178,8 @@ textarea::-webkit-scrollbar {
     display: none;
 }
 
+/* 通知组件 */
+
 .rnc__notification-item--success {
     /*background-color: red !important;*/
     border-left: none !important;
@@ -196,4 +198,9 @@ textarea::-webkit-scrollbar {
 .rnc__notification-message {
     color: #99AC9B !important;
     font-size: 14px;
+}
+
+/* 浏览器自动填充 */
+.chrome__autofill-none {
+    transition: color 99999s ease-in-out 0s, background-color 99999s ease-in-out 0s;
 }

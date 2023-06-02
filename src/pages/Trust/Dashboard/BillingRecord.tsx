@@ -7,6 +7,7 @@ import moreIcon from '../../../assets/icon/arrow_r.svg';
 import cellIcon from '../../../assets/icon/money_small_icon.svg';
 import { useLedgerOrderListQuery } from '../../../api/trust/order';
 import { unixFormatTime } from '../../../utils/DateFormat';
+import { numberFormatWithPrefix } from '../../../utils/CurrencyFormat';
 
 export default function BillingRecord() {
   const { trustId } = useParams();
@@ -52,7 +53,8 @@ export default function BillingRecord() {
             title={typeTitle(x.billType)}
             datetime={unixFormatTime(x.createTimeStamp)}
             amount={x.amount}
-            status={x.billStatusName}
+            status={x.billType}
+            coinName={x.coinName}
           />
         ))}
       </div>
@@ -65,12 +67,27 @@ function RecordCell({
   datetime,
   amount,
   status,
+  coinName,
 }: {
   title: string;
   datetime: string;
   amount: string;
-  status: string;
+  status: number;
+  coinName: string
 }) {
+  const statusTitle = (billType: number) => [
+    'Fiat Out',
+    'Fiat In',
+    'Digital Asset Out',
+    'Digital Asset In',
+    'Exchange',
+    'Custom',
+    'Distribute Profit',
+    'Management Fee',
+    'Exceed Transfer',
+    'Establishment Fee',
+    'Additional Establishment Fee'][billType];
+
   return (
     <div className="flex flex-row items-center gap-4">
       <img src={cellIcon} width="32px" alt="" />
@@ -79,8 +96,8 @@ function RecordCell({
         <div className="text-[16px] text-[#99ac9b]">{datetime}</div>
       </div>
       <div className="flex flex-col items-end gap-2 text-[16px]">
-        <div className="gradient-text1">{amount}</div>
-        <div className="text-[#99ac9b]">{status}</div>
+        <div className="gradient-text1">{`${numberFormatWithPrefix(amount)} ${coinName}`}</div>
+        <div className="text-[#99ac9b]">{statusTitle(status)}</div>
       </div>
     </div>
   );

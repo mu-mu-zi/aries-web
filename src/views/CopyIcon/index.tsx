@@ -18,7 +18,7 @@ export default function CopyIcon({
         });
       }}
     >
-      <img className="cursor-pointer" width="24px" src={copyIcon} alt="" />
+      <img className="flex-shrink-0 cursor-pointer" width="24px" src={copyIcon} alt="" />
     </CopyToClipboard>
   );
 }

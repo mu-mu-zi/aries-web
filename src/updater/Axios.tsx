@@ -3,6 +3,8 @@ import axios, { AxiosResponse } from 'axios';
 import { Store } from 'react-notifications-component';
 import { redirect, useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 import { addNotification } from '../utils/Notification';
 import { useUserInfoQuery } from '../api/user/user';
 import { useAppDispatch } from '../state';
@@ -13,11 +15,15 @@ export default function Axios() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const action = useAppDispatch();
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    axios.defaults.headers['Accept-Language'] = i18n.language === 'en' ? 'en-US' : 'zh-HK';
+  }, [i18n.language]);
 
   useEffectOnce(() => {
     /* 默认 URL */
     axios.defaults.baseURL = BASE_URL;
-    axios.defaults.headers['Accept-Language'] = 'en-US';
 
     /*
     * 请求拦截器
@@ -36,6 +42,11 @@ export default function Axios() {
     axios.interceptors.response.use(
       (response) => {
         if (response.status === 200) {
+          /* 数据类型 */
+          if (response.data instanceof Blob) {
+            return Promise.resolve(response);
+          }
+
           /* success */
           if (response.data.code === 200) {
             return Promise.resolve(response.data);

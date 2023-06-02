@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 import { ReactNotifications, Store } from 'react-notifications-component';
+import { useTranslation } from 'react-i18next';
 import useAuthToken from '../hooks/useUserId';
 import { useAppDispatch, useAppSelector } from '../state';
 import { appendMessage } from '../state/msg';
@@ -12,6 +13,7 @@ import { BASE_URL } from '../utils/url';
 export default function StationMessage() {
   const userId = useAuthToken();
   const action = useAppDispatch();
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     const token = localStorage.getItem('TOKEN');
@@ -24,12 +26,12 @@ export default function StationMessage() {
     const es = new EventSourcePolyfill(`${BASE_URL}/trust/stationMessage/subscribe`, {
       headers: {
         Authorization: token,
-        'Accept-Language': 'zh-hk',
+        'Accept-Language': i18n.language === 'en' ? 'en-US' : 'zh-HK',
       },
     });
 
-    es.addEventListener('open', console.log);
-    es.addEventListener('error', console.error);
+    // es.addEventListener('open', console.log);
+    // es.addEventListener('error', console.error);
     es.addEventListener('message', (msg) => {
       console.log(msg.data);
       const msgObj: IStationMessage = JSON.parse(msg.data);
@@ -55,7 +57,7 @@ export default function StationMessage() {
 
     // eslint-disable-next-line consistent-return
     return () => es.close();
-  }, [userId]);
+  }, [userId, i18n]);
 
   return null;
 }

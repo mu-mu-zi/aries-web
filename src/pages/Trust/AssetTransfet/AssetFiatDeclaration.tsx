@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import TextField from '../../../components/TextField';
 import Button from '../../../components/Button';
 import { useFiatListQuery, useTrustDetailQuery } from '../../../api/trust/trust';
@@ -50,23 +50,47 @@ export default function AssetFiatDeclaration() {
     }
   }, [fiatListQuery.data?.data]);
 
+  const submitMutation = useMutation({
+    mutationFn: async (data: FormValid) => {
+      await axios.post('/trust/assetDeclare/apply', {
+        trustId: Number(trustId),
+        payUserName: data.name,
+        coinId: data.fiatId,
+        estimateTime: data.expectedTime,
+        payNo: data.bankCardNo,
+        payType: 2,
+        bankName: data.bank,
+        payAddress: data.address,
+        ...data,
+      });
+    },
+    onSuccess: async () => {
+      addSuccessNotification({
+        title: t('提交成功'),
+      });
+      reset();
+      await queryClient.invalidateQueries(['trust']);
+    },
+  });
+
   const submit = async (data: FormValid) => {
-    await axios.post('/trust/assetDeclare/apply', {
-      trustId: Number(trustId),
-      payUserName: data.name,
-      coinId: data.fiatId,
-      estimateTime: data.expectedTime,
-      payNo: data.bankCardNo,
-      payType: 2,
-      bankName: data.bank,
-      payAddress: data.address,
-      ...data,
-    });
-    addSuccessNotification({
-      title: '提交成功',
-    });
-    reset();
-    await queryClient.invalidateQueries(['trust']);
+    submitMutation.mutate(data);
+    // await axios.post('/trust/assetDeclare/apply', {
+    //   trustId: Number(trustId),
+    //   payUserName: data.name,
+    //   coinId: data.fiatId,
+    //   estimateTime: data.expectedTime,
+    //   payNo: data.bankCardNo,
+    //   payType: 2,
+    //   bankName: data.bank,
+    //   payAddress: data.address,
+    //   ...data,
+    // });
+    // addSuccessNotification({
+    //   title: '提交成功',
+    // });
+    // reset();
+    // await queryClient.invalidateQueries(['trust']);
   };
 
   return (
@@ -133,7 +157,7 @@ export default function AssetFiatDeclaration() {
         />
         {settlorPermission && (
           <div className="mt-4">
-            <Button type="submit" block>{t('Submit')}</Button>
+            <Button type="submit" block disabled={submitMutation.isLoading}>{t('Submit')}</Button>
           </div>
         )}
       </div>

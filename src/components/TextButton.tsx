@@ -16,7 +16,7 @@ const TextButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
     <button
       {...rest}
       ref={ref}
-      className="gradient-text2 text-center font-title font-bold text-[14px] cursor-pointer w-fit"
+      className="gradient-text2 text-center font-title font-bold text-[14px] cursor-pointer w-fit whitespace-pre"
       css={css`
         position: relative;
 
