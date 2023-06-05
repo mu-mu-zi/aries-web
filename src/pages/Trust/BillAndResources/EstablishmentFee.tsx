@@ -61,21 +61,21 @@ export default function EstablishmentFee() {
               },
               {
                 Header: 'Entrusted assets',
-                accessor: (x) => x.trustCoinQuantity,
+                accessor: (x) => `${x.trustCoinQuantity} ${x.coinName}`,
               },
               {
                 Header: 'Asset transfer amount',
-                accessor: (x) => x.amount,
+                accessor: (x) => `${x.amount} ${x.coinName}`,
               },
               // {
               //   Header: 'Trust total amount',
               //   accessor: 'managementFeeApr',
               // },
               {
-                Header: () => (<div className="text-right">Establishment Fee</div>),
+                Header: () => <div className="text-right">Establishment Fee</div>,
                 accessor: 'totalAmount',
                 // eslint-disable-next-line react/prop-types
-                Cell: ({ row }) => (<div className="text-right">{`${row.original.amount} ${row.original.coinName}`}</div>),
+                Cell: ({ row }) => (<div className="text-right">{`${-row.original.amount} ${row.original.coinName}`}</div>),
               },
               {
                 Header: () => (<div className="text-right">Management fee</div>),

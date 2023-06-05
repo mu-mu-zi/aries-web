@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
 import Button from '../../../components/Button';
 import Hr from '../../../components/Hr';
 import Modal from '../../../components/Modal';
@@ -17,6 +19,7 @@ import { unixFormatTime } from '../../../utils/DateFormat';
 import { trustEditRole } from '../../../utils/trustRole';
 import useTrustPermission from '../../../hooks/useTrustRole';
 import { stringShort } from '../../../utils/stringShort';
+import GoogleVerify from '../../../views/GoogleVerify';
 
 export default function AllocationPlan() {
   const { t } = useTranslation();
@@ -31,8 +34,26 @@ export default function AllocationPlan() {
   const [selectRow, setSelectRow] = useState<IDistribution>();
   const [modifyVisible, setModifyVisible] = useState(false);
   const [detailVisible, setDetailVisible] = useState(false);
+  const [googleVerifyVisible, setGoogleVerifyVisible] = useState(false);
+  const [planDescription, setPlanDescription] = useState('');
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
   const { settlorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
+  const queryClient = useQueryClient();
+
+  const addPlanMutation = useMutation({
+    mutationFn: async (data: {
+      planDescription: string
+      ticker: string
+    }) => {
+      await axios.post('/trust/trust/distribution/plan/add', {
+        trustId,
+        ...data,
+      });
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(['trust']);
+    },
+  });
 
   // @ts-ignore
   return (
@@ -136,7 +157,24 @@ export default function AllocationPlan() {
       <Modal visible={addedVisible} onClose={() => setAddedVisible(false)}>
         <NewPlan
           trustId={Number(trustId)}
+          onEnter={(plan) => {
+            setAddedVisible(false);
+            setPlanDescription(plan);
+            setGoogleVerifyVisible(true);
+          }}
           onClose={() => setAddedVisible(false)}
+        />
+      </Modal>
+      <Modal visible={googleVerifyVisible} onClose={() => setGoogleVerifyVisible(false)}>
+        <GoogleVerify
+          onClose={() => setGoogleVerifyVisible(false)}
+          onEnter={(ticket) => {
+            setGoogleVerifyVisible(false);
+            addPlanMutation.mutate({
+              planDescription,
+              ticker: ticket,
+            });
+          }}
         />
       </Modal>
       <Modal visible={modifyVisible} onClose={() => setModifyVisible(false)}>

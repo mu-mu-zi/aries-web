@@ -55,7 +55,10 @@ export default function ContactCustomer() {
   // useEffect(() => {
   //   setValue('areaCodeId', areaCodeListQuery.data?.data?.[0].id);
   // }, [areaCodeListQuery.data?.data]);
-  useEffect(() => setValue('account', ''), [isPhone]);
+  useEffect(() => {
+    setValue('account', '');
+    clearErrors('account');
+  }, [isPhone]);
 
   const submit = async (data: FormValid) => {
     try {
@@ -67,8 +70,8 @@ export default function ContactCustomer() {
       navigate('/status', {
         replace: true,
         state: {
-          title: 'Submit successfully',
-          description: 'Applications will be processed within 1 business day, please keep it open for customer service to contact you.',
+          title: t('Submit successfully'),
+          description: t('Applications will be processed within 1 business day, please keep it open for customer service to contact you.'),
           navTo: '/contactCustomer',
         },
       });

@@ -53,7 +53,7 @@ export default function BillingRecord() {
             title={typeTitle(x.billType)}
             datetime={unixFormatTime(x.createTimeStamp)}
             amount={x.amount}
-            status={x.billType}
+            status={x.billStatus}
             coinName={x.coinName}
           />
         ))}
@@ -75,18 +75,17 @@ function RecordCell({
   status: number;
   coinName: string
 }) {
-  const statusTitle = (billType: number) => [
-    'Fiat Out',
-    'Fiat In',
-    'Digital Asset Out',
-    'Digital Asset In',
-    'Exchange',
-    'Custom',
-    'Distribute Profit',
-    'Management Fee',
-    'Exceed Transfer',
-    'Establishment Fee',
-    'Additional Establishment Fee'][billType];
+  const { t } = useTranslation();
+  const statusTitle = (billType: number) => {
+    switch (billType) {
+      case 1:
+        return t('Pending');
+      case 2:
+        return t('Success');
+      default:
+        return '--';
+    }
+  };
 
   return (
     <div className="flex flex-row items-center gap-4">

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import ModalContainer from '../../../views/ModalContainer';
 import ModalNav from '../../../views/ModalContainer/ModalNav';
 import Dropdown from '../../../components/Dropdown';
@@ -13,6 +13,8 @@ import { ProtectorRoleType } from './AddProtector';
 import { AccountType } from '../../../interfaces/base';
 import Button from '../../../components/Button';
 import ContactUsFooter from '../../../views/ContactUsFooter';
+import GoogleVerify from '../../../views/GoogleVerify';
+import Modal from '../../../components/Modal';
 
 export default function EditRole({
   defaultVal,
@@ -49,19 +51,39 @@ export default function EditRole({
   });
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+  const [googleVerifyVisible, setGoogleVerifyVisible] = useState(false);
+  const [formData, setFormData] = useState<FormValid>();
 
-  const submit = async (data: FormValid) => {
-    axios.request({
+  const submitMutation = useMutation({
+    mutationFn: (data: FormValid & { ticker: string }) => axios.request({
       url: '/trust/trust/user/roleUpdate',
-      method: 'get',
-      params: {
+      method: 'post',
+      data: {
         roleType: isBeneficiary ? data.beneficiaryRoleType : data.protectorRoleType,
         trustUserId,
+        ticker: data.ticker,
       },
-    }).then(() => {
+    }),
+    onSuccess: async () => {
       onClose?.();
       queryClient.invalidateQueries(['trust']);
-    });
+    },
+  });
+
+  const submit = async (data: FormValid) => {
+    setFormData(data);
+    setGoogleVerifyVisible(true);
+    // axios.request({
+    //   url: '/trust/trust/user/roleUpdate',
+    //   method: 'post',
+    //   data: {
+    //     roleType: isBeneficiary ? data.beneficiaryRoleType : data.protectorRoleType,
+    //     trustUserId,
+    //   },
+    // }).then(() => {
+    //   onClose?.();
+    //   queryClient.invalidateQueries(['trust']);
+    // });
   };
 
   return (
@@ -122,6 +144,20 @@ export default function EditRole({
           </div>
         </div>
       </form>
+      <Modal visible={googleVerifyVisible} onClose={() => setGoogleVerifyVisible(false)}>
+        {formData && (
+          <GoogleVerify
+            onClose={() => setGoogleVerifyVisible(false)}
+            onEnter={(ticket) => {
+              setGoogleVerifyVisible(false);
+              submitMutation.mutate({
+                ...formData,
+                ticker: ticket,
+              });
+            }}
+          />
+        )}
+      </Modal>
     </ModalContainer>
   );
 }

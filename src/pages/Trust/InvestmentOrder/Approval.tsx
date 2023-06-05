@@ -45,7 +45,7 @@ export default function Approval({ trustInvestmentId }: {
         status: approved ? 2 : 3,
       },
     });
-    await queryClient.invalidateQueries(['trust']);
+    queryClient.invalidateQueries(['trust']);
   };
 
   const approvalStatusName = (status: number) => {

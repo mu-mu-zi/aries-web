@@ -62,18 +62,21 @@ export default function DeclarationRecord() {
             accessor: (x) => (x.payType === 1 ? t('Digital') : t('Fiat')),
           },
           {
-            Header: 'Amount',
+            Header: () => <div className="text-right">Amount</div>,
             accessor: 'amount',
             Cell: ({ row }) => (
-              <div className="flex items-center gap-2 gradient-text1">
+              <div className="flex items-center gap-2 gradient-text1 justify-end">
                 <div>{numberFormatWithPrefix(row.original.amount)}</div>
                 <div>{row.original.symbol}</div>
               </div>
             ),
           },
           {
-            Header: 'Status',
-            accessor: (x) => `${statusTitle(x.status)}`,
+            Header: () => <div className="text-right">Status</div>,
+            accessor: 'status',
+            Cell: ({ row }) => (
+              <div className="text-right">{`${statusTitle(row.original.status)}`}</div>
+            ),
           },
           {
             Header: () => (<div className="text-right">Reconciliation</div>),
@@ -106,7 +109,6 @@ export default function DeclarationRecord() {
                     <TextButton
                       onClick={async () => {
                         await axios.post('/trust/assetDeclare/cancel', {
-                          // eslint-disable-next-line react/prop-types
                           id: row.original?.id,
                         });
                         await queryClient.invalidateQueries(['trust']);

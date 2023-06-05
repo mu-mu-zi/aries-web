@@ -11,6 +11,7 @@ import { IInvestmentOrderRecode } from '../../../interfaces/trust';
 import SimpleTable from '../../../views/SimpleTable';
 import { unixFormatTime } from '../../../utils/DateFormat';
 import TextButton from '../../../components/TextButton';
+import { numberFormatWithPrefix } from '../../../utils/CurrencyFormat';
 
 export default function BillRecords({ trustInvestmentId }: {
   trustInvestmentId: number
@@ -72,7 +73,7 @@ export default function BillRecords({ trustInvestmentId }: {
               <div
                 className="gradient-text1 text-right"
               >
-                {`${row.original.quantity} ${row.original.coinName}`}
+                {`${numberFormatWithPrefix(row.original.quantity)} ${row.original.coinName}`}
               </div>
             ),
           },

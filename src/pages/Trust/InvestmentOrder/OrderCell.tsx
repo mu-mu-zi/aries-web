@@ -42,7 +42,7 @@ export default function OrderCell({ item }: {
         status: 2,
       },
     });
-    await queryClient.invalidateQueries(['trust']);
+    queryClient.invalidateQueries(['trust']);
   };
 
   const navTo = () => {
@@ -114,16 +114,11 @@ export default function OrderCell({ item }: {
       {/* 操作 */}
       <div className="flex flex-row flex-wrap items-center justify-center gap-4">
         {/* 委托人才能取消 */}
-        {item.investmentStatus < 3 && settlorPermission && <Button onClick={cancelInvestment}>{t('Cancel')}</Button>}
+        {item.investmentStatus < 2 && settlorPermission && <Button onClick={cancelInvestment}>{t('Cancel')}</Button>}
         {/* 保护人才能审批 */}
         {item.investmentStatus < 3 && protectorPermission && <Button onClick={navTo}>{t('Approval')}</Button>}
         {/* 任何人都可以查看 */}
-        <Button
-          size="medium"
-          onClick={navTo}
-        >
-          {t('Check')}
-        </Button>
+        <Button size="medium" onClick={navTo}>{t('Check')}</Button>
       </div>
     </div>
   );

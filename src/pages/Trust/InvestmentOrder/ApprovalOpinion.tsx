@@ -43,8 +43,8 @@ export default function ApprovalOpinion({ onClose, record }: {
         remark: data.note,
       },
     });
-    await queryClient.invalidateQueries(['trust']);
     onClose?.();
+    queryClient.invalidateQueries(['trust']);
   };
 
   useEffect(() => setValue('note', record.approvalRemark), [record]);

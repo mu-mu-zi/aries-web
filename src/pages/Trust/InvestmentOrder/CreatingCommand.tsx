@@ -21,8 +21,8 @@ export default function CreatingCommand({ onClose }: {
   const { trustId } = useParams();
   const { t } = useTranslation();
   const valid = z.object({
-    investmentSuggestion: z.string().nonempty(),
-    investmentTime: z.string().nonempty(),
+    investmentSuggestion: z.string().min(10),
+    investmentTime: z.string().min(10),
   });
   type FormValid = z.infer<typeof valid>;
   const {
@@ -64,11 +64,12 @@ export default function CreatingCommand({ onClose }: {
                     <div className="text-[16px] font-bold gradient-text1">*</div>
                     <div className="text-[#99AC9B] font-bold text-[20px]">{t('Investment Recommendation')}</div>
                   </div>
-                  <textarea
-                    {...register('investmentSuggestion')}
-                    maxLength={1000}
-                    className="w-full text-[16px] placeholder:text-[#708077] h-[320px] bg-[#3B5649] py-4 px-6 outline-none rounded-xl resize-none"
-                    placeholder={t(`To better handle investment instructions, please describe them as completely as possible, including the following: \r\n
+                  <div className="flex flex-col gap-1 bg-[#3B5649] rounded-xl py-4 px-6">
+                    <textarea
+                      {...register('investmentSuggestion')}
+                      maxLength={1000}
+                      className="w-full text-[16px] placeholder:text-[#708077] h-[320px] bg-[#3B5649] outline-none resize-none"
+                      placeholder={t(`To better handle investment instructions, please describe them as completely as possible, including the following: \r\n
 1.Investment objective: specify the target and purpose of the trust assets to be invested, such as capital appreciation or income growth. \r\n
 2.Investment target: determine the specific investment targets, such as stocks, bonds, real estate, etc. \r\n
 3.Investment scope: determine the scope and limitations of the investment, such as investment regions, industries, risk levels, etc. \r\n
@@ -76,7 +77,9 @@ export default function CreatingCommand({ onClose }: {
 5.Investment risk: determine risk management measures for investment, such as using hedging tools to reduce market risk, establishing risk control systems, etc. \r\n
 6.Investment returns: determine the distribution method and proportion of investment returns, such as reinvestment of returns, proportional distribution, etc. \r\n
 7.Investment term: determine the investment term and subsequent processing methods, such as long-term holding, regular adjustment, early exit, etc.`) ?? ''}
-                  />
+                    />
+                    {errors.investmentSuggestion?.message && <div className="text-[#ECA741] text-[14px]">{errors.investmentSuggestion?.message}</div>}
+                  </div>
                 </div>
               </label>
             </div>
@@ -87,6 +90,7 @@ export default function CreatingCommand({ onClose }: {
                 placeholder={t('Investment time') ?? ''}
                 maxLength={50}
                 {...register('investmentTime')}
+                error={errors.investmentTime?.message}
               />
             </div>
             <div className="self-center">

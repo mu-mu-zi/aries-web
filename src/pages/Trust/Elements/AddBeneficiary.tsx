@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { DevTool } from '@hookform/devtools';
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import closeIcon from '../../../assets/icon/model_close.svg';
 import TextInput from '../../../components/TextInput';
@@ -18,6 +18,9 @@ import TextArea from '../../../components/TextArea';
 import { AccountType } from '../../../interfaces/base';
 import ContactUsFooter from '../../../views/ContactUsFooter';
 import AreaSelect from '../../../components/AreaSelect';
+import GoogleVerify from '../../../views/GoogleVerify';
+import Modal from '../../../components/Modal';
+
 // import { useAreaCodeListQuery } from '../../../api/base/areaCode';
 
 enum UserType {
@@ -78,19 +81,38 @@ export default function AddBeneficiary({ trustId, onClose }: {
   // const areaCodeListQuery = useAreaCodeListQuery();
   const queryClient = useQueryClient();
   const { t } = useTranslation();
+  const [googleVerifyVisible, setGoogleVerifyVisible] = useState(false);
+  const [formData, setFormData] = useState<FormValid>();
 
-  const submit = (data: FormValid) => {
-    console.log(data);
-    axios.post('/trust/trust/user/add', {
+  const submitMutation = useMutation({
+    mutationFn: (data: FormValid & {
+      ticker: string
+    }) => axios.post('/trust/trust/user/add', {
       trustId,
       guardiansType: data.userType === UserType.Myself ? 2 : undefined,
       userEmail: data.accountType === AccountType.Email ? data.account : undefined,
       userMobile: data.accountType === AccountType.Mobile ? data.account : undefined,
       ...data,
-    }).then((resp) => {
+    }),
+    onSuccess: async () => {
       onClose?.();
-      queryClient.invalidateQueries(['trust']);
-    });
+      await queryClient.invalidateQueries(['trust']);
+    },
+  });
+
+  const submit = (data: FormValid) => {
+    // axios.post('/trust/trust/user/add', {
+    //   trustId,
+    //   guardiansType: data.userType === UserType.Myself ? 2 : undefined,
+    //   userEmail: data.accountType === AccountType.Email ? data.account : undefined,
+    //   userMobile: data.accountType === AccountType.Mobile ? data.account : undefined,
+    //   ...data,
+    // }).then((resp) => {
+    //   onClose?.();
+    //   queryClient.invalidateQueries(['trust']);
+    // });
+    setFormData(data);
+    setGoogleVerifyVisible(true);
   };
 
   // useEffect(() => {
@@ -181,7 +203,11 @@ export default function AddBeneficiary({ trustId, onClose }: {
                 />
               </div>
               <div className="flex flex-col gap-4">
-                <label className="text-[#C2D7C7F6] font-bold text-[16px]">{accountType === AccountType.Email ? t('Email') : t('Mobile')}</label>
+                <label
+                  className="text-[#C2D7C7F6] font-bold text-[16px]"
+                >
+                  {accountType === AccountType.Email ? t('Email') : t('Mobile')}
+                </label>
                 <div className="flex gap-4 items-center">
                   {accountType === AccountType.Mobile && (
                     <Controller
@@ -207,7 +233,10 @@ export default function AddBeneficiary({ trustId, onClose }: {
                     // </div>
                   )}
                   <div className="flex-auto">
-                    <TextInput placeholder={accountType === AccountType.Email ? 'Please enter the email' : 'Please enter the mobile'} {...register('account')} />
+                    <TextInput
+                      placeholder={accountType === AccountType.Email ? 'Please enter the email' : 'Please enter the mobile'}
+                      {...register('account')}
+                    />
                     {/* {accountType === AccountType.Email && <TextInput placeholder="Please provide additional instructions" {...register('userEmail')} />} */}
                   </div>
                 </div>
@@ -252,6 +281,20 @@ export default function AddBeneficiary({ trustId, onClose }: {
           </div>
         </div>
       </form>
+      <Modal visible={googleVerifyVisible} onClose={() => setGoogleVerifyVisible(false)}>
+        {formData && (
+          <GoogleVerify
+            onClose={() => setGoogleVerifyVisible(false)}
+            onEnter={(ticket) => {
+              setGoogleVerifyVisible(false);
+              submitMutation.mutate({
+                ...formData,
+                ticker: ticket,
+              });
+            }}
+          />
+        )}
+      </Modal>
     </ModalContainer>
   );
 }

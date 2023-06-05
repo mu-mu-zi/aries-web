@@ -28,7 +28,7 @@ export default function Modal({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-[#0A0E0D] bg-opacity-70 " />
+          <div className="fixed inset-0 bg-[#0A0E0D] bg-opacity-70" />
         </Transition.Child>
 
         {/* 内容 */}

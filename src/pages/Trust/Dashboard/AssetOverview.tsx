@@ -19,7 +19,7 @@ export default function AssetOverview({ assetOverview }: {
       <div className="bg-right-top bg-no-repeat m-[-32px] p-8" style={{ backgroundImage: `url(${bgIcon})` }}>
         <div className="text-[20px]">{t('Asset Overview')}</div>
         <div className={classNames('mt-8 flex flex-row items-center flex-shrink-0 gap-4')}>
-          <div className="text-[40px]">{currencyUSDTFormat(assetOverview?.totalUSDT)}</div>
+          <div className="text-[40px] text-[#3D3228]">{currencyUSDTFormat(assetOverview?.totalUSDT)}</div>
           <div className="text-[20px]">USD</div>
         </div>
         <div className={classNames('mt-[55px] flex flex-row gap-[20px]')}>

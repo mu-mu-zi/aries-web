@@ -6,22 +6,23 @@ import { css } from '@emotion/react';
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   block?: boolean;
-  suffix?: ReactNode
+  suffix?: ReactNode,
+  error?: string
 };
 
 const TextInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-  const { block, suffix, ...rest } = props;
+  const {
+    block, suffix, error, ...rest
+  } = props;
 
   return (
-    <div className={classNames('bg-[#3B5649]', 'rounded-xl', 'input-inner-shadow', {
-      'w-full': block,
-    })}
-    >
-      <div className={classNames('flex flex-row items-center gap-2')}>
-        <input
-          {...rest}
-          ref={ref}
-          css={css`
+    <div className={classNames('flex flex-col gap-1', block && 'w-full')}>
+      <div className={classNames('bg-[#3B5649]', 'rounded-xl', 'input-inner-shadow')}>
+        <div className={classNames('flex flex-row items-center gap-2')}>
+          <input
+            {...rest}
+            ref={ref}
+            css={css`
             &::placeholder {
               //background: linear-gradient(0, #708077 0%, #708077 100%);
               background: #708077;
@@ -32,19 +33,21 @@ const TextInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
               font-size: 16px;
             }
           `}
-          className={classNames(
-            'flex-auto inline-block w-full border-none bg-transparent outline-none ',
-            'h-[48px] px-4',
-            'gradient-text1',
-            'caret-[#BE9D66]',
-            'text-[20px] font-bold leading-[22px]',
-            'overflow-hidden',
-            // 'placeholder:text-[#708077]',
-            // 'focus:ring-2 focus:ring-sky-500 rounded-xl',
-          )}
-        />
-        {suffix && (<div className="mr-2">{suffix}</div>)}
+            className={classNames(
+              'flex-auto inline-block w-full border-none bg-transparent outline-none ',
+              'h-[48px] px-4',
+              'gradient-text1',
+              'caret-[#BE9D66]',
+              'text-[20px] font-bold leading-[22px]',
+              'overflow-hidden',
+              // 'placeholder:text-[#708077]',
+              // 'focus:ring-2 focus:ring-sky-500 rounded-xl',
+            )}
+          />
+          {suffix && (<div className="mr-2">{suffix}</div>)}
+        </div>
       </div>
+      {error && <div className="pl-1 text-[#ECA741] text-[14px]">{error}</div>}
     </div>
   );
 });

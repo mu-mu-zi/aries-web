@@ -28,9 +28,9 @@ export default function AssetDigitalDeclaration() {
   const valid = z.object({
     name: z.string().nonempty(),
     coinId: z.number(),
-    amount: z.coerce.number().gt(0),
+    amount: z.string().nonempty().regex(/^[0-9]*.?[0-9]{0,8}$/, 'Please enter a number with a maximum precision of 8.'),
     expectedTime: z.string().nonempty(),
-    address: z.string(),
+    address: z.string().nonempty(),
     hash: z.string().optional(),
     remark: z.string().optional(),
   });
@@ -79,25 +79,6 @@ export default function AssetDigitalDeclaration() {
 
   const submit = async (data: FormValid) => {
     await submitMutation.mutate(data);
-    // try {
-    //   await axios.post('/trust/assetDeclare/apply', {
-    //     trustId: Number(trustId),
-    //     estimateTime: data.expectedTime,
-    //     payAddress: data.address,
-    //     payType: 1,
-    //     payUserName: data.name,
-    //     remarks: data.remark,
-    //     payNo: data.hash,
-    //     ...data,
-    //   });
-    //   addSuccessNotification({
-    //     title: '提交成功',
-    //   });
-    //   reset();
-    //   await queryClient.invalidateQueries(['trust']);
-    // } catch (e) {
-    //   console.log(e);
-    // }
   };
 
   return (
@@ -109,6 +90,7 @@ export default function AssetDigitalDeclaration() {
           label={t('Payer\'s name')}
           placeholder={t('Please enter the payer\'s name') ?? ''}
           maxLength={30}
+          error={errors.name?.message}
           {...register('name')}
         />
         <Dropdown
@@ -137,6 +119,7 @@ export default function AssetDigitalDeclaration() {
           label={t('Payment amount')}
           placeholder={t('Please enter the amount') ?? ''}
           {...register('amount')}
+          error={errors.amount?.message}
         />
         <TextField
           requiredLabel
@@ -144,6 +127,7 @@ export default function AssetDigitalDeclaration() {
           placeholder={t('Please enter the expected transfer time') ?? ''}
           maxLength={30}
           {...register('expectedTime')}
+          error={errors.expectedTime?.message}
         />
         <TextField
           requiredLabel
@@ -151,6 +135,7 @@ export default function AssetDigitalDeclaration() {
           placeholder={t('Please enter the payer\'s address') ?? ''}
           maxLength={100}
           {...register('address')}
+          error={errors.address?.message}
         />
         <TextField
           label={t('Transaction hash (optional)')}

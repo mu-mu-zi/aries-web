@@ -22,7 +22,7 @@ export default function AssetFiatDeclaration() {
   const valid = z.object({
     name: z.string().nonempty(),
     fiatId: z.number(),
-    amount: z.coerce.number().gt(0),
+    amount: z.string().nonempty().regex(/^[0-9]*.?[0-9]{0,3}$/, 'Please enter a number with a maximum precision of 3.'),
     expectedTime: z.string().nonempty(),
     bank: z.string().nonempty(),
     bankCardNo: z.string().optional(),
@@ -103,6 +103,7 @@ export default function AssetFiatDeclaration() {
           placeholder={t('Please enter the payer\'s name') ?? ''}
           {...register('name')}
           maxLength={30}
+          error={errors.name?.message}
         />
         <Controller
           name="fiatId"
@@ -122,6 +123,7 @@ export default function AssetFiatDeclaration() {
           label={t('Payment amount')}
           placeholder={t('Please enter the amount') ?? ''}
           {...register('amount')}
+          error={errors.amount?.message}
         />
         <TextField
           requiredLabel
@@ -129,6 +131,7 @@ export default function AssetFiatDeclaration() {
           placeholder={t('Please enter the expected transfer time') ?? ''}
           {...register('expectedTime')}
           maxLength={30}
+          error={errors.expectedTime?.message}
         />
         <TextField
           requiredLabel
@@ -136,6 +139,7 @@ export default function AssetFiatDeclaration() {
           placeholder={t('Please enter the payment bank(English)') ?? ''}
           {...register('bank')}
           maxLength={100}
+          error={errors.bank?.message}
         />
         <TextField
           label={t('Bank card number (optional)')}

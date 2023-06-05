@@ -1,0 +1,59 @@
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
+import Modal from '../../components/Modal';
+import ModalContainer from '../ModalContainer';
+import ModalNav from '../ModalContainer/ModalNav';
+import TextInput from '../../components/TextInput';
+import Button from '../../components/Button';
+import TextField from '../../components/TextField';
+import ContactUsFooter from '../ContactUsFooter';
+
+export default function GoogleVerify({ onClose, onEnter }: {
+  onClose?(): void;
+  onEnter?(ticket: string): void
+}) {
+  const valid = z.object({
+    code: z.string().nonempty().min(6),
+  });
+  type FormValid = z.infer<typeof valid>;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    clearErrors,
+    trigger,
+    getValues,
+  } = useForm<FormValid>({
+    resolver: zodResolver(valid),
+  });
+
+  const verifyMutation = useMutation({
+    mutationFn: (data: FormValid) => axios.post('/user/user/securityVerification', {
+      verificationType: 3,
+      googleCode: data.code,
+    }),
+    onSuccess: async (resp) => {
+      onEnter?.(resp.data.ticker as string);
+    },
+  });
+
+  const submit = (data: FormValid) => verifyMutation.mutate(data);
+
+  return (
+    <ModalContainer>
+      <ModalNav title="Google Verify" onClose={onClose} />
+      <form onSubmit={handleSubmit(submit)}>
+        <div className="flex flex-col gap-4">
+          <TextInput {...register('code')} placeholder="Please enter the 6-digit Google security code" maxLength={6} />
+          <Button block disabled={verifyMutation.isLoading}>Submit</Button>
+        </div>
+      </form>
+      <div className="mt-[40px]">
+        <ContactUsFooter />
+      </div>
+    </ModalContainer>
+  );
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import closeIcon from '../../../assets/icon/model_close.svg';
 import 'slick-carousel/slick/slick.css';
@@ -34,6 +34,23 @@ export default function TransactionVoucher({ selected, onClose }: {
   const { trustId } = useParams();
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
   const { settlorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
+  const enterMutation = useMutation({
+    mutationFn: () => axios.request({
+      url: '/trust/trust/investment/bill/check',
+      method: 'get',
+      params: {
+        billId: selected.billId,
+        status: 2,
+      },
+    }),
+    onSuccess: async () => {
+      onClose?.();
+      queryClient.invalidateQueries(['trust']);
+      addNotification({
+        title: t('Verification successful'),
+      });
+    },
+  });
 
   return (
     <ModalContainer>
@@ -45,7 +62,7 @@ export default function TransactionVoucher({ selected, onClose }: {
       {/* <div className="mt-4 h-[1px] bg-[#3B5649]" /> */}
       <Slider {...settings} className="h-[400px] overflow-clip">
         <div className="h-[400px] overflow-y-auto">
-          <img src={selected.billCertificate} className="block w-full object-contain" />
+          <img src={selected.billCertificate} className="block w-full object-contain" alt="" />
         </div>
         {/* <div> */}
         {/*  <h3>2</h3> */}
@@ -61,21 +78,10 @@ export default function TransactionVoucher({ selected, onClose }: {
             <>
               <Button
                 block
+                disabled={enterMutation.isLoading}
                 onClick={async () => {
-                  await axios.request({
-                    url: '/trust/trust/investment/bill/check',
-                    method: 'get',
-                    params: {
-                      billId: selected.billId,
-                      status: 2,
-                    },
-                  }).then(() => {
-                    addNotification({
-                      title: t('Verification successful'),
-                    });
-                    onClose?.();
-                    queryClient.invalidateQueries(['trust']);
-                  });
+                  // onClose?.();
+                  enterMutation.mutate();
                 }}
               >
                 {t('Confirm')}
@@ -100,7 +106,9 @@ export default function TransactionVoucher({ selected, onClose }: {
             </>
           )}
         </div>
-        <div className="self-stretch"><ContactUsFooter /></div>
+        <div className="self-stretch">
+          <ContactUsFooter />
+        </div>
         {/* <Divide /> */}
         {/* <ContactUs /> */}
       </div>

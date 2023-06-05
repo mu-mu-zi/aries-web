@@ -28,7 +28,7 @@ export default function Report() {
           accessor: 'reportFilePath',
           // eslint-disable-next-line react/prop-types
           Cell: ({ row }) => (
-            <div className="flex flex-row gap-4 justify-end">
+            <div className="flex flex-row gap-4 items-center justify-end">
               {/* eslint-disable-next-line react/prop-types */}
               {/* <TextButton onClick={() => window.open(row.original.reportFilePath)}>{t('Check')}</TextButton> */}
               {/* eslint-disable-next-line react/prop-types */}

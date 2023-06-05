@@ -10,6 +10,7 @@ import ViewCredentials from './ViewCredentials';
 import { useTrustManageFeeListQuery } from '../../../api/trust/fee';
 import { unixFormatTime } from '../../../utils/DateFormat';
 import { useTrustFeeListQuery } from '../../../api/trust/order';
+import { numberFormatWithPrefix } from '../../../utils/CurrencyFormat';
 
 export default function ManagerFee() {
   const { trustId } = useParams();
@@ -59,7 +60,7 @@ export default function ManagerFee() {
                 Header: () => (<div className="text-right">Management fee</div>),
                 accessor: 'totalAmount',
                 // eslint-disable-next-line react/prop-types
-                Cell: ({ row }) => (<div className="text-right gradient-text2">{`${row.original.totalAmount} ${row.original.coinName}`}</div>),
+                Cell: ({ row }) => (<div className="text-right gradient-text2">{`${numberFormatWithPrefix(row.original.totalAmount)} ${row.original.coinName}`}</div>),
               },
             ]}
             data={listQuery.data?.data?.records}

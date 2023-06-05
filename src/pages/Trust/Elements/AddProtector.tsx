@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { Await } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +19,8 @@ import FooterNote from '../../../views/FooterNote';
 import ContactUsFooter from '../../../views/ContactUsFooter';
 import AreaSelect from '../../../components/AreaSelect';
 import { BeneficiaryRoleType } from './AddBeneficiary';
+import GoogleVerify from '../../../views/GoogleVerify';
+import Modal from '../../../components/Modal';
 // import { useAreaCodeListQuery } from '../../../api/base/areaCode';
 
 enum UserType {
@@ -80,18 +82,37 @@ export default function AddProtector({ trustId, onClose }: {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const accountType = watch('accountType');
+  const [googleVerifyVisible, setGoogleVerifyVisible] = useState(false);
+  const [formData, setFormData] = useState<FormValid>();
   // const areaCodeListQuery = useAreaCodeListQuery();
 
-  const submit = async (data: FormValid) => {
-    axios.post('/trust/trust/user/add', {
+  const submitMutation = useMutation({
+    mutationFn: (data: FormValid & {
+      ticker: string
+    }) => axios.post('/trust/trust/user/add', {
       trustId,
       ...data,
       userEmail: data.accountType === AccountType.Email ? data.account : undefined,
       userMobile: data.accountType === AccountType.Mobile ? data.account : undefined,
-    }).then((resp) => {
+    }),
+    onSuccess: async () => {
       onClose?.();
-      queryClient.invalidateQueries(['trust']);
-    });
+      await queryClient.invalidateQueries(['trust']);
+    },
+  });
+
+  const submit = async (data: FormValid) => {
+    setFormData(data);
+    setGoogleVerifyVisible(true);
+    // axios.post('/trust/trust/user/add', {
+    //   trustId,
+    //   ...data,
+    //   userEmail: data.accountType === AccountType.Email ? data.account : undefined,
+    //   userMobile: data.accountType === AccountType.Mobile ? data.account : undefined,
+    // }).then((resp) => {
+    //   onClose?.();
+    //   queryClient.invalidateQueries(['trust']);
+    // });
   };
 
   // useEffect(() => {
@@ -261,6 +282,20 @@ export default function AddProtector({ trustId, onClose }: {
           </div>
         </div>
       </form>
+      <Modal visible={googleVerifyVisible} onClose={() => setGoogleVerifyVisible(false)}>
+        {formData && (
+          <GoogleVerify
+            onClose={() => setGoogleVerifyVisible(false)}
+            onEnter={(ticket) => {
+              setGoogleVerifyVisible(false);
+              submitMutation.mutate({
+                ...formData,
+                ticker: ticket,
+              });
+            }}
+          />
+        )}
+      </Modal>
     </ModalContainer>
   );
 }

@@ -11,6 +11,10 @@ import { useLedgerOrderListQuery } from '../../../api/trust/order';
 import SimpleTable from '../../../views/SimpleTable';
 import { unixFormatTime } from '../../../utils/DateFormat';
 import TextButton from '../../../components/TextButton';
+import RecodeViewCredentials from '../AssetTransfet/RecodeViewCredentials';
+import Modal from '../../../components/Modal';
+import { ITrustBill } from '../../../interfaces/asset';
+import { numberFormatWithPrefix } from '../../../utils/CurrencyFormat';
 
 /*
 * 1-法币转出，2-法币转入，3-数字资产转出，4-数字资产转入，5-兑换交易，6-自定义，7-分配收益，8-管理费，9-超额转账费，10-设立费，11-追加设立费'
@@ -69,6 +73,8 @@ export default function Ledger() {
     billType: Number(billType) > 0 ? Number(billType) : undefined,
     timeType: Number(timeType) > 0 ? Number(timeType) : undefined,
   });
+  const [credentialsVisible, setCredentialsVisible] = useState(false);
+  const [selected, setSelected] = useState<ITrustBill>();
 
   useEffect(() => {
     setValue('billType', BillType.All);
@@ -187,7 +193,7 @@ export default function Ledger() {
             Header: t('Amount') ?? '',
             // accessor: 'amount',
             // eslint-disable-next-line react/prop-types
-            Cell: ({ row }) => <div className="gradient-text1 text-[16px]">{row.original?.amount}</div>,
+            Cell: ({ row }) => <div className="gradient-text1 text-[16px]">{numberFormatWithPrefix(row.original?.amount)}</div>,
           },
           {
             accessor: 'Reconciliation',
@@ -195,11 +201,14 @@ export default function Ledger() {
             Cell: ({ row }) => (
               <div className="flex justify-end">
                 {row.original.billCertificate && (
-                <TextButton
-                  onClick={() => window.open(row.original.billCertificate, '_blank')}
-                >
-                  {t('View credentials')}
-                </TextButton>
+                  <TextButton
+                    onClick={() => {
+                      setSelected(row.original);
+                      setCredentialsVisible(true);
+                    }}
+                  >
+                    {t('View credentials')}
+                  </TextButton>
                 )}
               </div>
             ),
@@ -213,6 +222,14 @@ export default function Ledger() {
           onPageChanged: (page) => setPage(page),
         }}
       />
+      <Modal visible={credentialsVisible} onClose={() => setCredentialsVisible(false)}>
+        {selected && (
+          <RecodeViewCredentials
+            images={[selected.billCertificate]}
+            onClose={() => setCredentialsVisible(false)}
+          />
+        )}
+      </Modal>
     </div>
   );
 }

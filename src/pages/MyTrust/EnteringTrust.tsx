@@ -42,20 +42,32 @@ export default function EnteringTrust({ trust }: {
   * */
   const userType = (type: number) => {
     switch (type) {
+      // case 1:
+      //   return 'Settlor';
+      // case 2:
+      //   return 'Named Person';
+      // case 3:
+      //   return 'Others';
+      // case 21:
+      //   return 'Beneficiary';
+      // case 4:
+      //   return 'Protector';
+      // case 5:
+      //   return 'Succession Protector';
+      // case 6:
+      //   return 'Second Succession Protector';
+      // default:
+      //   return '--';
       case 1:
         return 'Settlor';
       case 2:
-        return 'Named Person';
       case 3:
-        return 'Others';
       case 21:
         return 'Beneficiary';
       case 4:
-        return 'Protector';
       case 5:
-        return 'Succession Protector';
       case 6:
-        return 'Second Succession Protector';
+        return 'Protector';
       default:
         return '--';
     }

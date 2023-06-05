@@ -18,6 +18,8 @@ import EditRole from './EditRole';
 import { ITrustUser } from '../../../interfaces/trust';
 import { trustEditRole } from '../../../utils/trustRole';
 import useTrustPermission from '../../../hooks/useTrustRole';
+import Confirm from '../../../views/Confirm';
+import GoogleVerify from '../../../views/GoogleVerify';
 
 export default function Beneficiary() {
   const { trustId } = useParams();
@@ -35,6 +37,8 @@ export default function Beneficiary() {
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
   const queryClient = useQueryClient();
   const { settlorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
+  const [removeConfirmVisible, setRemoveConfirmVisible] = useState(false);
+  const [googleVerifyVisible, setGoogleVerifyVisible] = useState(false);
 
   return (
     <div className="flex flex-col gap-4 rounded-xl shadow-block p-8 gradient-bg2">
@@ -154,14 +158,9 @@ export default function Beneficiary() {
                     <>
                       {/* 移除保护人委托人 */}
                       <TextButton onClick={async () => {
-                        await axios.request({
-                          url: '/trust/trust/user/delete',
-                          method: 'get',
-                          params: {
-                            trustUserId: row.original.id,
-                          },
-                        });
-                        queryClient.invalidateQueries(['trust']);
+                        setSelected(row.original);
+                        // setRemoveConfirmVisible(true);
+                        setGoogleVerifyVisible(true);
                       }}
                       >
                         {t('Remove')}
@@ -207,6 +206,44 @@ export default function Beneficiary() {
             trustUserId={selected?.id}
             isBeneficiary
             onClose={() => setEditRoleVisible(false)}
+          />
+        )}
+      </Modal>
+      <Modal visible={removeConfirmVisible} onClose={() => setRemoveConfirmVisible(false)}>
+        {selected && (
+          <Confirm
+            title={t('You have a current investment order not approved, confirm to remove the Beneficiary?')}
+            onOk={async () => {
+              await axios.request({
+                url: '/trust/trust/user/delete',
+                method: 'post',
+                data: {
+                  trustUserId: selected.id,
+                },
+              });
+              await queryClient.invalidateQueries(['trust']);
+              setRemoveConfirmVisible(false);
+            }}
+            onCancel={() => setRemoveConfirmVisible(false)}
+          />
+        )}
+      </Modal>
+      <Modal visible={googleVerifyVisible} onClose={() => setGoogleVerifyVisible(false)}>
+        {selected && (
+          <GoogleVerify
+            onClose={() => setGoogleVerifyVisible(false)}
+            onEnter={async (ticket) => {
+              setGoogleVerifyVisible(false);
+              await axios.request({
+                url: '/trust/trust/user/delete',
+                method: 'post',
+                data: {
+                  trustUserId: selected.id,
+                  ticker: ticket,
+                },
+              });
+              await queryClient.invalidateQueries(['trust']);
+            }}
           />
         )}
       </Modal>

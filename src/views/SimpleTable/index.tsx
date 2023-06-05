@@ -55,7 +55,7 @@ export default function SimpleTable({ columns, data, pagination }: {
                   <tr {...row.getRowProps()} className="text-left text-[16px] text-[#C2D7C7F6]">
                     {row.cells.map((cell) => (
                       <td
-                        className="py-2 pr-4 break-all overflow-hidden overflow-ellipsis"
+                        className="py-4 pr-4 break-all overflow-hidden overflow-ellipsis"
                         {...cell.getCellProps()}
                       >
                         {cell.render('Cell')}

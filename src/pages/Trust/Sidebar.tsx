@@ -66,7 +66,7 @@ export default function Sidebar() {
           {
             [
               [personIcon, t('Personal'), '/personal'],
-              [messageIcon, t('Message'), `/trust/${trustId}/notification`],
+              [messageIcon, t('Contract Us'), `/contactCustomer/${trustId}`],
               /* todo: 国际化切换 */
               // [languageIcon, t('Language'), `/trust/${trustId}`],
               [notifyIcon, t('Notification'), `/trust/${trustId}/notification`],

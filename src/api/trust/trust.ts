@@ -38,7 +38,7 @@ export const useTrustDetailQuery = (data: {
 export const useMyTrustQuery = () => useQuery<IResponseData<Trust[]>>({
   queryKey: ['trust', 'list', 'my'],
   queryFn: () => axios.get('/trust/trust/list'),
-  enabled: !!localStorage.getItem('TOKEN'),
+  enabled: containsToken(),
 });
 
 /*
@@ -149,7 +149,7 @@ export const useFiatListQuery = () => {
   const userId = useAuthToken();
 
   return useQuery<IResponseData<IFiat[]>>({
-    queryKey: ['fiat', 'list', useId()],
+    queryKey: ['fiat', 'list', userId],
     queryFn: () => axios.get('/asset/asset/legalCoins'),
     enabled: containsToken(),
   });

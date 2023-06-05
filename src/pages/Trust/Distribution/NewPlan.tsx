@@ -13,13 +13,13 @@ import Divide from '../../../components/Divide';
 import ContactUs from '../../SignIn/ContactUs';
 import ContactUsFooter from '../../../views/ContactUsFooter';
 
-export default function NewPlan({ trustId, onClose }: {
+export default function NewPlan({ trustId, onClose, onEnter }: {
   trustId: number,
-  onClose?(): void
+  onClose?(): void,
+  onEnter?(str: string): void,
 }) {
   const valid = z.object({
     planDescription: z.string().nonempty(),
-    planTime: z.string().optional(),
   });
   type FormValid = z.infer<typeof valid>;
   const {
@@ -34,26 +34,22 @@ export default function NewPlan({ trustId, onClose }: {
   });
   const queryClient = useQueryClient();
   const { t } = useTranslation();
-  const addPlanMutation = useMutation({
-    mutationFn: async (data: FormValid) => {
-      await axios.post('/trust/trust/distribution/plan/add', {
-        trustId,
-        ...data,
-      });
-    },
-    onSuccess: async () => {
-      onClose?.();
-      await queryClient.invalidateQueries(['trust']);
-    },
-  });
+  // const addPlanMutation = useMutation({
+  //   mutationFn: async (data: FormValid) => {
+  //     await axios.post('/trust/trust/distribution/plan/add', {
+  //       trustId,
+  //       ...data,
+  //     });
+  //   },
+  //   onSuccess: async () => {
+  //     onClose?.();
+  //     await queryClient.invalidateQueries(['trust']);
+  //   },
+  // });
 
   const submit = async (data: FormValid) => {
-    addPlanMutation.mutate(data);
-    // await axios.post('/trust/trust/distribution/plan/add', {
-    //   trustId,
-    //   ...data,
-    // });
-    // onClose?.();
+    // addPlanMutation.mutate(data);
+    onEnter?.(data.planDescription);
   };
 
   return (
@@ -73,12 +69,10 @@ export default function NewPlan({ trustId, onClose }: {
             </div>
           </label>
           <div className="self-center w-[420px]">
-            <Button type="submit" block disabled={addPlanMutation.isLoading}>{t('Submit')}</Button>
+            <Button type="submit" block>{t('Submit')}</Button>
           </div>
         </div>
         <div className="mt-12 self-stretch px-8">
-          {/* <Divide /> */}
-          {/* <ContactUs /> */}
           <ContactUsFooter />
         </div>
       </form>

@@ -59,25 +59,25 @@ export default function ExcessFee() {
               },
               {
                 Header: 'Trust total amount',
-                accessor: (x) => `${x.totalTrustAmount} ${x.coinName}`,
+                accessor: (x) => `${x.totalTrustAmount} ${x.totalTrustCoinName}`,
               },
               {
                 Header: 'Cumulative transferred amount',
-                accessor: (x) => `${x.amount} ${x.coinName}`,
+                accessor: (x) => `${x.totalAmount} ${x.totalTrustCoinName}`,
               },
               {
                 Header: 'Transferred amount',
                 accessor: (x) => `${x.amount} ${x.coinName}`,
               },
               {
-                Header: () => (<div className="text-right">Currency Price</div>),
+                Header: () => <div className="text-right">Currency Price</div>,
                 accessor: 'totalAmount',
                 // eslint-disable-next-line react/prop-types
                 Cell: ({ row }) => (
                   <div
                     className="text-right gradient-text2"
                   >
-                    {`1 ${row.original.coinName}≈${row.original.managementFeeApr} USD`}
+                    {`1 ${row.original.coinName}≈${row.original.currencyPrice} ${row.original.totalTrustCoinName}`}
                   </div>
                 ),
               },
