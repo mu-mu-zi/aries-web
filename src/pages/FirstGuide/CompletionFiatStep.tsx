@@ -28,17 +28,17 @@ export default function CompletionFiatStep({ trust }: {
       <div className="flex flex-col gap-2 self-stretch">
         {trust.trustCompanyModel?.companyType === 1 ? (
           <>
-            <VerifyStatusRow icon={icon3} title="Bank Account" status={VerifyStatusRowStatus.Success} />
-            <VerifyStatusRow icon={icon4} title="Exchange Account" status={VerifyStatusRowStatus.Opening} />
-            <VerifyStatusRow icon={digitalIcon} title="Digital asset account" status={VerifyStatusRowStatus.NotOpen} />
-            <VerifyStatusRow icon={icon2} title="Trust Asset Holding Company" status={VerifyStatusRowStatus.NotOpen} />
+            <VerifyStatusRow icon={digitalIcon} title="Digital asset account" status={VerifyStatusRowStatus.Success} />
+            <VerifyStatusRow icon={icon2} title="Trust Asset Holding Company" status={VerifyStatusRowStatus.Opening} />
+            <VerifyStatusRow icon={icon3} title="Bank Account" status={VerifyStatusRowStatus.NotOpen} />
+            <VerifyStatusRow icon={icon4} title="Exchange Account" status={VerifyStatusRowStatus.NotOpen} />
           </>
         ) : (
           <>
-            <VerifyStatusRow icon={icon3} title="Bank Account" status={VerifyStatusRowStatus.Success} />
-            <VerifyStatusRow icon={icon4} title="Exchange Account" status={VerifyStatusRowStatus.Success} />
-            <VerifyStatusRow icon={digitalIcon} title="Digital asset account" status={VerifyStatusRowStatus.Opening} />
-            <VerifyStatusRow icon={icon2} title="Trust Asset Holding Company" status={VerifyStatusRowStatus.Opening} />
+            <VerifyStatusRow icon={digitalIcon} title="Digital asset account" status={VerifyStatusRowStatus.Success} />
+            <VerifyStatusRow icon={icon2} title="Trust Asset Holding Company" status={VerifyStatusRowStatus.Success} />
+            <VerifyStatusRow icon={icon3} title="Bank Account" status={VerifyStatusRowStatus.Opening} />
+            <VerifyStatusRow icon={icon4} title="Exchange Account" status={VerifyStatusRowStatus.Opening} />
           </>
         )}
       </div>

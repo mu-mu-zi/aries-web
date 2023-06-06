@@ -52,7 +52,7 @@ export default function BillRecords({ trustInvestmentId }: {
   return (
     <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8 shadow-block">
       {/* 标题 */}
-      <div className="gradient-text1 font-bold text-[20px]">{t('Bill Records')}</div>
+      <div className="gradient-text1 font-bold text-[20px] font-title">{t('Bill Records')}</div>
       {/* 分割线 */}
       <div className="h-[1px] bg-[#3B5649]" />
       <SimpleTable

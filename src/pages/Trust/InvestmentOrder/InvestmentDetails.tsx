@@ -32,7 +32,7 @@ export default function InvestmentDetails({ trustInvestment }: {
   return (
     <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8 shadow-block">
       {/* 标题 */}
-      <div className="gradient-text1 font-bold text-[20px]">{t('Investment Instruction Details')}</div>
+      <div className="gradient-text1 font-bold font-title text-[20px]">{t('Investment Instruction Details')}</div>
       {/* 分割线 */}
       <div className="h-[1px] bg-[#3B5649]" />
       {/* 状态 */}
@@ -51,6 +51,7 @@ export default function InvestmentDetails({ trustInvestment }: {
         </div>
       </div>
       {/* advice */}
+      <div className="mt-8 text-[#99ac9b] text-[16px]">{t('Investment advice')}</div>
       <div className="grid grid-cols-1 gap-4">
         {/* todo: 投资目标、投资范围 */}
         <AdviceCell

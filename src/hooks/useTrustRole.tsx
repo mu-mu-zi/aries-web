@@ -11,5 +11,7 @@ export default function useTrustPermission({ trust }: {
     settlorPermission: [1, 21].some((c) => trust?.userTypeArr.includes(c)),
     /* 仅仅是委托人 */
     onlySettlorPermission: trust?.userTypeArr.includes(1),
+    /* 保护人是委托人本人 */
+    protectorIsSettlorPermission: trust?.userTypeArr.includes(1) && [4, 5, 6].some((c) => trust?.userTypeArr.includes(c)),
   };
 }

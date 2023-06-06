@@ -26,7 +26,7 @@ export default function EstablishmentFee() {
   const query = useTrustFeeListQuery({
     trustId: Number(trustId),
   });
-  const total = useMemo(() => query.data?.data?.find((x) => x.feeType === 3)?.feeAmount, [query.data?.data]);
+  const currentFee = useMemo(() => query.data?.data?.find((x) => x.feeType === 3), [query.data?.data]);
 
   return (
     <div className="flex flex-col gap-4">
@@ -35,7 +35,7 @@ export default function EstablishmentFee() {
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-4 justify-between">
             <div className="flex flex-col gap-4">
-              <SectionTitle title={`Establishment Fee: ${total} USD`} />
+              <SectionTitle title={`Establishment Fee: ${currentFee?.feeAmount} ${currentFee?.coinName}`} />
             </div>
             <div className="max-w-[260px] w-full"><Dropdown title="2023" items={['2023']} block /></div>
           </div>
@@ -75,7 +75,7 @@ export default function EstablishmentFee() {
                 Header: () => <div className="text-right">Establishment Fee</div>,
                 accessor: 'totalAmount',
                 // eslint-disable-next-line react/prop-types
-                Cell: ({ row }) => (<div className="text-right">{`${-row.original.amount} ${row.original.coinName}`}</div>),
+                Cell: ({ row }) => (<div className="text-right">{`${-row.original.initialCost} ${row.original.coinName}`}</div>),
               },
               {
                 Header: () => (<div className="text-right">Management fee</div>),

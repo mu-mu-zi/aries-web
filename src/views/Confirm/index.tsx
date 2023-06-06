@@ -17,9 +17,9 @@ export default function Confirm({
       <div className="flex flex-col items-center gap-4 mb-8 px-16">
         <img src={warningIcon} width="44px" alt="" />
         <div className="text-center text-[#708077] text-[14px]">{title}</div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="flex justify-center items-center gap-4">
           {onCancel && <Button size="medium" onClick={onCancel}>Cancel</Button>}
-          <Button size="medium" onClick={onOk}>Ok</Button>
+          {onOk && <Button size="medium" onClick={onOk}>Ok</Button>}
         </div>
       </div>
       <Divide />

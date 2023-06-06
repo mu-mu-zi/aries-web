@@ -27,7 +27,7 @@ export const addNotification = (
     type?: NOTIFICATION_TYPE
   },
 ) => {
-  Store.addNotification({
+  Promise.resolve().then(() => Store.addNotification({
     container: 'top-right',
     title,
     message: content,
@@ -36,5 +36,10 @@ export const addNotification = (
       duration: 2 * 1000,
       waitForAnimation: false,
     },
-  });
+  })).then((id) => new Promise((resolve) => {
+    setTimeout(() => {
+      Store.removeNotification(id);
+      resolve(2 * 1000);
+    }, 2 * 1000);
+  }));
 };

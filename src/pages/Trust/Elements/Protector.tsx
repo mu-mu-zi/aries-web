@@ -36,8 +36,10 @@ export default function Protector() {
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
   const [selected, setSelected] = useState<ITrustUser>();
   const queryClient = useQueryClient();
-  const { settlorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
-  const [removeConfirmVisible, setRemoveConfirmVisible] = useState(false);
+  const { settlorPermission, protectorIsSettlorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
+  // const [removeConfirmVisible, setRemoveConfirmVisible] = useState(false);
+  const [removeWarningVisible, setRemoveWarningVisible] = useState(false);
+  const [editWarningVisible, setEditWarningVisible] = useState(false);
   const [googleVerifyVisible, setGoogleVerifyVisible] = useState(false);
 
   return (
@@ -98,7 +100,7 @@ export default function Protector() {
             accessor: (x) => {
               switch (x.roleType) {
                 case 1:
-                  return 'No';
+                  return x.userType === 3 ? '--' : 'No';
                 case 2:
                   return 'ReadOnly';
                 case 3:
@@ -111,6 +113,9 @@ export default function Protector() {
           {
             Header: t('KYC certification') ?? '',
             accessor: (x) => {
+              if (x.userType === 3) {
+                return '--';
+              }
               switch (x.kycStatus) {
                 case 1:
                   return 'In progress';
@@ -153,28 +158,36 @@ export default function Protector() {
             accessor: 'action',
             Cell: ({ row }) => (
               <div className="flex gap-4 justify-end">
-                {trustEditRole(trustQuery.data?.data)
-                  && (
-                    <>
-                      {/* 移除保护人委托人 */}
+                {settlorPermission && row.original.trustUserStatus !== 0 && (
+                  <>
+                    {/* 权限编辑 */}
+                    {row.original.userType !== 3 && !protectorIsSettlorPermission && (
                       <TextButton onClick={async () => {
-                        setSelected(row.original);
-                        // setRemoveConfirmVisible(true);
-                        setGoogleVerifyVisible(true);
-                      }}
-                      >
-                        {t('Remove')}
-                      </TextButton>
-                      {/* 权限编辑 */}
-                      <TextButton onClick={async () => {
-                        setSelected(row.original);
-                        setEditRoleVisible(true);
+                        if (row.original.auditFlag) {
+                          setEditWarningVisible(true);
+                        } else {
+                          setSelected(row.original);
+                          setEditRoleVisible(true);
+                        }
                       }}
                       >
                         {t('Authority')}
                       </TextButton>
-                    </>
-                  )}
+                    )}
+                    {/* 移除保护人委托人 */}
+                    <TextButton onClick={async () => {
+                      if (row.original.auditFlag) {
+                        setRemoveWarningVisible(true);
+                      } else {
+                        setSelected(row.original);
+                        setGoogleVerifyVisible(true);
+                      }
+                    }}
+                    >
+                      {t('Remove')}
+                    </TextButton>
+                  </>
+                )}
               </div>
             ),
           },
@@ -206,25 +219,25 @@ export default function Protector() {
           />
         )}
       </Modal>
-      <Modal visible={removeConfirmVisible} onClose={() => setRemoveConfirmVisible(false)}>
-        {selected && (
-          <Confirm
-            title={t('You have a current investment order not approved, confirm to remove the Protector?')}
-            onOk={async () => {
-              await axios.request({
-                url: '/trust/trust/user/delete',
-                method: 'get',
-                params: {
-                  trustUserId: selected.id,
-                },
-              });
-              await queryClient.invalidateQueries(['trust']);
-              setRemoveConfirmVisible(false);
-            }}
-            onCancel={() => setRemoveConfirmVisible(false)}
-          />
-        )}
-      </Modal>
+      {/* <Modal visible={removeConfirmVisible} onClose={() => setRemoveConfirmVisible(false)}> */}
+      {/*  {selected && ( */}
+      {/*    <Confirm */}
+      {/*      title={t('You have a current investment order not approved, confirm to remove the Protector?')} */}
+      {/*      onOk={async () => { */}
+      {/*        await axios.request({ */}
+      {/*          url: '/trust/trust/user/delete', */}
+      {/*          method: 'get', */}
+      {/*          params: { */}
+      {/*            trustUserId: selected.id, */}
+      {/*          }, */}
+      {/*        }); */}
+      {/*        await queryClient.invalidateQueries(['trust']); */}
+      {/*        setRemoveConfirmVisible(false); */}
+      {/*      }} */}
+      {/*      onCancel={() => setRemoveConfirmVisible(false)} */}
+      {/*    /> */}
+      {/*  )} */}
+      {/* </Modal> */}
       <Modal visible={googleVerifyVisible} onClose={() => setGoogleVerifyVisible(false)}>
         {selected && (
           <GoogleVerify
@@ -243,6 +256,18 @@ export default function Protector() {
             }}
           />
         )}
+      </Modal>
+      <Modal visible={removeWarningVisible}>
+        <Confirm
+          title="You currently have unapproved investment instructions, so you cannot remove this protector."
+          onOk={() => setRemoveWarningVisible(false)}
+        />
+      </Modal>
+      <Modal visible={editWarningVisible}>
+        <Confirm
+          title="You currently have unapproved investment instructions, so you cannot change the permissions of this protector."
+          onOk={() => setEditWarningVisible(false)}
+        />
       </Modal>
     </div>
   );

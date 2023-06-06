@@ -14,6 +14,7 @@ import personalLogo from '../../assets/icon/personal.svg';
 import useAuthToken from '../../hooks/useUserId';
 import { useAppDispatch } from '../../state';
 import { deleteToken } from '../../state/user';
+import { addSuccessNotification } from '../../utils/Notification';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -29,13 +30,21 @@ export default function Navbar() {
         <img src={navLogoIcon} height="52px" alt="Trust" />
       </a>
       {!window.location.pathname.startsWith('/first') && token && (
-        <div className="flex pl-8">
+        <div className="flex pl-8 items-center gap-4">
           <NavLink
             to="/my"
             className={({ isActive }) => classNames('text-[20px] text-[#695D52]')}
           >
             Trust
           </NavLink>
+          {/* <Button onClick={() => { */}
+          {/*  addSuccessNotification({ */}
+          {/*    title: '???', */}
+          {/*  }); */}
+          {/* }} */}
+          {/* > */}
+          {/*  Test */}
+          {/* </Button> */}
         </div>
       )}
       <div className={classNames('flex-1')} />

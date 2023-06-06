@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import CancelNav from '../../../views/CancelNav';
 import Section, { SectionTitle } from './Section';
 import Dropdown from '../../../components/Dropdown';
@@ -10,6 +11,9 @@ import ViewCredentials from './ViewCredentials';
 import { unixFormatTime } from '../../../utils/DateFormat';
 import { useTrustFeeStatisticsQuery, useTrustManageFeeListQuery } from '../../../api/trust/fee';
 import { useExcessFeeListQuery, useTrustFeeListQuery } from '../../../api/trust/order';
+import { currencyUSDTFormat } from '../../../utils/CurrencyFormat';
+import RecodeViewCredentials from '../AssetTransfet/RecodeViewCredentials';
+import Modal from '../../../components/Modal';
 
 export default function ExcessFee() {
   const { trustId } = useParams();
@@ -23,12 +27,14 @@ export default function ExcessFee() {
   const query = useTrustFeeListQuery({
     trustId: Number(trustId),
   });
-  const total = useMemo(() => query.data?.data?.find((x) => x.feeType === 2)?.feeAmount, [query.data?.data]);
+  const currentFee = useMemo(() => query.data?.data?.find((x) => x.feeType === 2), [query.data?.data]);
   const statisticsQuery = useTrustFeeStatisticsQuery({
     trustId: Number(trustId),
     type: 2,
     year: 2023,
   });
+  const { t } = useTranslation();
+  const [viewCredentialsVisible, setViewCredentialsVisible] = useState(false);
 
   return (
     <div className="flex flex-col gap-4">
@@ -38,15 +44,15 @@ export default function ExcessFee() {
           {/* todo: 金额 */}
           <div className="flex items-center gap-4 justify-between">
             <div className="flex flex-col gap-4">
-              <SectionTitle title={`Excess transfer fee: ${total} USD`} />
+              <SectionTitle title={`Excess transfer fee: ${currencyUSDTFormat(currentFee?.feeAmount)} ${currentFee?.coinName}`} />
               {statisticsQuery.data?.data && (
                 <div className="flex flex-row items-center flex-wrap gap-4 text-[#C2D7C7F6] text-[16px]">
-                  <div>{`Total amount of deposit: ${statisticsQuery.data?.data.trustAmount} ${statisticsQuery.data?.data.coinName}`}</div>
-                  <div>{`Accumulated transfer amount: ${statisticsQuery.data.data.totalAmount} ${statisticsQuery.data.data.coinName}`}</div>
-                  <div>{`Exceeding amount: ${statisticsQuery.data?.data.excessAmount} ${statisticsQuery.data.data.coinName}`}</div>
+                  <div>{`Total amount of deposit: ${currencyUSDTFormat(statisticsQuery.data?.data.trustAmount)} ${statisticsQuery.data?.data.coinName}`}</div>
+                  <div>{`Accumulated transfer amount: ${currencyUSDTFormat(statisticsQuery.data.data.totalAmount)} ${statisticsQuery.data.data.coinName}`}</div>
+                  <div>{`Exceeding amount: ${currencyUSDTFormat(statisticsQuery.data?.data.excessAmount)} ${statisticsQuery.data.data.coinName}`}</div>
                 </div>
               )}
-              <ViewCredentials />
+              {statisticsQuery.data?.data?.billCertificate && <ViewCredentials onTap={() => setViewCredentialsVisible(true)} />}
             </div>
             <div className="max-w-[260px] w-full"><Dropdown title="2023" items={['2023']} block /></div>
           </div>
@@ -77,7 +83,7 @@ export default function ExcessFee() {
                   <div
                     className="text-right gradient-text2"
                   >
-                    {`1 ${row.original.coinName}≈${row.original.currencyPrice} ${row.original.totalTrustCoinName}`}
+                    {`1 ${row.original.totalTrustCoinName}≈${row.original.currencyPrice} ${row.original.coinName}`}
                   </div>
                 ),
               },
@@ -101,6 +107,15 @@ export default function ExcessFee() {
           'To facilitate asset maintenance and appreciation for the client, we would like to provide specific information about transfer fees. When the amount of external transfer of entrusted assets exceeds the set limit, we will charge a fee of 0.03% based on the actual transfer amount. It should be noted that this fee is calculated based on the token price at the time of transfer and will be paid annually. At the same time, we will provide accurate information in accordance with the contract to help the client better understand the relevant situation of the transfer fee.',
         ]}
       />
+      <Modal
+        visible={viewCredentialsVisible}
+        onClose={() => setViewCredentialsVisible(false)}
+      >
+        <RecodeViewCredentials
+          images={[statisticsQuery.data?.data?.billCertificate]}
+          onClose={() => setViewCredentialsVisible(false)}
+        />
+      </Modal>
     </div>
   );
 }

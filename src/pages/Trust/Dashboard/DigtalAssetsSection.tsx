@@ -23,7 +23,7 @@ export default function DigtalAssetsSection({ asset }: {
         className="flex flex-row gap-4 items-center h-[80px] px-8"
         {...getToggleProps({ onClick: () => setExpanded((x) => !x) })}
       >
-        <img src={asset.name === 'SafeHeron' ? safeheronIcon : sectionIcon} />
+        <img src={asset.name === 'SafeHeron' ? safeheronIcon : sectionIcon} alt="" />
         <div className="gradient-text1 text-[20px] font-bold flex-auto">{asset.name}</div>
         {(asset.status === 1 || asset.status === 2)
           && <div className="font-bold text-[20px] text-[#708077] break-keep">{t('Opening in progress')}</div>}

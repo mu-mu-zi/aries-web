@@ -7,10 +7,12 @@ import Dropdown from '../../../components/Dropdown';
 import Hr from '../../../components/Hr';
 import SimpleTable from '../../../views/SimpleTable';
 import ViewCredentials from './ViewCredentials';
-import { useTrustManageFeeListQuery } from '../../../api/trust/fee';
+import { useTrustFeeStatisticsQuery, useTrustManageFeeListQuery } from '../../../api/trust/fee';
 import { unixFormatTime } from '../../../utils/DateFormat';
 import { useTrustFeeListQuery } from '../../../api/trust/order';
 import { numberFormatWithPrefix } from '../../../utils/CurrencyFormat';
+import RecodeViewCredentials from '../AssetTransfet/RecodeViewCredentials';
+import Modal from '../../../components/Modal';
 
 export default function ManagerFee() {
   const { trustId } = useParams();
@@ -21,21 +23,26 @@ export default function ManagerFee() {
     trustId: Number(trustId),
     year: 2023,
   });
+  const statisticsQuery = useTrustFeeStatisticsQuery({
+    trustId: Number(trustId),
+    type: 1,
+    year: 2023,
+  });
   const query = useTrustFeeListQuery({
     trustId: Number(trustId),
   });
-  const total = useMemo(() => query.data?.data?.find((x) => x.feeType === 1)?.feeAmount, [query.data?.data]);
+  const currentFee = useMemo(() => query.data?.data?.find((x) => x.feeType === 1), [query.data?.data]);
+  const [viewCredentialsVisible, setViewCredentialsVisible] = useState(false);
 
   return (
     <div className="flex flex-col gap-4">
       <CancelNav />
       <Section>
         <div className="flex flex-col gap-4">
-          {/* todo: 金额 */}
           <div className="flex items-center justify-between">
             <div className="flex flex-col gap-4">
-              <SectionTitle title={`Trust management fee: ${total} USD`} />
-              <ViewCredentials />
+              <SectionTitle title={`Trust management fee: ${currentFee?.feeAmount} ${currentFee?.coinName}`} />
+              {statisticsQuery.data?.data?.billCertificate && <ViewCredentials onTap={() => setViewCredentialsVisible(true)} />}
             </div>
             <div className="max-w-[260px] w-full">
               <Dropdown
@@ -83,6 +90,15 @@ export default function ManagerFee() {
           'Please note that the collected management fees cannot replace your final investment results. We cannot guarantee that your investment funds will definitely generate profits and provide investment advice accordingly. Any information regarding expected returns, risk analysis, and investment advice should be used for reference purposes only. You should be solely responsible for analyzing and evaluating your investment decisions.',
         ]}
       />
+      <Modal
+        visible={viewCredentialsVisible}
+        onClose={() => setViewCredentialsVisible(false)}
+      >
+        <RecodeViewCredentials
+          images={[statisticsQuery.data?.data?.billCertificate]}
+          onClose={() => setViewCredentialsVisible(false)}
+        />
+      </Modal>
     </div>
   );
 }

@@ -45,9 +45,9 @@ export default function FiatAssetsCell({ asset }: {
                 </div>
               </div>
               {it.details.filter((x) => x.amount > 0).map((y) => (
-                <div className="flex items-baseline justify-between text-[16px]">
+                <div className="flex items-baseline gap-4 text-[16px]">
                   <div>{y.name}</div>
-                  <div>{`${y.apr}%`}</div>
+                  <div className="flex-auto">{`APR (${y.apr}%)`}</div>
                   <div>{`${y.amount} ${y.symbol}`}</div>
                 </div>
               ))}

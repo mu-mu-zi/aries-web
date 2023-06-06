@@ -186,6 +186,7 @@ export interface ITrustUser {
   createTimeStamp: number;
   createTime: null;
   updateTime: null;
+  auditFlag: boolean
 }
 
 export interface ITrustFee {
@@ -194,6 +195,7 @@ export interface ITrustFee {
   feeType: number;
   trustId: number;
   year: number
+  coinName: string
 }
 
 export interface IReport {

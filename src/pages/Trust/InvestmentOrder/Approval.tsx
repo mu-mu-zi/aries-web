@@ -65,7 +65,7 @@ export default function Approval({ trustInvestmentId }: {
   return (
     <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8 shadow-block">
       {/* 标题 */}
-      <div className="gradient-text1 font-bold text-[20px]">{t('Approval')}</div>
+      <div className="gradient-text1 font-bold text-[20px] font-title">{t('Approval')}</div>
       {/* 分割线 */}
       <div className="h-[1px] bg-[#3B5649]" />
       {/* Table */}
