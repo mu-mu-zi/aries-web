@@ -13,5 +13,7 @@ export default function useTrustPermission({ trust }: {
     onlySettlorPermission: trust?.userTypeArr.includes(1),
     /* 保护人是委托人本人 */
     protectorIsSettlorPermission: trust?.userTypeArr.includes(1) && [4, 5, 6].some((c) => trust?.userTypeArr.includes(c)),
+    /* 具有编辑权限的保护人且不是委托人本文 */
+    protectorEditAndNotSettlor: [4, 5, 6].some((c) => trust?.userTypeArr.includes(c)) && !trust?.userTypeArr.includes(1) && trust?.roleType === 3,
   };
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { retry } from '@reduxjs/toolkit/query';
+import { FormattedMessage, useIntl } from 'react-intl';
 import moreIcon from '../../../assets/icon/arrow_r.svg';
 import cellIcon from '../../../assets/icon/money_small_icon.svg';
 import { useLedgerOrderListQuery } from '../../../api/trust/order';
@@ -17,32 +17,34 @@ export default function BillingRecord() {
     pageSize: 2,
   });
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const intl = useIntl();
+  // const { t } = useTranslation();
 
   const typeTitle = (type: number) => [
-    'Fiat Out',
-    'Fiat In',
-    'Digital Asset Out',
-    'Digital Asset In',
-    'Exchange',
-    'Custom',
-    'Distribute Profit',
-    'Management Fee',
-    'Exceed Transfer',
-    'Establishment Fee',
-    'Additional Establishment Fee'][type - 1];
+    intl.formatMessage({ defaultMessage: 'Fiat Out' }),
+    intl.formatMessage({ defaultMessage: 'Fiat In' }),
+    intl.formatMessage({ defaultMessage: 'Digital Asset Out' }),
+    intl.formatMessage({ defaultMessage: 'Digital Asset In' }),
+    intl.formatMessage({ defaultMessage: 'Exchange' }),
+    intl.formatMessage({ defaultMessage: 'Custom' }),
+    intl.formatMessage({ defaultMessage: 'Distribute Profit' }),
+    intl.formatMessage({ defaultMessage: 'Management Fee' }),
+    intl.formatMessage({ defaultMessage: 'Exceed Transfer' }),
+    intl.formatMessage({ defaultMessage: 'Establishment Fee' }),
+    intl.formatMessage({ defaultMessage: 'Additional Establishment Fee' }),
+  ][type - 1];
 
   return (
     <div
       className={classNames('flex flex-col', 'p-8', 'rounded-xl block-gradient-border', 'gradient-bg2', 'shadow-[-4px_8px_10px_0_#030c08]')}
     >
       <div className={classNames('item-center flex flex-row justify-between')}>
-        <div className="gradient-text1 font-bold text-[20px]">{t('Billing Record')}</div>
+        <div className="gradient-text1 font-bold text-[20px]"><FormattedMessage defaultMessage="Billing Record" /></div>
         <div
           className="flex cursor-pointer flex-row items-center gap-2"
           onClick={() => navigate(`/trust/${trustId}/billAndResources`)}
         >
-          <div className="gradient-text1 font-bold text-[16px]">{t('More')}</div>
+          <div className="gradient-text1 font-bold text-[16px]"><FormattedMessage defaultMessage="More" /></div>
           <img src={moreIcon} width="24px" alt="" />
         </div>
       </div>
@@ -75,13 +77,15 @@ function RecordCell({
   status: number;
   coinName: string
 }) {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
+
   const statusTitle = (billType: number) => {
     switch (billType) {
       case 1:
-        return t('Pending');
+        return intl.formatMessage({ defaultMessage: 'Pending' });
       case 2:
-        return t('Success');
+        return intl.formatMessage({ defaultMessage: 'Success' });
       default:
         return '--';
     }

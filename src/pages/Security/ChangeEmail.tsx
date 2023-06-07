@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import CenterContainer from '../../views/CenterContainer';
 import GANavbar from '../SignIn/GANavbar';
 import Dropdown from '../../components/Dropdown';
@@ -36,7 +36,8 @@ export default function ChangeEmail() {
   });
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
 
   const sendValidCode = async () => {
     /* 验证账号 */
@@ -71,33 +72,33 @@ export default function ChangeEmail() {
 
   return (
     <CenterContainer>
-      <GANavbar title={t('Cancel')} />
+      <GANavbar title={intl.formatMessage({ defaultMessage: 'Cancel' })} />
       <form onSubmit={handleSubmit(submit)}>
         <div className="m-auto flex flex-col w-[420px]">
           <div
             className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px] my-16"
           >
-            {t('Binding email verification')}
+            <FormattedMessage defaultMessage="Binding email verification" />
           </div>
           <div className="flex flex-col gap-4">
-            <div className="text-[#C2D7C7F6] text-[16px] font-bold">{t('New Email')}</div>
+            <div className="text-[#C2D7C7F6] text-[16px] font-bold">{intl.formatMessage({ defaultMessage: 'New Email' })}</div>
             <div className="flex-auto">
               <TextInput
                 {...register('email')}
-                placeholder="Please enter the new email"
+                placeholder={intl.formatMessage({ defaultMessage: 'Please enter the new email' })}
               />
             </div>
-            <div className="text-[#C2D7C7F6] text-[16px] font-bold">{t('New Email Verification Code')}</div>
+            <div className="text-[#C2D7C7F6] text-[16px] font-bold">{intl.formatMessage({ defaultMessage: 'New Email Verification Code' })}</div>
             <div>
               <TextInput
                 {...register('securityCode')}
                 suffix={(<SendButton onClick={sendValidCode} />)}
-                placeholder="Please enter the verification code"
+                placeholder={intl.formatMessage({ defaultMessage: 'Please enter the verification code' })}
               />
             </div>
           </div>
           <div className="mt-10">
-            <Button block>{t('Confirm')}</Button>
+            <Button block><FormattedMessage defaultMessage="Confirm" /></Button>
           </div>
         </div>
       </form>

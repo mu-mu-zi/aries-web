@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import StepProgress from './StepProgress';
 import { IInvestment } from '../../../interfaces/trust';
 import Button from '../../../components/Button';
@@ -16,10 +16,15 @@ export default function OrderCell({ item }: {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { trustId } = useParams();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const { formatMessage } = useIntl();
   const { trustId: trustInvestmentId } = useParams();
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
-  const { protectorPermission, settlorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
+  const {
+    protectorPermission,
+    settlorPermission,
+    protectorEditAndNotSettlor,
+  } = useTrustPermission({ trust: trustQuery.data?.data });
 
   const cancelInvestment = async () => {
     axios.request({
@@ -46,7 +51,7 @@ export default function OrderCell({ item }: {
   };
 
   const navTo = () => {
-    navigate(`/trust/${trustId}/orders/detail`, {
+    navigate(`/trust/${trustId}/orders/detail/${item.trustInvestmentId}`, {
       state: {
         trustInvestment: item,
       },
@@ -58,11 +63,15 @@ export default function OrderCell({ item }: {
       {/* Header */}
       <div className="flex flex-row items-center gap-2 flex-wrap">
         <div className="text-[#C2D7C7F6] text-[20px] font-bold">
-          {`Investment code ${item.investmentCode}`}
+          {/* {`Investment code ${item.investmentCode}`} */}
+          <FormattedMessage
+            defaultMessage="Investment code {code}"
+            values={{ code: item.investmentCode }}
+          />
         </div>
-        {item.benefitFlag && <OrderCellFlag title={t('Beneficiary') ?? ''} />}
-        {item.protectionFlag && <OrderCellFlag title={t('Protector') ?? ''} />}
-        {item.entrustFlag && <OrderCellFlag title={t('Settlor') ?? ''} />}
+        {item.benefitFlag && <OrderCellFlag title={formatMessage({ defaultMessage: 'Beneficiary' })} />}
+        {item.protectionFlag && <OrderCellFlag title={formatMessage({ defaultMessage: 'Protector' })} />}
+        {item.entrustFlag && <OrderCellFlag title={formatMessage({ defaultMessage: 'Settlor' })} />}
       </div>
       {/* Content */}
       <div className="flex-auto flex flex-col gap-2 text-[#99AC9B] text-[16px] leading-[18px]">
@@ -76,11 +85,11 @@ export default function OrderCell({ item }: {
         {item.investmentStatus <= 5 && (
           <StepProgress
             items={[
-              'Initiated',
-              'Under review',
-              'Investment in',
-              'Verifying',
-              'Completed',
+              formatMessage({ defaultMessage: 'Initiated' }),
+              formatMessage({ defaultMessage: 'Under review' }),
+              formatMessage({ defaultMessage: 'Investment in' }),
+              formatMessage({ defaultMessage: 'Verifying' }),
+              formatMessage({ defaultMessage: 'Completed' }),
             ]}
             current={item.investmentStatus - 1}
           />
@@ -88,11 +97,11 @@ export default function OrderCell({ item }: {
         {item.investmentStatus === 6 && (
           <StepProgress
             items={[
-              'Initiated',
-              'Verification failed',
-              'Investment in',
-              'Verifying',
-              'Completed',
+              formatMessage({ defaultMessage: 'Initiated' }),
+              formatMessage({ defaultMessage: 'Verification failed' }),
+              formatMessage({ defaultMessage: 'Investment in' }),
+              formatMessage({ defaultMessage: 'Verifying' }),
+              formatMessage({ defaultMessage: 'Completed' }),
             ]}
             current={1}
             errorCurrent={2}
@@ -101,9 +110,9 @@ export default function OrderCell({ item }: {
         {(item.investmentStatus === 7 || item.investmentStatus === 8) && (
           <StepProgress
             items={[
-              'Initiated',
-              'Canceling',
-              'Cancelled',
+              formatMessage({ defaultMessage: 'Initiated' }),
+              formatMessage({ defaultMessage: 'Canceling' }),
+              formatMessage({ defaultMessage: 'Cancelled' }),
             ]}
             current={item.investmentStatus - 7 + 1}
           />
@@ -114,11 +123,19 @@ export default function OrderCell({ item }: {
       {/* 操作 */}
       <div className="flex flex-row flex-wrap items-center justify-center gap-4">
         {/* 委托人才能取消 */}
-        {item.investmentStatus < 2 && settlorPermission && <Button onClick={cancelInvestment}>{t('Cancel')}</Button>}
-        {/* 保护人才能审批 */}
-        {item.investmentStatus < 3 && protectorPermission && <Button onClick={navTo}>{t('Approval')}</Button>}
+        {item.investmentStatus < 2 && settlorPermission && (
+          <Button onClick={cancelInvestment}>
+            <FormattedMessage defaultMessage="Cancel" />
+          </Button>
+        )}
+        {/* 保护人才能审批，且保护人不是委托人本人 */}
+        {item.investmentStatus < 3 && protectorEditAndNotSettlor && (
+          <Button onClick={navTo}>
+            <FormattedMessage defaultMessage="Approval" />
+          </Button>
+        )}
         {/* 任何人都可以查看 */}
-        <Button size="medium" onClick={navTo}>{t('Check')}</Button>
+        <Button size="medium" onClick={navTo}><FormattedMessage defaultMessage="Check" /></Button>
       </div>
     </div>
   );

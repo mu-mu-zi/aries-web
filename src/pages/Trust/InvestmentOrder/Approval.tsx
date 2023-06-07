@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import moment from 'moment';
-import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
+import { FormattedMessage, useIntl } from 'react-intl';
 import copyIcon from '../../../assets/icon/copy.svg';
 import { useInvestmentApprovalRecodeQuery } from '../../../api/trust/investment';
 import CopyIcon from '../../../views/CopyIcon';
@@ -29,12 +29,13 @@ export default function Approval({ trustInvestmentId }: {
     trustInvestmentId,
   });
   const [opinionVisible, setOpinionVisible] = useState(false);
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const { trustId } = useParams();
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
-  const { protectorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
+  const { protectorPermission, protectorEditAndNotSettlor } = useTrustPermission({ trust: trustQuery.data?.data });
   const queryClient = useQueryClient();
   const [selected, setSelected] = useState<IInvestmentApproveRecode>();
+  const intl = useIntl();
 
   const audit = async (recordId: number, approved: boolean) => {
     await axios.request({
@@ -51,32 +52,30 @@ export default function Approval({ trustInvestmentId }: {
   const approvalStatusName = (status: number) => {
     // 审批状态状态：1-待审批，2-已通过，3-已拒绝 *!
     switch (status) {
-      case 1:
-        return 'Pending approval';
-      case 2:
-        return 'Already passed';
-      case 3:
-        return 'Rejected';
-      default:
-        return null;
+      case 1: return intl.formatMessage({ defaultMessage: 'Pending approval' });
+      case 2: return intl.formatMessage({ defaultMessage: 'Already passed' });
+      case 3: return intl.formatMessage({ defaultMessage: 'Rejected' });
+      default: return null;
     }
   };
 
   return (
     <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8 shadow-block">
       {/* 标题 */}
-      <div className="gradient-text1 font-bold text-[20px] font-title">{t('Approval')}</div>
+      <div className="gradient-text1 font-bold text-[20px] font-title">
+        <FormattedMessage defaultMessage="Approval" />
+      </div>
       {/* 分割线 */}
       <div className="h-[1px] bg-[#3B5649]" />
       {/* Table */}
       <SimpleTable
         columns={[
           {
-            Header: t('Currency') ?? '',
+            Header: intl.formatMessage({ defaultMessage: 'Currency' }),
             accessor: 'coinName',
           },
           {
-            Header: t('Amount') ?? '',
+            Header: intl.formatMessage({ defaultMessage: 'Amount' }),
             accessor: 'amount',
             // eslint-disable-next-line react/prop-types
             Cell: ({ row }) => (
@@ -85,20 +84,17 @@ export default function Approval({ trustInvestmentId }: {
             ),
           },
           {
-            Header: t('Destination') ?? '',
+            Header: intl.formatMessage({ defaultMessage: 'Destination' }),
             accessor: (x) => {
               switch (x.direction) {
-                case 1:
-                  return 'Exchange';
-                case 2:
-                  return 'Bank';
-                default:
-                  return '--';
+                case 1: return intl.formatMessage({ defaultMessage: 'Exchange' });
+                case 2: return intl.formatMessage({ defaultMessage: 'Bank' });
+                default: return '--';
               }
             },
           },
           {
-            Header: () => (<div className="text-right">{'Opponent\'s address'}</div>),
+            Header: () => (<div className="text-right"><FormattedMessage defaultMessage={"Opponent's address"} /></div>),
             accessor: 'address',
             // eslint-disable-next-line react/prop-types
             Cell: ({ row }) => (
@@ -111,15 +107,18 @@ export default function Approval({ trustInvestmentId }: {
             ),
           },
           {
-            Header: () => <div className="text-right">Approval Comments</div>,
+            Header: () => <div className="text-right"><FormattedMessage defaultMessage="Approval Comments" /></div>,
             accessor: 'approvalRemark',
             Cell: ({ row }) => (
               <div className="flex items-center justify-end gap-2">
-                <Tooltip title="Approval opinion" content={row.original.approvalRemark}>
+                <Tooltip
+                  title={intl.formatMessage({ defaultMessage: 'Approval opinion' })}
+                  content={row.original.approvalRemark}
+                >
                   <div>{stringShort(row.original.approvalRemark, 20)}</div>
                 </Tooltip>
                 {/* 保护人才能操作审批 */}
-                {protectorPermission && (
+                {protectorEditAndNotSettlor && (
                   <div
                     className="cursor-pointer flex-shrink-0"
                     onClick={() => {
@@ -134,27 +133,27 @@ export default function Approval({ trustInvestmentId }: {
             ),
           },
           {
-            Header: 'Approval time',
+            Header: intl.formatMessage({ defaultMessage: 'Approval time' }),
             accessor: (x) => unixFormatTime(x.approvalTimeStamp),
           },
           {
-            Header: () => <div className="text-right">Reconciliation</div>,
+            Header: () => <div className="text-right"><FormattedMessage defaultMessage="Reconciliation" /></div>,
             accessor: 'Reconciliation',
             Cell: ({ row }) => (
               <div className="flex justify-end items-center gap-4">
                 {/* 审批状态状态：1-待审批，2-已通过，3-已拒绝 */}
                 {/* 保护人才能审批 */}
-                {row.original.approvalStatus === 1 && protectorPermission && (
+                {row.original.approvalStatus === 1 && protectorEditAndNotSettlor && (
                   <>
                     <TextButton
                       onClick={() => audit(row.original.id, true)}
                     >
-                      Approved
+                      <FormattedMessage defaultMessage="Approved" />
                     </TextButton>
                     <TextButton
                       onClick={() => audit(row.original.id, false)}
                     >
-                      Refusal
+                      <FormattedMessage defaultMessage="Refusal" />
                     </TextButton>
                   </>
                 )}

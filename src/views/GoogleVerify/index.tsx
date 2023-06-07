@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Modal from '../../components/Modal';
 import ModalContainer from '../ModalContainer';
 import ModalNav from '../ModalContainer/ModalNav';
@@ -29,6 +30,7 @@ export default function GoogleVerify({ onClose, onEnter }: {
   } = useForm<FormValid>({
     resolver: zodResolver(valid),
   });
+  const intl = useIntl();
 
   const verifyMutation = useMutation({
     mutationFn: (data: FormValid) => axios.post('/user/user/securityVerification', {
@@ -44,11 +46,20 @@ export default function GoogleVerify({ onClose, onEnter }: {
 
   return (
     <ModalContainer>
-      <ModalNav title="Google Verify" onClose={onClose} />
+      <ModalNav
+        title={intl.formatMessage({ defaultMessage: 'Google Verify' })}
+        onClose={onClose}
+      />
       <form onSubmit={handleSubmit(submit)}>
         <div className="flex flex-col gap-4">
-          <TextInput {...register('code')} placeholder="Please enter the 6-digit Google security code" maxLength={6} />
-          <Button block disabled={verifyMutation.isLoading}>Submit</Button>
+          <TextInput
+            {...register('code')}
+            placeholder={intl.formatMessage({ defaultMessage: 'Please enter the 6-digit Google security code' })}
+            maxLength={6}
+          />
+          <Button block disabled={verifyMutation.isLoading}>
+            <FormattedMessage defaultMessage="Submit" />
+          </Button>
         </div>
       </form>
       <div className="mt-[40px]">

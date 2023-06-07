@@ -1,12 +1,12 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage } from 'react-intl';
 import TextButton from '../../components/TextButton';
 
 export default function ContactUs() {
   const navigate = useNavigate();
   const { trustId } = useParams();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   return (
     <TextButton
@@ -16,7 +16,7 @@ export default function ContactUs() {
         },
       })}
     >
-      {t('Contact Us')}
+      <FormattedMessage defaultMessage="Contact Us" />
     </TextButton>
   );
 }

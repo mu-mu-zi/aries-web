@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import classNames from 'classnames';
 import moment from 'moment';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage } from 'react-intl';
 import cellIcon from '../../../assets/icon/money_small_icon.svg';
 import moreIcon from '../../../assets/icon/arrow_r.svg';
 import { useTrustMessageListQuery } from '../../../api/trust/trust';
@@ -11,7 +11,7 @@ import { unixFormatTime } from '../../../utils/DateFormat';
 
 export default function SimpleNotification() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const { trustId } = useParams();
   const listQuery = useTrustMessageListQuery({
     trustId: Number(trustId),
@@ -23,7 +23,7 @@ export default function SimpleNotification() {
     <div className="gradient-border-container">
       <div className={classNames('flex flex-col', 'p-8', 'rounded-xl', 'gradient-bg2', 'shadow-[-4px_8px_10px_0_#030c08]')}>
         <div className={classNames('item-center flex flex-row justify-between')}>
-          <div className="gradient-text1 font-bold text-[20px] font-title">{t('Notification')}</div>
+          <div className="gradient-text1 font-bold text-[20px] font-title"><FormattedMessage defaultMessage="Notification" /></div>
           <div
             className="flex flex-row items-center gap-2 cursor-pointer"
             onClick={() => navigate(`/trust/${trustId}/notification`)}
@@ -31,7 +31,7 @@ export default function SimpleNotification() {
             <div
               className="gradient-text1 font-bold text-[16px]"
             >
-              {t('More')}
+              <FormattedMessage defaultMessage="More" />
             </div>
             <img src={moreIcon} width="24px" alt="" />
           </div>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import moment from 'moment/moment';
 import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Button from '../../../components/Button';
 import Hr from '../../../components/Hr';
 import BlockRow from './BlockRow';
@@ -23,7 +23,8 @@ import GoogleVerify from '../../../views/GoogleVerify';
 
 export default function Protector() {
   const { trustId } = useParams();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const [addProtectorVisible, setAddProtectorVisible] = useState(false);
   const [editRoleVisible, setEditRoleVisible] = useState(false);
   const [page, setPage] = useState(1);
@@ -45,8 +46,14 @@ export default function Protector() {
   return (
     <div className="flex flex-col gap-4 rounded-xl shadow-block p-8 gradient-bg2 h-full">
       <div className="flex flex-row items-center justify-between">
-        <div className="gradient-text1 font-title font-bold text-[20px]">{t('Protector')}</div>
-        {settlorPermission && <Button onClick={() => setAddProtectorVisible(true)}>{t('+ Add')}</Button>}
+        <div className="gradient-text1 font-title font-bold text-[20px]">
+          <FormattedMessage defaultMessage="Protector" />
+        </div>
+        {settlorPermission && (
+          <Button onClick={() => setAddProtectorVisible(true)}>
+            <FormattedMessage defaultMessage="+ Add" />
+          </Button>
+        )}
       </div>
       <Hr />
       {/* <div className="flex-1 flex flex-col gap-4 gradient-block1 shadow-block rounded-xl p-8"> */}
@@ -65,66 +72,54 @@ export default function Protector() {
       <SimpleTable
         columns={[
           {
-            Header: t('Real name') ?? '',
+            Header: intl.formatMessage({ defaultMessage: 'Real name' }),
             accessor: (x) => `${x.surname} ${x.userName}`,
           },
           {
-            Header: t('Account') ?? '',
+            Header: intl.formatMessage({ defaultMessage: 'Account' }),
             accessor: 'account',
           },
           {
-            Header: t('Identity category') ?? '',
+            Header: intl.formatMessage({ defaultMessage: 'Identity category' }),
             accessor: (x) => {
               switch (x.userType) {
-                case 1:
-                  return 'Principal';
-                case 2:
-                  return 'Explicit Beneficiary';
-                case 3:
-                  return 'Non-Explicit Beneficiary';
-                case 4:
-                  return 'Guardian';
-                case 5:
-                  return 'Succession Guardian';
-                case 6:
-                  return 'Second Succession Guardia';
-                case 21:
-                  return 'Beneficiary Entrustor Himself/Herself';
-                default:
-                  return '--';
+                case 1: return intl.formatMessage({ defaultMessage: 'Principal' });
+                case 2: return intl.formatMessage({ defaultMessage: 'Explicit Beneficiary' });
+                case 3: return intl.formatMessage({ defaultMessage: 'Non-Explicit Beneficiary' });
+                case 4: return intl.formatMessage({ defaultMessage: 'Guardian' });
+                case 5: return intl.formatMessage({ defaultMessage: 'Succession Guardian' });
+                case 6: return intl.formatMessage({ defaultMessage: 'Second Succession Guardia' });
+                case 21: return intl.formatMessage({ defaultMessage: 'Beneficiary Entrustor Himself/Herself' });
+                default: return '--';
               }
             },
           },
           {
-            Header: t('Permissions') ?? '',
+            Header: intl.formatMessage({ defaultMessage: 'Permissions' }),
             accessor: (x) => {
               switch (x.roleType) {
                 case 1:
-                  return x.userType === 3 ? '--' : 'No';
+                  return x.userType === 3 ? '--' : intl.formatMessage({ defaultMessage: 'No', description: '无权限' });
                 case 2:
-                  return 'ReadOnly';
+                  return intl.formatMessage({ defaultMessage: 'ReadOnly' });
                 case 3:
-                  return 'Approval';
+                  return intl.formatMessage({ defaultMessage: 'Approval' });
                 default:
                   return '--';
               }
             },
           },
           {
-            Header: t('KYC certification') ?? '',
+            Header: intl.formatMessage({ defaultMessage: 'KYC certification' }),
             accessor: (x) => {
               if (x.userType === 3) {
                 return '--';
               }
               switch (x.kycStatus) {
-                case 1:
-                  return 'In progress';
-                case 2:
-                  return 'Successful';
-                case 3:
-                  return 'Failure';
-                default:
-                  return '--';
+                case 1: return intl.formatMessage({ defaultMessage: 'In progress' });
+                case 2: return intl.formatMessage({ defaultMessage: 'Successful' });
+                case 3: return intl.formatMessage({ defaultMessage: 'Failure' });
+                default: return '--';
               }
             },
           },
@@ -133,35 +128,30 @@ export default function Protector() {
           //   accessor: 'remark',
           // },
           {
-            Header: t('Audit status') ?? '',
+            Header: intl.formatMessage({ defaultMessage: 'Audit status' }),
             accessor: (x) => {
               switch (x.trustUserStatus) {
-                case 0:
-                  return 'Pending';
-                case 1:
-                  return 'Successful';
-                case 2:
-                  return 'Failure';
-                case 3:
-                  return 'Audit failed';
-                default:
-                  return '--';
+                case 0: return intl.formatMessage({ defaultMessage: 'Pending' });
+                case 1: return intl.formatMessage({ defaultMessage: 'Successful' });
+                case 2: return intl.formatMessage({ defaultMessage: 'Failure' });
+                case 3: return intl.formatMessage({ defaultMessage: 'Audit failed' });
+                default: return '--';
               }
             },
           },
           {
-            Header: t('Add time') ?? '',
+            Header: intl.formatMessage({ defaultMessage: 'Add time' }),
             accessor: (originalRow) => unixFormatTime(originalRow.createTimeStamp),
           },
           {
-            Header: () => <div className="text-right">{t('Action')}</div>,
+            Header: () => <div className="text-right"><FormattedMessage defaultMessage="Action" /></div>,
             accessor: 'action',
             Cell: ({ row }) => (
               <div className="flex gap-4 justify-end">
                 {settlorPermission && row.original.trustUserStatus !== 0 && (
                   <>
                     {/* 权限编辑 */}
-                    {row.original.userType !== 3 && !protectorIsSettlorPermission && (
+                    {row.original.guardiansType !== 2 && settlorPermission && (
                       <TextButton onClick={async () => {
                         if (row.original.auditFlag) {
                           setEditWarningVisible(true);
@@ -171,7 +161,7 @@ export default function Protector() {
                         }
                       }}
                       >
-                        {t('Authority')}
+                        <FormattedMessage defaultMessage="Authority" />
                       </TextButton>
                     )}
                     {/* 移除保护人委托人 */}
@@ -184,7 +174,7 @@ export default function Protector() {
                       }
                     }}
                     >
-                      {t('Remove')}
+                      <FormattedMessage defaultMessage="Remove" />
                     </TextButton>
                   </>
                 )}
@@ -259,13 +249,13 @@ export default function Protector() {
       </Modal>
       <Modal visible={removeWarningVisible}>
         <Confirm
-          title="You currently have unapproved investment instructions, so you cannot remove this protector."
+          title={intl.formatMessage({ defaultMessage: 'You currently have unapproved investment instructions, so you cannot remove this protector.' })}
           onOk={() => setRemoveWarningVisible(false)}
         />
       </Modal>
       <Modal visible={editWarningVisible}>
         <Confirm
-          title="You currently have unapproved investment instructions, so you cannot change the permissions of this protector."
+          title={intl.formatMessage({ defaultMessage: 'You currently have unapproved investment instructions, so you cannot change the permissions of this protector.' })}
           onOk={() => setEditWarningVisible(false)}
         />
       </Modal>

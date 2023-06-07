@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Dropdown from '../../../components/Dropdown';
 import { useLedgerOrderListQuery } from '../../../api/trust/order';
 import SimpleTable from '../../../views/SimpleTable';
@@ -44,7 +44,8 @@ enum TimeType {
 
 export default function Ledger() {
   const { trustId } = useParams();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const valid = z.object({
     billType: z.nativeEnum(BillType).default(BillType.All),
     timeType: z.nativeEnum(TimeType).default(TimeType.All),
@@ -112,18 +113,18 @@ export default function Ledger() {
             <Controller
               render={({ field }) => {
                 const enums = [
-                  { type: BillType.All, title: 'All' },
-                  { type: BillType.FiatOut, title: 'FiatOut' },
-                  { type: BillType.FiatIn, title: 'FiatIn' },
-                  { type: BillType.DigitalAssetOut, title: 'DigitalAssetOut' },
-                  { type: BillType.DigitalAssetIn, title: 'DigitalAssetIn' },
-                  { type: BillType.Exchange, title: 'Exchange' },
-                  { type: BillType.Custom, title: 'Custom' },
-                  { type: BillType.DistributeProfit, title: 'DistributeProfit' },
-                  { type: BillType.ManagementFee, title: 'ManagementFee' },
-                  { type: BillType.ExceedTransfer, title: 'ExceedTransfer' },
-                  { type: BillType.EstablishmentFee, title: 'EstablishmentFee' },
-                  { type: BillType.AdditionalEstablishmentFee, title: 'AdditionalEstablishmentFee' },
+                  { type: BillType.All, title: intl.formatMessage({ defaultMessage: 'All' }) },
+                  { type: BillType.FiatOut, title: intl.formatMessage({ defaultMessage: 'FiatOut' }) },
+                  { type: BillType.FiatIn, title: intl.formatMessage({ defaultMessage: 'FiatIn' }) },
+                  { type: BillType.DigitalAssetOut, title: intl.formatMessage({ defaultMessage: 'DigitalAssetOut' }) },
+                  { type: BillType.DigitalAssetIn, title: intl.formatMessage({ defaultMessage: 'DigitalAssetIn' }) },
+                  { type: BillType.Exchange, title: intl.formatMessage({ defaultMessage: 'Exchange' }) },
+                  { type: BillType.Custom, title: intl.formatMessage({ defaultMessage: 'Custom' }) },
+                  { type: BillType.DistributeProfit, title: intl.formatMessage({ defaultMessage: 'DistributeProfit' }) },
+                  { type: BillType.ManagementFee, title: intl.formatMessage({ defaultMessage: 'ManagementFee' }) },
+                  { type: BillType.ExceedTransfer, title: intl.formatMessage({ defaultMessage: 'ExceedTransfer' }) },
+                  { type: BillType.EstablishmentFee, title: intl.formatMessage({ defaultMessage: 'EstablishmentFee' }) },
+                  { type: BillType.AdditionalEstablishmentFee, title: intl.formatMessage({ defaultMessage: 'AdditionalEstablishmentFee' }) },
                 ];
                 return (
                   <Dropdown
@@ -141,11 +142,11 @@ export default function Ledger() {
             <Controller
               render={({ field }) => {
                 const enums = [
-                  { type: TimeType.All, title: 'All' },
-                  { type: TimeType.OneMonth, title: 'One Month' },
-                  { type: TimeType.ThreeMonth, title: 'Three Month' },
-                  { type: TimeType.HalfYear, title: 'Half of year' },
-                  { type: TimeType.OneYear, title: 'One year' },
+                  { type: TimeType.All, title: intl.formatMessage({ defaultMessage: 'All' }) },
+                  { type: TimeType.OneMonth, title: intl.formatMessage({ defaultMessage: 'One Month' }) },
+                  { type: TimeType.ThreeMonth, title: intl.formatMessage({ defaultMessage: 'Three Month' }) },
+                  { type: TimeType.HalfYear, title: intl.formatMessage({ defaultMessage: 'Half of year' }) },
+                  { type: TimeType.OneYear, title: intl.formatMessage({ defaultMessage: 'One year' }) },
                 ];
                 return (
                   <Dropdown
@@ -160,44 +161,45 @@ export default function Ledger() {
             />
           </div>
           <div className="flex-auto" />
-          <TextButton type="button" onClick={reset}>Reset</TextButton>
-          <TextButton type="button" onClick={download}>Download</TextButton>
+          <TextButton type="button" onClick={reset}><FormattedMessage defaultMessage="Reset" /></TextButton>
+          <TextButton type="button" onClick={download}><FormattedMessage defaultMessage="Download" /></TextButton>
         </div>
       </form>
       <SimpleTable
         columns={[
           {
-            Header: t('Time') ?? '',
+            Header: intl.formatMessage({ defaultMessage: 'Time' }),
             accessor: (originalRow) => unixFormatTime(originalRow.createTimeStamp),
           },
           {
-            Header: t('Type') ?? '',
+            Header: intl.formatMessage({ defaultMessage: 'Type' }),
             accessor: (x) => [
-              'Fiat Out',
-              'Fiat In',
-              'Digital Asset Out',
-              'Digital Asset In',
-              'Exchange',
-              'Custom',
-              'Distribute Profit',
-              'Management Fee',
-              'Exceed Transfer',
-              'Establishment Fee',
-              'Additional Establishment Fee'][x.billType - 1],
+              intl.formatMessage({ defaultMessage: 'Fiat Out' }),
+              intl.formatMessage({ defaultMessage: 'Fiat In' }),
+              intl.formatMessage({ defaultMessage: 'Digital Asset Out' }),
+              intl.formatMessage({ defaultMessage: 'Digital Asset In' }),
+              intl.formatMessage({ defaultMessage: 'Exchange' }),
+              intl.formatMessage({ defaultMessage: 'Custom' }),
+              intl.formatMessage({ defaultMessage: 'Distribute Profit' }),
+              intl.formatMessage({ defaultMessage: 'Management Fee' }),
+              intl.formatMessage({ defaultMessage: 'Exceed Transfer' }),
+              intl.formatMessage({ defaultMessage: 'Establishment Fee' }),
+              intl.formatMessage({ defaultMessage: 'Additional Establishment Fee' }),
+            ][x.billType - 1],
           },
           {
-            Header: t('Currency') ?? '',
+            Header: intl.formatMessage({ defaultMessage: 'Currency' }),
             accessor: 'coinName',
           },
           {
-            Header: t('Amount') ?? '',
+            Header: intl.formatMessage({ defaultMessage: 'Amount' }),
             // accessor: 'amount',
             // eslint-disable-next-line react/prop-types
             Cell: ({ row }) => <div className="gradient-text1 text-[16px]">{numberFormatWithPrefix(row.original?.amount)}</div>,
           },
           {
             accessor: 'Reconciliation',
-            Header: () => (<div className="text-right">{t('Reconciliation')}</div>),
+            Header: () => (<div className="text-right"><FormattedMessage defaultMessage="Reconciliation" /></div>),
             Cell: ({ row }) => (
               <div className="flex justify-end">
                 {row.original.billCertificate && (
@@ -207,7 +209,7 @@ export default function Ledger() {
                       setCredentialsVisible(true);
                     }}
                   >
-                    {t('View credentials')}
+                    <FormattedMessage defaultMessage="View credentials" />
                   </TextButton>
                 )}
               </div>

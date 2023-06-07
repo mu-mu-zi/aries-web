@@ -4,7 +4,7 @@ import { Await, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import qs from 'qs';
 import { useAsync } from 'react-use';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import GANavbar from './GANavbar';
 import Button from '../../components/Button';
 import Divide from '../../components/Divide';
@@ -16,7 +16,8 @@ import QrCode from '../../components/QrCode';
 
 export default function GAScanBind() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const location = useLocation();
   const googleAuth = useGoogleSecretQuery({
     account: location.state?.account,
@@ -26,12 +27,12 @@ export default function GAScanBind() {
     <div className="flex flex-col items-center pt-[38px]">
       <div className="gradient-bg2 flex max-w-[1200px] w-full min-h-[800px] flex-col overflow-clip  rounded-xl">
         <GANavbar
-          title={t('Bind Google Authenticator')}
-          description={t('Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After binding, it generates a dynamic verification code every 30 seconds, which can be used for security verification for login, modifying security settings and other operations.')}
+          title={intl.formatMessage({ defaultMessage: 'Bind Google Authenticator' })}
+          description={intl.formatMessage({ defaultMessage: 'Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After binding, it generates a dynamic verification code every 30 seconds, which can be used for security verification for login, modifying security settings and other operations.' })}
         />
         <div className="item-center flex flex-col self-center w-[420px] pt-[64px]">
           <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]">
-            {t('Please scan this QR code using Google Authenticator app')}
+            <FormattedMessage defaultMessage="Please scan this QR code using Google Authenticator app" />
           </div>
           <div className="mt-12 rounded-xl bg-[#3B5649] p-5 shadow-block self-center">
             <div className="p-3 rounded-xl bg-[#D2D8D6]">
@@ -39,7 +40,7 @@ export default function GAScanBind() {
             </div>
           </div>
           <div className="flex flex-row gap-4 mt-[40px]">
-            <Button size="medium" block onClick={() => navigate(-1)}>{t('Back')}</Button>
+            <Button size="medium" block onClick={() => navigate(-1)}><FormattedMessage defaultMessage="Back" /></Button>
             <Button
               size="medium"
               block
@@ -57,7 +58,7 @@ export default function GAScanBind() {
                 }
               }}
             >
-              {t('Next')}
+              <FormattedMessage defaultMessage="Next" />
             </Button>
           </div>
         </div>

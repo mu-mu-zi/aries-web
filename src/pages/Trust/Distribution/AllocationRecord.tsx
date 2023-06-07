@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Hr from '../../../components/Hr';
 import { useDistributionBillQuery } from '../../../api/trust/distribution';
 import SimpleTable from '../../../views/SimpleTable';
@@ -14,27 +15,34 @@ export default function AllocationRecord() {
     pageIndex: page,
     pageSize: 5,
   });
+  const intl = useIntl();
 
   return (
     <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8">
-      <div className="gradient-text1 font-title font-bold text-[20px]">Allocation Record</div>
+      <div className="gradient-text1 font-title font-bold text-[20px]">
+        <FormattedMessage defaultMessage="Allocation Record" />
+      </div>
       <Hr />
       <SimpleTable
         columns={[
           {
-            Header: 'Beneficiary',
+            Header: intl.formatMessage({ defaultMessage: 'Beneficiary' }),
             accessor: 'beneficiaryUserName',
           },
           {
-            Header: 'Time',
+            Header: intl.formatMessage({ defaultMessage: 'Time' }),
             accessor: (x) => unixFormatTime(x.createTimeStamp),
           },
           {
-            Header: 'Currency',
+            Header: intl.formatMessage({ defaultMessage: 'Currency' }),
             accessor: (x) => x.coinName,
           },
           {
-            Header: () => (<div className="text-right">Amount</div>),
+            Header: () => (
+              <div className="text-right">
+                <FormattedMessage defaultMessage="Amount" />
+              </div>
+            ),
             accessor: 'quantity',
             // eslint-disable-next-line react/prop-types
             Cell: ({ row }) => (
@@ -43,12 +51,12 @@ export default function AllocationRecord() {
             ),
           },
           {
-            Header: () => (<div className="text-right">Reconciliation</div>),
+            Header: () => (<div className="text-right"><FormattedMessage defaultMessage="Reconciliation" /></div>),
             accessor: 'reconciliation',
             // eslint-disable-next-line react/prop-types
             Cell: ({ row }) => (
               <div className="flex justify-end">
-                <TextButton>View credentials</TextButton>
+                <TextButton><FormattedMessage defaultMessage="View credentials" /></TextButton>
               </div>
             ),
           },

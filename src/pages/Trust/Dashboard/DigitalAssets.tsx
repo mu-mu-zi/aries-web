@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
 import BigNumber from 'bignumber.js';
+import { FormattedMessage, useIntl } from 'react-intl';
 import GradientBox from '../../../components/GradientBox';
 import symbolIcon from '../../../assets/icon/dash_bit_icon.svg';
 import arrowUp from '../../../assets/icon/arrow_up.svg';
@@ -14,7 +14,8 @@ import Empty from '../../../views/Empty';
 export default function DigitalAssets({ assetOverview }: {
   assetOverview?: IAssetsOverview
 }) {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
 
   return (
     <div className={classNames('gradient-bg2 rounded-xl p-8', 'flex flex-col gap-6')}>
@@ -28,7 +29,7 @@ export default function DigitalAssets({ assetOverview }: {
           'font-bold text-[24px] font-title text-t4',
         )}
       >
-        <div>{t('Digital Assets')}</div>
+        <div><FormattedMessage defaultMessage="Digital Assets" /></div>
         {/* {assetOverview?.digitalAssets.reduce((x, y) => x + Number(y.totalUSDT), 0)} */}
         <div>
           {`${currencyUSDTFormat(assetOverview?.digitalAssets.reduce((x, y) => BigNumber(y.totalUSDT).plus(x), BigNumber(0)).toFixed())} USD`}

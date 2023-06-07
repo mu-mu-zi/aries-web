@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Button from '../../../components/Button';
 import Hr from '../../../components/Hr';
 import Modal from '../../../components/Modal';
@@ -22,7 +22,8 @@ import { stringShort } from '../../../utils/stringShort';
 import GoogleVerify from '../../../views/GoogleVerify';
 
 export default function AllocationPlan() {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const { trustId } = useParams();
   const [addedVisible, setAddedVisible] = useState(false);
   const [page, setPage] = useState(1);
@@ -60,13 +61,15 @@ export default function AllocationPlan() {
     <>
       <div className="flex flex-col p-8 gradient-bg2 rounded-xl shadow-block">
         <div className="flex flex-row items-center justify-between">
-          <div className="gradient-text1 text-[20px] font-title font-bold">{t('Allocation plan')}</div>
+          <div className="gradient-text1 text-[20px] font-title font-bold">
+            <FormattedMessage defaultMessage="Allocation plan" />
+          </div>
           {settlorPermission && (
             <Button
               size="medium"
               onClick={() => setAddedVisible(true)}
             >
-              {t('+ Add')}
+              <FormattedMessage defaultMessage="+ Add" />
             </Button>
           )}
         </div>
@@ -74,7 +77,7 @@ export default function AllocationPlan() {
         <SimpleTable
           columns={[
             {
-              Header: t('Content') ?? '',
+              Header: intl.formatMessage({ defaultMessage: 'Content' }),
               accessor: 'planDescription',
               // eslint-disable-next-line react/prop-types
               Cell: ({ row }) => (
@@ -86,7 +89,7 @@ export default function AllocationPlan() {
               ),
             },
             {
-              Header: t('Update Time') ?? '',
+              Header: intl.formatMessage({ defaultMessage: 'Update Time' }),
               accessor: (originalRow) => (
                 <div
                   className="break-keep"
@@ -97,27 +100,22 @@ export default function AllocationPlan() {
               ),
             },
             {
-              Header: t('Status') ?? '',
+              Header: intl.formatMessage({ defaultMessage: 'Status' }),
               accessor: (x) => {
                 switch (x.planStatus) {
-                  case 1:
-                    return 'Checking';
-                  case 2:
-                    return 'Approved';
-                  case 3:
-                    return 'Rejected';
-                  default:
-                    return '--';
+                  case 1: return intl.formatMessage({ defaultMessage: 'Checking' });
+                  case 2: return intl.formatMessage({ defaultMessage: 'Approved' });
+                  case 3: return intl.formatMessage({ defaultMessage: 'Rejected' });
+                  default: return '--';
                 }
               },
             },
             {
-              Header: t('Remark') ?? '',
+              Header: intl.formatMessage({ defaultMessage: 'Remark' }),
               accessor: (x) => x.remark ?? '--',
             },
             {
-              id: 'operation',
-              Header: t('Operation') ?? '',
+              Header: intl.formatMessage({ defaultMessage: 'Operation' }),
               // eslint-disable-next-line react/prop-types
               Cell: ({ row }) => (
                 <div className="flex flex-row gap-4">
@@ -128,7 +126,7 @@ export default function AllocationPlan() {
                       setDetailVisible(true);
                     }}
                   >
-                    {t('View')}
+                    <FormattedMessage defaultMessage="View" />
                   </TextButton>
                   {row.original.planStatus === 1 && settlorPermission && (
                     <TextButton
@@ -138,7 +136,7 @@ export default function AllocationPlan() {
                         setModifyVisible(true);
                       }}
                     >
-                      {t('Modify')}
+                      <FormattedMessage defaultMessage="Modify" />
                     </TextButton>
                   )}
                 </div>

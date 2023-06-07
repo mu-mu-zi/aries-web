@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import { NavLink, useNavigate } from 'react-router-dom';
 import moment from 'moment';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Hr from '../../components/Hr';
 import arrowR from '../../assets/icon/arrow_r.svg';
 import LargeAvatar from '../../components/LargeAvatar';
@@ -22,7 +22,8 @@ import TextButton from '../../components/TextButton';
 import { addNotification, addSuccessNotification } from '../../utils/Notification';
 
 export default function Security() {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const [editVisible, setEditVisible] = React.useState(false);
   const user = useUserInfoQuery();
   const securityLevel = useMemo(() => {
@@ -46,11 +47,11 @@ export default function Security() {
   const securityLevelText = useMemo(() => {
     switch (securityLevel) {
       case 1:
-        return t('Low');
+        return intl.formatMessage({ defaultMessage: 'Low' });
       case 2:
-        return t('Medium');
+        return intl.formatMessage({ defaultMessage: 'Medium' });
       case 3:
-        return t('High');
+        return intl.formatMessage({ defaultMessage: 'High' });
       default:
         return '--';
     }
@@ -64,7 +65,7 @@ export default function Security() {
       return true;
     }
     addSuccessNotification({
-      title: t('Either phone number or email must be kept'),
+      title: intl.formatMessage({ defaultMessage: 'Either phone number or email must be kept' }),
     });
     return false;
   };
@@ -95,7 +96,7 @@ export default function Security() {
             <Hr />
             <NavLink to="/loginLog" className="flex flex-row justify-between gap-8 cursor-pointer">
               <div className="flex flex-col gap-2 text-[#99AC9B] text-[16px]">
-                <div className="font-bold text-[20px]">{t('Login Log')}</div>
+                <div className="font-bold text-[20px]"><FormattedMessage defaultMessage="Login Log" /></div>
                 <div className="text-[16px]">
                   {/* eslint-disable-next-line no-unsafe-optional-chaining */}
                   {loginLogQuery.data?.data?.records[0] && `Last Login: ${unixFormatTime(loginLogQuery.data.data.records[0].createTimeStamp)}`}
@@ -109,9 +110,11 @@ export default function Security() {
             {/* star */}
             <div className="flex flex-row justify-between items-center gradient-border1 p-8 rounded-t-xl">
               <div className="flex flex-col gap-2">
-                <div className="font-title font-bold text-[20px]">{t('Dual Verification(2FA)')}</div>
+                <div className="font-title font-bold text-[20px]">
+                  <FormattedMessage defaultMessage="Dual Verification(2FA)" />
+                </div>
                 <div className="text-[16px] text-[#695D52]">
-                  {`Current account security level: ${securityLevelText}`}
+                  <FormattedMessage defaultMessage="Current account security level: {level}" values={{ level: securityLevelText }} />
                 </div>
               </div>
               <div className="flex flex-row items-center gap-2">
@@ -123,19 +126,19 @@ export default function Security() {
               {/* Email */}
               <div className="flex flex-row justify-between">
                 <div className="flex flex-col gap-2 text-[#99AC9B]">
-                  <div className="text-[20px] font-bold">{t('Email verification')}</div>
+                  <div className="text-[20px] font-bold"><FormattedMessage defaultMessage="Email verification" /></div>
                   <div className="flex flex-row gap-2 items-center">
                     <img src={user.data?.data?.emailAuth ? statusOkIcon : statusWarningIcon} alt="" />
                     <div
                       className={classNames('text-[16px]', !user.data?.data?.emailAuth && 'text-[#708077]')}
                     >
-                      {user.data?.data?.userEmail ?? t('Unbound')}
+                      {user.data?.data?.userEmail ?? <FormattedMessage defaultMessage="Unbound" /> }
                     </div>
                   </div>
                 </div>
                 <div className="flex flex-row items-center gap-4 font-title text-[14px]">
                   <NavLink to="/personal/changeEmail">
-                    <TextButton>{user.data?.data?.emailAuth ? t('Change') : t('Bind')}</TextButton>
+                    <TextButton>{user.data?.data?.emailAuth ? <FormattedMessage defaultMessage="Change" /> : <FormattedMessage defaultMessage="Bind" /> }</TextButton>
                   </NavLink>
                   {user.data?.data?.emailAuth && (
                     <TextButton onClick={() => {
@@ -146,7 +149,7 @@ export default function Security() {
                       }
                     }}
                     >
-                      {t('Unbind')}
+                      <FormattedMessage defaultMessage="Unbind" />
                     </TextButton>
                   )}
                 </div>
@@ -155,19 +158,19 @@ export default function Security() {
               {/* Mobile */}
               <div className="flex flex-row justify-between">
                 <div className="flex flex-col gap-2 text-[#99AC9B]">
-                  <div className="text-[20px] font-bold">{t('Mobile Phone verification')}</div>
+                  <div className="text-[20px] font-bold"><FormattedMessage defaultMessage="Mobile Phone verification" /></div>
                   <div className="flex flex-row gap-2 items-center">
                     <img src={user.data?.data?.mobileAuth ? statusOkIcon : statusWarningIcon} alt="" />
                     <div
                       className={classNames('text-[16px]', !user.data?.data?.mobileAuth && 'text-[#708077]')}
                     >
-                      {user.data?.data?.userMobile ?? t('Unbound')}
+                      {user.data?.data?.userMobile ?? <FormattedMessage defaultMessage="Unbound" /> }
                     </div>
                   </div>
                 </div>
                 <div className="flex flex-row items-center gap-4 font-title text-[14px]">
                   <NavLink to="/personal/changeMobile">
-                    <TextButton>{user.data?.data?.mobileAuth ? t('Change') : t('Bind')}</TextButton>
+                    <TextButton>{user.data?.data?.mobileAuth ? <FormattedMessage defaultMessage="Change" /> : <FormattedMessage defaultMessage="Bind" />}</TextButton>
                   </NavLink>
                   {user.data?.data?.mobileAuth && (
                     <TextButton onClick={() => {
@@ -178,7 +181,7 @@ export default function Security() {
                       }
                     }}
                     >
-                      {t('Unbind')}
+                      <FormattedMessage defaultMessage="Unbind" />
                     </TextButton>
                   )}
                 </div>
@@ -187,13 +190,13 @@ export default function Security() {
               {/* Google */}
               <div className="flex flex-row justify-between">
                 <div className="flex flex-col gap-2 text-[#99AC9B]">
-                  <div className="text-[20px] font-bold">{t('Google verification')}</div>
+                  <div className="text-[20px] font-bold"><FormattedMessage defaultMessage="Google verification" /></div>
                 </div>
                 <div className="flex flex-row items-center gap-4 font-title text-[14px]">
                   <NavLink
                     to={user.data?.data?.googleSecretAuth ? '/personal/gaUnbind' : '/personal/gaChangeScan'}
                   >
-                    <TextButton>{user.data?.data?.googleSecretAuth ? t('Change') : t('Bind')}</TextButton>
+                    <TextButton>{user.data?.data?.googleSecretAuth ? <FormattedMessage defaultMessage="Change" /> : <FormattedMessage defaultMessage="Bind" /> }</TextButton>
                   </NavLink>
                 </div>
               </div>

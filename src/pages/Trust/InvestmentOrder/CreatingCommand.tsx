@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import ModalContainer from '../../../views/ModalContainer';
 import ModalNav from '../../../views/ModalContainer/ModalNav';
 import TextArea from '../../../components/TextArea';
@@ -19,7 +19,8 @@ export default function CreatingCommand({ onClose }: {
   onClose?(): void
 }) {
   const { trustId } = useParams();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const valid = z.object({
     investmentSuggestion: z.string().min(10),
     investmentTime: z.string().min(10),
@@ -50,7 +51,7 @@ export default function CreatingCommand({ onClose }: {
   return (
     <ModalContainer>
       <ModalNav
-        title={t('Investment instructions')}
+        title={intl.formatMessage({ defaultMessage: 'Investment instructions' })}
         onClose={onClose}
       />
       <div className="flex flex-col">
@@ -62,21 +63,16 @@ export default function CreatingCommand({ onClose }: {
                 <div className="flex flex-col gap-2">
                   <div className="flex flex-row gap-1">
                     <div className="text-[16px] font-bold gradient-text1">*</div>
-                    <div className="text-[#99AC9B] font-bold text-[20px]">{t('Investment Recommendation')}</div>
+                    <div className="text-[#99AC9B] font-bold text-[20px]">
+                      <FormattedMessage defaultMessage="Investment Recommendation" />
+                    </div>
                   </div>
                   <div className="flex flex-col gap-1 bg-[#3B5649] rounded-xl py-4 px-6">
                     <textarea
                       {...register('investmentSuggestion')}
                       maxLength={1000}
                       className="w-full text-[16px] placeholder:text-[#708077] h-[320px] bg-[#3B5649] outline-none resize-none"
-                      placeholder={t(`To better handle investment instructions, please describe them as completely as possible, including the following: \r\n
-1.Investment objective: specify the target and purpose of the trust assets to be invested, such as capital appreciation or income growth. \r\n
-2.Investment target: determine the specific investment targets, such as stocks, bonds, real estate, etc. \r\n
-3.Investment scope: determine the scope and limitations of the investment, such as investment regions, industries, risk levels, etc. \r\n
-4.Investment strategy: develop an investment strategy, such as diversified investment, portfolio adjustment, dynamic asset allocation, etc. \r\n
-5.Investment risk: determine risk management measures for investment, such as using hedging tools to reduce market risk, establishing risk control systems, etc. \r\n
-6.Investment returns: determine the distribution method and proportion of investment returns, such as reinvestment of returns, proportional distribution, etc. \r\n
-7.Investment term: determine the investment term and subsequent processing methods, such as long-term holding, regular adjustment, early exit, etc.`) ?? ''}
+                      placeholder={intl.formatMessage({ defaultMessage: 'To better handle investment instructions, please describe them as completely as possible, including the following: \r\n\n1.Investment objective: specify the target and purpose of the trust assets to be invested, such as capital appreciation or income growth. \r\n\n2.Investment target: determine the specific investment targets, such as stocks, bonds, real estate, etc. \r\n\n3.Investment scope: determine the scope and limitations of the investment, such as investment regions, industries, risk levels, etc. \r\n\n4.Investment strategy: develop an investment strategy, such as diversified investment, portfolio adjustment, dynamic asset allocation, etc. \r\n\n5.Investment risk: determine risk management measures for investment, such as using hedging tools to reduce market risk, establishing risk control systems, etc. \r\n\n6.Investment returns: determine the distribution method and proportion of investment returns, such as reinvestment of returns, proportional distribution, etc. \r\n\n7.Investment term: determine the investment term and subsequent processing methods, such as long-term holding, regular adjustment, early exit, etc.' })}
                     />
                     {errors.investmentSuggestion?.message && <div className="text-[#ECA741] text-[14px]">{errors.investmentSuggestion?.message}</div>}
                   </div>
@@ -87,14 +83,16 @@ export default function CreatingCommand({ onClose }: {
               <TextField
                 type="text"
                 // className="w-full h-[48px] rounded-xl bg-[#3B5649] placeholder:text-[#708077] text-[16px] px-6 outline-none"
-                placeholder={t('Investment time') ?? ''}
+                placeholder={intl.formatMessage({ defaultMessage: 'Investment time' })}
                 maxLength={50}
                 {...register('investmentTime')}
                 error={errors.investmentTime?.message}
               />
             </div>
             <div className="self-center">
-              <Button type="submit">{t('Submit')}</Button>
+              <Button type="submit">
+                <FormattedMessage defaultMessage="Submit" />
+              </Button>
             </div>
             <div className="flex flex-col mt-9 gap-[46px]">
               {/* <Divide /> */}

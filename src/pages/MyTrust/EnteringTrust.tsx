@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
+import { FormattedMessage, useIntl } from 'react-intl';
 import icon from '../../assets/icon/my_trust_logo.svg';
 import Button from '../../components/Button';
 import Divide from '../../components/Divide';
@@ -12,12 +12,14 @@ import befLogo from '../../assets/icon/trust_bef.png';
 import { Trust } from '../../interfaces/trust';
 import Modal from '../../components/Modal';
 import Warning from './Warning';
+import { unixFormatTime } from '../../utils/DateFormat';
 
 export default function EnteringTrust({ trust }: {
   trust: Trust
 }) {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const [warningVisible, setWarningVisible] = useState(false);
 
   const logo = (type: number) => {
@@ -59,15 +61,15 @@ export default function EnteringTrust({ trust }: {
       // default:
       //   return '--';
       case 1:
-        return 'Settlor';
+        return intl.formatMessage({ defaultMessage: 'Settlor' });
       case 2:
       case 3:
       case 21:
-        return 'Beneficiary';
+        return intl.formatMessage({ defaultMessage: 'Beneficiary' });
       case 4:
       case 5:
       case 6:
-        return 'Protector';
+        return intl.formatMessage({ defaultMessage: 'Protector' });
       default:
         return '--';
     }
@@ -91,7 +93,8 @@ export default function EnteringTrust({ trust }: {
             {`[${trust.userTypeArr.map((x) => userType(x)).join(', ')}]`}
           </div>
           <div className="mt-4 text-center font-title text-[20px] text-[#C39770]">
-            {moment.unix(trust.createTime / 1000).format('yyyy-MM-DD')}
+            {/* {moment.unix(trust.createTime / 1000).format('yyyy-MM-DD')} */}
+            {unixFormatTime(trust.createTime)}
           </div>
           <div className="flex-auto" />
           <div className="self-center">
@@ -121,7 +124,7 @@ export default function EnteringTrust({ trust }: {
                 }
               }}
             >
-              {t('Entering the trust')}
+              <FormattedMessage defaultMessage="Entering the trust" />
             </Button>
           </div>
         </div>

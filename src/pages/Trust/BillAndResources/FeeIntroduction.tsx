@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import Hr from '../../../components/Hr';
 import Section, { SectionTitle } from './Section';
 
 export default function FeeIntroduction({ title, description }: {
-  title: string,
+  title: string | ReactNode,
   description: string[]
 }) {
   return (

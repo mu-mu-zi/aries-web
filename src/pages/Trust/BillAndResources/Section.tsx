@@ -11,6 +11,6 @@ export default function Section({ children }: {
   );
 }
 
-export function SectionTitle({ title }: {title: string}) {
+export function SectionTitle({ title }: {title: string | ReactNode}) {
   return <div className="gradient-text1 font-title font-bold text-[20px]">{title}</div>;
 }

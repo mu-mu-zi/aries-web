@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { DevTool } from '@hookform/devtools';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import closeIcon from '../../../assets/icon/model_close.svg';
 import TextInput from '../../../components/TextInput';
 import Dropdown from '../../../components/Dropdown';
@@ -80,7 +80,8 @@ export default function AddBeneficiary({ trustId, onClose }: {
   const accountType = watch('accountType');
   // const areaCodeListQuery = useAreaCodeListQuery();
   const queryClient = useQueryClient();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const [googleVerifyVisible, setGoogleVerifyVisible] = useState(false);
   const [formData, setFormData] = useState<FormValid>();
 
@@ -122,20 +123,22 @@ export default function AddBeneficiary({ trustId, onClose }: {
   return (
     <ModalContainer>
       <ModalNav
-        title={t('Add Beneficiary')}
+        title={intl.formatMessage({ defaultMessage: 'Add Beneficiary' })}
         onClose={onClose}
       />
       <form onSubmit={handleSubmit(submit)}>
         <div className="flex flex-col gap-4">
           {/* 类型 */}
           <div className="flex flex-col gap-4">
-            <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Beneficiary')}</label>
+            <label className="text-[#C2D7C7F6] font-bold text-[16px]">
+              <FormattedMessage defaultMessage="Beneficiary" />
+            </label>
             <Controller
               render={({ field }) => {
                 const enums = [
-                  { value: UserType.Define, title: t('Define') },
-                  { value: UserType.NonSpecific, title: t('NonSpecific') },
-                  { value: UserType.Myself, title: t('Myself') },
+                  { value: UserType.Define, title: intl.formatMessage({ defaultMessage: 'Define' }) },
+                  { value: UserType.NonSpecific, title: intl.formatMessage({ defaultMessage: 'NonSpecific' }) },
+                  { value: UserType.Myself, title: intl.formatMessage({ defaultMessage: 'Myself' }) },
                 ];
                 return (
                   <Dropdown
@@ -154,21 +157,21 @@ export default function AddBeneficiary({ trustId, onClose }: {
             <>
               <div className="flex flex-row gap-4">
                 <div className="flex-1 flex flex-col gap-4">
-                  <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('First Name')}</label>
+                  <label className="text-[#C2D7C7F6] font-bold text-[16px]"><FormattedMessage defaultMessage="First Name" /></label>
                   <TextInput placeholder="" {...register('userName')} />
                 </div>
                 <div className="flex-1 flex flex-col gap-4">
-                  <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Last Name')}</label>
+                  <label className="text-[#C2D7C7F6] font-bold text-[16px]"><FormattedMessage defaultMessage="Last Name" /></label>
                   <TextInput placeholder="" {...register('surname')} />
                 </div>
               </div>
               <div className="flex flex-col gap-4">
-                <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Gender')}</label>
+                <label className="text-[#C2D7C7F6] font-bold text-[16px]"><FormattedMessage defaultMessage="Gender" /></label>
                 <Controller
                   render={({ field }) => {
                     const enums = [
-                      { value: Gender.Male, name: t('Male') },
-                      { value: Gender.Female, name: t('Female') },
+                      { value: Gender.Male, name: intl.formatMessage({ defaultMessage: 'Male' }) },
+                      { value: Gender.Female, name: intl.formatMessage({ defaultMessage: 'Female' }) },
                     ];
                     return (
                       <Dropdown
@@ -183,12 +186,14 @@ export default function AddBeneficiary({ trustId, onClose }: {
                 />
               </div>
               <div className="flex flex-col gap-4">
-                <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Account Type')}</label>
+                <label className="text-[#C2D7C7F6] font-bold text-[16px]">
+                  <FormattedMessage defaultMessage="Account Type" />
+                </label>
                 <Controller
                   render={({ field }) => {
                     const enums = [
-                      { value: AccountType.Email, name: t('Email') },
-                      { value: AccountType.Mobile, name: t('Mobile') },
+                      { value: AccountType.Email, name: intl.formatMessage({ defaultMessage: 'Email' }) },
+                      { value: AccountType.Mobile, name: intl.formatMessage({ defaultMessage: 'Mobile' }) },
                     ];
                     return (
                       <Dropdown
@@ -206,7 +211,7 @@ export default function AddBeneficiary({ trustId, onClose }: {
                 <label
                   className="text-[#C2D7C7F6] font-bold text-[16px]"
                 >
-                  {accountType === AccountType.Email ? t('Email') : t('Mobile')}
+                  {accountType === AccountType.Email ? <FormattedMessage defaultMessage="Email" /> : <FormattedMessage defaultMessage="Mobile" /> }
                 </label>
                 <div className="flex gap-4 items-center">
                   {accountType === AccountType.Mobile && (
@@ -234,7 +239,7 @@ export default function AddBeneficiary({ trustId, onClose }: {
                   )}
                   <div className="flex-auto">
                     <TextInput
-                      placeholder={accountType === AccountType.Email ? 'Please enter the email' : 'Please enter the mobile'}
+                      placeholder={accountType === AccountType.Email ? intl.formatMessage({ defaultMessage: 'Please enter the email' }) : intl.formatMessage({ defaultMessage: 'Please enter the mobile' })}
                       {...register('account')}
                     />
                     {/* {accountType === AccountType.Email && <TextInput placeholder="Please provide additional instructions" {...register('userEmail')} />} */}
@@ -242,12 +247,14 @@ export default function AddBeneficiary({ trustId, onClose }: {
                 </div>
               </div>
               <div className="flex flex-col gap-4">
-                <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Permissions')}</label>
+                <label className="text-[#C2D7C7F6] font-bold text-[16px]">
+                  <FormattedMessage defaultMessage="Permissions" />
+                </label>
                 <Controller
                   render={({ field }) => {
                     const enums = [
-                      { value: BeneficiaryRoleType.No, name: t('No') },
-                      { value: BeneficiaryRoleType.ReadOnly, name: t('Read Only') },
+                      { value: BeneficiaryRoleType.No, name: intl.formatMessage({ defaultMessage: 'No' }) },
+                      { value: BeneficiaryRoleType.ReadOnly, name: intl.formatMessage({ defaultMessage: 'Read Only' }) },
                       // { value: RoleType.Approval, name: t('Approval') },
                     ];
                     return (
@@ -266,12 +273,16 @@ export default function AddBeneficiary({ trustId, onClose }: {
           )}
           {userType === UserType.NonSpecific && (
             <div className="flex flex-col gap-4">
-              <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Remark')}</label>
+              <label className="text-[#C2D7C7F6] font-bold text-[16px]">
+                <FormattedMessage defaultMessage="Remark" />
+              </label>
               <TextArea {...register('remark')} />
             </div>
           )}
           <div className="mt-4 self-center max-w-[420px] w-full">
-            <Button block>{t('Submit')}</Button>
+            <Button block>
+              <FormattedMessage defaultMessage="Submit" />
+            </Button>
           </div>
           {/* <DevTool control={control} /> */}
           <div className="flex flex-col gap-5 mt-6">

@@ -20,7 +20,7 @@ export default function TrustHeader({
         <div className="text-[#C39770] text-[20px] font-title max-w-[780px]">{description}</div>
         {btn && <div className="mt-4">{btn}</div>}
       </div>
-      <img src={logo} />
+      <img src={logo} alt="" />
     </div>
   );
 }

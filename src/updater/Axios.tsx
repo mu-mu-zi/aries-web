@@ -1,25 +1,23 @@
 import { useEffectOnce } from 'react-use';
-import axios, { AxiosResponse } from 'axios';
-import { Store } from 'react-notifications-component';
-import { redirect, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import { addNotification } from '../utils/Notification';
-import { useUserInfoQuery } from '../api/user/user';
-import { useAppDispatch } from '../state';
+import { useAppDispatch, useAppSelector } from '../state';
 import { deleteToken } from '../state/user';
 import { BASE_URL } from '../utils/url';
+import { Language } from '../interfaces/language';
 
 export default function Axios() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const action = useAppDispatch();
-  const { i18n } = useTranslation();
+  const lan = useAppSelector((state) => state.app.language);
 
   useEffect(() => {
-    axios.defaults.headers['Accept-Language'] = i18n.language === 'en' ? 'en-US' : 'zh-HK';
-  }, [i18n.language]);
+    axios.defaults.headers['Accept-Language'] = lan === Language.EN ? 'en-US' : 'zh-HK';
+  }, [lan]);
 
   useEffectOnce(() => {
     /* 默认 URL */

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import CenterContainer from '../../views/CenterContainer';
 import ContainerLogo from '../../views/CenterContainer/ContainerLogo';
 import StepControl from './StepControl';
@@ -21,7 +21,8 @@ export default function KycVerify() {
   const detailQuery = useTrustDetailQuery({
     trustId: Number(trustId),
   });
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const navigate = useNavigate();
 
   const stepId = () => {
@@ -59,13 +60,29 @@ export default function KycVerify() {
           <div
             className="gradient-text1 text-shadow-block text-center font-title text-[40px] font-bold mt-12"
           >
-            {t('Set Up Your Captive Trust')}
+            <FormattedMessage defaultMessage="Set Up Your Captive Trust" />
           </div>
           <div className="text-center font-title text-[20px] font-[400] text-[#C39770] mt-4 px-16">
-            {stepId() === 0 && t('Welcome to Aries Customized Trust Services! In order to protect your assets and comply with the relevant laws and regulations, we require you to complete identity verification. Please contact your trust manager to submit your personal information and proof of identity.')}
-            {stepId() === 1 && t('In order to protect your assets and comply with the relevant laws and regulations, you are required to complete the trust contract.')}
-            {stepId() === 2 && t('In the process of setting up a trust, you will need to pay a set-up fee. Once the set-up fee has been paid, we will carry out the subsequent work of setting up the trust for you.')}
-            {stepId() === 3 && t('Thank you for choosing the Aries Trust Services platform! As agreed in the trust deed, you will need to complete the first transfer of trust assets to complete the creation of the trust.')}
+            {stepId() === 0 && (
+              <FormattedMessage
+                defaultMessage="Welcome to Aries Customized Trust Services! In order to protect your assets and comply with the relevant laws and regulations, we require you to complete identity verification. Please contact your trust manager to submit your personal information and proof of identity."
+              />
+            )}
+            {stepId() === 1 && (
+              <FormattedMessage
+                defaultMessage="In order to protect your assets and comply with the relevant laws and regulations, you are required to complete the trust contract."
+              />
+            )}
+            {stepId() === 2 && (
+              <FormattedMessage
+                defaultMessage="In the process of setting up a trust, you will need to pay a set-up fee. Once the set-up fee has been paid, we will carry out the subsequent work of setting up the trust for you."
+              />
+            )}
+            {stepId() === 3 && (
+              <FormattedMessage
+                defaultMessage="Thank you for choosing the Aries Trust Services platform! As agreed in the trust deed, you will need to complete the first transfer of trust assets to complete the creation of the trust."
+              />
+            )}
           </div>
           {/* Step */}
           {detailQuery.data?.data && (
@@ -73,11 +90,14 @@ export default function KycVerify() {
               <div className="mt-12">
                 <StepControl
                   current={stepId()}
-                  titles={['KYC Certification', 'Contract Signing', 'Establishment Fee', 'Trust Completion']}
+                  titles={[
+                    intl.formatMessage({ defaultMessage: 'KYC Certification' }),
+                    intl.formatMessage({ defaultMessage: 'Contract Signing' }),
+                    intl.formatMessage({ defaultMessage: 'Establishment Fee' }),
+                    intl.formatMessage({ defaultMessage: 'Trust Completion' }),
+                  ]}
                 />
               </div>
-              {/* <ContractSigningStep trust={detailQuery.data.data} /> */}
-
               <div className="flex-auto flex flex-col justify-center mt-12 max-w-[824px] w-full">
                 {detailQuery.data.data.stepId === 1 && <KYCCertificationStep trust={detailQuery.data.data} />}
                 {[2, 3].includes(detailQuery.data.data.stepId) && <ContractSigningStep trust={detailQuery.data.data} />}
@@ -92,8 +112,6 @@ export default function KycVerify() {
         {/* <div className="flex-auto" /> */}
         <div className="self-stretch py-12 pb-16 gap-9 px-8">
           <ContactUsFooter />
-          {/* <Divide /> */}
-          {/* <ContactUs /> */}
         </div>
       </div>
     </CenterContainer>

@@ -14,7 +14,7 @@ export const useAssetByCoinId = (data: {
   return useQuery({
     queryKey: ['asset', 'rechargeAddress', data, userId],
     queryFn: () => axios.post('/asset/asset/rechargeAddress', data),
-    enabled: !!useId() && !!data.mainnetCoinId && !!data.trustId,
+    enabled: containsToken() && !!data.mainnetCoinId && !!data.trustId,
   });
 };
 

@@ -1,14 +1,15 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import closeIcon from '../../../assets/icon/model_close.svg';
 import PaymentRow from './PaymentRow';
 import { useAssetDeclareDetailQuery } from '../../../api/trust/asset';
 
 export default function ViewCredentials({ onClose, recordId }: {
-    onClose?(): void,
+  onClose?(): void,
   recordId: number
 }) {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const query = useAssetDeclareDetailQuery({ recordId });
 
   return (
@@ -16,41 +17,45 @@ export default function ViewCredentials({ onClose, recordId }: {
       {/* Header */}
       <div className="flex flex-row justify-between items-center">
         <div className="gradient-text1 font-title font-bold text-[32px]">
-          {t('View Credentials')}
+          <FormattedMessage defaultMessage="View Credentials" />
         </div>
         <div onClick={onClose} className="cursor-pointer">
-          <img src={closeIcon} alt="Close" />
+          <img src={closeIcon} alt="" />
         </div>
       </div>
       {/* Content */}
       <div className="mt-8 overflow-auto scrollbar-none flex-auto">
-        <div className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Bank transfer information')}</div>
-        {/* <PaymentRow title="Payee Name" value="11111111111111111111111111111111111111111111111111111111111111111111111111111111" /> */}
+        <div className="text-[#C2D7C7F6] font-bold text-[16px]">
+          <FormattedMessage defaultMessage="Bank transfer information" />
+        </div>
         {query.data?.data && (
           <div className="mt-4 flex flex-col gap-4">
-            <PaymentRow title="Payee Name" value={query.data?.data?.payUserName} />
-            <PaymentRow title="Payment methods" value={query.data.data.payType === 1 ? 'Digital currency payment' : 'Fiat currency payment'} />
+            <PaymentRow title={intl.formatMessage({ defaultMessage: 'Payee Name' })} value={query.data?.data?.payUserName} />
+            <PaymentRow
+              title={intl.formatMessage({ defaultMessage: 'Payment methods' })}
+              value={query.data.data.payType === 1 ? intl.formatMessage({ defaultMessage: 'Digital currency payment' }) : intl.formatMessage({ defaultMessage: 'Fiat currency payment' })}
+            />
             {query.data.data.payType === 1 && (
               <>
-                <PaymentRow title="Internet" value={query.data.data.symbol} />
-                <PaymentRow title="Payment Amount" value={query.data.data.amount} />
-                <PaymentRow title="Estimated transfer time" value={query.data.data.estimateTime} />
-                <PaymentRow title="Recipient's address" value={query.data.data.payAddress} />
-                <PaymentRow title="Transaction hash" value={query.data.data.payNo} />
+                <PaymentRow title={intl.formatMessage({ defaultMessage: 'Internet' })} value={query.data.data.symbol} />
+                <PaymentRow title={intl.formatMessage({ defaultMessage: 'Payment Amount' })} value={query.data.data.amount} />
+                <PaymentRow title={intl.formatMessage({ defaultMessage: 'Estimated transfer time' })} value={query.data.data.estimateTime} />
+                <PaymentRow title={intl.formatMessage({ defaultMessage: "Recipient's address" })} value={query.data.data.payAddress} />
+                <PaymentRow title={intl.formatMessage({ defaultMessage: 'Transaction hash' })} value={query.data.data.payNo} />
               </>
             )}
             {query.data.data.payType === 2 && (
               <>
-                <PaymentRow title="Payer's card number" value={query.data.data.payNo} />
-                <PaymentRow title="Recipient's address" value={query.data.data.payAddress} />
-                <PaymentRow title="Currency" value={query.data.data.symbol} />
-                <PaymentRow title="Payment Amount" value={query.data.data.amount} />
-                <PaymentRow title="Estimated transfer time" value={query.data.data.estimateTime} />
-                <PaymentRow title="Payment Bank" value={query.data.data.bankName} />
+                <PaymentRow title={intl.formatMessage({ defaultMessage: "Payer's card number" })} value={query.data.data.payNo} />
+                <PaymentRow title={intl.formatMessage({ defaultMessage: "Recipient's address" })} value={query.data.data.payAddress} />
+                <PaymentRow title={intl.formatMessage({ defaultMessage: 'Currency' })} value={query.data.data.symbol} />
+                <PaymentRow title={intl.formatMessage({ defaultMessage: 'Payment Amount' })} value={query.data.data.amount} />
+                <PaymentRow title={intl.formatMessage({ defaultMessage: 'Estimated transfer time' })} value={query.data.data.estimateTime} />
+                <PaymentRow title={intl.formatMessage({ defaultMessage: 'Payment Bank' })} value={query.data.data.bankName} />
                 {/* <PaymentRow title="Wire transfer code (SWIFT)" value={query.data.data.symbol} /> */}
               </>
             )}
-            {query.data.data.remarks && <PaymentRow title="Remark" value={query.data.data.remarks} />}
+            {query.data.data.remarks && <PaymentRow title={intl.formatMessage({ defaultMessage: 'Remark' })} value={query.data.data.remarks} />}
           </div>
         )}
       </div>

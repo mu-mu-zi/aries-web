@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useIntl } from 'react-intl';
 import ModalContainer from '../../views/ModalContainer';
 import ModalNav from '../../views/ModalContainer/ModalNav';
 import { useAreaCodeListQuery } from '../../api/base/areaCode';
@@ -11,6 +12,7 @@ export default function AreaList({ data, onSelect, onClose }: {
   onClose?(): void
 }) {
   const [filterList, setFilterList] = useState(data);
+  const { formatMessage } = useIntl();
 
   return (
     <ModalContainer>
@@ -19,7 +21,7 @@ export default function AreaList({ data, onSelect, onClose }: {
         <TextInput
           block
           className=""
-          placeholder="Search"
+          placeholder={formatMessage({ defaultMessage: 'Search' })}
           onChange={(e) => {
             if (e.target.value === '') {
               setFilterList(data);

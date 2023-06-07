@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Dropdown from '../../../components/Dropdown';
 import PaymentRow from './PaymentRow';
 import { useAllCoinInMainNetQuery, useAllMainNetsQuery } from '../../../api/trust/trust';
@@ -21,7 +21,8 @@ export default function PaymentBit() {
     mainnetCoinId: coin?.id,
     trustId: Number(trustId),
   });
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
 
   useEffect(() => setMainNet(mainNetListQuery.data?.data?.[0]), [mainNetListQuery.data?.data]);
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function PaymentBit() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Receiving address')}</div>
+      <div className="text-[#C2D7C7F6] font-bold text-[16px]"><FormattedMessage defaultMessage="Receiving address" /></div>
       <Dropdown
         title={mainNet?.name}
         items={mainNetListQuery.data?.data?.map((x) => x.name)}

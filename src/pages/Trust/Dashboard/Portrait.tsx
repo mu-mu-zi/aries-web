@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import { useQuery } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import borderImg from '../../../assets/icon/avatar_border.svg';
 import GradientText from '../../../components/GradientText';
@@ -15,7 +14,7 @@ export default function Portrait({ trustName, description }: {
   description: string
 }) {
   const userQuery = useUserInfoQuery();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const { trustId } = useParams();
   const query = useTrustDetailQuery({ trustId: Number(trustId) });
 

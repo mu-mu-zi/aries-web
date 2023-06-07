@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { use } from 'i18next';
 import { useId } from 'react';
 import { useUserInfoQuery } from '../user/user';
 import useAuthToken, { containsToken } from '../../hooks/useUserId';

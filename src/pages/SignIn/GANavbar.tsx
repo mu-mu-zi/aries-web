@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 
 export default function GANavbar({
   title,
@@ -13,7 +12,6 @@ export default function GANavbar({
   description?: string | null
 }) {
   const navigate = useNavigate();
-  const { t } = useTranslation();
 
   return (
     <div className={classNames('gradient-border1 flex flex-row gap-4 p-8', !description && 'items-center')}>

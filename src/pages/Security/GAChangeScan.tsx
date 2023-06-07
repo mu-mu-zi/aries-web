@@ -1,7 +1,7 @@
 import React from 'react';
 import QRCode from 'react-qr-code';
-import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { FormattedMessage, useIntl } from 'react-intl';
 import GANavbar from '../SignIn/GANavbar';
 import Button from '../../components/Button';
 import ContactUsFooter from '../../views/ContactUsFooter';
@@ -11,7 +11,8 @@ import { useGoogleSecretKeyQuery } from '../../api/user/user';
 import CopyIcon from '../../views/CopyIcon';
 
 export default function GAChangeScan() {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const navigate = useNavigate();
   const location = useLocation();
   const googleAuth = useGoogleSecretKeyQuery();
@@ -19,13 +20,13 @@ export default function GAChangeScan() {
   return (
     <CenterContainer>
       <GANavbar
-        title={t('Bind Google Authenticator')}
+        title={intl.formatMessage({ defaultMessage: 'Bind Google Authenticator' })}
       />
       <div className="item-center flex flex-col self-center w-[680px] pt-[64px]">
         <div
           className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px] w-[420px] mx-auto"
         >
-          {t('Scan the new QR code using the Google Authenticator App')}
+          <FormattedMessage defaultMessage="Scan the new QR code using the Google Authenticator App" />
         </div>
         <div className="flex items-center gap-[44px]">
           {googleAuth.data?.data && (
@@ -44,15 +45,14 @@ export default function GAChangeScan() {
                   {googleAuth.data?.data?.secret && <CopyIcon text={googleAuth.data?.data?.secret} />}
                 </div>
                 <div className="text-center text-[14px] text-[#99AC9B]">
-                  If you cannot scan the QR code, please enter the
-                  character manually
+                  <FormattedMessage defaultMessage="If you cannot scan the QR code, please enter the character manually" />
                 </div>
               </div>
             </>
           )}
         </div>
         <div className="flex flex-row gap-4 mt-[40px] w-[420px] m-auto">
-          <Button size="medium" block onClick={() => navigate(-1)}>{t('Cancel')}</Button>
+          <Button size="medium" block onClick={() => navigate(-1)}><FormattedMessage defaultMessage="Cancel" /></Button>
           <Button
             size="medium"
             block
@@ -68,7 +68,7 @@ export default function GAChangeScan() {
               }
             }}
           >
-            {t('Next')}
+            <FormattedMessage defaultMessage="Next" />
           </Button>
         </div>
       </div>

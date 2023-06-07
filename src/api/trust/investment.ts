@@ -25,6 +25,19 @@ export const useInvestmentOrderQuery = (data: {
   });
 };
 
+/* 投资指令详情 */
+export const useInvestmentDetailQuery = (data: {
+  trustInvestmentId?: number
+}) => useQuery<IResponseData<IInvestment>>({
+  queryKey: ['trust', 'investment', 'detail', data],
+  queryFn: () => axios.request({
+    url: '/trust/trust/investment/detail',
+    method: 'get',
+    params: data,
+  }),
+  enabled: containsToken() && !!data.trustInvestmentId,
+});
+
 /*
 * 审批记录
 * */

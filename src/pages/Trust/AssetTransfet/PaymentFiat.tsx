@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Dropdown from '../../../components/Dropdown';
 import PaymentRow from './PaymentRow';
 import { useAllBankQuery } from '../../../api/assets/assets';
 import { IBank } from '../../../interfaces/asset';
 
 export default function PaymentFiat() {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const { trustId } = useParams();
   const bankListQuery = useAllBankQuery({
     trustId,
@@ -19,7 +20,9 @@ export default function PaymentFiat() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-4">
-        <div className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Choosing a Bank')}</div>
+        <div className="text-[#C2D7C7F6] font-bold text-[16px]">
+          <FormattedMessage defaultMessage="Choosing a Bank" />
+        </div>
         <Dropdown
           title={bank?.bankName}
           items={bankListQuery.data?.data?.map((x) => x.bankName)}
@@ -28,12 +31,14 @@ export default function PaymentFiat() {
       </div>
       {bank && (
         <div className="flex flex-col gap-4">
-          <div className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Receiving address')}</div>
+          <div className="text-[#C2D7C7F6] font-bold text-[16px]">
+            <FormattedMessage defaultMessage="Receiving address" />
+          </div>
           <div className="flex flex-col gap-4">
-            <PaymentRow title={t('Payee Name')} value={bank.userName} />
-            <PaymentRow title={t('Payee account number')} value={bank.address} />
-            <PaymentRow title={t('BankName')} value={bank.bankName} />
-            <PaymentRow title={t('Currency')} value={bank.symbol} />
+            <PaymentRow title={intl.formatMessage({ defaultMessage: 'Payee Name' })} value={bank.userName} />
+            <PaymentRow title={intl.formatMessage({ defaultMessage: 'Payee account number' })} value={bank.address} />
+            <PaymentRow title={intl.formatMessage({ defaultMessage: 'BankName' })} value={bank.bankName} />
+            <PaymentRow title={intl.formatMessage({ defaultMessage: 'Currency' })} value={bank.symbol} />
             {bank.customContents?.map((it) => <PaymentRow key={it.id} title={it.key} value={it.value} />)}
           </div>
         </div>

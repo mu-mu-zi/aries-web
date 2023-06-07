@@ -1,30 +1,23 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { IInvestment } from '../../../interfaces/trust';
 
 export default function InvestmentDetails({ trustInvestment }: {
   trustInvestment: IInvestment
 }) {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const { formatMessage } = useIntl();
 
   const statusText = (status: number) => {
     switch (status) {
-      case 1: return t('Pending');
-      case 2: return t('Pending approval');
-      case 3: return t('Investment');
-      case 4: return t('Checking');
-      case 5: return t('Completed');
-      case 6: return t('Approval failed');
-      case 7: return t('Cancellation');
-      case 8: return t('Cancelled');
-      // case 1: return '待处理';
-      // case 2: return '待审批';
-      // case 3: return '投资中';
-      // case 4: return '核对中';
-      // case 5: return '已完成';
-      // case 6: return '审批失败';
-      // case 7: return '申请取消';
-      // case 8: return '已取消';
+      case 1: return formatMessage({ defaultMessage: 'Pending' });
+      case 2: return formatMessage({ defaultMessage: 'Pending approval' });
+      case 3: return formatMessage({ defaultMessage: 'Investment' });
+      case 4: return formatMessage({ defaultMessage: 'Checking' });
+      case 5: return formatMessage({ defaultMessage: 'Completed' });
+      case 6: return formatMessage({ defaultMessage: 'Approval failed' });
+      case 7: return formatMessage({ defaultMessage: 'Cancellation' });
+      case 8: return formatMessage({ defaultMessage: 'Cancelled' });
       default: return '--';
     }
   };
@@ -32,30 +25,31 @@ export default function InvestmentDetails({ trustInvestment }: {
   return (
     <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8 shadow-block">
       {/* 标题 */}
-      <div className="gradient-text1 font-bold font-title text-[20px]">{t('Investment Instruction Details')}</div>
+      <div className="gradient-text1 font-bold font-title text-[20px]">
+        <FormattedMessage defaultMessage="Investment Instruction Details" />
+      </div>
       {/* 分割线 */}
       <div className="h-[1px] bg-[#3B5649]" />
       {/* 状态 */}
-      <div className="flex flex-row">
-        <div className="flex-1 flex flex-col gap-4">
-          <div className="text-[#99ac9b] text-[16px]">{t('Investment number')}</div>
+      <div className="flex flex-row justify-between">
+        <div className="flex flex-col gap-4">
+          <div className="text-[#99ac9b] text-[16px]"><FormattedMessage defaultMessage="Investment number" /></div>
           <div className="font-bold text-[20px] text-[#C2D7C7F6]">{trustInvestment.investmentCode}</div>
         </div>
-        <div className="flex-1 flex flex-col gap-4">
-          <div className="text-[#99ac9b] text-[16px]">{t('Investment time')}</div>
+        <div className="flex flex-col gap-4">
+          <div className="text-[#99ac9b] text-[16px]"><FormattedMessage defaultMessage="Investment time" /></div>
           <div className="font-bold text-[20px] text-[#C2D7C7F6]">{trustInvestment.investmentTime}</div>
         </div>
-        <div className="flex-1 flex flex-col gap-4 items-end">
-          <div className="text-[#99ac9b] text-[16px]">{t('Status')}</div>
+        <div className="flex flex-col gap-4 items-end">
+          <div className="text-[#99ac9b] text-[16px]"><FormattedMessage defaultMessage="Status" /></div>
           <div className="font-bold text-[20px] text-[#C2D7C7F6]">{statusText(trustInvestment.investmentStatus)}</div>
         </div>
       </div>
       {/* advice */}
-      <div className="mt-8 text-[#99ac9b] text-[16px]">{t('Investment advice')}</div>
+      <div className="mt-8 text-[#99ac9b] text-[16px]"><FormattedMessage defaultMessage="Investment advice" /></div>
       <div className="grid grid-cols-1 gap-4">
-        {/* todo: 投资目标、投资范围 */}
         <AdviceCell
-          title="Investment objective:"
+          title={formatMessage({ defaultMessage: 'Investment objective:' })}
           description={trustInvestment.investmentSuggestion}
         />
         {/* <AdviceCell */}

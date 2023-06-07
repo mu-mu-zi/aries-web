@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import BigNumber from 'bignumber.js';
+import { FormattedMessage } from 'react-intl';
 import { IAssetsOverview, IFiatAssets } from '../../../interfaces/trust';
 import arrowUp from '../../../assets/icon/arrow_up.svg';
 import symbolIcon from '../../../assets/icon/dashboard/icon_usdt.svg';
@@ -13,7 +13,6 @@ import Empty from '../../../views/Empty';
 export default function FiatAssets({ asset }: {
   asset?: IAssetsOverview
 }) {
-  const { t } = useTranslation();
   const [expandState, setExpandState] = React.useState({});
 
   return (
@@ -28,7 +27,7 @@ export default function FiatAssets({ asset }: {
           'font-bold text-[24px] font-title text-t4',
         )}
       >
-        <div>Fiat Assets</div>
+        <div><FormattedMessage defaultMessage="Fiat Assets" /></div>
         <div>{`${currencyUSDTFormat(asset?.fiatAssets.reduce((x, y) => BigNumber(y.totalUSDT).plus(x), BigNumber(0)).toFixed())} USD`}</div>
       </div>
       {asset?.fiatAssets.map((it) => (<FiatAssetsCell key={it.name} asset={it} />))}

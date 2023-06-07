@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage } from 'react-intl';
 import Button from '../../components/Button';
 import sucIcon from '../../assets/icon/status_suc.svg';
 import footerImg from '../../assets/icon/footer_graat.svg';
@@ -14,7 +14,7 @@ import footerImg from '../../assets/icon/footer_graat.svg';
 export default function Status() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   return (
     <div className="flex flex-col justify-center flex-1 h-full">
@@ -30,7 +30,7 @@ export default function Status() {
                 replace: true,
               })}
             >
-              {t('I Know')}
+              <FormattedMessage defaultMessage="I Know" />
             </Button>
           </div>
         </div>

@@ -1,6 +1,5 @@
 import React from 'react';
 import Slider from 'react-slick';
-import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
@@ -22,7 +21,7 @@ export default function RecodeViewCredentials({ images, onClose }: {
   images: string[],
   onClose?(): void
 }) {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const settings = {
     dots: true,
     infinite: true,

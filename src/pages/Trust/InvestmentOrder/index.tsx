@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import OrderCell from './OrderCell';
 import TrustHeader from '../TrustHeader';
 import logo from '../../../assets/icon/investment_order_logo.svg';
@@ -15,7 +15,8 @@ import useTrustPermission from '../../../hooks/useTrustRole';
 
 export default function InvestmentOrder() {
   const { trustId } = useParams();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const [page, setPage] = useState(1);
   const listQuery = useInvestmentOrderQuery({
     trustId: Number(trustId),
@@ -30,10 +31,14 @@ export default function InvestmentOrder() {
     <div className="flex flex-col">
       {/* 委托人才有新增按钮 */}
       <TrustHeader
-        title={t('Investment Order')}
-        description={t('The principal can use the investment instruction function to indicate investment intentions and directions to Aries Digital Group, and request investment operations to be carried out according to the principal\'s instructions. Throughout the process, the principal can adjust investment instructions based on market fluctuations and investment directions.') ?? ''}
+        title={intl.formatMessage({ defaultMessage: 'Investment Order' })}
+        description={intl.formatMessage({ defaultMessage: 'The principal can use the investment instruction function to indicate investment intentions and directions to Aries Digital Group, and request investment operations to be carried out according to the principal\'s instructions. Throughout the process, the principal can adjust investment instructions based on market fluctuations and investment directions.' })}
         logo={logo}
-        btn={settlorPermission && <Button onClick={() => setCreatingVisible(true)}>{t('Creating a command')}</Button>}
+        btn={settlorPermission && (
+          <Button onClick={() => setCreatingVisible(true)}>
+            <FormattedMessage defaultMessage="Creating a command" />
+          </Button>
+        )}
       />
       <div className="gradient-bg2 roundex-xl shadow-block p-8 rounded-xl flex flex-col gap-8">
         {listQuery.data?.data?.records.length === 0 && <Empty />}

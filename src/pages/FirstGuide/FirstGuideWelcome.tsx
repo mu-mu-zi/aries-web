@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import { FormattedMessage } from 'react-intl';
 import bg from '../../assets/icon/xinfeng_bg.png';
 import Button from '../../components/Button';
 import { useUserInfoQuery } from '../../api/user/user';
@@ -12,7 +12,7 @@ export default function FirstGuideWelcome() {
   const { trustId } = useParams();
   const navigate = useNavigate();
   const userQuery = useUserInfoQuery();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   const mark = async () => {
     await axios.request({
@@ -39,10 +39,10 @@ export default function FirstGuideWelcome() {
             {CallFormat(userQuery.data?.data?.surname, userQuery.data?.data?.gender, true)}
           </div>
           <div className="mt-4 max-w-[548px] text-center text-[20px] font-title text-[#C39770] leading-[23px]">
-            {t('Welcome to the digital trust exclusively established for you, opening the door to digital wealth. You will be able to see all trust assets and view all records.')}
+            <FormattedMessage defaultMessage="Welcome to the digital trust exclusively established for you, opening the door to digital wealth. You will be able to see all trust assets and view all records." />
           </div>
           <div className="mt-[96px] pr-[6px]">
-            <div className="gradient-text1 font-bold font-title text-[20px]">Open</div>
+            <div className="gradient-text1 font-bold font-title text-[20px]"><FormattedMessage defaultMessage="Open" /></div>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
+import { FormattedMessage, useIntl } from 'react-intl';
 import MethodSwitch from './MethodSwitch';
 import TextField from '../../../components/TextField';
 import Button from '../../../components/Button';
@@ -13,19 +13,27 @@ import Opening from './Opening';
 export default function AssetDeclaration({ assetModeChange }: {
   assetModeChange?(isDigital: boolean): void
 }) {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const [isDigital, setIsDigital] = React.useState(true);
   const { trustId } = useParams();
   const bankListQuery = useAllBankQuery({ trustId });
 
   return (
     <div className="flex flex-col">
-      <div className="gradient-text1 font-bold text-[20px] font-title">{t('Asset Transfer Information Declaration')}</div>
+      <div className="gradient-text1 font-bold text-[20px] font-title">
+        <FormattedMessage defaultMessage="Asset Transfer Information Declaration" />
+      </div>
       <div className="mt-[40px] flex flex-col gap-8">
         <div className="flex flex-col gap-3">
-          <div className="font-bold text-[#C2D7C7F6]">{t('Please select a payment method')}</div>
+          <div className="font-bold text-[#C2D7C7F6]">
+            <FormattedMessage defaultMessage="Please select a payment method" />
+          </div>
           <MethodSwitch
-            titles={['Digital currency', 'Fiat currency']}
+            titles={[
+              intl.formatMessage({ defaultMessage: 'Digital currency' }),
+              intl.formatMessage({ defaultMessage: 'Fiat currency' }),
+            ]}
             onSelected={(idx) => {
               setIsDigital(idx === 0);
               assetModeChange?.(idx === 0);

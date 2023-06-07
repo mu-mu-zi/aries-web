@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import closeIcon from '../../../assets/icon/model_close.svg';
 
 export default function PlanDetail({ detail, onClose }: {
@@ -7,7 +8,9 @@ export default function PlanDetail({ detail, onClose }: {
 }) {
   return (
     <div className="flex flex-col gap-4 bg-[#1A342F] rounded-xl p-8 w-[720px]">
-      <div className="text-[#99AC9B] text-[16px] font-bold">Allocation Plan Explanation:</div>
+      <div className="text-[#99AC9B] text-[16px] font-bold">
+        <FormattedMessage defaultMessage="Allocation Plan Explanation:" />
+      </div>
       <div className="text-[20px] text-[#C2D7C7F6] break-all">
         {detail}
       </div>

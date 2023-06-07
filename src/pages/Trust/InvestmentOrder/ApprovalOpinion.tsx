@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import ModalContainer from '../../../views/ModalContainer';
 import ModalNav from '../../../views/ModalContainer/ModalNav';
 import Button from '../../../components/Button';
@@ -32,7 +32,8 @@ export default function ApprovalOpinion({ onClose, record }: {
     resolver: zodResolver(valid),
   });
   const queryClient = useQueryClient();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
 
   const submit = async (data: FormValid) => {
     await axios.request({
@@ -51,7 +52,10 @@ export default function ApprovalOpinion({ onClose, record }: {
 
   return (
     <ModalContainer>
-      <ModalNav title={t('Approval opinion')} onClose={onClose} />
+      <ModalNav
+        title={intl.formatMessage({ defaultMessage: 'Approval opinion' })}
+        onClose={onClose}
+      />
       <div className="flex flex-col mt-4">
         <form onSubmit={handleSubmit(submit)}>
           {/* todo: 这里的表单输入框缺少内阴影，文字颜色 */}
@@ -61,19 +65,23 @@ export default function ApprovalOpinion({ onClose, record }: {
                 <div className="flex flex-col gap-2 px-6">
                   <div className="flex flex-row gap-1">
                     {/* <div className="text-[16px] font-bold gradient-text1">*</div> */}
-                    <div className="text-[#99AC9B] font-bold text-[20px]">{t('Approval opinion (optional)')}</div>
+                    <div className="text-[#99AC9B] font-bold text-[20px]">
+                      <FormattedMessage defaultMessage="Approval opinion (optional)" />
+                    </div>
                   </div>
                   <textarea
                     maxLength={100}
                     {...register('note')}
                     className="w-full text-[16px] placeholder:text-[#708077] h-[120px] bg-transparent py-4 outline-none rounded-xl resize-none"
-                    placeholder={t('In order to better handle investment instructions, please express your opinions as completely as possible.') ?? ''}
+                    placeholder={intl.formatMessage({ defaultMessage: 'In order to better handle investment instructions, please express your opinions as completely as possible.' })}
                   />
                 </div>
               </label>
             </div>
             <div className="self-center">
-              <Button type="submit">{t('Submit')}</Button>
+              <Button type="submit">
+                <FormattedMessage defaultMessage="Submit" />
+              </Button>
             </div>
           </div>
         </form>

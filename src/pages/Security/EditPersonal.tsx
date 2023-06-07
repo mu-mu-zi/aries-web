@@ -4,7 +4,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import ModalContainer from '../../views/ModalContainer';
 import ModalNav from '../../views/ModalContainer/ModalNav';
 import TextInput from '../../components/TextInput';
@@ -19,7 +19,8 @@ import ContactUsFooter from '../../views/ContactUsFooter';
 export default function EditPersonal({ onClose }: {
   onClose?(): void
 }) {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const [isMeal, setIsMeal] = React.useState(true);
   const valid = z.object({
     gender: z.boolean().optional(),
@@ -63,28 +64,36 @@ export default function EditPersonal({ onClose }: {
 
   return (
     <ModalContainer>
-      <ModalNav title="Edit personal information" onClose={onClose} />
+      <ModalNav title={intl.formatMessage({ defaultMessage: 'Edit personal information' })} onClose={onClose} />
       <form onSubmit={handleSubmit(submit)}>
         <div className="flex flex-col gap-4">
           <div className="flex flex-row gap-4">
             <label className="flex-1 flex flex-col gap-4">
-              <div className="fle font-bold text-[#C2D7C7F6] text-[16px]">FirstName</div>
+              <div className="fle font-bold text-[#C2D7C7F6] text-[16px]">
+                <FormattedMessage
+                  defaultMessage="FirstName"
+                />
+              </div>
               <TextInput {...register('nickname')} placeholder="firstname" maxLength={15} />
             </label>
             <label className="flex-1 flex flex-col gap-4">
-              <div className="flex font-bold text-[#C2D7C7F6] text-[16px]">LastName</div>
+              <div className="flex font-bold text-[#C2D7C7F6] text-[16px]">
+                <FormattedMessage
+                  defaultMessage="LastName"
+                />
+              </div>
               <TextInput {...register('surname')} placeholder="lastname" maxLength={15} />
             </label>
           </div>
           <label className="flex flex-col gap-4">
-            <div className="font-bold text-[#C2D7C7F6] text-[16px]">Gender</div>
+            <div className="font-bold text-[#C2D7C7F6] text-[16px]"><FormattedMessage defaultMessage="Gender" /></div>
             <Controller
               render={({ field }) => (
                 <Dropdown
-                  title={field.value ? t('Female') ?? '' : t('Male') ?? ''}
+                  title={field.value ? intl.formatMessage({ defaultMessage: 'Female' }) : intl.formatMessage({ defaultMessage: 'Male' })}
                   items={[
-                    t('Female'),
-                    t('Male'),
+                    intl.formatMessage({ defaultMessage: 'Female' }),
+                    intl.formatMessage({ defaultMessage: 'Male' }),
                   ]}
                   onSelected={(idx) => field.onChange(idx === 0)}
                 />
@@ -94,7 +103,7 @@ export default function EditPersonal({ onClose }: {
             />
           </label>
           <div className="mt-8 self-center w-[420px]">
-            <Button block>{t('Confirm')}</Button>
+            <Button block><FormattedMessage defaultMessage="Confirm" /></Button>
           </div>
         </div>
       </form>

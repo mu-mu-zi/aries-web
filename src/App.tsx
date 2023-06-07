@@ -8,7 +8,6 @@ import { EventSourcePolyfill } from 'event-source-polyfill';
 import { ReactNotifications } from 'react-notifications-component';
 import { useQueryClient } from '@tanstack/react-query';
 import { css } from '@emotion/react';
-import { useTranslation } from 'react-i18next';
 import fullBgIcon from './assets/icon/full_bg.svg';
 import useAuthToken from './hooks/useUserId';
 import Button from './components/Button';
@@ -88,17 +87,19 @@ export default function App() {
         <Routes>
           {/*  navbar */}
           <Route path="/" element={<Home />}>
-            {/* 欢迎 */}
-            <Route path="my" element={<MyTrust />} />
             {/* 登录 + Google 绑定 + 绑定用户信息 */}
             <Route index element={<Welcome />} />
             <Route path="welcome" element={<Welcome />} />
-            <Route path="signIn" element={<SignIn />} />
-            <Route path="gaGuide" element={<GAGuide />} />
-            <Route path="gaBind" element={<GAScanBind />} />
-            <Route path="gaBackup" element={<GABackupKey />} />
-            <Route path="gaBindVerify" element={<GABindVerify />} />
-            <Route path="gaVerify" element={<GAVerify />} />
+            {!token && (
+              <>
+                <Route path="signIn" element={<SignIn />} />
+                <Route path="gaGuide" element={<GAGuide />} />
+                <Route path="gaBind" element={<GAScanBind />} />
+                <Route path="gaBackup" element={<GABackupKey />} />
+                <Route path="gaBindVerify" element={<GABindVerify />} />
+                <Route path="gaVerify" element={<GAVerify />} />
+              </>
+            )}
 
             {token && (
               <>
@@ -144,7 +145,7 @@ export default function App() {
                 {/* 订单 */}
                 <Route path="orders">
                   <Route path="" element={<InvestmentOrder />} />
-                  <Route path="detail" element={<OrderDetail />} />
+                  <Route path="detail/:investmentId" element={<OrderDetail />} />
                 </Route>
                 <Route path="distribution" element={<Distribution />} />
                 <Route path="elements" element={<Elements />} />
@@ -162,7 +163,6 @@ export default function App() {
               </Route>
             </>
           )}
-
         </Routes>
       </div>
     </div>

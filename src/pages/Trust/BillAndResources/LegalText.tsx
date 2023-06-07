@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useLedgerOrderListQuery, useTrustLawListQuery } from '../../../api/trust/order';
 import SimpleTable from '../../../views/SimpleTable';
 import TextButton from '../../../components/TextButton';
@@ -13,17 +13,18 @@ export default function LegalText() {
     pageSize: 10,
     trustId: Number(trustId),
   });
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
 
   return (
     <SimpleTable
       columns={[
         {
-          Header: t('Name of Legal Document') ?? '',
+          Header: intl.formatMessage({ defaultMessage: 'Name of Legal Document' }),
           accessor: 'title',
         },
         {
-          Header: () => (<div className="text-right">{t('Operation')}</div>),
+          Header: () => (<div className="text-right"><FormattedMessage defaultMessage="Operation" /></div>),
           accessor: 'lawFilePath',
           // eslint-disable-next-line react/prop-types
           Cell: ({ row }) => (
@@ -31,7 +32,9 @@ export default function LegalText() {
               {/* eslint-disable-next-line react/prop-types */}
               {/* <TextButton onClick={() => window.open(row.original.lawFilePath)}>{t('Check')}</TextButton> */}
               {/* eslint-disable-next-line react/prop-types */}
-              <TextButton onClick={() => window.open(row.original.lawFilePath)}>{t('Downloads')}</TextButton>
+              <TextButton onClick={() => window.open(row.original.lawFilePath)}>
+                <FormattedMessage defaultMessage="Downloads" />
+              </TextButton>
             </div>
           ),
         },

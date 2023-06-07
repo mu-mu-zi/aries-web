@@ -5,7 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Await, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import logo from '../../assets/icon/logo_black.svg';
 import Button from '../../components/Button';
 import Divide from '../../components/Divide';
@@ -27,14 +27,15 @@ import AreaSelect from '../../components/AreaSelect';
 import QrCode from '../../components/QrCode';
 
 export default function SignIn() {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const navigate = useNavigate();
   const [isPhone, setIsPhone] = useState(true);
   const sendValidateCodeMutation = useSendValidateCodeMutation();
   const getUserInfoMutation = useGetUserInfoMutation();
   // const areaCodeListQuery = useAreaCodeListQuery();
   const valid = z.object({
-    account: isPhone ? z.string().regex(/^\d+$/) : z.string().email(),
+    account: isPhone ? z.string().regex(/^\d+$/, intl.formatMessage({ defaultMessage: 'Invalid phone' })) : z.string().email(),
     areaCodeId: z.number().optional(),
     securityCode: z.string().nonempty(),
   });
@@ -122,29 +123,29 @@ export default function SignIn() {
             <PhotoEmailSwitch onSelected={setIsPhone} />
             <div className="flex flex-row gap-2">
               {isPhone && (
-              <Controller
-                render={({ field }) => (
-                  <AreaSelect
-                    defaultId={field.value}
-                    onSelected={(x) => field.onChange(x.id)}
-                  />
-                )}
-                name="areaCodeId"
-                control={control}
-              />
+                <Controller
+                  render={({ field }) => (
+                    <AreaSelect
+                      defaultId={field.value}
+                      onSelected={(x) => field.onChange(x.id)}
+                    />
+                  )}
+                  name="areaCodeId"
+                  control={control}
+                />
               )}
               <TextInput
                 block
                 className="w-full"
                 {...register('account')}
-                placeholder={isPhone ? t('Please input your phone') ?? '' : t('Please input your email') ?? ''}
+                placeholder={isPhone ? intl.formatMessage({ defaultMessage: 'Please input your phone' }) : intl.formatMessage({ defaultMessage: 'Please input your email' })}
                 type="text"
                 error={errors.account?.message}
               />
             </div>
             <div>
               <TextInput
-                placeholder={t('Please enter the verification code') ?? ''}
+                placeholder={intl.formatMessage({ defaultMessage: 'Please enter the verification code' })}
                 type="text"
                 maxLength={6}
                 {...register('securityCode')}
@@ -165,17 +166,40 @@ export default function SignIn() {
               type="submit"
               disabled={!isValid}
             >
-              {t('Next')}
+              <FormattedMessage defaultMessage="Next" />
             </Button>
             {/* todo: 国际化拆分 */}
             <div className="text-[#99AC9B] leading-[15px] text-[14px]">
-              {t('After mobile phone verification, the user will automatically log in without registration. Registration represents agreement to the')}
-              {' '}
-              <a href="https://aries-trust.com/userPolicy" target="_blank" className="gradient-text1" rel="noreferrer">{t('Aries Digital Group Agreement')}</a>
-              {' '}
-              and
-              {' '}
-              <a href="https://aries-trust.com/privacyPolicy" target="_blank" className="gradient-text1" rel="noreferrer">{t('Aries Digital Group Privacy Policy')}</a>
+              {/* {t('After mobile phone verification, the user will automatically log in without registration. Registration represents agreement to the')} */}
+              {/* {' '} */}
+              {/* <a href="https://aries-trust.com/userPolicy" target="_blank" className="gradient-text1" rel="noreferrer">{t('Aries Digital Group Agreement')}</a> */}
+              {/* {' '} */}
+              {/* and */}
+              {/* {' '} */}
+              {/* <a href="https://aries-trust.com/privacyPolicy" target="_blank" className="gradient-text1" rel="noreferrer">{t('Aries Digital Group Privacy Policy')}</a> */}
+              <FormattedMessage
+                defaultMessage="After mobile phone verification, the user will automatically log in without registration. Registration represents agreement to the {userPolicy} and {privacyPolicy}."
+                values={{
+                  userPolicy: (
+                    <a
+                      href="https://aries-trust.com/userPolicy"
+                      target="_blank"
+                      className="gradient-text1"
+                      rel="noreferrer"
+                    >
+                      <FormattedMessage defaultMessage="Aries Digital Group Agreement" />
+                    </a>),
+                  privacyPolicy: (
+                    <a
+                      href="https://aries-trust.com/privacyPolicy"
+                      target="_blank"
+                      className="gradient-text1"
+                      rel="noreferrer"
+                    >
+                      <FormattedMessage defaultMessage="Aries Digital Group Privacy Policy" />
+                    </a>),
+                }}
+              />
             </div>
             <div className="flex-auto" />
 

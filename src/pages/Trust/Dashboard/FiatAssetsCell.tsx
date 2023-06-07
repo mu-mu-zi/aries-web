@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { useCollapse } from 'react-collapsed';
+import { FormattedMessage } from 'react-intl';
 import arrowUp from '../../../assets/icon/arrow_up.svg';
 import AssetsProgress from './AssetsProgress';
 import { IFiatAssets } from '../../../interfaces/trust';
@@ -10,7 +10,7 @@ import sectionIcon from '../../../assets/icon/icon_coin_coinbase.svg';
 export default function FiatAssetsCell({ asset }: {
   asset: IFiatAssets
 }) {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const [isExpanded, setExpanded] = useState(true);
   const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
 
@@ -24,7 +24,7 @@ export default function FiatAssetsCell({ asset }: {
         <img src={sectionIcon} />
         <div className="gradient-text1 text-[20px] font-bold flex-auto">{asset.name}</div>
         {(asset.status === 1 || asset.status === 2)
-          && <div className="font-bold text-[20px] text-[#708077] break-keep">{t('Opening in progress')}</div>}
+          && <div className="font-bold text-[20px] text-[#708077] break-keep"><FormattedMessage defaultMessage="Opening in progress" /></div>}
         {asset.status === 3 && <div className="gradient-text1 text-[20px] font-bold">{`${asset.totalUSDT} USD`}</div>}
         {asset.details.filter((x) => x.totalAmountUSDT > 0).length > 0
           && <img src={arrowUp} alt="" className={classNames('transition', isExpanded && 'rotate-180')} />}
@@ -47,7 +47,8 @@ export default function FiatAssetsCell({ asset }: {
               {it.details.filter((x) => x.amount > 0).map((y) => (
                 <div className="flex items-baseline gap-4 text-[16px]">
                   <div>{y.name}</div>
-                  <div className="flex-auto">{`APR (${y.apr}%)`}</div>
+                  {y.apr > 0 && <div>{`APR (${y.apr}%)`}</div>}
+                  <div className="flex-auto" />
                   <div>{`${y.amount} ${y.symbol}`}</div>
                 </div>
               ))}

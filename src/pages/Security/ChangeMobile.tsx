@@ -6,7 +6,7 @@ import { Simulate } from 'react-dom/test-utils';
 import axios from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import CenterContainer from '../../views/CenterContainer';
 import GANavbar from '../SignIn/GANavbar';
 import Dropdown from '../../components/Dropdown';
@@ -19,8 +19,9 @@ import ContactUsFooter from '../../views/ContactUsFooter';
 import AreaSelect from '../../components/AreaSelect';
 
 export default function ChangeMobile() {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   // const areaCodeListQuery = useAreaCodeListQuery();
+  const intl = useIntl();
   const valid = z.object({
     areaCodeId: z.number(),
     mobile: z.string().nonempty(),
@@ -89,26 +90,22 @@ export default function ChangeMobile() {
 
   return (
     <CenterContainer>
-      <GANavbar title={t('Cancel')} />
+      <GANavbar title={intl.formatMessage({ defaultMessage: 'Cancel' })} />
       <form onSubmit={handleSubmit(submit)}>
         <div className="m-auto flex flex-col w-[420px]">
           <div
             className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px] my-16"
           >
-            {t('Binding phone verification')}
+            <FormattedMessage defaultMessage="Binding phone verification" />
           </div>
           <div className="flex flex-col gap-4">
-            <div className="text-[#C2D7C7F6] text-[16px] font-bold">{t('New Mobile Phone')}</div>
+            <div className="text-[#C2D7C7F6] text-[16px] font-bold">
+              <FormattedMessage defaultMessage="New Mobile Phone" />
+            </div>
             <div className="flex flex-row gap-4">
               <Controller
                 render={({ field }) => (
                   <AreaSelect defaultId={field.value} onSelected={(e) => field.onChange(e.id)} />
-                  // <Dropdown
-                  //   block
-                  //   items={areaCodeListQuery.data?.data?.map((x) => `+${x.code}`) ?? []}
-                  //   title={`+${areaCodeListQuery.data?.data?.find((x) => x.id === field.value)?.code}` ?? ''}
-                  //   onSelected={(idx) => field.onChange(areaCodeListQuery.data?.data?.[idx].id)}
-                  // />
                 )}
                 name="areaCodeId"
                 control={control}
@@ -116,29 +113,23 @@ export default function ChangeMobile() {
               <div className="flex-auto">
                 <TextInput
                   {...register('mobile')}
-                  placeholder="Please input your phone"
+                  placeholder={intl.formatMessage({ defaultMessage: 'Please input your phone' })}
                 />
               </div>
             </div>
-            <div className="text-[#C2D7C7F6] text-[16px] font-bold">{t('New Mobile Verification Code')}</div>
+            <div className="text-[#C2D7C7F6] text-[16px] font-bold"><FormattedMessage defaultMessage="New Mobile Verification Code" /></div>
             <div>
               <TextInput
                 {...register('securityCode')}
-                placeholder="Please enter the verification code"
+                placeholder={intl.formatMessage({ defaultMessage: 'Please enter the verification code' })}
                 suffix={(
                   <SendButton onClick={sendValidCode} />
-                  // <div
-                  //   className="cursor-pointer font-bold gradient-text1 text-[20px] px-2"
-                  //   onClick={sendValidCode}
-                  // >
-                  //   {t('Send')}
-                  // </div>
                 )}
               />
             </div>
           </div>
           <div className="mt-10">
-            <Button block>{t('Confirm')}</Button>
+            <Button block><FormattedMessage defaultMessage="Confirm" /></Button>
           </div>
         </div>
       </form>

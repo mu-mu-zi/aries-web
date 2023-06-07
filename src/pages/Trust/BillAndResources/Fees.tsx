@@ -1,14 +1,16 @@
 import React from 'react';
 import { retry } from '@reduxjs/toolkit/query';
 import { NavLink, useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { useIntl } from 'react-intl';
+import moment from 'moment';
 import alertIcon from '../../../assets/icon/alert.svg';
 import { useTrustFeeListQuery } from '../../../api/trust/order';
 import { currencyUSDTFormat } from '../../../utils/CurrencyFormat';
 import Tooltip from '../../../components/Tooltip';
 
 export default function Fees() {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const { trustId } = useParams();
   const query = useTrustFeeListQuery({
     trustId: Number(trustId),
@@ -17,11 +19,11 @@ export default function Fees() {
   const titleFormat = (type: number) => {
     switch (type) {
       case 1:
-        return t('Trust management fee');
+        return intl.formatMessage({ defaultMessage: 'Trust management fee' });
       case 2:
-        return t('Excess transfer fee');
+        return intl.formatMessage({ defaultMessage: 'Excess transfer fee' });
       case 3:
-        return t('Establishment Fee');
+        return intl.formatMessage({ defaultMessage: 'Establishment Fee' });
       default:
         return '--';
     }
@@ -43,11 +45,11 @@ export default function Fees() {
   const statusTitle = (type: number, year: number) => {
     switch (type) {
       case 1:
-        return `Unbilled in ${year}`;
+        return intl.formatMessage({ defaultMessage: 'Unbilled in {year}' }, { year });
       case 2:
-        return `Unsettled in ${year}`;
+        return intl.formatMessage({ defaultMessage: 'Unsettled in {year}' }, { year });
       default:
-        return '--';
+        return `In ${moment().year()}`;
     }
   };
 
@@ -55,18 +57,18 @@ export default function Fees() {
     switch (type) {
       case 1:
         return {
-          title: t('Trust Management Fee = Total Amount Entrusted * Trust Management Fee APR'),
-          description: t('Note: Trust management fee is calculated at a fixed rate of 0.05% per day and deducted at the end of the year'),
+          title: intl.formatMessage({ defaultMessage: 'Trust Management Fee = Total Amount Entrusted * Trust Management Fee APR' }),
+          description: intl.formatMessage({ defaultMessage: 'Note: Trust management fee is calculated at a fixed rate of 0.05% per day and deducted at the end of the year' }),
         };
       case 2:
         return {
-          title: t('Excess Transfer Fee = Excess Amount * Excess Transfer Fee APR'),
-          description: t('Note: The excess transfer fee is calculated at a fixed rate of 0.03% for each excess amount and will be deducted at the end of the year.'),
+          title: intl.formatMessage({ defaultMessage: 'Excess Transfer Fee = Excess Amount * Excess Transfer Fee APR' }),
+          description: intl.formatMessage({ defaultMessage: 'Note: The excess transfer fee is calculated at a fixed rate of 0.03% for each excess amount and will be deducted at the end of the year.' }),
         };
       case 3:
         return {
-          title: t('Additional establishment fee = Transfer amount of each asset declaration * exchange rate * establishment fee APR'),
-          description: t('Note: Each additional establishment fee is calculated at a fixed rate of 0.03% and deducted at the end of the year'),
+          title: intl.formatMessage({ defaultMessage: 'Additional establishment fee = Transfer amount of each asset declaration * exchange rate * establishment fee APR' }),
+          description: intl.formatMessage({ defaultMessage: 'Note: Each additional establishment fee is calculated at a fixed rate of 0.03% and deducted at the end of the year' }),
         };
       default:
         return {

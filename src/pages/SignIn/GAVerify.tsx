@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import GANavbar from './GANavbar';
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
@@ -20,7 +20,8 @@ import { useAppDispatch } from '../../state';
 import { setToken } from '../../state/user';
 
 export default function GAVerify() {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const action = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -87,26 +88,26 @@ export default function GAVerify() {
     <CenterContainer>
       <form onSubmit={handleSubmit(submit)}>
         <div className="flex-1 flex flex-col">
-          <GANavbar title={t('Cancel')} />
+          <GANavbar title={intl.formatMessage({ defaultMessage: 'Cancel' })} />
           <div className="flex-auto item-center flex w-[420px] flex-col self-center pt-[64px]">
             <div
               className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]"
             >
-              {t('Security verification')}
+              <FormattedMessage defaultMessage="Security verification" />
             </div>
             <div className="mt-16 flex flex-col gap-4">
               <div className="font-bold text-[#c2d7c7]">
-                {t('Please enter the 6-digit Google security code')}
+                <FormattedMessage defaultMessage="Please enter the 6-digit Google security code" />
               </div>
               <TextInput
                 {...register('googleCode')}
                 maxLength={6}
-                placeholder="Please enter the 6-digit Google security code"
+                placeholder={intl.formatMessage({ defaultMessage: 'Please enter the 6-digit Google security code' })}
               />
             </div>
             <div className="mt-[40px] flex flex-row gap-4">
               <Button size="medium" block>
-                {t('Confirm')}
+                <FormattedMessage defaultMessage="Confirm" />
               </Button>
             </div>
           </div>

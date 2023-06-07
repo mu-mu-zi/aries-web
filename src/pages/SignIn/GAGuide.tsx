@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Button from '../../components/Button';
 import Divide from '../../components/Divide';
 import ContactUs from './ContactUs';
@@ -13,19 +13,20 @@ import ContactUsFooter from '../../views/ContactUsFooter';
 export default function GAGuide() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
 
   return (
   // <div className="flex flex-col items-center pt-[38px]">
     <CenterContainer>
       <GANavbar
-        title={t('Bind Google Authenticator')}
-        description={t('Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After binding, it generates a dynamic verification code every 30 seconds, which can be used for security verification for login, modifying security settings and other operations.')}
+        title={intl.formatMessage({ defaultMessage: 'Bind Google Authenticator' })}
+        description={intl.formatMessage({ defaultMessage: 'Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After binding, it generates a dynamic verification code every 30 seconds, which can be used for security verification for login, modifying security settings and other operations.' })}
       />
       <div className="flex flex-col items-center px-[100px] py-16">
         <div className="flex w-[420px] flex-col items-center">
           <div className="text-shadow-block font-title font-bold gradient-text1 text-center text-[32px] leading-[36px]">
-            {t('Download and install the Google Authenticator app')}
+            <FormattedMessage defaultMessage="Download and install the Google Authenticator app" />
           </div>
           <div className="mt-[64px] flex flex-row gap-2">
             <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank" rel="noreferrer">
@@ -51,7 +52,7 @@ export default function GAGuide() {
                 });
               }}
             >
-              {t('Next')}
+              <FormattedMessage defaultMessage="Next" />
             </Button>
             {/* {location.state?.userName} */}
           </div>

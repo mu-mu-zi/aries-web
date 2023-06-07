@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { FormattedMessage, useIntl } from 'react-intl';
 import ModalContainer from '../../../views/ModalContainer';
 import ModalNav from '../../../views/ModalContainer/ModalNav';
 import Dropdown from '../../../components/Dropdown';
@@ -49,7 +49,8 @@ export default function EditRole({
       protectorRoleType: defaultVal,
     },
   });
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const queryClient = useQueryClient();
   const [googleVerifyVisible, setGoogleVerifyVisible] = useState(false);
   const [formData, setFormData] = useState<FormValid>();
@@ -88,17 +89,19 @@ export default function EditRole({
 
   return (
     <ModalContainer>
-      <ModalNav title="Edit Role" onClose={onClose} />
+      <ModalNav title={intl.formatMessage({ defaultMessage: 'Edit Role' })} onClose={onClose} />
       <form onSubmit={handleSubmit(submit)}>
         <div className="flex flex-col gap-4">
           {isBeneficiary && (
             <div className="flex flex-col gap-4">
-              <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Permissions')}</label>
+              <label className="text-[#C2D7C7F6] font-bold text-[16px]">
+                <FormattedMessage defaultMessage="Permissions" />
+              </label>
               <Controller
                 render={({ field }) => {
                   const enums = [
-                    { value: BeneficiaryRoleType.No, name: t('No') },
-                    { value: BeneficiaryRoleType.ReadOnly, name: t('Read Only') },
+                    { value: BeneficiaryRoleType.No, name: intl.formatMessage({ defaultMessage: 'No' }) },
+                    { value: BeneficiaryRoleType.ReadOnly, name: intl.formatMessage({ defaultMessage: 'Read Only' }) },
                   ];
 
                   return (
@@ -116,12 +119,12 @@ export default function EditRole({
           )}
           {!isBeneficiary && (
             <div className="flex flex-col gap-4">
-              <label className="text-[#C2D7C7F6] font-bold text-[16px]">{t('Permissions')}</label>
+              <label className="text-[#C2D7C7F6] font-bold text-[16px]"><FormattedMessage defaultMessage="Permissions" /></label>
               <Controller
                 render={({ field }) => {
                   const enums = [
-                    { value: ProtectorRoleType.ReadOnly, name: t('Read Only') },
-                    { value: ProtectorRoleType.Approval, name: t('Approval') },
+                    { value: ProtectorRoleType.ReadOnly, name: intl.formatMessage({ defaultMessage: 'Read Only' }) },
+                    { value: ProtectorRoleType.Approval, name: intl.formatMessage({ defaultMessage: 'Approval' }) },
                   ];
                   return (
                     <Dropdown
@@ -137,7 +140,7 @@ export default function EditRole({
             </div>
           )}
           <div className="mt-4 self-center max-w-[420px] w-full">
-            <Button block>{t('Submit')}</Button>
+            <Button block><FormattedMessage defaultMessage="Submit" /></Button>
           </div>
           <div className="flex flex-col gap-5 mt-6">
             <ContactUsFooter />

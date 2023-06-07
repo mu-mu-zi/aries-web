@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useTrustReportListQuery } from '../../../api/trust/order';
 import SimpleTable from '../../../views/SimpleTable';
 import { IReport } from '../../../interfaces/trust';
@@ -14,17 +14,18 @@ export default function Report() {
     pageIndex: page,
     pageSize: 10,
   });
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
 
   return (
     <SimpleTable
       columns={[
         {
-          Header: 'Name of Report Document',
+          Header: intl.formatMessage({ defaultMessage: 'Name of Report Document' }),
           accessor: (e) => e.title,
         },
         {
-          Header: () => (<div className="text-right">{t('Operation')}</div>),
+          Header: () => (<div className="text-right"><FormattedMessage defaultMessage="Operation" /></div>),
           accessor: 'reportFilePath',
           // eslint-disable-next-line react/prop-types
           Cell: ({ row }) => (
@@ -32,7 +33,7 @@ export default function Report() {
               {/* eslint-disable-next-line react/prop-types */}
               {/* <TextButton onClick={() => window.open(row.original.reportFilePath)}>{t('Check')}</TextButton> */}
               {/* eslint-disable-next-line react/prop-types */}
-              <TextButton onClick={() => window.open(row.original.reportFilePath)}>{t('Downloads')}</TextButton>
+              <TextButton onClick={() => window.open(row.original.reportFilePath)}><FormattedMessage defaultMessage="Downloads" /></TextButton>
             </div>
           ),
         },

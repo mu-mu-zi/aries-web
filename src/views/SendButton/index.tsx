@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useInterval } from 'react-use';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage } from 'react-intl';
 
 export default function SendButton({
   onClick,
@@ -9,7 +9,7 @@ export default function SendButton({
 }) {
   const [duration, setDuration] = useState(0);
   const [sendCount, setSendCount] = useState(0);
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   useInterval(() => {
     setDuration((d) => d - 1);
@@ -39,7 +39,7 @@ export default function SendButton({
     >
       {/* {sendCount} */}
       {/* eslint-disable-next-line no-nested-ternary */}
-      {duration <= 0 ? (sendCount > 1 ? t('Resend') : t('Send')) : `${duration}S`}
+      {duration <= 0 ? (sendCount > 1 ? <FormattedMessage defaultMessage="Resend" /> : <FormattedMessage defaultMessage="Send" />) : `${duration}S`}
     </div>
   );
 }

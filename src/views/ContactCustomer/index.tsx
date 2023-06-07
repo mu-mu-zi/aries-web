@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import GANavbar from '../../pages/SignIn/GANavbar';
 import logo from '../../assets/icon/bakcup_key_logo.svg';
 import Copy from '../Icons/Copy';
@@ -23,7 +23,8 @@ import FooterNote from '../FooterNote';
 import AreaSelect from '../../components/AreaSelect';
 
 export default function ContactCustomer() {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const navigate = useNavigate();
   const [isPhone, setIsPhone] = useState(true);
   // const areaCodeListQuery = useAreaCodeListQuery();
@@ -70,8 +71,8 @@ export default function ContactCustomer() {
       navigate('/status', {
         replace: true,
         state: {
-          title: t('Submit successfully'),
-          description: t('Applications will be processed within 1 business day, please keep it open for customer service to contact you.'),
+          title: intl.formatMessage({ defaultMessage: 'Submit successfully' }),
+          description: intl.formatMessage({ defaultMessage: 'Applications will be processed within 1 business day, please keep it open for customer service to contact you.' }),
           navTo: '/contactCustomer',
         },
       });
@@ -83,33 +84,41 @@ export default function ContactCustomer() {
   return (
     <div>
       <CenterContainer>
-        <GANavbar title={t('Cancel')} />
+        <GANavbar title={intl.formatMessage({ defaultMessage: 'Cancel' })} />
         <div className="flex flex-col items-center">
           <form onSubmit={handleSubmit(submit)}>
             <div className="item-center flex w-[420px] flex-col self-center py-[64px]">
               <div
                 className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]"
               >
-                {t('Contact customer service')}
+                <FormattedMessage defaultMessage="Contact customer service" />
               </div>
               <div className="mt-16 flex flex-col gap-4">
                 <div className="flex flex-row gap-2">
                   {/* <div className="gradient-text1">*</div> */}
-                  <div className="font-bold text-[#c2d7c7]">{t('Name')}</div>
+                  <div className="font-bold text-[#c2d7c7]"><FormattedMessage defaultMessage="Name" /></div>
                 </div>
-                <TextInput placeholder="Please enter your name" {...register('contactName')} maxLength={30} />
-                <div className="flex flex-row gap-2">
-                  <div className="gradient-text1">*</div>
-                  <div className="font-bold text-[#c2d7c7]">{t('Description')}</div>
-                </div>
-                <TextArea
-                  {...register('problemDescription')}
-                  maxLength={200}
-                  placeholder="Please provide a detailed explanation of the subject you would like to consult about."
+                <TextInput
+                  placeholder={intl.formatMessage({ defaultMessage: 'Please enter your name' })}
+                  maxLength={30}
+                  {...register('contactName')}
                 />
                 <div className="flex flex-row gap-2">
                   <div className="gradient-text1">*</div>
-                  <div className="font-bold text-[#c2d7c7]">{t('Contact')}</div>
+                  <div className="font-bold text-[#c2d7c7]">
+                    <FormattedMessage defaultMessage="Description" />
+                  </div>
+                </div>
+                <TextArea
+                  maxLength={200}
+                  placeholder={intl.formatMessage({ defaultMessage: 'Please provide a detailed explanation of the subject you would like to consult about.' })}
+                  {...register('problemDescription')}
+                />
+                <div className="flex flex-row gap-2">
+                  <div className="gradient-text1">*</div>
+                  <div className="font-bold text-[#c2d7c7]">
+                    <FormattedMessage defaultMessage="Contact" />
+                  </div>
                 </div>
                 <PhotoEmailSwitch onSelected={setIsPhone} />
                 <div className="flex flex-row gap-2">
@@ -133,19 +142,23 @@ export default function ContactCustomer() {
                   <TextInput
                     block
                     className="w-full"
-                    placeholder={isPhone ? t('Please input your phone') ?? '' : t('Please input your email') ?? ''}
-                    type="text"
+                    placeholder={isPhone ? intl.formatMessage({ defaultMessage: 'Please input your phone' }) : intl.formatMessage({ defaultMessage: 'Please input your email' })}
                     {...register('account')}
                   />
                 </div>
               </div>
               <div className="mt-[40px] flex flex-row gap-4">
                 <Button size="medium" block type="submit">
-                  {t('Confirm')}
+                  <FormattedMessage defaultMessage="Confirm" />
                 </Button>
               </div>
               <div className="text-[#708077] text-[14px] leading-[16px] mt-10">
-                {t(`The application will be processed within one working day, please keep your communication channels open so that customer service can contact you in a timely manner. Additionally, you can also contact the platform through ${emailQuery.data?.data}.`)}
+                <FormattedMessage
+                  defaultMessage="The application will be processed within one working day, please keep your communication channels open so that customer service can contact you in a timely manner. Additionally, you can also contact the platform through {email}."
+                  values={{
+                    email: emailQuery.data?.data,
+                  }}
+                />
               </div>
             </div>
           </form>

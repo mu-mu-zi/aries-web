@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { use } from 'i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import GANavbar from './GANavbar';
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
@@ -20,7 +19,8 @@ import { Trust } from '../../interfaces/trust';
 
 export default function PersonalRealName() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const valid = z.object({
     firstName: z.string().nonempty(),
     lastName: z.string().nonempty(),
@@ -90,31 +90,39 @@ export default function PersonalRealName() {
 
   return (
     <CenterContainer>
-      <GANavbar title={t('Cancel')} />
+      <GANavbar title={intl.formatMessage({ defaultMessage: 'Cancel' })} />
       <div className="item-center flex w-[420px] flex-col self-center pt-[64px]">
         <form onSubmit={handleSubmit(submit)}>
           <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]">
-            {t('Personal Information')}
+            <FormattedMessage defaultMessage="Personal Information" />
           </div>
           <div className="flex flex-row gap-4 mt-16">
             <div className="flex flex-col gap-4">
-              <div className="font-bold text-[#c2d7c7]">{t('FirstName')}</div>
-              <TextInput {...register('firstName')} placeholder="firstname" maxLength={15} />
+              <div className="font-bold text-[#c2d7c7]"><FormattedMessage defaultMessage="FirstName" /></div>
+              <TextInput
+                {...register('firstName')}
+                placeholder={intl.formatMessage({ defaultMessage: 'firstname' })}
+                maxLength={15}
+              />
             </div>
             <div className="flex flex-col gap-4">
-              <div className="font-bold text-[#c2d7c7]">{t('LastName')}</div>
-              <TextInput {...register('lastName')} placeholder="lastname" maxLength={15} />
+              <div className="font-bold text-[#c2d7c7]"><FormattedMessage defaultMessage="LastName" /></div>
+              <TextInput
+                {...register('lastName')}
+                placeholder={intl.formatMessage({ defaultMessage: 'lastname' })}
+                maxLength={15}
+              />
             </div>
           </div>
           <label className="mt-4 flex flex-col gap-4">
-            <div className="font-bold text-[#C2D7C7F6] text-[16px]">Gender</div>
+            <div className="font-bold text-[#C2D7C7F6] text-[16px]"><FormattedMessage defaultMessage="Gender" /></div>
             <Controller
               render={({ field }) => (
                 <Dropdown
-                  title={field.value ? t('Female') ?? '' : t('Male') ?? ''}
+                  title={field.value ? intl.formatMessage({ defaultMessage: 'Female' }) : intl.formatMessage({ defaultMessage: 'Male' })}
                   items={[
-                    t('Female'),
-                    t('Male'),
+                    intl.formatMessage({ defaultMessage: 'Female' }),
+                    intl.formatMessage({ defaultMessage: 'Male' }),
                   ]}
                   onSelected={(idx) => field.onChange(idx === 0)}
                 />
@@ -125,7 +133,7 @@ export default function PersonalRealName() {
           </label>
           <div className="mt-[40px] flex flex-row gap-4">
             <Button size="medium" block>
-              {t('Confirm')}
+              <FormattedMessage defaultMessage="Confirm" />
             </Button>
           </div>
         </form>

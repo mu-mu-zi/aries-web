@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage } from 'react-intl';
 
 export enum VerifyStatusRowStatus {
   Success,
@@ -17,8 +17,6 @@ export default function VerifyStatusRow({
   title: string;
   status: VerifyStatusRowStatus;
 }) {
-  const { t } = useTranslation();
-
   return (
     <div className="flex flex-row items-center gap-2 bg-[#3B5649] px-8 py-4 shadow-block rounded-xl">
       <img src={icon} width="32px" alt={title} />
@@ -28,9 +26,9 @@ export default function VerifyStatusRow({
         'text-[#708077]': status !== VerifyStatusRowStatus.Success,
       })}
       >
-        {status === VerifyStatusRowStatus.Success && t('Successfully opened')}
-        {status === VerifyStatusRowStatus.Opening && t('Opening in progress')}
-        {status === VerifyStatusRowStatus.NotOpen && t('Not Open')}
+        {status === VerifyStatusRowStatus.Success && <FormattedMessage defaultMessage="Successfully opened" /> }
+        {status === VerifyStatusRowStatus.Opening && <FormattedMessage defaultMessage="Opening in progress" /> }
+        {status === VerifyStatusRowStatus.NotOpen && <FormattedMessage defaultMessage="Not Open" /> }
       </div>
     </div>
   );

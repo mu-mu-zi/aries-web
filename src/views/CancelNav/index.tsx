@@ -1,5 +1,6 @@
 import React, { useId } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 import icon from '../../assets/icon/arrow_l.svg';
 
 export default function CancelNav({ onTap }: {
@@ -19,7 +20,9 @@ export default function CancelNav({ onTap }: {
       }}
     >
       <img src={icon} width="32px" alt="" />
-      <div className="font-title font-bold text-[24px] gradient-text1">Cancel</div>
+      <div className="font-title font-bold text-[24px] gradient-text1">
+        <FormattedMessage defaultMessage="Cancel" />
+      </div>
     </div>
   );
 }

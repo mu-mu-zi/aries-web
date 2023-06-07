@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import Information from './Information';
 import Beneficiary from './Beneficiary';
 import Protector from './Protector';
@@ -8,10 +9,17 @@ import { CallFormat } from '../../../utils/CallFormat';
 
 export default function Elements() {
   const userQuery = useUserInfoQuery();
+  const intl = useIntl();
 
   return (
     <div className="flex flex-col gap-6">
-      <Portrait description={`Trust Property Independence established exclusively according to ${CallFormat(userQuery.data?.data?.surname, userQuery.data?.data?.gender, false)} wishes.`} />
+      <Portrait
+        description={intl.formatMessage({
+          defaultMessage: 'Trust Property Independence established exclusively according to {call} wishes.',
+        }, {
+          call: CallFormat(userQuery.data?.data?.surname, userQuery.data?.data?.gender, false),
+        })}
+      />
       <Information />
       <Beneficiary />
       <Protector />

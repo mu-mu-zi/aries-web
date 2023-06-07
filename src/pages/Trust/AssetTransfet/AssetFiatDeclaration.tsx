@@ -4,8 +4,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { FormattedMessage, useIntl } from 'react-intl';
 import TextField from '../../../components/TextField';
 import Button from '../../../components/Button';
 import { useFiatListQuery, useTrustDetailQuery } from '../../../api/trust/trust';
@@ -14,7 +14,8 @@ import { addSuccessNotification } from '../../../utils/Notification';
 import useTrustPermission from '../../../hooks/useTrustRole';
 
 export default function AssetFiatDeclaration() {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const { trustId } = useParams();
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
   const { settlorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
@@ -22,7 +23,7 @@ export default function AssetFiatDeclaration() {
   const valid = z.object({
     name: z.string().nonempty(),
     fiatId: z.number(),
-    amount: z.string().nonempty().regex(/^[0-9]*.?[0-9]{0,3}$/, 'Please enter a number with a maximum precision of 3.'),
+    amount: z.string().nonempty().regex(/^[0-9]*.?[0-9]{0,3}$/, intl.formatMessage({ defaultMessage: 'Please enter a number with a maximum precision of 3.' })),
     expectedTime: z.string().nonempty(),
     bank: z.string().nonempty(),
     bankCardNo: z.string().optional(),
@@ -66,7 +67,7 @@ export default function AssetFiatDeclaration() {
     },
     onSuccess: async () => {
       addSuccessNotification({
-        title: t('提交成功'),
+        title: intl.formatMessage({ defaultMessage: 'Submission successful.' }),
       });
       reset();
       await queryClient.invalidateQueries(['trust']);
@@ -96,11 +97,11 @@ export default function AssetFiatDeclaration() {
   return (
     <form onSubmit={handleSubmit(submit)}>
       <div className="flex flex-col gap-3">
-        <div className="font-bold text-[#C2D7C7F6]">{t('Declaration information')}</div>
+        <div className="font-bold text-[#C2D7C7F6]"><FormattedMessage defaultMessage="Declaration information" /></div>
         <TextField
           requiredLabel
-          label={'Payer\'s name'}
-          placeholder={t('Please enter the payer\'s name') ?? ''}
+          label={intl.formatMessage({ defaultMessage: "Payer's name" })}
+          placeholder={intl.formatMessage({ defaultMessage: "Please enter the payer's name" })}
           {...register('name')}
           maxLength={30}
           error={errors.name?.message}
@@ -120,48 +121,50 @@ export default function AssetFiatDeclaration() {
         />
         <TextField
           requiredLabel
-          label={t('Payment amount')}
-          placeholder={t('Please enter the amount') ?? ''}
+          label={intl.formatMessage({ defaultMessage: 'Payment amount' })}
+          placeholder={intl.formatMessage({ defaultMessage: 'Please enter the amount' })}
           {...register('amount')}
           error={errors.amount?.message}
         />
         <TextField
           requiredLabel
-          label={t('Expected transfer time')}
-          placeholder={t('Please enter the expected transfer time') ?? ''}
+          label={intl.formatMessage({ defaultMessage: 'Expected transfer time' })}
+          placeholder={intl.formatMessage({ defaultMessage: 'Please enter the expected transfer time' })}
           {...register('expectedTime')}
           maxLength={30}
           error={errors.expectedTime?.message}
         />
         <TextField
           requiredLabel
-          label={t('payment Bank')}
-          placeholder={t('Please enter the payment bank(English)') ?? ''}
+          label={intl.formatMessage({ defaultMessage: 'payment Bank' })}
+          placeholder={intl.formatMessage({ defaultMessage: 'Please enter the payment bank(English)' })}
           {...register('bank')}
           maxLength={100}
           error={errors.bank?.message}
         />
         <TextField
-          label={t('Bank card number (optional)')}
-          placeholder={t('Please enter your payment card number') ?? ''}
+          label={intl.formatMessage({ defaultMessage: 'Bank card number (optional)' })}
+          placeholder={intl.formatMessage({ defaultMessage: 'Please enter your payment card number' })}
           {...register('bankCardNo')}
           maxLength={60}
         />
         <TextField
-          label={t('Payer\'s address (optional)')}
-          placeholder={t('Please enter the payer\'s address') ?? ''}
+          label={intl.formatMessage({ defaultMessage: "Payer's address (optional)" })}
+          placeholder={intl.formatMessage({ defaultMessage: "Please enter the payer's address" })}
           {...register('address')}
           maxLength={100}
         />
         <TextField
-          label={t('Remark (optional)')}
-          placeholder={t('Please enter the remark') ?? ''}
+          label={intl.formatMessage({ defaultMessage: 'Remark (optional)' })}
+          placeholder={intl.formatMessage({ defaultMessage: 'Please enter the remark' })}
           maxLength={100}
           {...register('remark')}
         />
         {settlorPermission && (
           <div className="mt-4">
-            <Button type="submit" block disabled={submitMutation.isLoading}>{t('Submit')}</Button>
+            <Button type="submit" block disabled={submitMutation.isLoading}>
+              <FormattedMessage defaultMessage="Submit" />
+            </Button>
           </div>
         )}
       </div>

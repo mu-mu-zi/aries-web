@@ -1,9 +1,9 @@
 import React from 'react';
 import Slider from 'react-slick';
-import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
+import { FormattedMessage, useIntl } from 'react-intl';
 import closeIcon from '../../../assets/icon/model_close.svg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -16,13 +16,14 @@ import { IInvestmentOrderRecode } from '../../../interfaces/trust';
 import { useTrustDetailQuery } from '../../../api/trust/trust';
 import ContactUsFooter from '../../../views/ContactUsFooter';
 import useTrustPermission from '../../../hooks/useTrustRole';
-import { addNotification } from '../../../utils/Notification';
+import { addNotification, addSuccessNotification } from '../../../utils/Notification';
 
 export default function TransactionVoucher({ selected, onClose }: {
   selected: IInvestmentOrderRecode,
   onClose?(): void
 }) {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const { formatMessage } = useIntl();
   const queryClient = useQueryClient();
   const settings = {
     dots: true,
@@ -43,12 +44,12 @@ export default function TransactionVoucher({ selected, onClose }: {
         status: 2,
       },
     }),
-    onSuccess: async () => {
-      onClose?.();
-      queryClient.invalidateQueries(['trust']);
-      addNotification({
-        title: t('Verification successful'),
+    onSuccess: () => {
+      addSuccessNotification({
+        title: formatMessage({ defaultMessage: 'Verification successful' }),
       });
+      queryClient.invalidateQueries(['trust']);
+      onClose?.();
     },
   });
 
@@ -58,12 +59,14 @@ export default function TransactionVoucher({ selected, onClose }: {
       {/*  <div className="gradient-text1 font-bold text-[32px] font-title">{t('Transaction voucher')}</div> */}
       {/*  <img className="cursor-pointer" src={closeIcon} alt="" /> */}
       {/* </div> */}
-      <ModalNav title="Transaction voucher" onClose={onClose} />
+      <ModalNav title={formatMessage({ defaultMessage: 'Transaction voucher' })} onClose={onClose} />
       {/* <div className="mt-4 h-[1px] bg-[#3B5649]" /> */}
       <Slider {...settings} className="h-[400px] overflow-clip">
-        <div className="h-[400px] overflow-y-auto">
-          <img src={selected.billCertificate} className="block w-full object-contain" alt="" />
-        </div>
+        {selected.billCertificate.split(',').map((item, index) => (
+          <div className="h-[400px] overflow-y-auto" key={item}>
+            <img src={item} className="block w-full object-contain" alt="" />
+          </div>
+        ))}
         {/* <div> */}
         {/*  <h3>2</h3> */}
         {/* </div> */}
@@ -84,7 +87,7 @@ export default function TransactionVoucher({ selected, onClose }: {
                   enterMutation.mutate();
                 }}
               >
-                {t('Confirm')}
+                <FormattedMessage defaultMessage="Confirm" />
               </Button>
               {/* <Button */}
               {/*  block */}

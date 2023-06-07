@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from 'react';
 import classNames from 'classnames';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { useIntl } from 'react-intl';
 import Divide from '../../components/Divide';
 import notifyIcon from '../../assets/icon/db_icon_notify.svg';
 import personIcon from '../../assets/icon/db_icon_person.svg';
@@ -24,7 +24,8 @@ import billSelIcon from '../../assets/icon/dashboard/icons-file-1.svg';
 import Logo from '../../components/Logo';
 
 export default function Sidebar() {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const navigate = useNavigate();
   const { trustId } = useParams();
 
@@ -39,12 +40,12 @@ export default function Sidebar() {
         {/* 侧边栏 */}
         <div className="flex-auto flex flex-col p-6 gap-5">
           {[
-            [t('Dashboard'), dashboardIcon, dashboardSelIcon, `/trust/${trustId}/dashboard`],
-            [t('Asset Transfer'), assetIcon, assetSelIcon, `/trust/${trustId}/assets`],
-            [t('Investment Order'), keyIcon, keySelIcon, `/trust/${trustId}/orders`],
-            [t('Distribution'), distIcon, distSelIcon, `/trust/${trustId}/distribution`],
-            [t('Trust Elements'), eleIcon, eleSelIcon, `/trust/${trustId}/elements`],
-            [t('Bill and Resources'), billIcon, billSelIcon, `/trust/${trustId}/billAndResources/`],
+            [intl.formatMessage({ defaultMessage: 'Dashboard' }), dashboardIcon, dashboardSelIcon, `/trust/${trustId}/dashboard`],
+            [intl.formatMessage({ defaultMessage: 'Asset Transfer' }), assetIcon, assetSelIcon, `/trust/${trustId}/assets`],
+            [intl.formatMessage({ defaultMessage: 'Investment Order' }), keyIcon, keySelIcon, `/trust/${trustId}/orders`],
+            [intl.formatMessage({ defaultMessage: 'Distribution' }), distIcon, distSelIcon, `/trust/${trustId}/distribution`],
+            [intl.formatMessage({ defaultMessage: 'Trust Elements' }), eleIcon, eleSelIcon, `/trust/${trustId}/elements`],
+            [intl.formatMessage({ defaultMessage: 'Bill and Resources' }), billIcon, billSelIcon, `/trust/${trustId}/billAndResources/`],
           ].map(([title, icon, selectIcon, to], idx) => (
             <SidebarCell
               key={title}
@@ -65,18 +66,16 @@ export default function Sidebar() {
         <div className="flex flex-row items-center justify-evenly py-10">
           {
             [
-              [personIcon, t('Personal'), '/personal'],
-              [messageIcon, t('Contract Us'), `/contactCustomer/${trustId}`],
-              /* todo: 国际化切换 */
-              // [languageIcon, t('Language'), `/trust/${trustId}`],
-              [notifyIcon, t('Notification'), `/trust/${trustId}/notification`],
-              [exitIcon, t('Exit'), '/my'],
-            ].map(([icon, alt, to], idx) => (
+              [personIcon, '/personal'],
+              [messageIcon, `/contactCustomer/${trustId}`],
+              [notifyIcon, `/trust/${trustId}/notification`],
+              [exitIcon, '/my'],
+            ].map(([icon, to], idx) => (
               <div
                 className="cursor-pointer"
                 onClick={() => navigate(to)}
               >
-                <img src={icon} className="w-[22px] h-auto" alt={alt} />
+                <img src={icon} className="w-[22px] h-auto" alt="" />
               </div>
             ))
           }

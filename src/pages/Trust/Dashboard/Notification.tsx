@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import moment from 'moment/moment';
 import { useParams } from 'react-router-dom';
+import { FormattedMessage, useIntl } from 'react-intl';
 import CancelNav from '../../../views/CancelNav';
 import { useTrustMessageListQuery } from '../../../api/trust/trust';
 import NotificationCell from './NotificationCell';
@@ -16,12 +17,15 @@ export default function Notification() {
     pageIndex: page,
     pageSize: 5,
   });
+  const intl = useIntl();
 
   return (
     <div className="flex flex-col">
       <CancelNav />
       <div className="mt-10 gradient-bg2 rounded-xl shadow-block p-8 block-gradient-border">
-        <div className="gradient-text1 font-title font-bold text-[20px] mb-6">Notification</div>
+        <div className="gradient-text1 font-title font-bold text-[20px] mb-6">
+          <FormattedMessage defaultMessage="Notification" />
+        </div>
         <Hr />
         <div className="py-6 flex flex-col">
           <div className="flex flex-col gap-6 h-full overflow-y-auto">

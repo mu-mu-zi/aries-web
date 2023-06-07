@@ -5,7 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
+import { FormattedMessage, useIntl } from 'react-intl';
 import GANavbar from './GANavbar';
 import Button from '../../components/Button';
 import Divide from '../../components/Divide';
@@ -25,7 +25,8 @@ export default function GABindVerify() {
   const navigate = useNavigate();
   const action = useAppDispatch();
   const location = useLocation();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const intl = useIntl();
   const sendValidateCodeMutation = useSendValidateCodeMutation();
   const userQuery = useUserInfoQuery();
   const valid = z.object({
@@ -135,8 +136,8 @@ export default function GABindVerify() {
     <div className="flex flex-col items-center pt-[38px]">
       <div className="gradient-bg2 flex max-w-[1200px] w-full min-h-[800px] flex-col overflow-clip  rounded-xl">
         <GANavbar
-          title={t('Bind Google Authenticator')}
-          description={t('Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After binding, it generates a dynamic verification code every 30 seconds, which can be used for security verification for login, modifying security settings and other operations.')}
+          title={intl.formatMessage({ defaultMessage: 'Bind Google Authenticator' })}
+          description={intl.formatMessage({ defaultMessage: 'Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After binding, it generates a dynamic verification code every 30 seconds, which can be used for security verification for login, modifying security settings and other operations.' })}
         />
         {/* {location.state?.areaCodeId} */}
         {/* {location.state?.account} */}
@@ -145,16 +146,17 @@ export default function GABindVerify() {
             <div
               className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]"
             >
-              {t('Verify identity')}
+              <FormattedMessage defaultMessage="Verify identity" />
             </div>
             <div className="mt-16 flex flex-col gap-4">
               <div
                 className="font-bold text-[#c2d7c7]"
               >
-                {isPhone ? t('Phone verification code') : t('Email verification code')}
+                {isPhone ? <FormattedMessage defaultMessage="Phone verification code" />
+                  : <FormattedMessage defaultMessage="Email verification code" />}
               </div>
               <TextInput
-                placeholder={t('Please enter the verification code') ?? ''}
+                placeholder={intl.formatMessage({ defaultMessage: 'Please enter the verification code' })}
                 {...register('securityCode')}
                 suffix={(
                   <SendButton onClick={sendValidCode} />
@@ -191,27 +193,35 @@ export default function GABindVerify() {
               {/*  /> */}
               {/* </div> */}
               {!isPhone && (
-              <div className="text-[14px] leading-[16px] text-[#708077]">
-                {t(`To ensure the security of your funds and account, please enter the verification code received in your Aries trust ${location.state?.account} email.`)}
-              </div>
+                <div className="text-[14px] leading-[16px] text-[#708077]">
+                  {/* {t(`To ensure the security of your funds and account, please enter the verification code received in your Aries trust ${location.state?.account} email.`)} */}
+                  <FormattedMessage
+                    defaultMessage="To ensure the security of your funds and account, please enter the verification code received in your Aries trust {account} email."
+                    values={{ account: location.state?.account }}
+                  />
+                </div>
               )}
               {isPhone && (
                 <div className="text-[14px] leading-[16px] text-[#708077]">
-                  {t(`To ensure the security of your funds and account, please enter the verification code received in your Aries trust ${location.state?.account} .`)}
+                  {/* {t(`To ensure the security of your funds and account, please enter the verification code received in your Aries trust ${location.state?.account} .`)} */}
+                  <FormattedMessage
+                    defaultMessage="To ensure the security of your funds and account, please enter the verification code received in your Aries trust {account} ."
+                    values={{ account: location.state?.account }}
+                  />
                 </div>
               )}
-              <div className="font-bold text-[#c2d7c7]">{t('Google Captcha')}</div>
+              <div className="font-bold text-[#c2d7c7]"><FormattedMessage defaultMessage="Google Captcha" /></div>
               <TextInput
                 {...register('googleCaptcha')}
-                placeholder="Please enter the verification code"
+                placeholder={intl.formatMessage({ defaultMessage: 'Please enter the verification code' })}
               />
             </div>
             <div className="mt-[40px] flex flex-row gap-4">
               <Button type="button" onClick={() => navigate(-1)} size="medium" block>
-                {t('Cancel')}
+                <FormattedMessage defaultMessage="Cancel" />
               </Button>
               <Button size="medium" block type="submit" disabled={!isValid}>
-                {t('Next')}
+                <FormattedMessage defaultMessage="Next" />
               </Button>
             </div>
           </form>

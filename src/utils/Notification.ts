@@ -31,7 +31,7 @@ export const addNotification = (
     container: 'top-right',
     title,
     message: content,
-    type,
+    type: type ?? 'success',
     dismiss: {
       duration: 2 * 1000,
       waitForAnimation: false,
