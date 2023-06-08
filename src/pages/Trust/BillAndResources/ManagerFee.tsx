@@ -70,7 +70,7 @@ export default function ManagerFee() {
               },
               {
                 Header: intl.formatMessage({ defaultMessage: 'Trust total amount' }),
-                accessor: 'managementFeeApr',
+                accessor: 'totalTrustAmount',
               },
               {
                 Header: () => (<div className="text-right"><FormattedMessage defaultMessage="Management fee" /></div>),
@@ -80,7 +80,7 @@ export default function ManagerFee() {
                   <div
                     className="text-right gradient-text2"
                   >
-                    {`${numberFormatWithPrefix(row.original.totalAmount)} ${row.original.coinName}`}
+                    {`${numberFormatWithPrefix(row.original.amount)} ${row.original.coinName}`}
                   </div>
                 ),
               },
