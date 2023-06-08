@@ -52,7 +52,11 @@ export default function PaymentBit() {
       )}
       {addressQuery.data?.data && (
         <>
-          <PaymentRow title="Receiving address" value={addressQuery.data?.data} canCopy />
+          <PaymentRow
+            title={intl.formatMessage({ defaultMessage: 'Receiving address' })}
+            value={addressQuery.data?.data}
+            canCopy
+          />
           <div className="grid place-items-center p-3 bg-[#3B5649] shadow-btn rounded-xl self-start">
             <QrCode text={addressQuery.data?.data} size={136} />
           </div>

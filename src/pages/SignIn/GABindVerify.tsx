@@ -121,8 +121,8 @@ export default function GABindVerify() {
 
       navigate('/status', {
         state: {
-          title: 'Bind Google Authenticator',
-          description: 'Congratulations! You have successfully bound Google Authenticator.',
+          title: intl.formatMessage({ defaultMessage: 'Bind Google Authenticator' }),
+          description: intl.formatMessage({ defaultMessage: 'Congratulations! You have successfully bound Google Authenticator.' }),
           navTo: location.state.userName ? navTo : '/personalRealName',
         },
         replace: true,

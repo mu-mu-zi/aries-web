@@ -1,19 +1,31 @@
 import { ReactNode, useState } from 'react';
 import {
+  arrow,
   autoUpdate, flip, offset, shift, useDismiss, useFloating, useFocus, useHover, useInteractions, useRole,
 } from '@floating-ui/react';
 
-function Tooltip({ children, title, content }: {
+function Tooltip({
+  children, title, content, position,
+}: {
   children: ReactNode,
   title: string,
-  content?: string
+  content?: string,
+  position?: 'bottom' | 'bottom-start'
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const { refs, floatingStyles, context } = useFloating({
+    placement: position ?? 'bottom',
     open: isOpen,
     onOpenChange: setIsOpen,
-    middleware: [offset(10), flip(), shift()],
+    middleware: [
+      offset({
+        mainAxis: 10,
+        crossAxis: position === 'bottom-start' ? -24 : 0,
+      }),
+      flip(),
+      shift(),
+    ],
     whileElementsMounted: autoUpdate,
   });
 
@@ -40,7 +52,7 @@ function Tooltip({ children, title, content }: {
           style={floatingStyles}
           {...getFloatingProps()}
         >
-          <div className="gradient-block2 rounded-xl p-4 flex flex-col gap-2 max-w-[420px]">
+          <div className="gradient-block2 rounded-xl p-4 flex flex-col gap-2 max-w-[420px] shadow-block">
             <div className="text-[#C2D7C7F6] text-[16px]">{title}</div>
             {content && <div className="text-[#99AC9B] text-[14px]">{content}</div>}
           </div>

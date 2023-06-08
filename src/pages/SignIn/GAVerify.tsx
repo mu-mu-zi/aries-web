@@ -88,7 +88,7 @@ export default function GAVerify() {
     <CenterContainer>
       <form onSubmit={handleSubmit(submit)}>
         <div className="flex-1 flex flex-col">
-          <GANavbar title={intl.formatMessage({ defaultMessage: 'Cancel' })} />
+          <GANavbar />
           <div className="flex-auto item-center flex w-[420px] flex-col self-center pt-[64px]">
             <div
               className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]"

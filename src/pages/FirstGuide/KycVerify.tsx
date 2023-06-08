@@ -103,8 +103,8 @@ export default function KycVerify() {
                 {[2, 3].includes(detailQuery.data.data.stepId) && <ContractSigningStep trust={detailQuery.data.data} />}
                 {[4, 5].includes(detailQuery.data.data.stepId) && detailQuery.data.data.payType === 1 && <EstablishmentBitStep trust={detailQuery.data.data} />}
                 {[4, 5].includes(detailQuery.data.data.stepId) && detailQuery.data.data.payType === 2 && <EstablishmentFaitStep trust={detailQuery.data.data} />}
-                {detailQuery.data.data.stepId === 6 && detailQuery.data.data.payType === 1 && <CompletionBitStep trust={detailQuery.data.data} />}
-                {detailQuery.data.data.stepId === 6 && detailQuery.data.data.payType === 2 && <CompletionFiatStep trust={detailQuery.data.data} />}
+                {detailQuery.data.data.stepId === 6 && detailQuery.data.data.trustCompanyModel?.payType === 1 && <CompletionBitStep trust={detailQuery.data.data} />}
+                {detailQuery.data.data.stepId === 6 && detailQuery.data.data.trustCompanyModel?.payType === 2 && <CompletionFiatStep trust={detailQuery.data.data} />}
               </div>
             </>
           )}

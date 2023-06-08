@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
+import { FormattedMessage } from 'react-intl';
 
 export default function GANavbar({
   title,
@@ -8,7 +9,7 @@ export default function GANavbar({
   canBack = true,
 }: {
   canBack?: boolean,
-  title: string;
+  title?: string;
   description?: string | null
 }) {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ export default function GANavbar({
           }}
           className={classNames('color-[#3D3228] font-bold font-title text-[24px]', canBack && 'cursor-pointer')}
         >
-          {title}
+          {title ?? <FormattedMessage defaultMessage="Back" /> }
         </div>
         {description && <div className="text-[14px] leading-[16px] text-[#695D52] max-w-[872px]">{description}</div>}
       </div>

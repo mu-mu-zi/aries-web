@@ -8,6 +8,7 @@ import cellIcon from '../../../assets/icon/money_small_icon.svg';
 import { useLedgerOrderListQuery } from '../../../api/trust/order';
 import { unixFormatTime } from '../../../utils/DateFormat';
 import { numberFormatWithPrefix } from '../../../utils/CurrencyFormat';
+import Empty from '../../../views/Empty';
 
 export default function BillingRecord() {
   const { trustId } = useParams();
@@ -20,13 +21,14 @@ export default function BillingRecord() {
   const intl = useIntl();
   // const { t } = useTranslation();
 
-  const typeTitle = (type: number) => [
+  const typeTitle = (type: number, custom?: string) => [
     intl.formatMessage({ defaultMessage: 'Fiat Out' }),
     intl.formatMessage({ defaultMessage: 'Fiat In' }),
     intl.formatMessage({ defaultMessage: 'Digital Asset Out' }),
     intl.formatMessage({ defaultMessage: 'Digital Asset In' }),
     intl.formatMessage({ defaultMessage: 'Exchange' }),
-    intl.formatMessage({ defaultMessage: 'Custom' }),
+    // intl.formatMessage({ defaultMessage: 'Custom' }),
+    custom ?? '--',
     intl.formatMessage({ defaultMessage: 'Distribute Profit' }),
     intl.formatMessage({ defaultMessage: 'Management Fee' }),
     intl.formatMessage({ defaultMessage: 'Exceed Transfer' }),
@@ -35,30 +37,31 @@ export default function BillingRecord() {
   ][type - 1];
 
   return (
-    <div
-      className={classNames('flex flex-col', 'p-8', 'rounded-xl block-gradient-border', 'gradient-bg2', 'shadow-[-4px_8px_10px_0_#030c08]')}
-    >
-      <div className={classNames('item-center flex flex-row justify-between')}>
-        <div className="gradient-text1 font-bold text-[20px]"><FormattedMessage defaultMessage="Billing Record" /></div>
-        <div
-          className="flex cursor-pointer flex-row items-center gap-2"
-          onClick={() => navigate(`/trust/${trustId}/billAndResources`)}
-        >
-          <div className="gradient-text1 font-bold text-[16px]"><FormattedMessage defaultMessage="More" /></div>
-          <img src={moreIcon} width="24px" alt="" />
+    <div className="gradient-border-container shadow-block">
+      <div className={classNames('flex flex-col', 'p-8', 'rounded-xl', 'gradient-bg2')}>
+        <div className={classNames('item-center flex flex-row justify-between')}>
+          <div className="gradient-text1 font-bold text-[20px]"><FormattedMessage defaultMessage="Billing Record" /></div>
+          <div
+            className="flex cursor-pointer flex-row items-center gap-2"
+            onClick={() => navigate(`/trust/${trustId}/billAndResources`)}
+          >
+            <div className="gradient-text1 font-bold text-[16px]"><FormattedMessage defaultMessage="More" /></div>
+            <img src={moreIcon} width="24px" alt="" />
+          </div>
         </div>
-      </div>
-      <div className="my-6 h-[1px] bg-[#3B5649]" />
-      <div className="flex flex-col gap-6">
-        {listQuery.data?.data?.records.map((x) => (
-          <RecordCell
-            title={typeTitle(x.billType)}
-            datetime={unixFormatTime(x.createTimeStamp)}
-            amount={x.amount}
-            status={x.billStatus}
-            coinName={x.coinName}
-          />
-        ))}
+        <div className="my-6 h-[1px] bg-[#3B5649]" />
+        <div className="flex flex-col gap-6">
+          {listQuery.data?.data?.records.length === 0 && <Empty />}
+          {listQuery.data?.data?.records.map((x) => (
+            <RecordCell
+              title={typeTitle(x.billType, x.billName)}
+              datetime={unixFormatTime(x.createTimeStamp)}
+              amount={x.amount}
+              status={x.billStatus}
+              coinName={x.coinName}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

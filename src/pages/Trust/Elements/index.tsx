@@ -1,13 +1,17 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
+import { useParams } from 'react-router-dom';
 import Information from './Information';
 import Beneficiary from './Beneficiary';
 import Protector from './Protector';
 import Portrait from '../Dashboard/Portrait';
 import { useUserInfoQuery } from '../../../api/user/user';
 import { CallFormat } from '../../../utils/CallFormat';
+import { useTrustDetailQuery } from '../../../api/trust/trust';
 
 export default function Elements() {
+  const { trustId } = useParams();
+  const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
   const userQuery = useUserInfoQuery();
   const intl = useIntl();
 
@@ -17,7 +21,7 @@ export default function Elements() {
         description={intl.formatMessage({
           defaultMessage: 'Trust Property Independence established exclusively according to {call} wishes.',
         }, {
-          call: CallFormat(userQuery.data?.data?.surname, userQuery.data?.data?.gender, false),
+          call: CallFormat(trustQuery.data?.data?.surname, trustQuery.data?.data?.gender, false),
         })}
       />
       <Information />

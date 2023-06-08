@@ -34,7 +34,7 @@ function MethodSwitchItem({
   onTap?(): void
 }) {
   return (
-    <div className={classNames('rounded-xl', 'overflow-clip', 'p-[1px]', 'flex-auto', 'cursor-pointer', {
+    <div className={classNames('rounded-xl', 'overflow-clip', 'p-[1px]', 'flex-1', 'cursor-pointer', {
       'gradient-border-gold': isSelected,
       'shadow-btn': !isSelected,
     })}

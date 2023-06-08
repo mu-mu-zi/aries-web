@@ -21,7 +21,7 @@ export default function CancelNav({ onTap }: {
     >
       <img src={icon} width="32px" alt="" />
       <div className="font-title font-bold text-[24px] gradient-text1">
-        <FormattedMessage defaultMessage="Cancel" />
+        <FormattedMessage defaultMessage="Back" />
       </div>
     </div>
   );

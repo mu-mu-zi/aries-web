@@ -17,7 +17,7 @@ export default function Modal({
       appear
       as={React.Fragment}
     >
-      <div className="fixed inset-0 z-[100]">
+      <div className="fixed inset-0 z-[600]">
         {/* @ts-ignore */}
         <Transition.Child
           as={React.Fragment}

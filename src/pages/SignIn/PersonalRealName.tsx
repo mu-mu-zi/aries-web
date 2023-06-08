@@ -90,7 +90,7 @@ export default function PersonalRealName() {
 
   return (
     <CenterContainer>
-      <GANavbar title={intl.formatMessage({ defaultMessage: 'Cancel' })} />
+      <GANavbar />
       <div className="item-center flex w-[420px] flex-col self-center pt-[64px]">
         <form onSubmit={handleSubmit(submit)}>
           <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]">
@@ -103,6 +103,7 @@ export default function PersonalRealName() {
                 {...register('firstName')}
                 placeholder={intl.formatMessage({ defaultMessage: 'firstname' })}
                 maxLength={15}
+                error={errors.firstName?.message}
               />
             </div>
             <div className="flex flex-col gap-4">
@@ -111,6 +112,7 @@ export default function PersonalRealName() {
                 {...register('lastName')}
                 placeholder={intl.formatMessage({ defaultMessage: 'lastname' })}
                 maxLength={15}
+                error={errors.lastName?.message}
               />
             </div>
           </div>

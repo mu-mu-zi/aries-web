@@ -17,11 +17,11 @@
   "+l0vPP": {
     "defaultMessage": "In order to protect your assets and comply with the relevant laws and regulations, you are required to complete the trust contract."
   },
-  "/+9Xey": {
-    "defaultMessage": "Canceling"
-  },
   "/0TOL5": {
     "defaultMessage": "Amount"
+  },
+  "/3s9fM": {
+    "defaultMessage": "Transfer Voucher"
   },
   "/CaREm": {
     "defaultMessage": "Pending approval"
@@ -55,9 +55,6 @@
   },
   "18ScX5": {
     "defaultMessage": "Dual Verification(2FA)"
-  },
-  "198Skw": {
-    "defaultMessage": "Customization"
   },
   "1Eu0bT": {
     "defaultMessage": "Login Log"
@@ -128,9 +125,6 @@
   "3og3B4": {
     "defaultMessage": "Digital asset account"
   },
-  "3wsVWF": {
-    "defaultMessage": "Cancelled"
-  },
   "477I0g": {
     "defaultMessage": "Low"
   },
@@ -139,6 +133,10 @@
   },
   "4Awxs4": {
     "defaultMessage": "Identity category"
+  },
+  "4HsfLG": {
+    "defaultMessage": "Cancelled",
+    "description": "投资指令状态"
   },
   "4J9fO0": {
     "defaultMessage": "Please enter the email"
@@ -179,9 +177,6 @@
   "5bKdBH": {
     "defaultMessage": "Your account is in the process of opening"
   },
-  "5kfntb": {
-    "defaultMessage": "Cancellation"
-  },
   "5q3qC0": {
     "defaultMessage": "Download"
   },
@@ -209,11 +204,18 @@
   "7aY9TR": {
     "defaultMessage": "Asset Transfer Information Declaration"
   },
+  "7rA4vE": {
+    "defaultMessage": "Cancelled",
+    "description": "资产申报状态"
+  },
   "7t3xQN": {
     "defaultMessage": "Trust Asset Holding Company"
   },
   "7tV1mj": {
     "defaultMessage": "Investment Instruction Details"
+  },
+  "8FNOCL": {
+    "defaultMessage": "At least {min} characters"
   },
   "8mk826": {
     "defaultMessage": "Already passed"
@@ -230,8 +232,8 @@
   "9+Ddtu": {
     "defaultMessage": "Next"
   },
-  "95stPq": {
-    "defaultMessage": "Completed"
+  "90v2VO": {
+    "defaultMessage": "Others ({remark})"
   },
   "97nX8g": {
     "defaultMessage": "Three Month"
@@ -263,11 +265,11 @@
   "BHaZIS": {
     "defaultMessage": "Exceed Transfer"
   },
-  "BS7ha9": {
-    "defaultMessage": "Pending accounting"
-  },
   "BY343C": {
     "defaultMessage": "Change"
+  },
+  "ByuOj8": {
+    "defaultMessage": "Invalid email"
   },
   "BzQPM+": {
     "defaultMessage": "Destination"
@@ -280,6 +282,10 @@
   },
   "CSohMF": {
     "defaultMessage": "Unbind Email"
+  },
+  "Crul8p": {
+    "defaultMessage": "Pending accounting",
+    "description": "资产申报状态"
   },
   "DCxnyk": {
     "defaultMessage": "Add Beneficiary"
@@ -295,6 +301,13 @@
   },
   "DO24M+": {
     "defaultMessage": "Change Google Authenticator"
+  },
+  "DZkaw7": {
+    "defaultMessage": "No result"
+  },
+  "Ddaw0w": {
+    "defaultMessage": "Under review",
+    "description": "投资指令状态"
   },
   "DfHiuJ": {
     "defaultMessage": "Trust Property Independence established exclusively according to {call} wishes."
@@ -331,9 +344,6 @@
   },
   "F/t0qk": {
     "defaultMessage": "Creating a command"
-  },
-  "F8TXcV": {
-    "defaultMessage": "Approval failed"
   },
   "FCXIlK": {
     "defaultMessage": "Transaction hash"
@@ -378,6 +388,9 @@
   "HAlOn1": {
     "defaultMessage": "Name"
   },
+  "HLZ9CC": {
+    "defaultMessage": "Credentials"
+  },
   "HV70Qz": {
     "defaultMessage": "Digital asset address"
   },
@@ -396,11 +409,11 @@
   "IXycMo": {
     "defaultMessage": "Resend"
   },
+  "IfPEOm": {
+    "defaultMessage": "In {year}"
+  },
   "J66RVn": {
     "defaultMessage": "Withdrawal of fiat currency"
-  },
-  "JD0VPS": {
-    "defaultMessage": "Investment in"
   },
   "JfG49w": {
     "defaultMessage": "Open"
@@ -441,17 +454,11 @@
   "KLs1P7": {
     "defaultMessage": "Name of Legal Document"
   },
-  "KPvq9m": {
-    "defaultMessage": "Verification failed"
-  },
   "Kl6x+n": {
     "defaultMessage": "Approval"
   },
   "L3rMHV": {
     "defaultMessage": "Applications will be processed within 1 business day, please keep it open for customer service to contact you."
-  },
-  "LPxYNw": {
-    "defaultMessage": "Verifying"
   },
   "LTiRn7": {
     "defaultMessage": "NonSpecific"
@@ -483,9 +490,6 @@
   "MnpUD7": {
     "defaultMessage": "View details"
   },
-  "MztbZh": {
-    "defaultMessage": "Investment"
-  },
   "N2IrpM": {
     "defaultMessage": "Confirm"
   },
@@ -494,6 +498,9 @@
   },
   "NCTRIo": {
     "defaultMessage": "KYC certification in progress"
+  },
+  "NK/IfH": {
+    "defaultMessage": "Congratulations! You have successfully bound Google Authenticator."
   },
   "NLD9yb": {
     "defaultMessage": "It is important to note that the additional establishment fee after opening a bank account will be directly deducted from the trust account. When adding establishment operations, you need to ensure that the balance of the trust account is sufficient to pay the required fees to avoid overdue or penalty fees. Please note that it is your responsibility to ensure that there are enough funds in your trust account to pay for any additional establishment payment obligations."
@@ -521,9 +528,6 @@
   },
   "ODuqW4": {
     "defaultMessage": "Investment code {code}"
-  },
-  "OHoqb1": {
-    "defaultMessage": "Already recorded in account"
   },
   "OjubWq": {
     "defaultMessage": "Distribute Profit"
@@ -582,6 +586,10 @@
   "QKFeMq": {
     "defaultMessage": "Internet"
   },
+  "QTTrf+": {
+    "defaultMessage": "Investment",
+    "description": "投资指令状态"
+  },
   "QlsDcr": {
     "defaultMessage": "Action"
   },
@@ -602,6 +610,9 @@
   },
   "RHyvr7": {
     "defaultMessage": "Bind Google Authenticator"
+  },
+  "RKjut/": {
+    "defaultMessage": "New allocation plan added"
   },
   "Rb2reg": {
     "defaultMessage": "Please provide a detailed explanation of the subject you would like to consult about."
@@ -632,6 +643,9 @@
   },
   "SVUp05": {
     "defaultMessage": "The establishment fee refers to the fee that needs to be paid if additional funds are required to be invested during the operation of the trust plan. Our company sets the standard for establishment fees according to the contract, which is generally a certain percentage of the asset net value to ensure that the cost of the additional services provided to the trustor is covered."
+  },
+  "Seanpx": {
+    "defaultMessage": "Required"
   },
   "Sjo1P4": {
     "defaultMessage": "Custom"
@@ -699,9 +713,6 @@
   "WMykwz": {
     "defaultMessage": "Trust"
   },
-  "Wa9+CC": {
-    "defaultMessage": "Initiated"
-  },
   "WkaLYR": {
     "defaultMessage": "Either phone number or email must be kept"
   },
@@ -716,6 +727,10 @@
   },
   "Xij2fm": {
     "defaultMessage": "Bind"
+  },
+  "XmJ+f3": {
+    "defaultMessage": "Verification failed",
+    "description": "投资指令状态"
   },
   "Xxh5du": {
     "defaultMessage": "Contact customer service"
@@ -759,8 +774,9 @@
   "aheQdn": {
     "defaultMessage": "Last Name"
   },
-  "ay3ETm": {
-    "defaultMessage": "To be verified"
+  "aky3TA": {
+    "defaultMessage": "Initiated",
+    "description": "投资指令状态"
   },
   "b3LnNC": {
     "defaultMessage": "Unbind"
@@ -807,6 +823,10 @@
   "dVSc3s": {
     "defaultMessage": "View credentials"
   },
+  "de91pr": {
+    "defaultMessage": "Verification failed",
+    "description": "资产申报状态"
+  },
   "de9hDz": {
     "defaultMessage": "Please note that the collected management fees cannot replace your final investment results. We cannot guarantee that your investment funds will definitely generate profits and provide investment advice accordingly. Any information regarding expected returns, risk analysis, and investment advice should be used for reference purposes only. You should be solely responsible for analyzing and evaluating your investment decisions."
   },
@@ -852,6 +872,10 @@
   "fmp58I": {
     "defaultMessage": "We are in the process of setting up your account..."
   },
+  "fnukew": {
+    "defaultMessage": "Already recorded in account",
+    "description": "资产申报状态"
+  },
   "fxR9zh": {
     "defaultMessage": "Foreign Exchange Rate"
   },
@@ -878,6 +902,10 @@
   },
   "h5F+WN": {
     "defaultMessage": "Trust management fee refers to the fee charged by the trust company to the settlor for providing custody, risk control, asset management and other services according to the provisions of the trust plan agreement. Our company's trust plan management fee is generally collected at a standard annualized rate of 0.6%, and this fee is calculated based on the actual market value of the assets under custody. Please note that we will automatically deduct this amount from your custodial account. By default, we will deduct the corresponding amount of fiat currency, such as RMB, as the management fee from your custodial account. If there is not enough fiat currency in your custodial account, we will deduct assets equivalent to the management fee from your custodial account according to the contract."
+  },
+  "h83mmJ": {
+    "defaultMessage": "Canceling",
+    "description": "投资指令状态"
   },
   "hCT2Re": {
     "defaultMessage": "Trust management fee: {amount} {coinName}"
@@ -933,9 +961,6 @@
   "jQ4jWE": {
     "defaultMessage": "Aries Digital Group Privacy Policy"
   },
-  "jduTXb": {
-    "defaultMessage": "Application for cancellation"
-  },
   "jeegMK": {
     "defaultMessage": "Remark (optional)"
   },
@@ -959,6 +984,9 @@
   },
   "kWrlKk": {
     "defaultMessage": "Investment advice"
+  },
+  "l00emw": {
+    "defaultMessage": "Declaration time"
   },
   "lJePcp": {
     "defaultMessage": "Failure"
@@ -984,14 +1012,15 @@
   "lwQ2xb": {
     "defaultMessage": "Edit Role"
   },
-  "lxtHzL": {
-    "defaultMessage": "Under review"
-  },
   "m2ct2i": {
     "defaultMessage": "Please input your email"
   },
   "m8/n8c": {
     "defaultMessage": "Gender"
+  },
+  "mDGZTn": {
+    "defaultMessage": "Verifying",
+    "description": "投资指令状态"
   },
   "mmPSWH": {
     "defaultMessage": "Read Only"
@@ -1055,6 +1084,10 @@
   },
   "rQxUa6": {
     "defaultMessage": "Declaration information"
+  },
+  "rd4l5S": {
+    "defaultMessage": "Completed",
+    "description": "投资指令状态"
   },
   "roB1tg": {
     "defaultMessage": "Digital Asset Out"
@@ -1194,6 +1227,10 @@
   "ylZLjM": {
     "defaultMessage": "Not Open"
   },
+  "yvdaz+": {
+    "defaultMessage": "To be verified",
+    "description": "资产申报状态"
+  },
   "z6o4cl": {
     "defaultMessage": "DigitalAssetIn"
   },
@@ -1214,5 +1251,12 @@
   },
   "zu8f6a": {
     "defaultMessage": "New Email"
+  },
+  "zvEumv": {
+    "defaultMessage": "Invalid phone"
+  },
+  "zwA0uF": {
+    "defaultMessage": "Application for cancellation",
+    "description": "资产申报状态"
   }
 }

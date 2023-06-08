@@ -5,12 +5,14 @@ import ModalNav from '../../views/ModalContainer/ModalNav';
 import { useAreaCodeListQuery } from '../../api/base/areaCode';
 import { IAreaCode } from '../../interfaces/base';
 import TextInput from '../TextInput';
+import Empty from '../../views/Empty';
 
 export default function AreaList({ data, onSelect, onClose }: {
   data: IAreaCode[]
   onSelect?(area: IAreaCode): void
   onClose?(): void
 }) {
+  const intl = useIntl();
   const [filterList, setFilterList] = useState(data);
   const { formatMessage } = useIntl();
 
@@ -31,7 +33,12 @@ export default function AreaList({ data, onSelect, onClose }: {
           }}
         />
       </div>
-      <div className="flex flex-col mx-[-32px]  h-[320px] overflow-y-auto">
+      <div className="flex flex-col mx-[-32px] h-[320px] overflow-y-auto">
+        {filterList.length === 0 && (
+          <div className="h-full grid place-items-center">
+            <Empty title={intl.formatMessage({ defaultMessage: 'No result' })} />
+          </div>
+        )}
         {filterList.map((x) => (
           <div
             key={x.id}

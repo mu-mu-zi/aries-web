@@ -95,7 +95,7 @@ export default function EstablishmentFee() {
                   <div className="text-right">{`${-row.original.initialCost} ${row.original.coinName}`}</div>),
               },
               {
-                Header: () => (<div className="text-right"><FormattedMessage defaultMessage="Management fee" /></div>),
+                Header: () => (<div className="text-right"><FormattedMessage defaultMessage="Reconciliation" /></div>),
                 accessor: 'manag',
                 // eslint-disable-next-line react/prop-types
                 Cell: ({ row }) => (

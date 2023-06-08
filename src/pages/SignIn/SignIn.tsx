@@ -25,6 +25,7 @@ import SendButton from '../../views/SendButton';
 import ContactUsFooter from '../../views/ContactUsFooter';
 import AreaSelect from '../../components/AreaSelect';
 import QrCode from '../../components/QrCode';
+import { useValidators, zodEmail } from '../../utils/zod';
 
 export default function SignIn() {
   // const { t } = useTranslation();
@@ -34,10 +35,11 @@ export default function SignIn() {
   const sendValidateCodeMutation = useSendValidateCodeMutation();
   const getUserInfoMutation = useGetUserInfoMutation();
   // const areaCodeListQuery = useAreaCodeListQuery();
+  const { zodEmail, zodPhone, zodRequired } = useValidators();
   const valid = z.object({
-    account: isPhone ? z.string().regex(/^\d+$/, intl.formatMessage({ defaultMessage: 'Invalid phone' })) : z.string().email(),
+    account: isPhone ? zodPhone() : zodEmail(),
     areaCodeId: z.number().optional(),
-    securityCode: z.string().nonempty(),
+    securityCode: zodRequired(),
   });
   type FormValid = z.infer<typeof valid>;
   const {
@@ -164,7 +166,7 @@ export default function SignIn() {
               block
               size="large"
               type="submit"
-              disabled={!isValid}
+              // disabled={!isValid}
             >
               <FormattedMessage defaultMessage="Next" />
             </Button>

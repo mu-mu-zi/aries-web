@@ -1,16 +1,18 @@
 import React, { forwardRef, InputHTMLAttributes } from 'react';
 import classNames from 'classnames';
 import { css } from '@emotion/react';
+import ErrorLabel from '../../views/ErrorLabel';
 
 type TextAreaProps = InputHTMLAttributes<HTMLTextAreaElement> & {
   block?: boolean;
+  error?: string;
 };
 
 const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => {
-  const { block, ...rest } = props;
+  const { block, error, ...rest } = props;
 
   return (
-    <div className={classNames('bg-[#3B5649]', 'rounded-xl', 'input-inner-shadow', {
+    <div className={classNames('bg-[#3B5649] p-4', 'rounded-xl', 'input-inner-shadow', {
       'w-full': block,
     })}
     >
@@ -42,15 +44,14 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
           `}
         className={classNames(
           'inline-block w-full border-none bg-transparent outline-none',
-          'h-[48px] p-4 min-h-[100px]',
+          'h-[48px]  min-h-[100px]',
           'gradient-text1',
           'caret-[#BE9D66]',
           'text-[20px] font-bold leading-[22px]',
-          // 'placeholder:text-[#708077]',
-          // 'focus:ring-2 focus:ring-sky-500 focus:rounded-xl',
-          // 'resize-none',
+          'resize-none',
         )}
       />
+      {error && <ErrorLabel errorMessage={error} />}
     </div>
   );
 });

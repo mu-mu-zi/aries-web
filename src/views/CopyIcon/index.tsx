@@ -2,22 +2,21 @@ import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useIntl } from 'react-intl';
 import copyIcon from '../../assets/icon/icon_copy.svg';
-import { addNotification } from '../../utils/Notification';
+import { addNotification, addSuccessNotification } from '../../utils/Notification';
 
 export default function CopyIcon({
   text,
 }: {
   text: string
 }) {
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
 
   return (
     <CopyToClipboard
       text={text}
       onCopy={() => {
-        addNotification({
-          title: intl.formatMessage({ defaultMessage: 'Copy Success' }),
-          type: 'success',
+        addSuccessNotification({
+          title: formatMessage({ defaultMessage: 'Copy Success' }),
         });
       }}
     >

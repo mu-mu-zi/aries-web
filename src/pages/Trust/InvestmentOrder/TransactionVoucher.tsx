@@ -1,9 +1,9 @@
 import React from 'react';
-import Slider from 'react-slick';
 import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
+import Slider from 'react-slick';
 import closeIcon from '../../../assets/icon/model_close.svg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -17,6 +17,7 @@ import { useTrustDetailQuery } from '../../../api/trust/trust';
 import ContactUsFooter from '../../../views/ContactUsFooter';
 import useTrustPermission from '../../../hooks/useTrustRole';
 import { addNotification, addSuccessNotification } from '../../../utils/Notification';
+import Sider from '../../../components/Sider';
 
 export default function TransactionVoucher({ selected, onClose }: {
   selected: IInvestmentOrderRecode,
@@ -61,19 +62,14 @@ export default function TransactionVoucher({ selected, onClose }: {
       {/* </div> */}
       <ModalNav title={formatMessage({ defaultMessage: 'Transaction voucher' })} onClose={onClose} />
       {/* <div className="mt-4 h-[1px] bg-[#3B5649]" /> */}
-      <Slider {...settings} className="h-[400px] overflow-clip">
-        {selected.billCertificate.split(',').map((item, index) => (
-          <div className="h-[400px] overflow-y-auto" key={item}>
-            <img src={item} className="block w-full object-contain" alt="" />
-          </div>
-        ))}
-        {/* <div> */}
-        {/*  <h3>2</h3> */}
-        {/* </div> */}
-        {/* <div> */}
-        {/*  <h3>3</h3> */}
-        {/* </div> */}
-      </Slider>
+      {/* <Slider {...settings} className="h-[400px] overflow-clip"> */}
+      {/*  {selected.billCertificate.split(',').map((item, index) => ( */}
+      {/*    <div className="h-[400px] overflow-y-auto" key={item}> */}
+      {/*      <img src={item} className="block w-full object-contain" alt="" /> */}
+      {/*    </div> */}
+      {/*  ))} */}
+      {/* </Slider> */}
+      <Sider images={selected.billCertificate.split(',')} />
       <div className="mt-16 flex flex-col gap-8">
         <div className="w-[420px] self-center flex flex-row items-center gap-4">
           {/* 委托人才能核对账单 */}

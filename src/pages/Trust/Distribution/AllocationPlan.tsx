@@ -35,31 +35,31 @@ export default function AllocationPlan() {
   const [selectRow, setSelectRow] = useState<IDistribution>();
   const [modifyVisible, setModifyVisible] = useState(false);
   const [detailVisible, setDetailVisible] = useState(false);
-  const [googleVerifyVisible, setGoogleVerifyVisible] = useState(false);
+  // const [googleVerifyVisible, setGoogleVerifyVisible] = useState(false);
   const [planDescription, setPlanDescription] = useState('');
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
   const { settlorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
   const queryClient = useQueryClient();
 
-  const addPlanMutation = useMutation({
-    mutationFn: async (data: {
-      planDescription: string
-      ticker: string
-    }) => {
-      await axios.post('/trust/trust/distribution/plan/add', {
-        trustId,
-        ...data,
-      });
-    },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(['trust']);
-    },
-  });
+  // const addPlanMutation = useMutation({
+  //   mutationFn: async (data: {
+  //     planDescription: string
+  //     ticker: string
+  //   }) => {
+  //     await axios.post('/trust/trust/distribution/plan/add', {
+  //       trustId,
+  //       ...data,
+  //     });
+  //   },
+  //   onSuccess: async () => {
+  //     await queryClient.invalidateQueries(['trust']);
+  //   },
+  // });
 
   // @ts-ignore
   return (
-    <>
-      <div className="flex flex-col p-8 gradient-bg2 rounded-xl shadow-block">
+    <div className="gradient-border-container shadow-block">
+      <div className="flex flex-col p-8 gradient-bg2 rounded-xl">
         <div className="flex flex-row items-center justify-between">
           <div className="gradient-text1 text-[20px] font-title font-bold">
             <FormattedMessage defaultMessage="Allocation plan" />
@@ -158,23 +158,23 @@ export default function AllocationPlan() {
           onEnter={(plan) => {
             setAddedVisible(false);
             setPlanDescription(plan);
-            setGoogleVerifyVisible(true);
+            // setGoogleVerifyVisible(true);
           }}
           onClose={() => setAddedVisible(false)}
         />
       </Modal>
-      <Modal visible={googleVerifyVisible} onClose={() => setGoogleVerifyVisible(false)}>
-        <GoogleVerify
-          onClose={() => setGoogleVerifyVisible(false)}
-          onEnter={(ticket) => {
-            setGoogleVerifyVisible(false);
-            addPlanMutation.mutate({
-              planDescription,
-              ticker: ticket,
-            });
-          }}
-        />
-      </Modal>
+      {/* <Modal visible={googleVerifyVisible} onClose={() => setGoogleVerifyVisible(false)}> */}
+      {/*  <GoogleVerify */}
+      {/*    onClose={() => setGoogleVerifyVisible(false)} */}
+      {/*    onEnter={(ticket) => { */}
+      {/*      setGoogleVerifyVisible(false); */}
+      {/*      addPlanMutation.mutate({ */}
+      {/*        planDescription, */}
+      {/*        ticker: ticket, */}
+      {/*      }); */}
+      {/*    }} */}
+      {/*  /> */}
+      {/* </Modal> */}
       <Modal visible={modifyVisible} onClose={() => setModifyVisible(false)}>
         {selectRow && (
           <ModifyPlan
@@ -187,6 +187,6 @@ export default function AllocationPlan() {
       <Modal visible={detailVisible} onClose={() => setDetailVisible(false)}>
         {selectRow && <PlanDetail detail={selectRow.planDescription} onClose={() => setDetailVisible(false)} />}
       </Modal>
-    </>
+    </div>
   );
 }

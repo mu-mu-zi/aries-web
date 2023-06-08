@@ -15,9 +15,10 @@ export default function Axios() {
   const action = useAppDispatch();
   const lan = useAppSelector((state) => state.app.language);
 
-  useEffect(() => {
-    axios.defaults.headers['Accept-Language'] = lan === Language.EN ? 'en-US' : 'zh-HK';
-  }, [lan]);
+  // useEffect(() => {
+  //   console.log(`Language => ${lan}, ${lan === Language.EN}`);
+  //   axios.defaults.headers['Accept-Language'] = (lan === Language.EN ? 'en-US' : 'zh-HK');
+  // }, [lan]);
 
   useEffectOnce(() => {
     /* 默认 URL */
@@ -28,8 +29,12 @@ export default function Axios() {
     * */
     axios.interceptors.request.use((config) => {
       const token = localStorage.getItem('TOKEN');
-      if (config.headers && token) {
-        config.headers.Authorization = token;
+      if (config.headers) {
+        config.headers['Accept-Language'] = (localStorage.getItem('LANGUAGE') === 'en' ? 'en-US' : 'zh-HK');
+
+        if (token) {
+          config.headers.Authorization = token;
+        }
       }
       return config;
     }, (error) => Promise.reject(error));
@@ -50,7 +55,7 @@ export default function Axios() {
             return Promise.resolve(response.data);
           }
           /* token */
-          if (response.data.code === 406 || response.data.code === 407) {
+          if (response.data.code === 406 || response.data.code === 407 || response.data.code === 401) {
             action(deleteToken());
             addNotification({
               title: response.data.msg,

@@ -90,7 +90,7 @@ export default function ChangeMobile() {
 
   return (
     <CenterContainer>
-      <GANavbar title={intl.formatMessage({ defaultMessage: 'Cancel' })} />
+      <GANavbar />
       <form onSubmit={handleSubmit(submit)}>
         <div className="m-auto flex flex-col w-[420px]">
           <div
@@ -114,6 +114,7 @@ export default function ChangeMobile() {
                 <TextInput
                   {...register('mobile')}
                   placeholder={intl.formatMessage({ defaultMessage: 'Please input your phone' })}
+                  error={errors.mobile?.message}
                 />
               </div>
             </div>

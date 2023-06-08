@@ -52,6 +52,14 @@ export interface TrustDetail {
   trustCompanyModel?: ITrustCompany
   bankUserName: string
   userTypeArr: number[]
+  contents?: ITrustDetailContent[]
+  gender: boolean
+}
+
+export interface ITrustDetailContent {
+  createTime: number
+  customKey: string
+  customValue: string
 }
 
 export interface Trust {

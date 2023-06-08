@@ -160,8 +160,8 @@ export default function Ledger() {
               control={control}
             />
           </div>
-          <div className="flex-auto" />
           <TextButton type="button" onClick={reset}><FormattedMessage defaultMessage="Reset" /></TextButton>
+          <div className="flex-auto" />
           <TextButton type="button" onClick={download}><FormattedMessage defaultMessage="Download" /></TextButton>
         </div>
       </form>
@@ -173,19 +173,34 @@ export default function Ledger() {
           },
           {
             Header: intl.formatMessage({ defaultMessage: 'Type' }),
-            accessor: (x) => [
-              intl.formatMessage({ defaultMessage: 'Fiat Out' }),
-              intl.formatMessage({ defaultMessage: 'Fiat In' }),
-              intl.formatMessage({ defaultMessage: 'Digital Asset Out' }),
-              intl.formatMessage({ defaultMessage: 'Digital Asset In' }),
-              intl.formatMessage({ defaultMessage: 'Exchange' }),
-              intl.formatMessage({ defaultMessage: 'Custom' }),
-              intl.formatMessage({ defaultMessage: 'Distribute Profit' }),
-              intl.formatMessage({ defaultMessage: 'Management Fee' }),
-              intl.formatMessage({ defaultMessage: 'Exceed Transfer' }),
-              intl.formatMessage({ defaultMessage: 'Establishment Fee' }),
-              intl.formatMessage({ defaultMessage: 'Additional Establishment Fee' }),
-            ][x.billType - 1],
+            accessor: (x) => {
+              switch (x.billType) {
+                case 1:
+                  return intl.formatMessage({ defaultMessage: 'Fiat Out' });
+                case 2:
+                  return intl.formatMessage({ defaultMessage: 'Fiat In' });
+                case 3:
+                  return intl.formatMessage({ defaultMessage: 'Digital Asset Out' });
+                case 4:
+                  return intl.formatMessage({ defaultMessage: 'Digital Asset In' });
+                case 5:
+                  return intl.formatMessage({ defaultMessage: 'Exchange' });
+                case 6:
+                  return x.billName ?? '--';
+                case 7:
+                  return intl.formatMessage({ defaultMessage: 'Distribute Profit' });
+                case 8:
+                  return intl.formatMessage({ defaultMessage: 'Management Fee' });
+                case 9:
+                  return intl.formatMessage({ defaultMessage: 'Exceed Transfer' });
+                case 10:
+                  return intl.formatMessage({ defaultMessage: 'Establishment Fee' });
+                case 11:
+                  return intl.formatMessage({ defaultMessage: 'Additional Establishment Fee' });
+                default:
+                  return '--';
+              }
+            },
           },
           {
             Header: intl.formatMessage({ defaultMessage: 'Currency' }),

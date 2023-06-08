@@ -85,11 +85,11 @@ export default function OrderCell({ item }: {
         {item.investmentStatus <= 5 && (
           <StepProgress
             items={[
-              formatMessage({ defaultMessage: 'Initiated' }),
-              formatMessage({ defaultMessage: 'Under review' }),
-              formatMessage({ defaultMessage: 'Investment in' }),
-              formatMessage({ defaultMessage: 'Verifying' }),
-              formatMessage({ defaultMessage: 'Completed' }),
+              formatMessage({ defaultMessage: 'Initiated', description: '投资指令状态' }),
+              formatMessage({ defaultMessage: 'Under review', description: '投资指令状态' }),
+              formatMessage({ defaultMessage: 'Investment', description: '投资指令状态' }),
+              formatMessage({ defaultMessage: 'Verifying', description: '投资指令状态' }),
+              formatMessage({ defaultMessage: 'Completed', description: '投资指令状态' }),
             ]}
             current={item.investmentStatus - 1}
           />
@@ -97,11 +97,11 @@ export default function OrderCell({ item }: {
         {item.investmentStatus === 6 && (
           <StepProgress
             items={[
-              formatMessage({ defaultMessage: 'Initiated' }),
-              formatMessage({ defaultMessage: 'Verification failed' }),
-              formatMessage({ defaultMessage: 'Investment in' }),
-              formatMessage({ defaultMessage: 'Verifying' }),
-              formatMessage({ defaultMessage: 'Completed' }),
+              formatMessage({ defaultMessage: 'Initiated', description: '投资指令状态' }),
+              formatMessage({ defaultMessage: 'Verification failed', description: '投资指令状态' }),
+              formatMessage({ defaultMessage: 'Investment', description: '投资指令状态' }),
+              formatMessage({ defaultMessage: 'Verifying', description: '投资指令状态' }),
+              formatMessage({ defaultMessage: 'Completed', description: '投资指令状态' }),
             ]}
             current={1}
             errorCurrent={2}
@@ -110,9 +110,9 @@ export default function OrderCell({ item }: {
         {(item.investmentStatus === 7 || item.investmentStatus === 8) && (
           <StepProgress
             items={[
-              formatMessage({ defaultMessage: 'Initiated' }),
-              formatMessage({ defaultMessage: 'Canceling' }),
-              formatMessage({ defaultMessage: 'Cancelled' }),
+              formatMessage({ defaultMessage: 'Initiated', description: '投资指令状态' }),
+              formatMessage({ defaultMessage: 'Canceling', description: '投资指令状态' }),
+              formatMessage({ defaultMessage: 'Cancelled', description: '投资指令状态' }),
             ]}
             current={item.investmentStatus - 7 + 1}
           />

@@ -1,7 +1,9 @@
 import React, { ReactNode, useState } from 'react';
 import classNames from 'classnames';
-import { useNavigate, useParams } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { useIntl } from 'react-intl';
+import { Popover, Transition } from '@headlessui/react';
+import { useQueryClient } from '@tanstack/react-query';
 import Divide from '../../components/Divide';
 import notifyIcon from '../../assets/icon/db_icon_notify.svg';
 import personIcon from '../../assets/icon/db_icon_person.svg';
@@ -22,15 +24,22 @@ import eleSelIcon from '../../assets/icon/dashboard/icons-id_card-1.svg';
 import billIcon from '../../assets/icon/dashboard/icons-file.svg';
 import billSelIcon from '../../assets/icon/dashboard/icons-file-1.svg';
 import Logo from '../../components/Logo';
+import TrustContainer from './TrustContainer';
+import LanguageIcon from '../../views/Icons/LanguageIcon';
+import { setLanguage } from '../../state/app';
+import { Language } from '../../interfaces/language';
+import { useAppDispatch } from '../../state';
 
 export default function Sidebar() {
   // const { t } = useTranslation();
   const intl = useIntl();
   const navigate = useNavigate();
   const { trustId } = useParams();
+  const action = useAppDispatch();
+  const queryClient = useQueryClient();
 
   return (
-    <div className="bg-gradient-to-b from-[#446052] to-[#2E4037] p-0.5 rounded-[12px] h-full w-full">
+    <div className="gradient-border-container h-full w-full shadow-block">
       <div className="flex flex-col bg-gradient-to-r from-[#27302D] to-[#42534B] h-full rounded-[12px] overflow-clip">
         {/* 顶部 Logo */}
         <div className="bg-gradient-to-r from-[#BE9D66] to-[#E8D2A3] h-[133px] grid place-items-center">
@@ -64,21 +73,56 @@ export default function Sidebar() {
         <Divide />
         {/* 底部工具 */}
         <div className="flex flex-row items-center justify-evenly py-10">
-          {
-            [
-              [personIcon, '/personal'],
-              [messageIcon, `/contactCustomer/${trustId}`],
-              [notifyIcon, `/trust/${trustId}/notification`],
-              [exitIcon, '/my'],
-            ].map(([icon, to], idx) => (
-              <div
-                className="cursor-pointer"
-                onClick={() => navigate(to)}
-              >
-                <img src={icon} className="w-[22px] h-auto" alt="" />
-              </div>
-            ))
-          }
+          <NavLink to="/personal"><img src={personIcon} className="cursor-pointer w-[22px] h-auto" alt="" /></NavLink>
+          <NavLink to={`/contactCustomer/${trustId}`}><img src={messageIcon} className="cursor-pointer w-[22px] h-auto" alt="" /></NavLink>
+          <Popover className="relative z-[500]">
+            <Popover.Button className="active:outline:none">
+              <div><img src={languageIcon} className="cursor-pointer w-[22px]" /></div>
+            </Popover.Button>
+            {/* @ts-ignore */}
+            <Transition
+              enter="transition duration-100 ease-out"
+              enterFrom="transform scale-95 opacity-0"
+              enterTo="transform scale-100 opacity-100"
+              leave="transition duration-75 ease-out"
+              leaveFrom="transform scale-100 opacity-100"
+              leaveTo="transform scale-95 opacity-0"
+            >
+              <Popover.Panel className="absolute z-[500] pt-4 left-[50%] translate-x-[-50%] bottom-[44px] min-w-[170px]">
+                {({ close }) => (
+                  <div className="gradient-block2 rounded-xl shadow-block ">
+                    <div className="flex flex-col divide-y divide-[#3B5649]">
+                      <div
+                        className="px-1 py-3 text-center gradient-text1 text-[20px] cursor-pointer"
+                        onClick={async (e) => {
+                          e.preventDefault();
+                          close();
+                          action(setLanguage(Language.EN));
+                          queryClient.invalidateQueries();
+                        }}
+                      >
+                        English
+                      </div>
+                      <div
+                        className="px-1 py-3 text-center gradient-text1 text-[20px] cursor-pointer"
+                        onClick={async (e) => {
+                          e.preventDefault();
+                          close();
+                          action(setLanguage(Language.HK));
+                          queryClient.invalidateQueries();
+                        }}
+                      >
+                        繁体中文
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </Popover.Panel>
+            </Transition>
+          </Popover>
+
+          <NavLink to={`/trust/${trustId}/notification`}><img src={notifyIcon} className="cursor-pointer w-[22px] h-auto" alt="" /></NavLink>
+          <NavLink to="/my"><img src={exitIcon} className="cursor-pointer w-[22px] h-auto" alt="" /></NavLink>
         </div>
       </div>
     </div>

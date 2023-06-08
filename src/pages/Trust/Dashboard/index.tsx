@@ -32,7 +32,7 @@ export default function Dashboard() {
   });
 
   return (
-    <div className="flex min-h-screen flex-row gap-6 pl-6">
+    <div className="flex min-h-screen flex-row gap-6">
       <div className="flex flex-auto flex-col gap-6">
         {/* <Button onClick={() => addSuccessNotification({ title: '???' })}>Click</Button> */}
         <Portrait

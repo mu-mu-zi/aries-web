@@ -142,6 +142,7 @@ body {
 .gradient-border-container {
     display: block;
     background: #344D41;
+    /*ackground: linear-gradient(90deg, #446052 0%, #2E4037 100%);*/
     padding: 1px;
     border-radius: 0.75rem;
 }
@@ -203,4 +204,18 @@ textarea::-webkit-scrollbar {
 /* 浏览器自动填充 */
 .chrome__autofill-none {
     transition: color 99999s ease-in-out 0s, background-color 99999s ease-in-out 0s;
+}
+
+/* 轮播图 */
+.slick-prev, .slick-next {
+    width: 32px;
+    height: 32px;
+}
+
+.slick-next {
+    right: -32px;
+}
+
+.slick-prev {
+    left: -32px;
 }

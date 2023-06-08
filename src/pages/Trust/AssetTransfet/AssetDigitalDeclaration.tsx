@@ -13,6 +13,7 @@ import { useAllCoinInMainNetQuery, useAllMainNetsQuery, useTrustDetailQuery } fr
 import { IMainNet } from '../../../interfaces/base';
 import { addSuccessNotification } from '../../../utils/Notification';
 import useTrustPermission from '../../../hooks/useTrustRole';
+import { useValidators } from '../../../utils/zod';
 
 export default function AssetDigitalDeclaration() {
   // const { t } = useTranslation();
@@ -26,12 +27,13 @@ export default function AssetDigitalDeclaration() {
     mainnetId: mainNet?.id,
   });
   const queryClient = useQueryClient();
+  const { zodPhone, zodEmail, zodRequired } = useValidators();
   const valid = z.object({
-    name: z.string().nonempty(),
+    name: zodRequired(),
     coinId: z.number(),
-    amount: z.string().nonempty().regex(/^[0-9]*.?[0-9]{0,8}$/, intl.formatMessage({ defaultMessage: 'Please enter a number with a maximum precision of 8.' })),
-    expectedTime: z.string().nonempty(),
-    address: z.string().nonempty(),
+    amount: z.string().regex(/^[0-9]+.?[0-9]{0,8}$/, intl.formatMessage({ defaultMessage: 'Please enter a number with a maximum precision of 8.' })),
+    expectedTime: zodRequired(),
+    address: zodRequired(),
     hash: z.string().optional(),
     remark: z.string().optional(),
   });

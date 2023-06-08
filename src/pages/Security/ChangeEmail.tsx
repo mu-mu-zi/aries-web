@@ -14,10 +14,12 @@ import Button from '../../components/Button';
 import { useSendValidateCodeMutation } from '../../api/user/verify';
 import SendButton from '../../views/SendButton';
 import ContactUsFooter from '../../views/ContactUsFooter';
+import { useValidators } from '../../utils/zod';
 
 export default function ChangeEmail() {
+  const { zodEmail } = useValidators();
   const valid = z.object({
-    email: z.string().email().nonempty(),
+    email: zodEmail(),
     securityCode: z.string().nonempty(),
   });
   type FormValid = z.infer<typeof valid>;
@@ -72,7 +74,7 @@ export default function ChangeEmail() {
 
   return (
     <CenterContainer>
-      <GANavbar title={intl.formatMessage({ defaultMessage: 'Cancel' })} />
+      <GANavbar />
       <form onSubmit={handleSubmit(submit)}>
         <div className="m-auto flex flex-col w-[420px]">
           <div
@@ -86,6 +88,7 @@ export default function ChangeEmail() {
               <TextInput
                 {...register('email')}
                 placeholder={intl.formatMessage({ defaultMessage: 'Please enter the new email' })}
+                error={errors.email?.message}
               />
             </div>
             <div className="text-[#C2D7C7F6] text-[16px] font-bold">{intl.formatMessage({ defaultMessage: 'New Email Verification Code' })}</div>
@@ -94,6 +97,7 @@ export default function ChangeEmail() {
                 {...register('securityCode')}
                 suffix={(<SendButton onClick={sendValidCode} />)}
                 placeholder={intl.formatMessage({ defaultMessage: 'Please enter the verification code' })}
+                error={errors.securityCode?.message}
               />
             </div>
           </div>

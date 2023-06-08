@@ -1,13 +1,16 @@
 import React, { ReactNode } from 'react';
 import Hr from '../../../components/Hr';
+import TrustContainer from '../TrustContainer';
 
 export default function Section({ children }: {
   children: ReactNode
 }) {
   return (
-    <div className="flex flex-col rounded-xl gradient-bg2 gap-4 p-8 shadow-block">
-      {children}
-    </div>
+    <TrustContainer>
+      <div className="flex flex-col rounded-xl gradient-bg2 gap-4 p-8">
+        {children}
+      </div>
+    </TrustContainer>
   );
 }
 

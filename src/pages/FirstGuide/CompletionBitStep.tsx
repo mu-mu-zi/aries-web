@@ -10,7 +10,7 @@ import icon3 from '../../assets/icon/icon_coin_bank.svg';
 import icon4 from '../../assets/icon/icon_coin_exchange.svgicon_coin_exchange.svg';
 
 export function Text({ children }: {
-  children: ReactNode
+  children?: ReactNode
 }) {
   return <div className="gradient-text1 text-[20px] font-[400]">{children}</div>;
 }
@@ -52,13 +52,13 @@ export default function CompletionBitStep({ trust }: {
             <Text><FormattedMessage defaultMessage="Digital asset address" /></Text>
             <div className="flex flex-row gap-2">
               <Text>{trust.safeHeronAddress}</Text>
-              <CopyIcon text={trust.safeHeronAddress} />
+              {trust.safeHeronAddress && <CopyIcon text={trust.safeHeronAddress} />}
             </div>
           </div>
           <div className="flex flex-row justify-between">
             <Text><FormattedMessage defaultMessage="Payment code" /></Text>
             <div className="grid place-items-center p-3 gradient-block1 rounded-xl shadow-btn">
-              <QrCode text={trust.safeHeronAddress} size={136} />
+              {trust.safeHeronAddress && <QrCode text={trust.safeHeronAddress} size={136} />}
             </div>
           </div>
         </div>

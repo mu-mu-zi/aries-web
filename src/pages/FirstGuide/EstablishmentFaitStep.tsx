@@ -30,6 +30,9 @@ export default function EstablishmentFaitStep({ trust }: {
           <Row title={intl.formatMessage({ defaultMessage: 'Bank Name' })} value={trust.bankName} />
           <Row title={intl.formatMessage({ defaultMessage: 'Bank Address' })} value={trust.bankAddress} />
           <Row title={intl.formatMessage({ defaultMessage: 'Payee Name' })} value={trust.bankUserName} />
+          {trust.contents?.map((x) => (
+            <Row key={x.customKey} title={x.customKey} value={x.customValue} />
+          ))}
           {/* <Row title="Payee Account Number" value="" /> */}
           {/* <Row title="Payee Country/Region" value="" /> */}
           {/* <Row title="Swift Code" value="" /> */}

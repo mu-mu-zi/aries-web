@@ -40,23 +40,27 @@ export default function InvestmentOrder() {
           </Button>
         )}
       />
-      <div className="gradient-bg2 roundex-xl shadow-block p-8 rounded-xl flex flex-col gap-8">
-        {listQuery.data?.data?.records.length === 0 && <Empty />}
-        {listQuery.data?.data?.records.length !== 0 && (
-          <>
-            <div className="grid grid-cols-2 gap-4">
-              {listQuery.data?.data?.records.map((it) => <OrderCell item={it} key={it.trustInvestmentId} />)}
-            </div>
-            <div className="w-full flex flex-col items-center">
-              <Paginate
-                page={page}
-                total={listQuery.data?.data?.total ?? 0}
-                pageSize={4}
-                onPageChanged={(page) => setPage(page)}
-              />
-            </div>
-          </>
-        )}
+      <div className="gradient-border-container shadow-block">
+        <div className="gradient-bg2 roundex-xl p-8 rounded-xl flex flex-col gap-8">
+          {listQuery.data?.data?.records.length === 0 && <Empty />}
+          {listQuery.data?.data?.records.length !== 0 && (
+            <>
+              <div className="grid grid-cols-2 gap-4">
+                {listQuery.data?.data?.records.map((it) => <OrderCell item={it} key={it.trustInvestmentId} />)}
+              </div>
+              {Math.ceil((listQuery.data?.data?.total ?? 0) / 4) > 1 && (
+                <div className="w-full flex flex-col items-center">
+                  <Paginate
+                    page={page}
+                    total={listQuery.data?.data?.total ?? 0}
+                    pageSize={4}
+                    onPageChanged={(page) => setPage(page)}
+                  />
+                </div>
+              )}
+            </>
+          )}
+        </div>
       </div>
       <Modal
         visible={creatingVisible}

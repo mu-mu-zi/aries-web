@@ -49,7 +49,7 @@ export default function Fees() {
       case 2:
         return intl.formatMessage({ defaultMessage: 'Unsettled in {year}' }, { year });
       default:
-        return `In ${moment().year()}`;
+        return intl.formatMessage({ defaultMessage: 'In {year}' }, { year: moment().year() });
     }
   };
 
@@ -111,7 +111,7 @@ function FeesCell({
     <NavLink to={to} className="flex flex-col gap-2 p-8 gradient-block1 rounded-xl">
       <div className="flex flex-row gap-2 items-center">
         <div className="gradient-text1 font-title font-bold text-[20px]">{title}</div>
-        <Tooltip title={tooltip.title} content={tooltip.description}>
+        <Tooltip title={tooltip.title} content={tooltip.description} position="bottom-start">
           <img src={alertIcon} width="16px" alt="" />
         </Tooltip>
       </div>

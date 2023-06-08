@@ -8,6 +8,7 @@ import moreIcon from '../../../assets/icon/arrow_r.svg';
 import { useTrustMessageListQuery } from '../../../api/trust/trust';
 import NotificationCell from './NotificationCell';
 import { unixFormatTime } from '../../../utils/DateFormat';
+import Empty from '../../../views/Empty';
 
 export default function SimpleNotification() {
   const navigate = useNavigate();
@@ -20,8 +21,8 @@ export default function SimpleNotification() {
   });
 
   return (
-    <div className="gradient-border-container">
-      <div className={classNames('flex flex-col', 'p-8', 'rounded-xl', 'gradient-bg2', 'shadow-[-4px_8px_10px_0_#030c08]')}>
+    <div className="gradient-border-container shadow-block">
+      <div className={classNames('flex flex-col', 'p-8', 'rounded-xl', 'gradient-bg2')}>
         <div className={classNames('item-center flex flex-row justify-between')}>
           <div className="gradient-text1 font-bold text-[20px] font-title"><FormattedMessage defaultMessage="Notification" /></div>
           <div
@@ -38,6 +39,7 @@ export default function SimpleNotification() {
         </div>
         <div className="my-6 h-[1px] bg-[#3B5649]" />
         <div className="flex flex-col gap-6">
+          {listQuery.data?.data?.records.length === 0 && <Empty />}
           {listQuery.data?.data?.records.map((it) => (
             <NotificationCell
               simple

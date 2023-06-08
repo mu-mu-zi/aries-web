@@ -21,6 +21,7 @@ import Dropdown from '../../components/Dropdown';
 import { useTrustContactEmailQuery } from '../../api/base/email';
 import FooterNote from '../FooterNote';
 import AreaSelect from '../../components/AreaSelect';
+import { useValidators } from '../../utils/zod';
 
 export default function ContactCustomer() {
   // const { t } = useTranslation();
@@ -28,11 +29,12 @@ export default function ContactCustomer() {
   const navigate = useNavigate();
   const [isPhone, setIsPhone] = useState(true);
   // const areaCodeListQuery = useAreaCodeListQuery();
+  const { zodRequired, zodEmail, zodPhone } = useValidators();
   const valid = z.object({
     contactName: z.string().optional(),
-    account: isPhone ? z.string().regex(/^\d+$/) : z.string().email(),
+    account: isPhone ? zodPhone() : zodEmail(),
     areaCodeId: z.number().optional(),
-    problemDescription: z.string().nonempty(),
+    problemDescription: zodRequired(),
   });
   type FormValid = z.infer<typeof valid>;
   const {
@@ -84,7 +86,7 @@ export default function ContactCustomer() {
   return (
     <div>
       <CenterContainer>
-        <GANavbar title={intl.formatMessage({ defaultMessage: 'Cancel' })} />
+        <GANavbar />
         <div className="flex flex-col items-center">
           <form onSubmit={handleSubmit(submit)}>
             <div className="item-center flex w-[420px] flex-col self-center py-[64px]">
@@ -101,6 +103,7 @@ export default function ContactCustomer() {
                 <TextInput
                   placeholder={intl.formatMessage({ defaultMessage: 'Please enter your name' })}
                   maxLength={30}
+                  error={errors.contactName?.message}
                   {...register('contactName')}
                 />
                 <div className="flex flex-row gap-2">
@@ -112,6 +115,7 @@ export default function ContactCustomer() {
                 <TextArea
                   maxLength={200}
                   placeholder={intl.formatMessage({ defaultMessage: 'Please provide a detailed explanation of the subject you would like to consult about.' })}
+                  error={errors.problemDescription?.message}
                   {...register('problemDescription')}
                 />
                 <div className="flex flex-row gap-2">
@@ -143,6 +147,7 @@ export default function ContactCustomer() {
                     block
                     className="w-full"
                     placeholder={isPhone ? intl.formatMessage({ defaultMessage: 'Please input your phone' }) : intl.formatMessage({ defaultMessage: 'Please input your email' })}
+                    error={errors.account?.message}
                     {...register('account')}
                   />
                 </div>

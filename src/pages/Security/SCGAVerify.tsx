@@ -56,7 +56,7 @@ export default function SCGAVerify() {
     <CenterContainer>
       <form className="flex flex-col flex-1" onSubmit={handleSubmit(submit)}>
         <div className="flex flex-col flex-1">
-          <GANavbar title={intl.formatMessage({ defaultMessage: 'Cancel' })} />
+          <GANavbar />
           <div className="item-center flex w-[420px] flex-col self-center pt-[64px]">
             <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]">
               <FormattedMessage defaultMessage="Security verification" />

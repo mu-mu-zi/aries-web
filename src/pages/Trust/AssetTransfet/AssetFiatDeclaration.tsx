@@ -12,6 +12,7 @@ import { useFiatListQuery, useTrustDetailQuery } from '../../../api/trust/trust'
 import Dropdown from '../../../components/Dropdown';
 import { addSuccessNotification } from '../../../utils/Notification';
 import useTrustPermission from '../../../hooks/useTrustRole';
+import { useValidators } from '../../../utils/zod';
 
 export default function AssetFiatDeclaration() {
   // const { t } = useTranslation();
@@ -20,12 +21,13 @@ export default function AssetFiatDeclaration() {
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
   const { settlorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
   const fiatListQuery = useFiatListQuery();
+  const { zodRequired } = useValidators();
   const valid = z.object({
-    name: z.string().nonempty(),
+    name: zodRequired(),
     fiatId: z.number(),
-    amount: z.string().nonempty().regex(/^[0-9]*.?[0-9]{0,3}$/, intl.formatMessage({ defaultMessage: 'Please enter a number with a maximum precision of 3.' })),
-    expectedTime: z.string().nonempty(),
-    bank: z.string().nonempty(),
+    amount: z.string().regex(/^[0-9]+.?[0-9]{0,3}$/, intl.formatMessage({ defaultMessage: 'Please enter a number with a maximum precision of 3.' })),
+    expectedTime: zodRequired(),
+    bank: zodRequired(),
     bankCardNo: z.string().optional(),
     address: z.string().optional(),
     remark: z.string().optional(),

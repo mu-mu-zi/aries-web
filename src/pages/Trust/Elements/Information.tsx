@@ -35,35 +35,37 @@ export default function Information() {
   };
 
   return (
-    <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8 shadow-block">
-      <div className="gradient-text1 font-title font-bold text-[20px]">
-        <FormattedMessage defaultMessage="Trust information" />
+    <div className="gradient-border-container shadow-block">
+      <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8">
+        <div className="gradient-text1 font-title font-bold text-[20px]">
+          <FormattedMessage defaultMessage="Trust information" />
+        </div>
+        <Hr />
+        {
+          detailQuery.data?.data && (
+            <div className="flex flex-row items-start justify-between">
+              <InformationCell title="Trust name" value={detailQuery.data?.data?.trustName} />
+              <InformationCell
+                title={intl.formatMessage({ defaultMessage: 'Establishment time' })}
+                value={unixFormatTime(detailQuery.data.data.createTime)}
+              />
+              <InformationCell
+                title={intl.formatMessage({ defaultMessage: 'Principal' })}
+                value={`${detailQuery.data?.data?.surname} ${detailQuery.data?.data?.userName}`}
+              />
+              <InformationCell
+                title={intl.formatMessage({ defaultMessage: 'Trust Type' })}
+                value={trustEntrustTypeTitle(detailQuery.data.data.trustEntrustType)}
+              />
+              <InformationCell
+                title={intl.formatMessage({ defaultMessage: 'Status' })}
+                value={trustStatusTitle(detailQuery.data.data.trustStatus)}
+                alignRight
+              />
+            </div>
+          )
+        }
       </div>
-      <Hr />
-      {
-        detailQuery.data?.data && (
-          <div className="flex flex-row items-start justify-between">
-            <InformationCell title="Trust name" value={detailQuery.data?.data?.trustName} />
-            <InformationCell
-              title={intl.formatMessage({ defaultMessage: 'Establishment time' })}
-              value={unixFormatTime(detailQuery.data.data.createTime)}
-            />
-            <InformationCell
-              title={intl.formatMessage({ defaultMessage: 'Principal' })}
-              value={`${detailQuery.data?.data?.surname} ${detailQuery.data?.data?.userName}`}
-            />
-            <InformationCell
-              title={intl.formatMessage({ defaultMessage: 'Trust Type' })}
-              value={trustEntrustTypeTitle(detailQuery.data.data.trustEntrustType)}
-            />
-            <InformationCell
-              title={intl.formatMessage({ defaultMessage: 'Status' })}
-              value={trustStatusTitle(detailQuery.data.data.trustStatus)}
-              alignRight
-            />
-          </div>
-        )
-      }
     </div>
   );
 }

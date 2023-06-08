@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -12,14 +12,19 @@ import ModalContainer from '../../../views/ModalContainer';
 import Divide from '../../../components/Divide';
 import ContactUs from '../../SignIn/ContactUs';
 import ContactUsFooter from '../../../views/ContactUsFooter';
+import GoogleVerify from '../../../views/GoogleVerify';
+import Modal from '../../../components/Modal';
+import { useValidators } from '../../../utils/zod';
 
 export default function NewPlan({ trustId, onClose, onEnter }: {
   trustId: number,
   onClose?(): void,
   onEnter?(str: string): void,
 }) {
+  const intl = useIntl();
+  const { zodMinStr } = useValidators();
   const valid = z.object({
-    planDescription: z.string().nonempty(),
+    planDescription: zodMinStr(),
   });
   type FormValid = z.infer<typeof valid>;
   const {
@@ -33,8 +38,10 @@ export default function NewPlan({ trustId, onClose, onEnter }: {
     resolver: zodResolver(valid),
   });
   const queryClient = useQueryClient();
+  const [googleVerifyVisible, setGoogleVerifyVisible] = useState(false);
+  const [formData, setFormData] = useState<FormValid>();
   // const { t } = useTranslation();
-  const intl = useIntl();
+
   // const addPlanMutation = useMutation({
   //   mutationFn: async (data: FormValid) => {
   //     await axios.post('/trust/trust/distribution/plan/add', {
@@ -42,20 +49,37 @@ export default function NewPlan({ trustId, onClose, onEnter }: {
   //       ...data,
   //     });
   //   },
-  //   onSuccess: async () => {
+  //   onSuccess: () => {
   //     onClose?.();
-  //     await queryClient.invalidateQueries(['trust']);
+  //     queryClient.invalidateQueries(['trust']);
   //   },
   // });
+  const addPlanMutation = useMutation({
+    mutationFn: async (data: {
+      planDescription: string
+      ticker: string
+    }) => {
+      await axios.post('/trust/trust/distribution/plan/add', {
+        trustId,
+        ...data,
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['trust']);
+      onClose?.();
+    },
+  });
 
   const submit = async (data: FormValid) => {
     // addPlanMutation.mutate(data);
-    onEnter?.(data.planDescription);
+    // onEnter?.(data.planDescription);
+    setFormData(data);
+    setGoogleVerifyVisible(true);
   };
 
   return (
     <ModalContainer>
-      <ModalNav title="New allocation plan added" onClose={onClose} />
+      <ModalNav title={intl.formatMessage({ defaultMessage: 'New allocation plan added' })} onClose={onClose} />
       <form onSubmit={handleSubmit(submit)}>
         <div className="flex flex-col gap-8">
           <label>
@@ -67,12 +91,14 @@ export default function NewPlan({ trustId, onClose, onEnter }: {
                 maxLength={1000}
                 {...register('planDescription')}
                 className="bg-[#3B5649] rounded-xl p-4 text-[20px] outline-none h-[158px] placeholder:text-[#99AC9B] resize-none"
-                placeholder={intl.formatMessage({ defaultMessage: "Regarding profit distribution, I want to make it clear that it will be based on the proportion of the beneficiary's ownership of the rights and interests. Distribution will be made according to a predetermined ratio and the profits will be directly paid to the beneficiary's designated bank account at the end of each quarter." })}
+                placeholder={intl.formatMessage({ defaultMessage: 'Regarding profit distribution, I want to make it clear that it will be based on the proportion of the beneficiary\'s ownership of the rights and interests. Distribution will be made according to a predetermined ratio and the profits will be directly paid to the beneficiary\'s designated bank account at the end of each quarter.' })}
               />
+              {errors.planDescription?.message
+                && <div className="pl-1 text-[#ECA741] text-[14px]">{errors.planDescription.message}</div>}
             </div>
           </label>
           <div className="self-center w-[420px]">
-            <Button type="submit" block>
+            <Button type="submit" block disabled={addPlanMutation.isLoading}>
               <FormattedMessage defaultMessage="Submit" />
             </Button>
           </div>
@@ -81,6 +107,20 @@ export default function NewPlan({ trustId, onClose, onEnter }: {
           <ContactUsFooter />
         </div>
       </form>
+      <Modal visible={googleVerifyVisible} onClose={() => setGoogleVerifyVisible(false)}>
+        {formData && (
+          <GoogleVerify
+            onClose={() => setGoogleVerifyVisible(false)}
+            onEnter={(ticket) => {
+              setGoogleVerifyVisible(false);
+              addPlanMutation.mutate({
+                planDescription: formData.planDescription,
+                ticker: ticket,
+              });
+            }}
+          />
+        )}
+      </Modal>
     </ModalContainer>
   );
 }

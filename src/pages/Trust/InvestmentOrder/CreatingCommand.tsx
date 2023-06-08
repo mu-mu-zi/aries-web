@@ -14,6 +14,7 @@ import Divide from '../../../components/Divide';
 import ContactUs from '../../SignIn/ContactUs';
 import ContactUsFooter from '../../../views/ContactUsFooter';
 import TextField from '../../../components/TextField';
+import { useValidators } from '../../../utils/zod';
 
 export default function CreatingCommand({ onClose }: {
   onClose?(): void
@@ -21,9 +22,10 @@ export default function CreatingCommand({ onClose }: {
   const { trustId } = useParams();
   // const { t } = useTranslation();
   const intl = useIntl();
+  const { zodMinStr } = useValidators();
   const valid = z.object({
-    investmentSuggestion: z.string().min(10),
-    investmentTime: z.string().min(10),
+    investmentSuggestion: zodMinStr(),
+    investmentTime: zodMinStr(5),
   });
   type FormValid = z.infer<typeof valid>;
   const {

@@ -8,15 +8,16 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const TextButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const {
-    block, ...rest
+    block, disabled, ...rest
   } = props;
 
   return (
     // eslint-disable-next-line react/button-has-type
     <button
       {...rest}
+      disabled={disabled}
       ref={ref}
-      className="gradient-text2 text-center font-title font-bold text-[14px] cursor-pointer w-fit whitespace-pre"
+      className={classNames('text-center font-title font-bold text-[14px] cursor-pointer w-fit whitespace-pre', disabled ? 'text-[#695D52]' : 'gradient-text2')}
       css={css`
         position: relative;
 
@@ -27,7 +28,7 @@ const TextButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
           width: 100%;
           left: 0;
           height: 1px;
-          background: linear-gradient(90deg, #AF8160 0%, #D0B588 100%);
+          background: linear-gradient(90deg, ${disabled ? '#695D52' : '#AF8160'}  0%, ${disabled ? '#695D52' : '#D0B588'} 100%);
         }
       `}
     >

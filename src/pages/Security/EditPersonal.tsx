@@ -74,7 +74,7 @@ export default function EditPersonal({ onClose }: {
                   defaultMessage="FirstName"
                 />
               </div>
-              <TextInput {...register('nickname')} placeholder="firstname" maxLength={15} />
+              <TextInput {...register('nickname')} placeholder={intl.formatMessage({ defaultMessage: 'FirstName' })} maxLength={15} />
             </label>
             <label className="flex-1 flex flex-col gap-4">
               <div className="flex font-bold text-[#C2D7C7F6] text-[16px]">
@@ -82,7 +82,7 @@ export default function EditPersonal({ onClose }: {
                   defaultMessage="LastName"
                 />
               </div>
-              <TextInput {...register('surname')} placeholder="lastname" maxLength={15} />
+              <TextInput {...register('surname')} placeholder={intl.formatMessage({ defaultMessage: 'LastName' })} maxLength={15} />
             </label>
           </div>
           <label className="flex flex-col gap-4">

@@ -28,10 +28,10 @@ export default function Trust() {
   }, [trustQuery.error]);
 
   return (
-    <div className="flex flex-row h-full py-6 pl-6 gap-6 h-screen">
+    <div className="flex flex-row  pl-6 h-screen">
       {/* <SendButton /> */}
-      <div className="w-[318px] flex-shrink-0"><Sidebar /></div>
-      <div className="flex-auto overflow-y-auto pr-6"><Outlet /></div>
+      <div className="w-[318px] flex-shrink-0 py-6"><Sidebar /></div>
+      <div className="flex-auto overflow-y-auto px-6 py-6"><Outlet /></div>
     </div>
   );
 }

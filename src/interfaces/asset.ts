@@ -33,4 +33,5 @@ export interface ITrustBill {
   billType: number
   coinName: string;
   createTimeStamp: number;
+  billName?: string
 }
