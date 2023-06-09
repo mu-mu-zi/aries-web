@@ -53,16 +53,18 @@ export default function AppRoutes() {
         <Route index element={<Welcome />} />
         <Route path="welcome" element={<Welcome />} />
         {/* 登录后不需要显示这些页面 */}
-        {!token && (
-          <>
-            <Route path="signIn" element={<SignIn />} />
-            <Route path="gaGuide" element={<GAGuide />} />
-            <Route path="gaBind" element={<GAScanBind />} />
-            <Route path="gaBackup" element={<GABackupKey />} />
-            <Route path="gaBindVerify" element={<GABindVerify />} />
-            <Route path="gaVerify" element={<GAVerify />} />
-          </>
-        )}
+        {/* {!token && ( */}
+        {/*  */}
+        {/* )} */}
+        {/* todo: 登录后不能跳转到这里路由，可以添加自定义跳转 */}
+        <>
+          <Route path="signIn" element={<SignIn />} />
+          <Route path="gaGuide" element={<GAGuide />} />
+          <Route path="gaBind" element={<GAScanBind />} />
+          <Route path="gaBackup" element={<GABackupKey />} />
+          <Route path="gaBindVerify" element={<GABindVerify />} />
+          <Route path="gaVerify" element={<GAVerify />} />
+        </>
 
         {token && (
           <>
@@ -81,7 +83,6 @@ export default function AppRoutes() {
               <Route path="unbindEmailOrMobile" element={<UnbindEmailMobile />} />
             </Route>
             <Route path="loginLog" element={<LoginLog />} />
-            <Route path="personalRealName" element={<PersonalRealName />} />
             {/* First create trust */}
             <Route path="/first/:trustId/KycVerify" element={<KycVerify />} />
             <Route path="/first/:trustId/welcome" element={<FirstGuideWelcome />} />
@@ -89,6 +90,7 @@ export default function AppRoutes() {
         )}
 
         {/* Universal */}
+        <Route path="/personalRealName" element={<PersonalRealName />} />
         <Route path="/status" element={<Status />} />
         <Route path="/contactCustomer" element={<ContactCustomer />} />
         <Route path="/contactCustomer/:trustId" element={<ContactCustomer />} />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
@@ -16,8 +16,9 @@ import ContactUsFooter from '../../views/ContactUsFooter';
 import { useMyTrustQuery } from '../../api/trust/trust';
 import { IResponseData } from '../../interfaces/base';
 import { Trust } from '../../interfaces/trust';
-import { useAppDispatch } from '../../state';
+import { useAppDispatch, useAppSelector } from '../../state';
 import { setToken } from '../../state/user';
+import { useValidators } from '../../utils/zod';
 
 export default function GAVerify() {
   // const { t } = useTranslation();
@@ -25,8 +26,9 @@ export default function GAVerify() {
   const action = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const { zodRequired } = useValidators();
   const valid = z.object({
-    googleCode: z.string().nonempty().max(6),
+    googleCode: zodRequired(),
   });
   type FormValid = z.infer<typeof valid>;
   const trustListQuery = useMyTrustQuery();
@@ -41,6 +43,9 @@ export default function GAVerify() {
     resolver: zodResolver(valid),
   });
   const queryClient = useQueryClient();
+  const lan = useAppSelector((state) => state.app.language);
+
+  useEffect(() => clearErrors(), [lan]);
 
   const submit = async (data: FormValid) => {
     const { account, areaCodeId } = location.state;

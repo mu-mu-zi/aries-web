@@ -42,7 +42,7 @@ export default function GANavbar({
               navigate(-1);
             }
           }}
-          className={classNames('color-[#3D3228] font-bold font-title text-[24px]', canBack && 'cursor-pointer')}
+          className={classNames('text-[#3D3228] font-bold font-title text-[24px]', canBack && 'cursor-pointer')}
         >
           {title ?? <FormattedMessage defaultMessage="Back" /> }
         </div>

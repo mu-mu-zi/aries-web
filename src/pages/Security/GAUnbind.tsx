@@ -19,14 +19,17 @@ import { useUserInfoQuery } from '../../api/user/user';
 // import { useAreaCodeListQuery } from '../../api/base/areaCode';
 import Dropdown from '../../components/Dropdown';
 import ContactUsFooter from '../../views/ContactUsFooter';
+import { useValidators } from '../../utils/zod';
+import { useAppSelector } from '../../state';
 
 export default function GAUnbind() {
   // const { t } = useTranslation();
   const intl = useIntl();
+  const { zodRequired } = useValidators();
   const valid = z.object({
     emailCode: z.string().optional(),
     mobileCode: z.string().optional(),
-    googleCode: z.string().nonempty(),
+    googleCode: zodRequired(),
   });
   type FormValid = z.infer<typeof valid>;
   const sendValidateCodeMutation = useSendValidateCodeMutation();
@@ -45,6 +48,9 @@ export default function GAUnbind() {
   const queryClient = useQueryClient();
   const userQuery = useUserInfoQuery();
   const navigate = useNavigate();
+  const lan = useAppSelector((state) => state.app.language);
+
+  useEffect(() => clearErrors(), [lan]);
 
   const submit = async (data: FormValid) => {
     try {
@@ -87,7 +93,7 @@ export default function GAUnbind() {
     <CenterContainer>
       <GANavbar title={intl.formatMessage({ defaultMessage: 'Change Google Authenticator' })} />
       <div className="flex-auto flex flex-col ">
-        <div className="gradient-text1 my-16 text-center font-title font-bold text-[32px]">
+        <div className="gradient-text1 my-16 text-center font-title font-bold text-[32px] text-shadow-block">
           <FormattedMessage defaultMessage="Change Google Authenticator" />
         </div>
         <form onSubmit={handleSubmit(submit)}>

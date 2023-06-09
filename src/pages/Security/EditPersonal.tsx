@@ -15,6 +15,8 @@ import ContactUs from '../SignIn/ContactUs';
 import Button from '../../components/Button';
 import { useUserInfoQuery } from '../../api/user/user';
 import ContactUsFooter from '../../views/ContactUsFooter';
+import { useValidators } from '../../utils/zod';
+import { useAppSelector } from '../../state';
 
 export default function EditPersonal({ onClose }: {
   onClose?(): void
@@ -22,10 +24,11 @@ export default function EditPersonal({ onClose }: {
   // const { t } = useTranslation();
   const intl = useIntl();
   const [isMeal, setIsMeal] = React.useState(true);
+  const { zodRequired } = useValidators();
   const valid = z.object({
     gender: z.boolean().optional(),
-    nickname: z.string().nonempty(),
-    surname: z.string().nonempty(),
+    nickname: zodRequired(),
+    surname: zodRequired(),
   });
   type FormValid = z.infer<typeof valid>;
   const {
@@ -42,6 +45,9 @@ export default function EditPersonal({ onClose }: {
   });
   const queryClient = useQueryClient();
   const userQuery = useUserInfoQuery();
+  const lan = useAppSelector((state) => state.app.language);
+
+  useEffect(() => clearErrors(), [lan]);
 
   const submit = async (data: FormValid) => {
     await axios.request({

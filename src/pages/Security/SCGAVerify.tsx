@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
@@ -13,14 +13,17 @@ import CenterContainer from '../../views/CenterContainer';
 import ContactUs from '../SignIn/ContactUs';
 import GANavbar from '../SignIn/GANavbar';
 import ContactUsFooter from '../../views/ContactUsFooter';
+import { useValidators } from '../../utils/zod';
+import { useAppSelector } from '../../state';
 
 export default function SCGAVerify() {
   // const { t } = useTranslation();
   const intl = useIntl();
   const navigate = useNavigate();
   const location = useLocation();
+  const { zodRequired } = useValidators();
   const valid = z.object({
-    googleCode: z.string().nonempty().max(6),
+    googleCode: zodRequired(),
   });
   type FormValid = z.infer<typeof valid>;
   const {
@@ -34,6 +37,9 @@ export default function SCGAVerify() {
     resolver: zodResolver(valid),
   });
   const queryClient = useQueryClient();
+  const lan = useAppSelector((state) => state.app.language);
+
+  useEffect(() => clearErrors(), [lan]);
 
   const submit = async (data: FormValid) => {
     const { account, areaCodeId } = location.state;

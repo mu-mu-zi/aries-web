@@ -16,14 +16,17 @@ import { useUserInfoQuery } from '../../api/user/user';
 import Dropdown from '../../components/Dropdown';
 import ContactUsFooter from '../../views/ContactUsFooter';
 import { Trust } from '../../interfaces/trust';
+import { useValidators } from '../../utils/zod';
+import { useAppSelector } from '../../state';
 
 export default function PersonalRealName() {
   const navigate = useNavigate();
   // const { t } = useTranslation();
   const intl = useIntl();
+  const { zodRequired } = useValidators();
   const valid = z.object({
-    firstName: z.string().nonempty(),
-    lastName: z.string().nonempty(),
+    firstName: zodRequired(),
+    lastName: zodRequired(),
     gender: z.boolean().default(true),
   });
   type FormValid = z.infer<typeof valid>;
@@ -40,6 +43,9 @@ export default function PersonalRealName() {
     resolver: zodResolver(valid),
   });
   const userQuery = useUserInfoQuery();
+  const lan = useAppSelector((state) => state.app.language);
+
+  useEffect(() => clearErrors(), [lan]);
 
   const submit = async (data: FormValid) => {
     try {

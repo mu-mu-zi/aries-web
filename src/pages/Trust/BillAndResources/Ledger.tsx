@@ -16,6 +16,7 @@ import Modal from '../../../components/Modal';
 import { ITrustBill } from '../../../interfaces/asset';
 import { numberFormatWithPrefix } from '../../../utils/CurrencyFormat';
 import NoCredentials from '../../../views/NoCredentials';
+import { useAppSelector } from '../../../state';
 
 /*
 * 1-法币转出，2-法币转入，3-数字资产转出，4-数字资产转入，5-兑换交易，6-自定义，7-分配收益，8-管理费，9-超额转账费，10-设立费，11-追加设立费'
@@ -77,6 +78,9 @@ export default function Ledger() {
   });
   const [credentialsVisible, setCredentialsVisible] = useState(false);
   const [selected, setSelected] = useState<ITrustBill>();
+  const lan = useAppSelector((state) => state.app.language);
+
+  useEffect(() => clearErrors(), [lan]);
 
   useEffect(() => {
     setValue('billType', BillType.All);

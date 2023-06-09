@@ -66,7 +66,7 @@ export default function AddProtector({ trustId, onClose }: {
     /* 明确对象，帐号必填 */
     .refine((data) => {
       if (data.guardiansType === GuardiansType.Other) {
-        return !!data.account;
+        return !!data.account?.trim();
       }
       return true;
     }, {
@@ -76,7 +76,7 @@ export default function AddProtector({ trustId, onClose }: {
     /* 明确对象，名字必填 */
     .refine((data) => {
       if (data.guardiansType === GuardiansType.Other && checkUserQuery.data?.data === false) {
-        return !!data.userName;
+        return !!data.userName?.trim();
       }
       return true;
     }, {
@@ -86,7 +86,7 @@ export default function AddProtector({ trustId, onClose }: {
     /* 明确对象，姓必填 */
     .refine((data) => {
       if (data.guardiansType === GuardiansType.Other && checkUserQuery.data?.data === false) {
-        return !!data.surname;
+        return !!data.surname?.trim();
       }
       return true;
     }, {

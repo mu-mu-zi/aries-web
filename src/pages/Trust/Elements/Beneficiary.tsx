@@ -128,10 +128,16 @@ export default function Beneficiary() {
               Header: intl.formatMessage({ defaultMessage: 'Audit status' }),
               accessor: (x) => {
                 switch (x.trustUserStatus) {
-                  case 0: return intl.formatMessage({ defaultMessage: 'Pending' });
-                  case 1: return intl.formatMessage({ defaultMessage: 'Successful' });
-                  case 2: return intl.formatMessage({ defaultMessage: 'Failure' });
-                  case 3: return intl.formatMessage({ defaultMessage: 'Audit failed' });
+                  case 0:
+                  case 4:
+                    return intl.formatMessage({ defaultMessage: 'Pending' });
+                  case 1:
+                    return intl.formatMessage({ defaultMessage: 'Successful' });
+                  case 2:
+                    return intl.formatMessage({ defaultMessage: 'Failure' });
+                  case 3:
+                  case 5:
+                    return intl.formatMessage({ defaultMessage: 'Audit failed' });
                   default: return '--';
                 }
               },
@@ -145,7 +151,7 @@ export default function Beneficiary() {
               accessor: 'action',
               Cell: ({ row }) => (
                 <div className="flex gap-4 justify-end">
-                  {settlorPermission && row.original.trustUserStatus !== 0 && (
+                  {settlorPermission && ![0, 4].includes(row.original.trustUserStatus) && (
                   <>
                     {/* 权限编辑 */}
                     {![1, 3, 21].includes(row.original.userType) && settlorPermission && (

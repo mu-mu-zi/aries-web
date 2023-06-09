@@ -25,3 +25,16 @@ export const useElementsUserQuery = (data: {
     enabled: containsToken() && !!data.trustId,
   });
 };
+
+export const useTrustUserRoleQuery = (data: {
+  roleType?: number,
+  trustUserId?: number
+}) => useQuery({
+  queryKey: ['trust', 'elements', 'user', 'role', data],
+  queryFn: () => axios.request({
+    url: '/trust/trust/check/role',
+    method: 'get',
+    params: data,
+  }),
+  enabled: containsToken() && !!data.roleType && !!data.trustUserId,
+});

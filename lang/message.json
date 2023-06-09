@@ -195,6 +195,9 @@
   "61EVhL": {
     "defaultMessage": "Payee account number"
   },
+  "63Y2RE": {
+    "defaultMessage": "Change phone"
+  },
   "6XFO/C": {
     "defaultMessage": "Approved"
   },
@@ -306,6 +309,9 @@
   "DK0yD8": {
     "defaultMessage": "Opening in progress"
   },
+  "DMdWww": {
+    "defaultMessage": "Please enter your distribution plan"
+  },
   "DO24M+": {
     "defaultMessage": "Change Google Authenticator"
   },
@@ -403,6 +409,9 @@
   },
   "HV70Qz": {
     "defaultMessage": "Digital asset address"
+  },
+  "Hi93rl": {
+    "defaultMessage": "Change Email"
   },
   "I3JhPS": {
     "defaultMessage": "Network"
@@ -627,6 +636,9 @@
   "RddZqO": {
     "defaultMessage": "Trust fees"
   },
+  "RppKua": {
+    "defaultMessage": "You have set another account as approval protector, please change it and reset it!"
+  },
   "RrC8Pi": {
     "defaultMessage": "Excess transfer fee"
   },
@@ -672,9 +684,6 @@
   "TwyMau": {
     "defaultMessage": "Account"
   },
-  "U4T5Tu": {
-    "defaultMessage": "Regarding profit distribution, I want to make it clear that it will be based on the proportion of the beneficiary's ownership of the rights and interests. Distribution will be made according to a predetermined ratio and the profits will be directly paid to the beneficiary's designated bank account at the end of each quarter."
-  },
   "U6wIhw": {
     "defaultMessage": "Investment instructions"
   },
@@ -707,6 +716,9 @@
   },
   "W64qj1": {
     "defaultMessage": "Additional Establishment Fee"
+  },
+  "WCaf5C": {
+    "defaultMessage": "Approve"
   },
   "WGgtj1": {
     "defaultMessage": "2) Complete the transfer by following the receiving address on the right side."
@@ -750,9 +762,6 @@
   },
   "YkcGxo": {
     "defaultMessage": "Audit failed"
-  },
-  "YzUAVE": {
-    "defaultMessage": "Binding email verification"
   },
   "ZWNwI0": {
     "defaultMessage": "Please select a payment method"
@@ -974,9 +983,6 @@
   "kHZfOt": {
     "defaultMessage": "Receiving address"
   },
-  "kRuY5n": {
-    "defaultMessage": "Binding phone verification"
-  },
   "kWrlKk": {
     "defaultMessage": "Investment advice"
   },
@@ -1182,9 +1188,6 @@
   },
   "xppmCx": {
     "defaultMessage": "FiatOut"
-  },
-  "xrCAFS": {
-    "defaultMessage": "You currently have unapproved investment instructions, so you cannot remove this beneficiary."
   },
   "xrKHS6": {
     "defaultMessage": "Success"

@@ -15,12 +15,13 @@ import { useSendValidateCodeMutation } from '../../api/user/verify';
 import SendButton from '../../views/SendButton';
 import ContactUsFooter from '../../views/ContactUsFooter';
 import { useValidators } from '../../utils/zod';
+import { useAppSelector } from '../../state';
 
 export default function ChangeEmail() {
-  const { zodEmail } = useValidators();
+  const { zodEmail, zodRequired } = useValidators();
   const valid = z.object({
     email: zodEmail(),
-    securityCode: z.string().nonempty(),
+    securityCode: zodRequired(),
   });
   type FormValid = z.infer<typeof valid>;
   const sendValidateCodeMutation = useSendValidateCodeMutation();
@@ -40,6 +41,9 @@ export default function ChangeEmail() {
   const navigate = useNavigate();
   // const { t } = useTranslation();
   const intl = useIntl();
+  const lan = useAppSelector((state) => state.app.language);
+
+  useEffect(() => clearErrors(), [lan]);
 
   const sendValidCode = async () => {
     /* 验证账号 */
@@ -80,7 +84,7 @@ export default function ChangeEmail() {
           <div
             className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px] my-16"
           >
-            <FormattedMessage defaultMessage="Binding email verification" />
+            <FormattedMessage defaultMessage="Change Email" />
           </div>
           <div className="flex flex-col gap-4">
             <div className="text-[#C2D7C7F6] text-[16px] font-bold">{intl.formatMessage({ defaultMessage: 'New Email' })}</div>

@@ -132,10 +132,16 @@ export default function Protector() {
               Header: intl.formatMessage({ defaultMessage: 'Audit status' }),
               accessor: (x) => {
                 switch (x.trustUserStatus) {
-                  case 0: return intl.formatMessage({ defaultMessage: 'Pending' });
-                  case 1: return intl.formatMessage({ defaultMessage: 'Successful' });
-                  case 2: return intl.formatMessage({ defaultMessage: 'Failure' });
-                  case 3: return intl.formatMessage({ defaultMessage: 'Audit failed' });
+                  case 0:
+                  case 4:
+                    return intl.formatMessage({ defaultMessage: 'Pending' });
+                  case 1:
+                    return intl.formatMessage({ defaultMessage: 'Successful' });
+                  case 2:
+                    return intl.formatMessage({ defaultMessage: 'Failure' });
+                  case 3:
+                  case 5:
+                    return intl.formatMessage({ defaultMessage: 'Audit failed' });
                   default: return '--';
                 }
               },
@@ -149,7 +155,7 @@ export default function Protector() {
               accessor: 'action',
               Cell: ({ row }) => (
                 <div className="flex gap-4 justify-end">
-                  {settlorPermission && row.original.trustUserStatus !== 0 && (
+                  {settlorPermission && ![0, 4].includes(row.original.trustUserStatus) && (
                     <>
                       {/* 权限编辑 */}
                       {row.original.guardiansType !== 2 && settlorPermission && (
@@ -166,14 +172,15 @@ export default function Protector() {
                         </TextButton>
                       )}
                       {/* 移除保护人委托人 */}
-                      <TextButton onClick={async () => {
-                        if (row.original.auditFlag) {
-                          setRemoveWarningVisible(true);
-                        } else {
-                          setSelected(row.original);
-                          setGoogleVerifyVisible(true);
-                        }
-                      }}
+                      <TextButton
+                        onClick={async () => {
+                          if (row.original.auditFlag) {
+                            setRemoveWarningVisible(true);
+                          } else {
+                            setSelected(row.original);
+                            setGoogleVerifyVisible(true);
+                          }
+                        }}
                       >
                         <FormattedMessage defaultMessage="Remove" />
                       </TextButton>

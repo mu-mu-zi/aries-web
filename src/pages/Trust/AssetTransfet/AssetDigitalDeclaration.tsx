@@ -14,10 +14,12 @@ import { IMainNet } from '../../../interfaces/base';
 import { addSuccessNotification } from '../../../utils/Notification';
 import useTrustPermission from '../../../hooks/useTrustRole';
 import { useValidators } from '../../../utils/zod';
+import { useAppSelector } from '../../../state';
 
 export default function AssetDigitalDeclaration() {
   // const { t } = useTranslation();
   const intl = useIntl();
+  const lan = useAppSelector((state) => state.app.language);
   const { trustId } = useParams();
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
   const { settlorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
@@ -46,11 +48,15 @@ export default function AssetDigitalDeclaration() {
     reset,
     setValue,
     formState: { errors },
+    clearErrors,
   } = useForm<FormValid>({
     resolver: zodResolver(valid),
   });
 
+  useEffect(() => clearErrors(), [lan]);
+
   useEffect(() => setMainNet(mainNetListQuery.data?.data?.[0]), [mainNetListQuery.data?.data]);
+
   useEffect(() => {
     const one = mainNetCoinListQuery.data?.data?.[0];
     if (one) {

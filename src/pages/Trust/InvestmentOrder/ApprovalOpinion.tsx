@@ -11,13 +11,15 @@ import Button from '../../../components/Button';
 import Divide from '../../../components/Divide';
 import ContactUs from '../../SignIn/ContactUs';
 import { IInvestmentApproveRecode, IInvestmentOrderRecode } from '../../../interfaces/trust';
+import { useValidators } from '../../../utils/zod';
 
 export default function ApprovalOpinion({ onClose, record }: {
   onClose?(): void,
   record: IInvestmentApproveRecode
 }) {
+  const { zodRequired } = useValidators();
   const valid = z.object({
-    note: z.string().nonempty(),
+    note: zodRequired(),
   });
   type FormValid = z.infer<typeof valid>;
   const {

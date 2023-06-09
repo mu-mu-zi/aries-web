@@ -63,8 +63,8 @@ export default function ContactCustomer() {
   }, [isPhone]);
 
   useEffect(() => {
-    if (userQuery.data?.data) {
-      setValue('contactName', userQuery.data.data.surname);
+    if (userQuery.data?.data?.surname && userQuery.data?.data?.userName) {
+      setValue('contactName', `${userQuery.data.data.surname} ${userQuery.data.data.userName}`);
     }
   }, [userQuery.data?.data]);
 

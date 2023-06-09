@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { Popover, Transition } from '@headlessui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { FormattedMessage } from 'react-intl';
+import axios from 'axios';
 import Button from '../../components/Button';
 import navLogoIcon from '../../assets/icon/nav_logo.svg';
 import LanguageIcon from '../Icons/LanguageIcon';
@@ -25,7 +26,7 @@ export default function Navbar() {
 
   return (
     <div className={classNames('flex flex-row items-center', 'h-[76px]', 'bg-transparent', 'px-12')}>
-      <a className="cursor-pointer" href="https://aries-trust.com">
+      <a className="cursor-pointer" href={import.meta.env.VITE_HOME}>
         <img src={navLogoIcon} height="52px" alt="Trust" />
       </a>
       {!window.location.pathname.startsWith('/first') && token && (
@@ -87,11 +88,11 @@ export default function Navbar() {
                         onClick={async (e) => {
                           e.preventDefault();
                           try {
-                            // await axios.delete('/auth/ariesToken/logout');
+                            await axios.delete('/auth/ariesToken/logout');
                             navigate('/welcome');
+                            action(deleteToken());
                             queryClient.removeQueries();
                             close();
-                            action(deleteToken());
                           } catch (e) {
                             console.log(e);
                           }

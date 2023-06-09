@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -15,6 +15,7 @@ import { unixFormatTime } from '../../../utils/DateFormat';
 import GoogleVerify from '../../../views/GoogleVerify';
 import Modal from '../../../components/Modal';
 import { useValidators } from '../../../utils/zod';
+import { useAppSelector } from '../../../state';
 
 export default function ModifyPlan({ trustId, row, onClose }: {
   trustId: number,
@@ -45,6 +46,9 @@ export default function ModifyPlan({ trustId, row, onClose }: {
   const intl = useIntl();
   const [googleVerifyVisible, setGoogleVerifyVisible] = useState(false);
   const [formData, setFormData] = useState<FormValid>();
+  const lan = useAppSelector((state) => state.app.language);
+
+  useEffect(() => clearErrors(), [lan]);
 
   const updateMutation = useMutation({
     mutationFn: (data: FormValid & { ticker: string }) => axios.post('/trust/trust/distribution/plan/update', {
@@ -95,7 +99,7 @@ export default function ModifyPlan({ trustId, row, onClose }: {
               <textarea
                 {...register('planDescription')}
                 className="bg-[#3B5649] rounded-xl p-4 outline-none h-[158px] placeholder:text-[#99AC9B] resize-none"
-                placeholder={intl.formatMessage({ defaultMessage: 'Regarding profit distribution, I want to make it clear that it will be based on the proportion of the beneficiary\'s ownership of the rights and interests. Distribution will be made according to a predetermined ratio and the profits will be directly paid to the beneficiary\'s designated bank account at the end of each quarter.' })}
+                placeholder={intl.formatMessage({ defaultMessage: 'Please enter your distribution plan' })}
               />
               {errors.planDescription?.message
                 && <div className="pl-1 text-[#ECA741] text-[14px]">{errors.planDescription.message}</div>}

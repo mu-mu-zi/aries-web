@@ -17,15 +17,18 @@ import { useSendValidateCodeMutation } from '../../api/user/verify';
 import SendButton from '../../views/SendButton';
 import ContactUsFooter from '../../views/ContactUsFooter';
 import AreaSelect from '../../components/AreaSelect';
+import { useValidators } from '../../utils/zod';
+import { useAppSelector } from '../../state';
 
 export default function ChangeMobile() {
   // const { t } = useTranslation();
   // const areaCodeListQuery = useAreaCodeListQuery();
   const intl = useIntl();
+  const { zodRequired } = useValidators();
   const valid = z.object({
     areaCodeId: z.number(),
-    mobile: z.string().nonempty(),
-    securityCode: z.string().nonempty(),
+    mobile: zodRequired(),
+    securityCode: zodRequired(),
   });
   type FormValid = z.infer<typeof valid>;
   const sendValidateCodeMutation = useSendValidateCodeMutation();
@@ -43,6 +46,9 @@ export default function ChangeMobile() {
   });
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const lan = useAppSelector((state) => state.app.language);
+
+  useEffect(() => clearErrors(), [lan]);
 
   const sendValidCode = async () => {
     /* 验证账号 */
@@ -96,7 +102,7 @@ export default function ChangeMobile() {
           <div
             className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px] my-16"
           >
-            <FormattedMessage defaultMessage="Binding phone verification" />
+            <FormattedMessage defaultMessage="Change phone" />
           </div>
           <div className="flex flex-col gap-4">
             <div className="text-[#C2D7C7F6] text-[16px] font-bold">

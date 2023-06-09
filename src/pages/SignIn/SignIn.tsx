@@ -26,6 +26,7 @@ import ContactUsFooter from '../../views/ContactUsFooter';
 import AreaSelect from '../../components/AreaSelect';
 import QrCode from '../../components/QrCode';
 import { useValidators, zodEmail } from '../../utils/zod';
+import { useAppSelector } from '../../state';
 
 export default function SignIn() {
   // const { t } = useTranslation();
@@ -54,6 +55,9 @@ export default function SignIn() {
   } = useForm<FormValid>({
     resolver: zodResolver(valid),
   });
+  const lan = useAppSelector((state) => state.app.language);
+
+  useEffect(() => clearErrors(), [lan]);
 
   useEffect(() => {
     setValue('account', '');

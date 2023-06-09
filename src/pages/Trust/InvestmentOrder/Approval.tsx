@@ -158,7 +158,7 @@ export default function Approval({ trustInvestmentId }: {
                     <TextButton
                       onClick={() => audit(row.original.id, true)}
                     >
-                      <FormattedMessage defaultMessage="Approved" />
+                      <FormattedMessage defaultMessage="Approve" />
                     </TextButton>
                     <TextButton
                       onClick={() => audit(row.original.id, false)}

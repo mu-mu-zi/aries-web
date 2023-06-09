@@ -14,14 +14,16 @@ import TextInput from '../../components/TextInput';
 import SendButton from '../../views/SendButton';
 import Button from '../../components/Button';
 import ContactUsFooter from '../../views/ContactUsFooter';
+import { useValidators } from '../../utils/zod';
 
 export default function UnbindEmailMobile() {
   // const { t } = useTranslation();
   const intl = useIntl();
+  const { zodRequired } = useValidators();
   const valid = z.object({
     emailCode: z.string().optional(),
     mobileCode: z.string().optional(),
-    googleCode: z.string().nonempty(),
+    googleCode: zodRequired(),
   });
   type FormValid = z.infer<typeof valid>;
   const {

@@ -26,7 +26,7 @@ export default function ViewCredentials({ onClose, recordId, images }: {
         </div>
       </div>
       {/* Content */}
-      <div className="mt-8 overflow-auto scrollbar-none flex-auto flex flex-col gap-4">
+      <div className="mt-8 mx-[-32px] px-8 py-1 overflow-y-auto flex-auto flex flex-col gap-4">
         <div className="text-[#C2D7C7F6] font-bold text-[16px]">
           <FormattedMessage defaultMessage="Bank transfer information" />
         </div>

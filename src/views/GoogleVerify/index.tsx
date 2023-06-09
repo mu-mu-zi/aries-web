@@ -11,13 +11,15 @@ import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
 import TextField from '../../components/TextField';
 import ContactUsFooter from '../ContactUsFooter';
+import { useValidators } from '../../utils/zod';
 
 export default function GoogleVerify({ onClose, onEnter }: {
   onClose?(): void;
   onEnter?(ticket: string): void
 }) {
+  const { zodRequired } = useValidators();
   const valid = z.object({
-    code: z.string().nonempty().min(6),
+    code: zodRequired(),
   });
   type FormValid = z.infer<typeof valid>;
   const {

@@ -17,7 +17,7 @@ export default function Modal({
       appear
       as={React.Fragment}
     >
-      <div className="fixed inset-0 z-[600]">
+      <div className="fixed h-screen inset-0 z-[600]">
         {/* @ts-ignore */}
         <Transition.Child
           as={React.Fragment}
@@ -28,7 +28,7 @@ export default function Modal({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-[#0A0E0D] bg-opacity-70" />
+          <div className="fixed h-screen inset-0 bg-[#0A0E0D] bg-opacity-70" />
         </Transition.Child>
 
         {/* 内容 */}
@@ -42,7 +42,7 @@ export default function Modal({
           leaveTo="opacity-0 scale-95"
         >
           <div
-            className="fixed inset-0 grid place-items-center py-16 overflow-y-auto"
+            className="fixed inset-0 h-screen grid place-items-center py-8 overflow-y-auto"
           >
             {children}
           </div>

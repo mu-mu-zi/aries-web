@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
@@ -18,8 +18,9 @@ import SendButton from '../../views/SendButton';
 import { useUserInfoQuery } from '../../api/user/user';
 import ContactUsFooter from '../../views/ContactUsFooter';
 import { Trust } from '../../interfaces/trust';
-import { useAppDispatch } from '../../state';
+import { useAppDispatch, useAppSelector } from '../../state';
 import { setToken } from '../../state/user';
+import { useValidators } from '../../utils/zod';
 
 export default function GABindVerify() {
   const navigate = useNavigate();
@@ -29,9 +30,10 @@ export default function GABindVerify() {
   const intl = useIntl();
   const sendValidateCodeMutation = useSendValidateCodeMutation();
   const userQuery = useUserInfoQuery();
+  const { zodRequired } = useValidators();
   const valid = z.object({
-    securityCode: z.string().nonempty(),
-    googleCaptcha: z.string().nonempty(),
+    securityCode: zodRequired(),
+    googleCaptcha: zodRequired(),
   });
   // const areaCodeListQuery = useAreaCodeListQuery();
   type FormValid = z.infer<typeof valid>;
@@ -48,6 +50,9 @@ export default function GABindVerify() {
   });
   const queryClient = useQueryClient();
   const isPhone = useMemo(() => !!location.state?.areaCodeId, [location.state?.areaCodeId]);
+  const lan = useAppSelector((state) => state.app.language);
+
+  useEffect(() => clearErrors(), [lan]);
 
   const sendValidCode = async () => {
     try {
@@ -96,7 +101,7 @@ export default function GABindVerify() {
       /* 存储 token，刷新接口 */
       // localStorage.setItem('TOKEN', token);
       action(setToken(token));
-      await queryClient.invalidateQueries();
+      await queryClient.removeQueries();
       /* 这里需要检查是否设置你用户名，如果没有设置需要跳转到指定页面 */
 
       /*

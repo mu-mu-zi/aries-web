@@ -15,6 +15,8 @@ import Button from '../../../components/Button';
 import ContactUsFooter from '../../../views/ContactUsFooter';
 import GoogleVerify from '../../../views/GoogleVerify';
 import Modal from '../../../components/Modal';
+import { useTrustUserRoleQuery } from '../../../api/trust/elements';
+import Confirm from '../../../views/Confirm';
 
 export default function EditRole({
   defaultVal,
@@ -54,6 +56,12 @@ export default function EditRole({
   const queryClient = useQueryClient();
   const [googleVerifyVisible, setGoogleVerifyVisible] = useState(false);
   const [formData, setFormData] = useState<FormValid>();
+  const proRoleType = watch('protectorRoleType');
+  const roleTypeQuery = useTrustUserRoleQuery({
+    trustUserId,
+    roleType: proRoleType,
+  });
+  const [editWarningVisible, setEditWarningVisible] = useState(false);
 
   const submitMutation = useMutation({
     mutationFn: (data: FormValid & { ticker: string }) => axios.request({
@@ -72,8 +80,13 @@ export default function EditRole({
   });
 
   const submit = async (data: FormValid) => {
-    setFormData(data);
-    setGoogleVerifyVisible(true);
+    if (roleTypeQuery.isSuccess && roleTypeQuery?.data?.data) {
+      setEditWarningVisible(true);
+    } else {
+      setFormData(data);
+      setGoogleVerifyVisible(true);
+    }
+
     // axios.request({
     //   url: '/trust/trust/user/roleUpdate',
     //   method: 'post',
@@ -140,7 +153,12 @@ export default function EditRole({
             </div>
           )}
           <div className="mt-4 self-center max-w-[420px] w-full">
-            <Button block><FormattedMessage defaultMessage="Submit" /></Button>
+            <Button
+              block
+              disabled={roleTypeQuery.isLoading}
+            >
+              <FormattedMessage defaultMessage="Submit" />
+            </Button>
           </div>
           <div className="flex flex-col gap-5 mt-6">
             <ContactUsFooter />
@@ -160,6 +178,12 @@ export default function EditRole({
             }}
           />
         )}
+      </Modal>
+      <Modal visible={editWarningVisible}>
+        <Confirm
+          title={intl.formatMessage({ defaultMessage: 'You have set another account as approval protector, please change it and reset it!' })}
+          onOk={() => setEditWarningVisible(false)}
+        />
       </Modal>
     </ModalContainer>
   );

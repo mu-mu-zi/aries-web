@@ -91,7 +91,7 @@ export default function NewPlan({ trustId, onClose, onEnter }: {
                 maxLength={1000}
                 {...register('planDescription')}
                 className="bg-[#3B5649] rounded-xl p-4 text-[20px] outline-none h-[158px] placeholder:text-[#99AC9B] resize-none"
-                placeholder={intl.formatMessage({ defaultMessage: 'Regarding profit distribution, I want to make it clear that it will be based on the proportion of the beneficiary\'s ownership of the rights and interests. Distribution will be made according to a predetermined ratio and the profits will be directly paid to the beneficiary\'s designated bank account at the end of each quarter.' })}
+                placeholder={intl.formatMessage({ defaultMessage: 'Please enter your distribution plan' })}
               />
               {errors.planDescription?.message
                 && <div className="pl-1 text-[#ECA741] text-[14px]">{errors.planDescription.message}</div>}

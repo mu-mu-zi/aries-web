@@ -63,7 +63,7 @@ export default function AddBeneficiary({ trustId, onClose }: {
   })
     /* 明确对象，帐号必填 */
     .refine((data) => {
-      if (data.userType === UserType.Define) { return !!data.account; }
+      if (data.userType === UserType.Define) { return !!data.account?.trim(); }
       return true;
     }, {
       message: requiredMessage,
@@ -71,7 +71,7 @@ export default function AddBeneficiary({ trustId, onClose }: {
     })
     /* 明确对象，名字必填 */
     .refine((data) => {
-      if (data.userType === UserType.Define && checkUserQuery.data?.data === false) { return !!data.userName; }
+      if (data.userType === UserType.Define && checkUserQuery.data?.data === false) { return !!data.userName?.trim(); }
       return true;
     }, {
       message: requiredMessage,
@@ -79,7 +79,7 @@ export default function AddBeneficiary({ trustId, onClose }: {
     })
     /* 明确对象，姓必填 */
     .refine((data) => {
-      if (data.userType === UserType.Define && checkUserQuery.data?.data === false) { return !!data.surname; }
+      if (data.userType === UserType.Define && checkUserQuery.data?.data === false) { return !!data.surname?.trim(); }
       return true;
     }, {
       message: requiredMessage,
@@ -87,7 +87,7 @@ export default function AddBeneficiary({ trustId, onClose }: {
     })
     /* 非明确对象，备注必填 */
     .refine((data) => {
-      if (data.userType === UserType.NonSpecific) { return !!data.remark; }
+      if (data.userType === UserType.NonSpecific) { return !!data.remark?.trim(); }
       return true;
     }, {
       message: requiredMessage,
@@ -311,7 +311,7 @@ export default function AddBeneficiary({ trustId, onClose }: {
               <FormattedMessage defaultMessage="Submit" />
             </Button>
           </div>
-          <DevTool control={control} />
+          {/* <DevTool control={control} /> */}
           <div className="flex flex-col gap-5 mt-6">
             {/* <Divide /> */}
             {/* <ContactUs /> */}

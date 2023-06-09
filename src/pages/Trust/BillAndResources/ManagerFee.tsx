@@ -77,7 +77,7 @@ export default function ManagerFee() {
               },
               {
                 Header: intl.formatMessage({ defaultMessage: 'Trust total amount' }),
-                accessor: 'totalTrustAmount',
+                accessor: (x) => `${x.totalTrustAmount} ${x.coinName}`,
               },
               {
                 Header: () => (<div className="text-right"><FormattedMessage defaultMessage="Management fee" /></div>),

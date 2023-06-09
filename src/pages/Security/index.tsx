@@ -75,11 +75,11 @@ export default function Security() {
       <Container>
         <div className="flex flex-col gap-6 max-w-[1200px] w-full">
           {/* header */}
-          <div className="gradient-bg2 flex flex-col gap-4 rounded-xl p-8 pb-4">
+          <div className="gradient-bg2 flex flex-col gap-4 rounded-xl p-8 pb-4 shadow-block">
             <div className="flex flex-col items-center gap-8">
               <LargeAvatar isMale={!user.data?.data?.gender} />
               <div className="flex flex-row items-center gap-4">
-                <div className="gradient-text1 font-bold font-title text-[40px]">
+                <div className="gradient-text1 font-bold font-title text-[40px] text-shadow-block">
                   {CallFormat(user.data?.data?.surname, user.data?.data?.gender, true)}
                 </div>
                 <div
@@ -106,11 +106,11 @@ export default function Security() {
             </NavLink>
           </div>
           {/* V */}
-          <div className="flex flex-col rounded-xl gradient-bg2">
+          <div className="flex flex-col rounded-xl gradient-bg2 shadow-block">
             {/* star */}
             <div className="flex flex-row justify-between items-center gradient-border1 p-8 rounded-t-xl">
               <div className="flex flex-col gap-2">
-                <div className="font-title font-bold text-[20px]">
+                <div className="font-title font-bold text-[20px] text-[#3D3228]">
                   <FormattedMessage defaultMessage="Dual Verification(2FA)" />
                 </div>
                 <div className="text-[16px] text-[#695D52]">

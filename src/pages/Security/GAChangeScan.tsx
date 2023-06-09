@@ -9,6 +9,7 @@ import CenterContainer from '../../views/CenterContainer';
 import { useGoogleSecretQuery } from '../../api/user/verify';
 import { useGoogleSecretKeyQuery } from '../../api/user/user';
 import CopyIcon from '../../views/CopyIcon';
+import QrCode from '../../components/QrCode';
 
 export default function GAChangeScan() {
   // const { t } = useTranslation();
@@ -20,7 +21,7 @@ export default function GAChangeScan() {
   return (
     <CenterContainer>
       <GANavbar
-        title={intl.formatMessage({ defaultMessage: 'Bind Google Authenticator' })}
+        title={intl.formatMessage({ defaultMessage: 'Change Google Authenticator' })}
       />
       <div className="item-center flex flex-col self-center w-[680px] pt-[64px]">
         <div
@@ -34,7 +35,7 @@ export default function GAChangeScan() {
               <div className="mt-12 rounded-xl bg-[#3B5649] p-3 shadow-block self-center">
                 <div className="p-3 rounded-xl bg-[#D2D8D6]">
                   {googleAuth.data?.data?.qrCode
-                    && <QRCode value={googleAuth.data?.data.qrCode} size={136} bgColor="#D2D8D6" />}
+                    && <QrCode text={googleAuth.data?.data.qrCode} size={136} />}
                 </div>
               </div>
               <div className="flex flex-col gap-4">

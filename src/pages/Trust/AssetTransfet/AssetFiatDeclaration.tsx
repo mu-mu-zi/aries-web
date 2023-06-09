@@ -13,6 +13,7 @@ import Dropdown from '../../../components/Dropdown';
 import { addSuccessNotification } from '../../../utils/Notification';
 import useTrustPermission from '../../../hooks/useTrustRole';
 import { useValidators } from '../../../utils/zod';
+import { useAppSelector } from '../../../state';
 
 export default function AssetFiatDeclaration() {
   // const { t } = useTranslation();
@@ -40,11 +41,15 @@ export default function AssetFiatDeclaration() {
     resetField,
     reset,
     setValue,
+    clearErrors,
     formState: { errors },
   } = useForm<FormValid>({
     resolver: zodResolver(valid),
   });
   const queryClient = useQueryClient();
+  const lan = useAppSelector((state) => state.app.language);
+
+  useEffect(() => clearErrors(), [lan]);
 
   useEffect(() => {
     const one = fiatListQuery.data?.data?.[0];
