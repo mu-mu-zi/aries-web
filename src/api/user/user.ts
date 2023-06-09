@@ -8,15 +8,11 @@ import useAuthToken, { containsToken } from '../../hooks/useUserId';
 /*
 * 获取用户信息，会检查是否存在本地 token
 * */
-export const useUserInfoQuery = () => {
-  const token = localStorage.getItem('TOKEN');
-
-  return useQuery<IResponseData<IUser>>({
-    queryKey: ['user', 'info', token],
-    queryFn: () => axios.get('/user/user/getUserInfo'),
-    enabled: containsToken(),
-  });
-};
+export const useUserInfoQuery = () => useQuery<IResponseData<IUser>>({
+  queryKey: ['user', 'info'],
+  queryFn: () => axios.get('/user/user/getUserInfo'),
+  enabled: containsToken(),
+});
 
 /*
 * 用户登录日志
@@ -49,3 +45,20 @@ export const useGoogleSecretKeyQuery = () => {
     refetchOnWindowFocus: false,
   });
 };
+
+/*
+* 检查用户是否已经注册
+* */
+export const useCheckUserContainQuery = (data: {
+  userEmail?: string,
+  userMobile?: string,
+  areaCodeId?: number
+}) => useQuery<IResponseData<boolean>>({
+  queryKey: ['user', 'check', 'reg', data],
+  queryFn: () => axios.request({
+    url: '/trust/trust/check/reg',
+    method: 'get',
+    params: data,
+  }),
+  enabled: containsToken() && (!!data.userEmail || !!data.userMobile),
+});

@@ -13,6 +13,7 @@ import { unixFormatTime } from '../../../utils/DateFormat';
 import TextButton from '../../../components/TextButton';
 import { numberFormatWithPrefix } from '../../../utils/CurrencyFormat';
 import TrustContainer from '../TrustContainer';
+import NoCredentials from '../../../views/NoCredentials';
 
 export default function BillRecords({ trustInvestmentId }: {
   trustInvestmentId: number
@@ -92,18 +93,18 @@ export default function BillRecords({ trustInvestmentId }: {
               // eslint-disable-next-line react/prop-types
               Cell: ({ row }) => (
                 <div className="flex justify-end">
-                  {row.original.billCertificate && (
-                  <TextButton
-                    className="gradient-text2 text-right cursor-pointer"
-                    onClick={() => {
+                  {row.original.billCertificate ? (
+                    <TextButton
+                      className="gradient-text2 text-right cursor-pointer"
+                      onClick={() => {
                       // eslint-disable-next-line react/prop-types
-                      setSelected(row.original);
-                      setTransactionVoucherVisible(true);
-                    }}
-                  >
-                    <FormattedMessage defaultMessage="View credentials" />
-                  </TextButton>
-                  )}
+                        setSelected(row.original);
+                        setTransactionVoucherVisible(true);
+                      }}
+                    >
+                      <FormattedMessage defaultMessage="View credentials" />
+                    </TextButton>
+                  ) : <NoCredentials />}
                 </div>
               ),
             },

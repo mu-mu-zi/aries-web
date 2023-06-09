@@ -22,6 +22,7 @@ import { useTrustContactEmailQuery } from '../../api/base/email';
 import FooterNote from '../FooterNote';
 import AreaSelect from '../../components/AreaSelect';
 import { useValidators } from '../../utils/zod';
+import { useUserInfoQuery } from '../../api/user/user';
 
 export default function ContactCustomer() {
   // const { t } = useTranslation();
@@ -54,14 +55,18 @@ export default function ContactCustomer() {
   const emailQuery = useTrustContactEmailQuery(
     { trustId },
   );
+  const userQuery = useUserInfoQuery();
 
-  // useEffect(() => {
-  //   setValue('areaCodeId', areaCodeListQuery.data?.data?.[0].id);
-  // }, [areaCodeListQuery.data?.data]);
   useEffect(() => {
     setValue('account', '');
     clearErrors('account');
   }, [isPhone]);
+
+  useEffect(() => {
+    if (userQuery.data?.data) {
+      setValue('contactName', userQuery.data.data.surname);
+    }
+  }, [userQuery.data?.data]);
 
   const submit = async (data: FormValid) => {
     try {

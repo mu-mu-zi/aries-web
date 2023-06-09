@@ -6,6 +6,7 @@ import CancelNav from '../../views/CancelNav';
 import Hr from '../../components/Hr';
 import { useLoginLogQuery } from '../../api/user/user';
 import SimpleTable from '../../views/SimpleTable';
+import { unixFormatTime } from '../../utils/DateFormat';
 
 export default function LoginLog() {
   // const { t } = useTranslation();
@@ -29,7 +30,7 @@ export default function LoginLog() {
             columns={[
               {
                 Header: intl.formatMessage({ defaultMessage: 'Login Time' }),
-                accessor: (x) => moment.unix(x.createTimeStamp / 1000).format('MM/DD/YYYY HH:mm:ss'),
+                accessor: (x) => unixFormatTime(x.createTimeStamp),
               },
               {
                 Header: intl.formatMessage({ defaultMessage: 'Login device' }),
@@ -37,7 +38,7 @@ export default function LoginLog() {
               },
               {
                 Header: intl.formatMessage({ defaultMessage: 'Login status' }),
-                accessor: (x) => (x.status ? 'Login successfully' : 'Login failure'),
+                accessor: (x) => x.remark ?? '--',
               },
               {
                 Header: intl.formatMessage({ defaultMessage: 'Login address' }),

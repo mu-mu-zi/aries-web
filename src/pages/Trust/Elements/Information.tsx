@@ -44,7 +44,10 @@ export default function Information() {
         {
           detailQuery.data?.data && (
             <div className="flex flex-row items-start justify-between">
-              <InformationCell title="Trust name" value={detailQuery.data?.data?.trustName} />
+              <InformationCell
+                title={intl.formatMessage({ defaultMessage: 'Trust name' })}
+                value={detailQuery.data?.data?.trustName}
+              />
               <InformationCell
                 title={intl.formatMessage({ defaultMessage: 'Establishment time' })}
                 value={unixFormatTime(detailQuery.data.data.createTime)}

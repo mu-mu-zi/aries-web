@@ -9,6 +9,7 @@ import TextButton from '../../../components/TextButton';
 import { IDistributionBill } from '../../../interfaces/trust';
 import Modal from '../../../components/Modal';
 import RecodeViewCredentials from '../AssetTransfet/RecodeViewCredentials';
+import NoCredentials from '../../../views/NoCredentials';
 
 export default function AllocationRecord() {
   const { trustId } = useParams();
@@ -67,15 +68,16 @@ export default function AllocationRecord() {
               // eslint-disable-next-line react/prop-types
               Cell: ({ row }) => (
                 <div className="flex justify-end">
-                  <TextButton
-                    // disabled={!row.original.billCertificate}
-                    onClick={() => {
-                      setSelected(row.original);
-                      setCertificateVisible(true);
-                    }}
-                  >
-                    <FormattedMessage defaultMessage="View credentials" />
-                  </TextButton>
+                  {row.original.billCertificate ? (
+                    <TextButton
+                      onClick={() => {
+                        setSelected(row.original);
+                        setCertificateVisible(true);
+                      }}
+                    >
+                      <FormattedMessage defaultMessage="View credentials" />
+                    </TextButton>
+                  ) : <NoCredentials />}
                 </div>
               ),
             },

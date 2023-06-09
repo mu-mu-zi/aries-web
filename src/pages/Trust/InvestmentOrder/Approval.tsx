@@ -90,7 +90,7 @@ export default function Approval({ trustInvestmentId }: {
               accessor: 'destination',
               Cell: ({ row }) => {
                 switch (row.original.direction) {
-                  case 1: return <div className="text-left">{intl.formatMessage({ defaultMessage: 'Exchange' })}</div>;
+                  case 1: return <div className="text-left">{intl.formatMessage({ defaultMessage: 'Exchange', description: '投资指令，去向' })}</div>;
                   case 2: return <div className="text-left">{intl.formatMessage({ defaultMessage: 'Bank' })}</div>;
                   default: return <div className="text-left">--</div>;
                 }

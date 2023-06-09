@@ -15,6 +15,7 @@ import RecodeViewCredentials from '../AssetTransfet/RecodeViewCredentials';
 import Modal from '../../../components/Modal';
 import { ITrustBill } from '../../../interfaces/asset';
 import { numberFormatWithPrefix } from '../../../utils/CurrencyFormat';
+import NoCredentials from '../../../views/NoCredentials';
 
 /*
 * 1-法币转出，2-法币转入，3-数字资产转出，4-数字资产转入，5-兑换交易，6-自定义，7-分配收益，8-管理费，9-超额转账费，10-设立费，11-追加设立费'
@@ -116,15 +117,24 @@ export default function Ledger() {
                   { type: BillType.All, title: intl.formatMessage({ defaultMessage: 'All' }) },
                   { type: BillType.FiatOut, title: intl.formatMessage({ defaultMessage: 'FiatOut' }) },
                   { type: BillType.FiatIn, title: intl.formatMessage({ defaultMessage: 'FiatIn' }) },
-                  { type: BillType.DigitalAssetOut, title: intl.formatMessage({ defaultMessage: 'DigitalAssetOut' }) },
-                  { type: BillType.DigitalAssetIn, title: intl.formatMessage({ defaultMessage: 'DigitalAssetIn' }) },
+                  { type: BillType.DigitalAssetOut, title: intl.formatMessage({ defaultMessage: 'Digital Asset Out' }) },
+                  { type: BillType.DigitalAssetIn, title: intl.formatMessage({ defaultMessage: 'Digital Asset In' }) },
                   { type: BillType.Exchange, title: intl.formatMessage({ defaultMessage: 'Exchange' }) },
                   { type: BillType.Custom, title: intl.formatMessage({ defaultMessage: 'Custom' }) },
-                  { type: BillType.DistributeProfit, title: intl.formatMessage({ defaultMessage: 'DistributeProfit' }) },
-                  { type: BillType.ManagementFee, title: intl.formatMessage({ defaultMessage: 'ManagementFee' }) },
-                  { type: BillType.ExceedTransfer, title: intl.formatMessage({ defaultMessage: 'ExceedTransfer' }) },
-                  { type: BillType.EstablishmentFee, title: intl.formatMessage({ defaultMessage: 'EstablishmentFee' }) },
-                  { type: BillType.AdditionalEstablishmentFee, title: intl.formatMessage({ defaultMessage: 'AdditionalEstablishmentFee' }) },
+                  {
+                    type: BillType.DistributeProfit,
+                    title: intl.formatMessage({ defaultMessage: 'Distribute Profit' }),
+                  },
+                  { type: BillType.ManagementFee, title: intl.formatMessage({ defaultMessage: 'Management Fee' }) },
+                  { type: BillType.ExceedTransfer, title: intl.formatMessage({ defaultMessage: 'Exceed Transfer' }) },
+                  {
+                    type: BillType.EstablishmentFee,
+                    title: intl.formatMessage({ defaultMessage: 'Establishment Fee' }),
+                  },
+                  {
+                    type: BillType.AdditionalEstablishmentFee,
+                    title: intl.formatMessage({ defaultMessage: 'Additional Establishment Fee' }),
+                  },
                 ];
                 return (
                   <Dropdown
@@ -209,16 +219,22 @@ export default function Ledger() {
           {
             Header: intl.formatMessage({ defaultMessage: 'Amount' }),
             // accessor: 'amount',
-            // eslint-disable-next-line react/prop-types
-            Cell: ({ row }) => <div className="gradient-text1 text-[16px]">{numberFormatWithPrefix(row.original?.amount)}</div>,
+            Cell: ({ row }) => (
+              <div
+                className="gradient-text1 text-[16px]"
+              >
+                {numberFormatWithPrefix(row.original?.amount)}
+              </div>
+            ),
           },
           {
             accessor: 'Reconciliation',
             Header: () => (<div className="text-right"><FormattedMessage defaultMessage="Reconciliation" /></div>),
             Cell: ({ row }) => (
               <div className="flex justify-end">
-                {row.original.billCertificate && (
+                {row.original.billCertificate ? (
                   <TextButton
+                    disabled={!row.original.billCertificate}
                     onClick={() => {
                       setSelected(row.original);
                       setCredentialsVisible(true);
@@ -226,7 +242,7 @@ export default function Ledger() {
                   >
                     <FormattedMessage defaultMessage="View credentials" />
                   </TextButton>
-                )}
+                ) : <NoCredentials />}
               </div>
             ),
           },

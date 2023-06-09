@@ -95,9 +95,13 @@ export default function UnbindEmailMobile() {
                   placeholder={intl.formatMessage({ defaultMessage: 'Please enter the verification code' })}
                   suffix={<SendButton onClick={emailSend} />}
                 />
-                {/* todo: 邮箱需要修改 */}
                 <div className="text-[#708077] text-[14px]">
-                  <FormattedMessage defaultMessage="Please enter the verification code received in your Aries trust company@Gmail.com email." />
+                  <FormattedMessage
+                    defaultMessage="Please enter the verification code received in your Aries trust {email} email."
+                    values={{
+                      email: userQuery.data?.data?.userEmail,
+                    }}
+                  />
                 </div>
               </>
             )}
@@ -109,6 +113,14 @@ export default function UnbindEmailMobile() {
                   placeholder={intl.formatMessage({ defaultMessage: 'Please enter the verification code' })}
                   suffix={<SendButton onClick={mobileSend} />}
                 />
+                <div className="text-[#708077] text-[14px]">
+                  <FormattedMessage
+                    defaultMessage="Please enter the verification code received in your Aries trust {mobile}."
+                    values={{
+                      mobile: userQuery.data?.data?.userMobile,
+                    }}
+                  />
+                </div>
               </>
             )}
             <div className="text-[#C2D7C7F6] text-[16px] font-bold"><FormattedMessage defaultMessage="Google Captcha" /></div>

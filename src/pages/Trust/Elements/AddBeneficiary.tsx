@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useDebugValue, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -6,6 +6,7 @@ import axios from 'axios';
 import { DevTool } from '@hookform/devtools';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { useDebounce } from 'react-use';
 import closeIcon from '../../../assets/icon/model_close.svg';
 import TextInput from '../../../components/TextInput';
 import Dropdown from '../../../components/Dropdown';
@@ -20,6 +21,7 @@ import ContactUsFooter from '../../../views/ContactUsFooter';
 import AreaSelect from '../../../components/AreaSelect';
 import GoogleVerify from '../../../views/GoogleVerify';
 import Modal from '../../../components/Modal';
+import { useCheckUserContainQuery } from '../../../api/user/user';
 
 // import { useAreaCodeListQuery } from '../../../api/base/areaCode';
 
@@ -44,6 +46,10 @@ export default function AddBeneficiary({ trustId, onClose }: {
   trustId: number,
   onClose?(): void
 }) {
+  const intl = useIntl();
+  const requiredMessage = intl.formatMessage({ defaultMessage: 'Required' });
+  const [endAccount, setEndAccount] = useState<string>();
+
   const valid = z.object({
     userType: z.nativeEnum(UserType),
     accountType: z.nativeEnum(AccountType).optional(),
@@ -53,9 +59,41 @@ export default function AddBeneficiary({ trustId, onClose }: {
     remark: z.string().optional(),
     areaCodeId: z.number().optional(),
     account: z.string().optional(),
-    // userMobile: z.string().optional(),
     roleType: z.nativeEnum(BeneficiaryRoleType).optional(),
-  });
+  })
+    /* 明确对象，帐号必填 */
+    .refine((data) => {
+      if (data.userType === UserType.Define) { return !!data.account; }
+      return true;
+    }, {
+      message: requiredMessage,
+      path: ['account'],
+    })
+    /* 明确对象，名字必填 */
+    .refine((data) => {
+      if (data.userType === UserType.Define && checkUserQuery.data?.data === false) { return !!data.userName; }
+      return true;
+    }, {
+      message: requiredMessage,
+      path: ['userName'],
+    })
+    /* 明确对象，姓必填 */
+    .refine((data) => {
+      if (data.userType === UserType.Define && checkUserQuery.data?.data === false) { return !!data.surname; }
+      return true;
+    }, {
+      message: requiredMessage,
+      path: ['surname'],
+    })
+    /* 非明确对象，备注必填 */
+    .refine((data) => {
+      if (data.userType === UserType.NonSpecific) { return !!data.remark; }
+      return true;
+    }, {
+      message: requiredMessage,
+      path: ['remark'],
+    });
+
   type FormValid = z.infer<typeof valid>;
   const {
     register,
@@ -78,10 +116,15 @@ export default function AddBeneficiary({ trustId, onClose }: {
   });
   const userType = watch('userType');
   const accountType = watch('accountType');
-  // const areaCodeListQuery = useAreaCodeListQuery();
+  const account = watch('account');
+  const areaCodeId = watch('areaCodeId');
+  const checkUserQuery = useCheckUserContainQuery({
+    userEmail: accountType === AccountType.Email ? endAccount : undefined,
+    userMobile: accountType === AccountType.Mobile ? endAccount : undefined,
+    areaCodeId,
+  });
   const queryClient = useQueryClient();
   // const { t } = useTranslation();
-  const intl = useIntl();
   const [googleVerifyVisible, setGoogleVerifyVisible] = useState(false);
   const [formData, setFormData] = useState<FormValid>();
 
@@ -95,30 +138,18 @@ export default function AddBeneficiary({ trustId, onClose }: {
       userMobile: data.accountType === AccountType.Mobile ? data.account : undefined,
       ...data,
     }),
-    onSuccess: async () => {
+    onSuccess: () => {
       onClose?.();
-      await queryClient.invalidateQueries(['trust']);
+      queryClient.invalidateQueries(['trust']);
     },
   });
 
+  useDebounce(() => setEndAccount(account), 1000, [account]);
+
   const submit = (data: FormValid) => {
-    // axios.post('/trust/trust/user/add', {
-    //   trustId,
-    //   guardiansType: data.userType === UserType.Myself ? 2 : undefined,
-    //   userEmail: data.accountType === AccountType.Email ? data.account : undefined,
-    //   userMobile: data.accountType === AccountType.Mobile ? data.account : undefined,
-    //   ...data,
-    // }).then((resp) => {
-    //   onClose?.();
-    //   queryClient.invalidateQueries(['trust']);
-    // });
     setFormData(data);
     setGoogleVerifyVisible(true);
   };
-
-  // useEffect(() => {
-  //   setValue('areaCodeId', areaCodeListQuery.data?.data?.[0].id);
-  // }, [areaCodeListQuery.data?.data]);
 
   return (
     <ModalContainer>
@@ -155,36 +186,6 @@ export default function AddBeneficiary({ trustId, onClose }: {
           {/* 明确受益人显示收益人信息 */}
           {userType === UserType.Define && (
             <>
-              <div className="flex flex-row gap-4">
-                <div className="flex-1 flex flex-col gap-4">
-                  <label className="text-[#C2D7C7F6] font-bold text-[16px]"><FormattedMessage defaultMessage="First Name" /></label>
-                  <TextInput placeholder="" {...register('userName')} />
-                </div>
-                <div className="flex-1 flex flex-col gap-4">
-                  <label className="text-[#C2D7C7F6] font-bold text-[16px]"><FormattedMessage defaultMessage="Last Name" /></label>
-                  <TextInput placeholder="" {...register('surname')} />
-                </div>
-              </div>
-              <div className="flex flex-col gap-4">
-                <label className="text-[#C2D7C7F6] font-bold text-[16px]"><FormattedMessage defaultMessage="Gender" /></label>
-                <Controller
-                  render={({ field }) => {
-                    const enums = [
-                      { value: Gender.Male, name: intl.formatMessage({ defaultMessage: 'Male' }) },
-                      { value: Gender.Female, name: intl.formatMessage({ defaultMessage: 'Female' }) },
-                    ];
-                    return (
-                      <Dropdown
-                        title={enums.find((x) => x.value === field.value)?.name}
-                        items={enums.map((x) => x.name)}
-                        onSelected={(idx) => field.onChange(enums[idx].value)}
-                      />
-                    );
-                  }}
-                  name="gender"
-                  control={control}
-                />
-              </div>
               <div className="flex flex-col gap-4">
                 <label className="text-[#C2D7C7F6] font-bold text-[16px]">
                   <FormattedMessage defaultMessage="Account Type" />
@@ -222,30 +223,52 @@ export default function AddBeneficiary({ trustId, onClose }: {
                       name="areaCodeId"
                       control={control}
                     />
-                    // <div className="w-[160px]">
-                    //   <Controller
-                    //     render={({ field }) => (
-                    //       <Dropdown
-                    //         block
-                    //         items={areaCodeListQuery.data?.data?.map((x) => `+${x.code}`) ?? []}
-                    //         title={`+${areaCodeListQuery.data?.data?.find((x) => x.id === field.value)?.code}` ?? ''}
-                    //         onSelected={(idx) => field.onChange(areaCodeListQuery.data?.data?.[idx].id)}
-                    //       />
-                    //     )}
-                    //     name="areaCodeId"
-                    //     control={control}
-                    //   />
-                    // </div>
                   )}
                   <div className="flex-auto">
                     <TextInput
                       placeholder={accountType === AccountType.Email ? intl.formatMessage({ defaultMessage: 'Please enter the email' }) : intl.formatMessage({ defaultMessage: 'Please enter the mobile' })}
+                      error={errors.account?.message}
                       {...register('account')}
+                      // onBlur={(e) => setEndAccount(e.target.value)}
                     />
-                    {/* {accountType === AccountType.Email && <TextInput placeholder="Please provide additional instructions" {...register('userEmail')} />} */}
                   </div>
                 </div>
               </div>
+              {checkUserQuery.data?.data}
+              {!!account && checkUserQuery.data?.data === false && (
+                <>
+                  <div className="flex flex-row gap-4">
+                    <div className="flex-1 flex flex-col gap-4">
+                      <label className="text-[#C2D7C7F6] font-bold text-[16px]"><FormattedMessage defaultMessage="First Name" /></label>
+                      <TextInput placeholder="" {...register('userName')} error={errors.userName?.message} />
+                    </div>
+                    <div className="flex-1 flex flex-col gap-4">
+                      <label className="text-[#C2D7C7F6] font-bold text-[16px]"><FormattedMessage defaultMessage="Last Name" /></label>
+                      <TextInput placeholder="" {...register('surname')} error={errors.surname?.message} />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-4">
+                    <label className="text-[#C2D7C7F6] font-bold text-[16px]"><FormattedMessage defaultMessage="Gender" /></label>
+                    <Controller
+                      render={({ field }) => {
+                        const enums = [
+                          { value: Gender.Male, name: intl.formatMessage({ defaultMessage: 'Male' }) },
+                          { value: Gender.Female, name: intl.formatMessage({ defaultMessage: 'Female' }) },
+                        ];
+                        return (
+                          <Dropdown
+                            title={enums.find((x) => x.value === field.value)?.name}
+                            items={enums.map((x) => x.name)}
+                            onSelected={(idx) => field.onChange(enums[idx].value)}
+                          />
+                        );
+                      }}
+                      name="gender"
+                      control={control}
+                    />
+                  </div>
+                </>
+              )}
               <div className="flex flex-col gap-4">
                 <label className="text-[#C2D7C7F6] font-bold text-[16px]">
                   <FormattedMessage defaultMessage="Permissions" />
@@ -276,7 +299,11 @@ export default function AddBeneficiary({ trustId, onClose }: {
               <label className="text-[#C2D7C7F6] font-bold text-[16px]">
                 <FormattedMessage defaultMessage="Remark" />
               </label>
-              <TextArea {...register('remark')} />
+              <TextArea
+                {...register('remark')}
+                error={errors.remark?.message}
+                placeholder={intl.formatMessage({ defaultMessage: 'Please provide additional instructions' })}
+              />
             </div>
           )}
           <div className="mt-4 self-center max-w-[420px] w-full">
@@ -284,7 +311,7 @@ export default function AddBeneficiary({ trustId, onClose }: {
               <FormattedMessage defaultMessage="Submit" />
             </Button>
           </div>
-          {/* <DevTool control={control} /> */}
+          <DevTool control={control} />
           <div className="flex flex-col gap-5 mt-6">
             {/* <Divide /> */}
             {/* <ContactUs /> */}

@@ -149,27 +149,27 @@ export default function Beneficiary() {
                   <>
                     {/* 权限编辑 */}
                     {![1, 3, 21].includes(row.original.userType) && settlorPermission && (
-                      <TextButton onClick={async () => {
-                        if (row.original.auditFlag) {
-                          setEditWarningVisible(true);
-                        } else {
-                          setSelected(row.original);
-                          setEditRoleVisible(true);
-                        }
-                      }}
-                      >
-                        <FormattedMessage defaultMessage="Authority" />
-                      </TextButton>
+                    <TextButton onClick={async () => {
+                      // if (row.original.auditFlag) {
+                      //   setEditWarningVisible(true);
+                      // } else {
+                      setSelected(row.original);
+                      setEditRoleVisible(true);
+                      // }
+                    }}
+                    >
+                      <FormattedMessage defaultMessage="Authority" />
+                    </TextButton>
                     )}
                     {/* 移除保护人委托人 */}
                     <TextButton onClick={async () => {
                       /* 移除保护人、委托人需要检查是否存在待审核的账单 */
-                      if (row.original.auditFlag) {
-                        setRemoveWarningVisible(true);
-                      } else {
-                        setSelected(row.original);
-                        setGoogleVerifyVisible(true);
-                      }
+                      // if (row.original.auditFlag) {
+                      //   setRemoveWarningVisible(true);
+                      // } else {
+                      setSelected(row.original);
+                      setGoogleVerifyVisible(true);
+                      // }
                     }}
                     >
                       <FormattedMessage defaultMessage="Remove" />
@@ -248,18 +248,18 @@ export default function Beneficiary() {
           />
           )}
         </Modal>
-        <Modal visible={removeWarningVisible}>
-          <Confirm
-            title={intl.formatMessage({ defaultMessage: 'You currently have unapproved investment instructions, so you cannot remove this beneficiary.' })}
-            onOk={() => setRemoveWarningVisible(false)}
-          />
-        </Modal>
-        <Modal visible={editWarningVisible}>
-          <Confirm
-            title={intl.formatMessage({ defaultMessage: 'You currently have unapproved investment instructions, so you cannot change the permissions of this protector.' })}
-            onOk={() => setEditWarningVisible(false)}
-          />
-        </Modal>
+        {/* <Modal visible={removeWarningVisible}> */}
+        {/*  <Confirm */}
+        {/*    title={intl.formatMessage({ defaultMessage: 'You currently have unapproved investment instructions, so you cannot remove this beneficiary.' })} */}
+        {/*    onOk={() => setRemoveWarningVisible(false)} */}
+        {/*  /> */}
+        {/* </Modal> */}
+        {/* <Modal visible={editWarningVisible}> */}
+        {/*  <Confirm */}
+        {/*    title={intl.formatMessage({ defaultMessage: 'You currently have unapproved investment instructions, so you cannot change the permissions of this protector.' })} */}
+        {/*    onOk={() => setEditWarningVisible(false)} */}
+        {/*  /> */}
+        {/* </Modal> */}
       </div>
     </div>
   );

@@ -31,7 +31,7 @@ import { Language } from './interfaces/language';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: false,
+      retry: 2,
       refetchOnWindowFocus: false,
     },
   },

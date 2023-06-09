@@ -3,6 +3,7 @@ import axios from 'axios';
 import useAuthToken, { containsToken } from '../../hooks/useUserId';
 import { IPage, IResponseData } from '../../interfaces/base';
 import { ITrustEstablishment, ITrustExcessFeeRecord, ITrustManageFeeRecord } from '../../interfaces/trust';
+import { IExpenseRatio } from '../../interfaces/fee';
 
 /*
 * 管理费用列表
@@ -84,3 +85,12 @@ export const useTrustFeeStatisticsQuery = (data: {
     enabled: containsToken() && !!data.trustId && !!data.type,
   });
 };
+
+/*
+* 获取费率配置参数
+* */
+export const useExpenseRatioQuery = () => useQuery<IResponseData<IExpenseRatio[]>>({
+  queryKey: ['trust', 'fee', 'expenseRatio'],
+  queryFn: () => axios.get('/trust/trust/expense/ratio'),
+  enabled: containsToken(),
+});

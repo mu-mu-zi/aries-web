@@ -12,14 +12,15 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
   const { block, error, ...rest } = props;
 
   return (
-    <div className={classNames('bg-[#3B5649] p-4', 'rounded-xl', 'input-inner-shadow', {
-      'w-full': block,
-    })}
-    >
-      <textarea
-        {...rest}
-        ref={ref}
-        css={css`
+    <div>
+      <div className={classNames('bg-[#3B5649] p-2', 'rounded-xl', 'input-inner-shadow', {
+        'w-full': block,
+      })}
+      >
+        <textarea
+          {...rest}
+          ref={ref}
+          css={css`
           //display: inline-block;
           //position: relative;
           //
@@ -42,16 +43,22 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => 
               font-size: 16px;
             }
           `}
-        className={classNames(
-          'inline-block w-full border-none bg-transparent outline-none',
-          'h-[48px]  min-h-[100px]',
-          'gradient-text1',
-          'caret-[#BE9D66]',
-          'text-[20px] font-bold leading-[22px]',
-          'resize-none',
-        )}
-      />
-      {error && <ErrorLabel errorMessage={error} />}
+          className={classNames(
+            'inline-block w-full p-2 border-none bg-transparent outline-none',
+            'h-[48px]  min-h-[100px]',
+            'gradient-text1',
+            'caret-[#BE9D66]',
+            'text-[20px] font-bold leading-[22px]',
+          // 'resize-none',
+          )}
+        />
+
+      </div>
+      {error && (
+        <div className="mt-2">
+          <ErrorLabel errorMessage={error} />
+        </div>
+      )}
     </div>
   );
 });

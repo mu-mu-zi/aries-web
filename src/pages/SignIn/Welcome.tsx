@@ -8,10 +8,12 @@ import welcomeIcon from '../../assets/icon/welcome_badge.svg';
 import ContactUs from './ContactUs';
 import useAuthToken from '../../hooks/useUserId';
 import ContactUsFooter from '../../views/ContactUsFooter';
+import { useMyTrustQuery } from '../../api/trust/trust';
 
 export default function Welcome() {
   const navigate = useNavigate();
   const userId = useAuthToken();
+  useMyTrustQuery();
   // const { t } = useTranslation();
 
   return (
@@ -39,7 +41,6 @@ export default function Welcome() {
           </Button>
         </div>
         <div className="mt-[52px] self-stretch flex flex-col gap-12">
-          {/* <ContactUsFooter /> */}
           <Divide />
           <div className="self-center"><ContactUs /></div>
         </div>

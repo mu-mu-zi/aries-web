@@ -6,8 +6,10 @@ import Sidebar from './Sidebar';
 import CopyIcon from '../../views/CopyIcon';
 import SendButton from '../../views/SendButton';
 import { useTrustDetailQuery } from '../../api/trust/trust';
+import { useExpenseRatioQuery } from '../../api/trust/fee';
 
 export default function Trust() {
+  useExpenseRatioQuery();
   const location = useLocation();
   const navigate = useNavigate();
   const { trustId } = useParams();
@@ -16,8 +18,10 @@ export default function Trust() {
   });
 
   useEffect(() => {
-    if (location.pathname === `/trust/${trustId}`) {
-      navigate(`/trust/${trustId}/dashboard`);
+    if (location.pathname === `/trust/${trustId}` && trustId) {
+      navigate(`/trust/${trustId}/dashboard`, {
+        replace: true,
+      });
     }
   }, [trustId, location.pathname]);
 

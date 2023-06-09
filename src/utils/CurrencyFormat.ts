@@ -15,3 +15,5 @@ export const numberFormatWithPrefix = (value?: number | string) => {
   const val = Number(value);
   return val > 0 ? `+${value}` : `${value}`;
 };
+
+export const ratioFormat = (value?: number | string) => numeral(value).format('0.[00]%');

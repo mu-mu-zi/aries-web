@@ -1,9 +1,15 @@
 {
+  "+1tsBF": {
+    "defaultMessage": "Note: The excess transfer fee is calculated at a fixed rate of {ratio} for each excess amount and will be deducted at the end of the year."
+  },
   "+67FEp": {
     "defaultMessage": "Investment Recommendation"
   },
   "+8qHwl": {
     "defaultMessage": "FiatIn"
+  },
+  "+GGOiK": {
+    "defaultMessage": "To facilitate asset maintenance and appreciation for the client, we would like to provide specific information about transfer fees. When the amount of external transfer of entrusted assets exceeds the set limit, we will charge a fee of {ratio} based on the actual transfer amount. It should be noted that this fee is calculated based on the token price at the time of transfer and will be paid annually. At the same time, we will provide accurate information in accordance with the contract to help the client better understand the relevant situation of the transfer fee."
   },
   "+U6ozc": {
     "defaultMessage": "Type"
@@ -25,6 +31,9 @@
   },
   "/CaREm": {
     "defaultMessage": "Pending approval"
+  },
+  "/RkE/p": {
+    "defaultMessage": "Additionally, we recommend that the settlor thoroughly understands the specific details and provisions of the trust plan, clarifies their risk tolerance and investment objectives before making any additional contributions. It is essential to carefully review the contractual terms related to the additional establishment to safeguard your legitimate rights and interests. If you have any questions, please feel free to contact our professional trust managers for further consultation."
   },
   "/VnDMl": {
     "defaultMessage": "Other"
@@ -106,9 +115,6 @@
   },
   "36qSAF": {
     "defaultMessage": "Revocable"
-  },
-  "3KwE05": {
-    "defaultMessage": "DigitalAssetOut"
   },
   "3SeRHQ": {
     "defaultMessage": "Aries Digital Group Agreement"
@@ -192,14 +198,14 @@
   "6XFO/C": {
     "defaultMessage": "Approved"
   },
+  "6Z+f5L": {
+    "defaultMessage": "Note: Each additional establishment fee is calculated at a fixed rate of {ratio} and deducted at the end of the year"
+  },
   "7/wPsX": {
     "defaultMessage": "Google Captcha"
   },
   "74BYXL": {
     "defaultMessage": "Female"
-  },
-  "7CMfMu": {
-    "defaultMessage": "Once you decide to add funds, we will deduct the corresponding fee from your trust account according to the contract. Similar to the payment method when establishing the trust plan, we will charge the corresponding additional establishment fee according to the actual amount of money added and the agreed ratio."
   },
   "7aY9TR": {
     "defaultMessage": "Asset Transfer Information Declaration"
@@ -250,9 +256,6 @@
   "A80LZF": {
     "defaultMessage": "Please enter the mobile"
   },
-  "Aat+f8": {
-    "defaultMessage": "Please enter the verification code received in your Aries trust company@Gmail.com email."
-  },
   "AgQm92": {
     "defaultMessage": "Transaction voucher"
   },
@@ -267,6 +270,10 @@
   },
   "BY343C": {
     "defaultMessage": "Change"
+  },
+  "Bh7H4U": {
+    "defaultMessage": "Exchange",
+    "description": "投资指令，去向"
   },
   "ByuOj8": {
     "defaultMessage": "Invalid email"
@@ -318,8 +325,14 @@
   "DpsJvR": {
     "defaultMessage": "Cumulative transferred amount"
   },
+  "DyOawH": {
+    "defaultMessage": "Excess transfer fees refer to the transfer fees incurred when the entrusted assets exceed the set limit during the operation of the trust plan. We charge a handling fee of {ratio} for each excess transfer according to the contract, which will be calculated based on the token price at the time of transfer."
+  },
   "DyutYi": {
     "defaultMessage": "Name of Report Document"
+  },
+  "E9SodZ": {
+    "defaultMessage": "Please enter the verification code received in your Aries trust {email} email."
   },
   "ECLeIP": {
     "defaultMessage": "Total amount of deposit: {amount} {coinName}"
@@ -329,9 +342,6 @@
   },
   "EPMjof": {
     "defaultMessage": "Payment Information"
-  },
-  "Eperhw": {
-    "defaultMessage": "Note: Each additional establishment fee is calculated at a fixed rate of 0.03% and deducted at the end of the year"
   },
   "ErxWra": {
     "defaultMessage": "Self"
@@ -378,9 +388,6 @@
   "GWtmtu": {
     "defaultMessage": "Mobile"
   },
-  "Gtebxi": {
-    "defaultMessage": "To facilitate asset maintenance and appreciation for the client, we would like to provide specific information about transfer fees. When the amount of external transfer of entrusted assets exceeds the set limit, we will charge a fee of 0.03% based on the actual transfer amount. It should be noted that this fee is calculated based on the token price at the time of transfer and will be paid annually. At the same time, we will provide accurate information in accordance with the contract to help the client better understand the relevant situation of the transfer fee."
-  },
   "GyByCc": {
     "defaultMessage": "No",
     "description": "无权限"
@@ -390,6 +397,9 @@
   },
   "HLZ9CC": {
     "defaultMessage": "Credentials"
+  },
+  "HLhBp4": {
+    "defaultMessage": "Once you decide to add funds, the corresponding fee will be deducted from your trust account according to the contract. Similar to the payment method during the establishment of the trust plan, we will charge the additional establishment fee based on the actual amount of funds added and the agreed-upon ratio."
   },
   "HV70Qz": {
     "defaultMessage": "Digital asset address"
@@ -457,14 +467,14 @@
   "Kl6x+n": {
     "defaultMessage": "Approval"
   },
+  "KmuZrC": {
+    "defaultMessage": "Settled in {year}"
+  },
   "L3rMHV": {
     "defaultMessage": "Applications will be processed within 1 business day, please keep it open for customer service to contact you."
   },
   "LTiRn7": {
     "defaultMessage": "NonSpecific"
-  },
-  "Lj5cvX": {
-    "defaultMessage": "At the same time, we recommend that the trustor carefully understand the specific situation and regulations of the trust plan, clearly understand their risk tolerance and investment goals, and carefully review the relevant contract terms related to additional establishment to ensure that their legal rights and interests are not harmed. If you have any questions, you can always contact our professional trust manager for consultation."
   },
   "LpM3W/": {
     "defaultMessage": "Please enter a number with a maximum precision of 8."
@@ -502,9 +512,6 @@
   "NK/IfH": {
     "defaultMessage": "Congratulations! You have successfully bound Google Authenticator."
   },
-  "NLD9yb": {
-    "defaultMessage": "It is important to note that the additional establishment fee after opening a bank account will be directly deducted from the trust account. When adding establishment operations, you need to ensure that the balance of the trust account is sufficient to pay the required fees to avoid overdue or penalty fees. Please note that it is your responsibility to ensure that there are enough funds in your trust account to pay for any additional establishment payment obligations."
-  },
   "NMaE+o": {
     "defaultMessage": "Approval status:"
   },
@@ -516,6 +523,9 @@
   },
   "NvEGEQ": {
     "defaultMessage": "You do not yet have the identity of a trustee party."
+  },
+  "NwA6NG": {
+    "defaultMessage": "The establishment fee refers to the additional fee of {ratio} that needs to be paid if you decide to add funds during the operation of the trust plan. Our company follows the contractual provisions to determine the standard for establishment fees, which is generally based on a certain percentage of the net asset value to ensure the cost coverage of the additional services provided to the settlor."
   },
   "O8y1k2": {
     "defaultMessage": "KYC Certification"
@@ -602,9 +612,6 @@
   "R2toXm": {
     "defaultMessage": "Submission successful."
   },
-  "RDFdUo": {
-    "defaultMessage": "When the trust property exceeds the set limit for external transfers, we will charge a fee of 0.03% of the actual transfer amount. It is important to note that this fee is calculated based on the token price at the time of the transfer and will be paid annually according to the contract. At the same time, we will provide accurate information according to the contract, so that the trustor can better understand the relevant situation of the transfer fee."
-  },
   "RDZVQL": {
     "defaultMessage": "Check"
   },
@@ -641,9 +648,6 @@
   "SRhWkB": {
     "defaultMessage": "Principal"
   },
-  "SVUp05": {
-    "defaultMessage": "The establishment fee refers to the fee that needs to be paid if additional funds are required to be invested during the operation of the trust plan. Our company sets the standard for establishment fees according to the contract, which is generally a certain percentage of the asset net value to ensure that the cost of the additional services provided to the trustor is covered."
-  },
   "Seanpx": {
     "defaultMessage": "Required"
   },
@@ -661,9 +665,6 @@
   },
   "TVcDb2": {
     "defaultMessage": "Bank Account"
-  },
-  "TaZxgt": {
-    "defaultMessage": "DistributeProfit"
   },
   "Tn2M+Y": {
     "defaultMessage": "Exceeding amount: {amount} {coinName}"
@@ -735,6 +736,9 @@
   "Xxh5du": {
     "defaultMessage": "Contact customer service"
   },
+  "XztNoD": {
+    "defaultMessage": "It is important to note that the additional establishment fee will be directly deducted from your trust account after the bank account is opened. When conducting the additional establishment operation, you need to ensure that there are sufficient funds in your trust account to cover the required fees and avoid any overdue or late payment charges. Please be aware that it is your responsibility to ensure that there are enough funds in your trust account to fulfill any obligations regarding the payment of additional establishment fees."
+  },
   "YHZ3Qj": {
     "defaultMessage": "Please enter your name"
   },
@@ -802,17 +806,14 @@
   "cPJPjk": {
     "defaultMessage": "We will collect from you offline"
   },
+  "ccE0zH": {
+    "defaultMessage": "Please provide additional instructions"
+  },
   "cyR7Kh": {
     "defaultMessage": "Back"
   },
-  "cycabx": {
-    "defaultMessage": "Note: Trust management fee is calculated at a fixed rate of 0.05% per day and deducted at the end of the year"
-  },
   "d0DgDw": {
     "defaultMessage": "Welcome to Aries Trust Company"
-  },
-  "d0wJ2j": {
-    "defaultMessage": "ExceedTransfer"
   },
   "d88Ln8": {
     "defaultMessage": "Please enter the payer's name"
@@ -842,6 +843,9 @@
   "eGLTZb": {
     "defaultMessage": "LastName"
   },
+  "eJOjSM": {
+    "defaultMessage": "Note: Trust management fee is calculated at a fixed rate of {ratio} per day and deducted at the end of the year"
+  },
   "eJqL3c": {
     "defaultMessage": "Bank card number (optional)"
   },
@@ -862,9 +866,6 @@
   },
   "f6xskA": {
     "defaultMessage": "Add Protector"
-  },
-  "f8iUAI": {
-    "defaultMessage": "AdditionalEstablishmentFee"
   },
   "fTlL2P": {
     "defaultMessage": "Remark"
@@ -900,9 +901,6 @@
   "h4gkv3": {
     "defaultMessage": "Second Succession Guardia"
   },
-  "h5F+WN": {
-    "defaultMessage": "Trust management fee refers to the fee charged by the trust company to the settlor for providing custody, risk control, asset management and other services according to the provisions of the trust plan agreement. Our company's trust plan management fee is generally collected at a standard annualized rate of 0.6%, and this fee is calculated based on the actual market value of the assets under custody. Please note that we will automatically deduct this amount from your custodial account. By default, we will deduct the corresponding amount of fiat currency, such as RMB, as the management fee from your custodial account. If there is not enough fiat currency in your custodial account, we will deduct assets equivalent to the management fee from your custodial account according to the contract."
-  },
   "h83mmJ": {
     "defaultMessage": "Canceling",
     "description": "投资指令状态"
@@ -918,9 +916,6 @@
   },
   "hUQSwM": {
     "defaultMessage": "Bank Name"
-  },
-  "hZ3wuE": {
-    "defaultMessage": "The excess transfer fee refers to the transfer fee incurred when the trust property exceeds the set limit during the operation of the trust plan. We charge a handling fee of 0.03% for each excess transfer according to the contract, and this fee is calculated based on the token price at the time of the transfer. In order to facilitate the trustor to maintain assets and maintain asset appreciation, we specifically introduce the specific information about transfer fees."
   },
   "hZOGLS": {
     "defaultMessage": "Contact Us"
@@ -1040,6 +1035,9 @@
   "oUWADl": {
     "defaultMessage": "No"
   },
+  "oZztY4": {
+    "defaultMessage": "No credentials"
+  },
   "ons2A7": {
     "defaultMessage": "Trust information"
   },
@@ -1048,9 +1046,6 @@
   },
   "p5vOoH": {
     "defaultMessage": "Please enter the payment bank(English)"
-  },
-  "pNIfrE": {
-    "defaultMessage": "ManagementFee"
   },
   "pRRPv2": {
     "defaultMessage": "Settlor"
@@ -1073,8 +1068,8 @@
   "qcptBZ": {
     "defaultMessage": "Reconciliation"
   },
-  "qixrQA": {
-    "defaultMessage": "Note: The excess transfer fee is calculated at a fixed rate of 0.03% for each excess amount and will be deducted at the end of the year."
+  "qiejq5": {
+    "defaultMessage": "Trust name"
   },
   "qu2FPQ": {
     "defaultMessage": "Payment amount"
@@ -1125,6 +1120,9 @@
   "tzMNF3": {
     "defaultMessage": "Status"
   },
+  "u/7eqm": {
+    "defaultMessage": "Trust management fee refers to the fee charged by the trust company to the settlor for providing custody, risk control, asset management and other services according to the provisions of the trust plan agreement. Our company's trust plan management fee is generally collected at a standard annualized rate of {ratio}, and this fee is calculated based on the actual market value of the assets under custody. Please note that we will automatically deduct this amount from your custodial account. By default, we will deduct the corresponding amount of fiat currency, such as RMB, as the management fee from your custodial account. If there is not enough fiat currency in your custodial account, we will deduct assets equivalent to the management fee from your custodial account according to the contract."
+  },
   "u4zR/B": {
     "defaultMessage": "Welcome to Aries Customized Trust Services! In order to protect your assets and comply with the relevant laws and regulations, we require you to complete identity verification. Please contact your trust manager to submit your personal information and proof of identity."
   },
@@ -1149,9 +1147,6 @@
   "vwIJj6": {
     "defaultMessage": "BankName"
   },
-  "w0/Tdl": {
-    "defaultMessage": "Excess transfer fees refer to the transfer fees incurred when the entrusted assets exceed the set limit during the operation of the trust plan. We charge a handling fee of 0.03% for each excess transfer according to the contract, which will be calculated based on the token price at the time of transfer."
-  },
   "wGbQN4": {
     "defaultMessage": "New Mobile Phone"
   },
@@ -1169,9 +1164,6 @@
   },
   "x5Tz6M": {
     "defaultMessage": "Report"
-  },
-  "xB8hxX": {
-    "defaultMessage": "EstablishmentFee"
   },
   "xE3gxA": {
     "defaultMessage": "Please enter the verification code"
@@ -1221,6 +1213,9 @@
   "y6WYcC": {
     "defaultMessage": "Bill Records"
   },
+  "yGeCJm": {
+    "defaultMessage": "Please enter the verification code received in your Aries trust {mobile}."
+  },
   "yjH5zJ": {
     "defaultMessage": "Trust Elements"
   },
@@ -1230,9 +1225,6 @@
   "yvdaz+": {
     "defaultMessage": "To be verified",
     "description": "资产申报状态"
-  },
-  "z6o4cl": {
-    "defaultMessage": "DigitalAssetIn"
   },
   "z8ufSi": {
     "defaultMessage": "Excess Transfer Fee = Excess Amount * Excess Transfer Fee APR"

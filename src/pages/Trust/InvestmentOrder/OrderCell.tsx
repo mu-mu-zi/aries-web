@@ -9,6 +9,7 @@ import Button from '../../../components/Button';
 import Approval from './Approval';
 import { useTrustDetailQuery } from '../../../api/trust/trust';
 import useTrustPermission from '../../../hooks/useTrustRole';
+import { stringShort } from '../../../utils/stringShort';
 
 export default function OrderCell({ item }: {
   item: IInvestment
@@ -75,9 +76,12 @@ export default function OrderCell({ item }: {
       </div>
       {/* Content */}
       <div className="flex-auto flex flex-col gap-2 text-[#99AC9B] text-[16px] leading-[18px]">
-        <div className="line-clamp-2 text-ellipsis overflow-hidden">
-          {item.investmentSuggestion}
+        {/* <div className="line-clamp-2 text-ellipsis overflow-hidden"> */}
+        <div className="break-all">
+          {stringShort(item.investmentSuggestion, 50)}
         </div>
+
+        {/* </div> */}
         <div>{item.investmentTime}</div>
       </div>
       {/* Step */}
