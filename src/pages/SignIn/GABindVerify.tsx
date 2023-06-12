@@ -5,7 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
 import GANavbar from './GANavbar';
 import Button from '../../components/Button';
 import Divide from '../../components/Divide';
@@ -126,8 +126,8 @@ export default function GABindVerify() {
 
       navigate('/status', {
         state: {
-          title: intl.formatMessage({ defaultMessage: 'Bind Google Authenticator' }),
-          description: intl.formatMessage({ defaultMessage: 'Congratulations! You have successfully bound Google Authenticator.' }),
+          title: defineMessage({ defaultMessage: 'Binding Google Authenticator' }),
+          description: defineMessage({ defaultMessage: 'Congratulations! You have successfully bound Google Authenticator.' }),
           navTo: location.state.userName ? navTo : '/personalRealName',
         },
         replace: true,
@@ -141,8 +141,8 @@ export default function GABindVerify() {
     <div className="flex flex-col items-center pt-[38px]">
       <div className="gradient-bg2 flex max-w-[1200px] w-full min-h-[800px] flex-col overflow-clip  rounded-xl">
         <GANavbar
-          title={intl.formatMessage({ defaultMessage: 'Bind Google Authenticator' })}
-          description={intl.formatMessage({ defaultMessage: 'Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After binding, it generates a dynamic verification code every 30 seconds, which can be used for security verification for login, modifying security settings and other operations.' })}
+          title={intl.formatMessage({ defaultMessage: 'Binding Google Authenticator' })}
+          description={intl.formatMessage({ defaultMessage: 'Google Authenticator is a commonly used identity verification app. After binding, you can obtain verification codes to enhance the security of your account.' })}
         />
         {/* {location.state?.areaCodeId} */}
         {/* {location.state?.account} */}
@@ -151,14 +151,14 @@ export default function GABindVerify() {
             <div
               className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]"
             >
-              <FormattedMessage defaultMessage="Verify identity" />
+              <FormattedMessage defaultMessage="Verify Identity" />
             </div>
             <div className="mt-16 flex flex-col gap-4">
               <div
                 className="font-bold text-[#c2d7c7]"
               >
-                {isPhone ? <FormattedMessage defaultMessage="Phone verification code" />
-                  : <FormattedMessage defaultMessage="Email verification code" />}
+                {isPhone ? <FormattedMessage defaultMessage="Phone Verification Code" />
+                  : <FormattedMessage defaultMessage="Email Verification Code" />}
               </div>
               <TextInput
                 placeholder={intl.formatMessage({ defaultMessage: 'Please enter the verification code' })}
@@ -201,7 +201,7 @@ export default function GABindVerify() {
                 <div className="text-[14px] leading-[16px] text-[#708077]">
                   {/* {t(`To ensure the security of your funds and account, please enter the verification code received in your Aries trust ${location.state?.account} email.`)} */}
                   <FormattedMessage
-                    defaultMessage="To ensure the security of your funds and account, please enter the verification code received in your Aries trust {account} email."
+                    defaultMessage="In order to ensure the safety of your asset and account, please enter the verification code received by your email {account}"
                     values={{ account: location.state?.account }}
                   />
                 </div>
@@ -210,15 +210,15 @@ export default function GABindVerify() {
                 <div className="text-[14px] leading-[16px] text-[#708077]">
                   {/* {t(`To ensure the security of your funds and account, please enter the verification code received in your Aries trust ${location.state?.account} .`)} */}
                   <FormattedMessage
-                    defaultMessage="To ensure the security of your funds and account, please enter the verification code received in your Aries trust {account} ."
+                    defaultMessage="In order to ensure the safety of your asset and account, please enter the verification code received by your phone number {account}"
                     values={{ account: location.state?.account }}
                   />
                 </div>
               )}
-              <div className="font-bold text-[#c2d7c7]"><FormattedMessage defaultMessage="Google Captcha" /></div>
+              <div className="font-bold text-[#c2d7c7]"><FormattedMessage defaultMessage="Google Verification Code" /></div>
               <TextInput
                 {...register('googleCaptcha')}
-                placeholder={intl.formatMessage({ defaultMessage: 'Please enter the verification code' })}
+                placeholder={intl.formatMessage({ defaultMessage: 'Please input the 6-digit Google verification code' })}
               />
             </div>
             <div className="mt-[40px] flex flex-row gap-4">

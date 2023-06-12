@@ -20,8 +20,8 @@ export default function GAGuide() {
   // <div className="flex flex-col items-center pt-[38px]">
     <CenterContainer>
       <GANavbar
-        title={intl.formatMessage({ defaultMessage: 'Bind Google Authenticator' })}
-        description={intl.formatMessage({ defaultMessage: 'Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After binding, it generates a dynamic verification code every 30 seconds, which can be used for security verification for login, modifying security settings and other operations.' })}
+        title={intl.formatMessage({ defaultMessage: 'Binding Google Authenticator' })}
+        description={intl.formatMessage({ defaultMessage: 'Google Authenticator is a commonly used identity verification app. After binding, you can obtain verification codes to enhance the security of your account.' })}
       />
       <div className="flex flex-col items-center px-[100px] py-16">
         <div className="flex w-[420px] flex-col items-center">

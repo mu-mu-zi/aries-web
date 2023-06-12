@@ -51,9 +51,9 @@ export default function Beneficiary() {
             <FormattedMessage defaultMessage="Beneficiary" />
           </div>
           {settlorPermission && (
-          <Button onClick={() => setAddBeneficiaryVisible(true)}>
-            <FormattedMessage defaultMessage="+ Add" />
-          </Button>
+            <Button onClick={() => setAddBeneficiaryVisible(true)}>
+              <FormattedMessage defaultMessage="+ Add" />
+            </Button>
           )}
         </div>
         <Hr />
@@ -84,14 +84,22 @@ export default function Beneficiary() {
               Header: intl.formatMessage({ defaultMessage: 'Identity category' }),
               accessor: (x) => {
                 switch (x.userType) {
-                  case 1: return intl.formatMessage({ defaultMessage: 'Principal' });
-                  case 2: return intl.formatMessage({ defaultMessage: 'Explicit Beneficiary' });
-                  case 3: return intl.formatMessage({ defaultMessage: 'Non-Explicit Beneficiary' });
-                  case 4: return intl.formatMessage({ defaultMessage: 'Guardian' });
-                  case 5: return intl.formatMessage({ defaultMessage: 'Succession Guardian' });
-                  case 6: return intl.formatMessage({ defaultMessage: 'Second Succession Guardia' });
-                  case 21: return intl.formatMessage({ defaultMessage: 'Beneficiary Entrustor Himself/Herself' });
-                  default: return '--';
+                  case 1:
+                    return intl.formatMessage({ defaultMessage: 'Principal' });
+                  case 2:
+                    return intl.formatMessage({ defaultMessage: 'Explicit Beneficiary' });
+                  case 3:
+                    return intl.formatMessage({ defaultMessage: 'Non-Explicit Beneficiary' });
+                  case 4:
+                    return intl.formatMessage({ defaultMessage: 'Guardian' });
+                  case 5:
+                    return intl.formatMessage({ defaultMessage: 'Succession Guardian' });
+                  case 6:
+                    return intl.formatMessage({ defaultMessage: 'Second Succession Guardia' });
+                  case 21:
+                    return intl.formatMessage({ defaultMessage: 'Beneficiary Entrustor Himself/Herself' });
+                  default:
+                    return '--';
                 }
               },
             },
@@ -99,10 +107,17 @@ export default function Beneficiary() {
               Header: intl.formatMessage({ defaultMessage: 'Permissions' }),
               accessor: (x) => {
                 switch (x.roleType) {
-                  case 1: return x.userType === 3 ? '--' : intl.formatMessage({ defaultMessage: 'No', description: '无权限' });
-                  case 2: return intl.formatMessage({ defaultMessage: 'ReadOnly' });
-                  case 3: return intl.formatMessage({ defaultMessage: 'Approval' });
-                  default: return '--';
+                  case 1:
+                    return x.userType === 3 ? '--' : intl.formatMessage({
+                      defaultMessage: 'No',
+                      description: '无权限',
+                    });
+                  case 2:
+                    return intl.formatMessage({ defaultMessage: 'ReadOnly' });
+                  case 3:
+                    return intl.formatMessage({ defaultMessage: 'Approval' });
+                  default:
+                    return '--';
                 }
               },
             },
@@ -113,10 +128,14 @@ export default function Beneficiary() {
                   return '--';
                 }
                 switch (x.kycStatus) {
-                  case 1: return intl.formatMessage({ defaultMessage: 'In progress' });
-                  case 2: return intl.formatMessage({ defaultMessage: 'Successful' });
-                  case 3: return intl.formatMessage({ defaultMessage: 'Failure' });
-                  default: return '--';
+                  case 1:
+                    return intl.formatMessage({ defaultMessage: 'In progress' });
+                  case 2:
+                    return intl.formatMessage({ defaultMessage: 'Successful' });
+                  case 3:
+                    return intl.formatMessage({ defaultMessage: 'Failure' });
+                  default:
+                    return '--';
                 }
               },
             },
@@ -138,7 +157,8 @@ export default function Beneficiary() {
                   case 3:
                   case 5:
                     return intl.formatMessage({ defaultMessage: 'Audit failed' });
-                  default: return '--';
+                  default:
+                    return '--';
                 }
               },
             },
@@ -152,35 +172,35 @@ export default function Beneficiary() {
               Cell: ({ row }) => (
                 <div className="flex gap-4 justify-end">
                   {settlorPermission && ![0, 4].includes(row.original.trustUserStatus) && (
-                  <>
-                    {/* 权限编辑 */}
-                    {![1, 3, 21].includes(row.original.userType) && settlorPermission && (
-                    <TextButton onClick={async () => {
-                      // if (row.original.auditFlag) {
-                      //   setEditWarningVisible(true);
-                      // } else {
-                      setSelected(row.original);
-                      setEditRoleVisible(true);
-                      // }
-                    }}
-                    >
-                      <FormattedMessage defaultMessage="Authority" />
-                    </TextButton>
-                    )}
-                    {/* 移除保护人委托人 */}
-                    <TextButton onClick={async () => {
-                      /* 移除保护人、委托人需要检查是否存在待审核的账单 */
-                      // if (row.original.auditFlag) {
-                      //   setRemoveWarningVisible(true);
-                      // } else {
-                      setSelected(row.original);
-                      setGoogleVerifyVisible(true);
-                      // }
-                    }}
-                    >
-                      <FormattedMessage defaultMessage="Remove" />
-                    </TextButton>
-                  </>
+                    <>
+                      {/* 权限编辑 */}
+                      {![1, 3, 21].includes(row.original.userType) && settlorPermission && (
+                        <TextButton onClick={async () => {
+                          // if (row.original.auditFlag) {
+                          //   setEditWarningVisible(true);
+                          // } else {
+                          setSelected(row.original);
+                          setEditRoleVisible(true);
+                          // }
+                        }}
+                        >
+                          <FormattedMessage defaultMessage="Authority" />
+                        </TextButton>
+                      )}
+                      {/* 移除保护人委托人 */}
+                      <TextButton onClick={async () => {
+                        /* 移除保护人、委托人需要检查是否存在待审核的账单 */
+                        // if (row.original.auditFlag) {
+                        //   setRemoveWarningVisible(true);
+                        // } else {
+                        setSelected(row.original);
+                        setGoogleVerifyVisible(true);
+                        // }
+                      }}
+                      >
+                        <FormattedMessage defaultMessage="Remove" />
+                      </TextButton>
+                    </>
                   )}
                 </div>
               ),
@@ -208,12 +228,12 @@ export default function Beneficiary() {
           onClose={() => setEditRoleVisible(false)}
         >
           {selected && (
-          <EditRole
-            defaultVal={selected.roleType}
-            trustUserId={selected?.id}
-            isBeneficiary
-            onClose={() => setEditRoleVisible(false)}
-          />
+            <EditRole
+              defaultVal={selected.roleType}
+              trustUserId={selected?.id}
+              isBeneficiary
+              onClose={() => setEditRoleVisible(false)}
+            />
           )}
         </Modal>
         {/* <Modal visible={removeConfirmVisible} onClose={() => setRemoveConfirmVisible(false)}> */}
@@ -237,21 +257,21 @@ export default function Beneficiary() {
         {/* </Modal> */}
         <Modal visible={googleVerifyVisible} onClose={() => setGoogleVerifyVisible(false)}>
           {selected && (
-          <GoogleVerify
-            onClose={() => setGoogleVerifyVisible(false)}
-            onEnter={async (ticket) => {
-              setGoogleVerifyVisible(false);
-              await axios.request({
-                url: '/trust/trust/user/delete',
-                method: 'post',
-                data: {
-                  trustUserId: selected.id,
-                  ticker: ticket,
-                },
-              });
-              await queryClient.invalidateQueries(['trust']);
-            }}
-          />
+            <GoogleVerify
+              onClose={() => setGoogleVerifyVisible(false)}
+              onEnter={async (ticket) => {
+                setGoogleVerifyVisible(false);
+                await axios.request({
+                  url: '/trust/trust/user/delete',
+                  method: 'post',
+                  data: {
+                    trustUserId: selected.id,
+                    ticker: ticket,
+                  },
+                });
+                await queryClient.invalidateQueries(['trust']);
+              }}
+            />
           )}
         </Modal>
         {/* <Modal visible={removeWarningVisible}> */}

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Popover, Transition } from '@headlessui/react';
 import { useQueryClient } from '@tanstack/react-query';
-import { FormattedMessage } from 'react-intl';
+import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
 import axios from 'axios';
 import Button from '../../components/Button';
 import navLogoIcon from '../../assets/icon/nav_logo.svg';
@@ -22,6 +22,7 @@ export default function Navbar() {
   const queryClient = useQueryClient();
   const token = useAuthToken();
   const action = useAppDispatch();
+  const intl = useIntl();
   // const { t, i18n } = useTranslation();
 
   return (
@@ -38,8 +39,13 @@ export default function Navbar() {
             <FormattedMessage defaultMessage="Trust" />
           </NavLink>
           {/* <Button onClick={() => { */}
-          {/*  addSuccessNotification({ */}
-          {/*    title: '???', */}
+          {/*  navigate('/status', { */}
+          {/*    state: { */}
+          {/*      title: defineMessage({ defaultMessage: 'Congratulations!' }), */}
+          {/*      description: defineMessage({ defaultMessage: 'Congratulations! You have successfully bound Google Authenticator.' }), */}
+          {/*      navTo: '/', */}
+          {/*    }, */}
+          {/*    replace: true, */}
           {/*  }); */}
           {/* }} */}
           {/* > */}
@@ -49,9 +55,9 @@ export default function Navbar() {
       )}
       <div className={classNames('flex-1')} />
       <div className={classNames('flex flex-row items-center gap-6')}>
-        {!token && (
+        {!token && !window.location.pathname.startsWith('/welcome') && !window.location.pathname.startsWith('') && (
           <Button onClick={() => navigate('/welcome')}>
-            <FormattedMessage defaultMessage="Sign in" />
+            <FormattedMessage defaultMessage="Login" />
           </Button>
         )}
         {/* 个人中心 */}

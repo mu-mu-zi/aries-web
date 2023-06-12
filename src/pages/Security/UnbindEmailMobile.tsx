@@ -125,8 +125,8 @@ export default function UnbindEmailMobile() {
                 </div>
               </>
             )}
-            <div className="text-[#C2D7C7F6] text-[16px] font-bold"><FormattedMessage defaultMessage="Google Captcha" /></div>
-            <TextInput {...register('googleCode')} placeholder={intl.formatMessage({ defaultMessage: 'Please enter the google verification code' })} />
+            <div className="text-[#C2D7C7F6] text-[16px] font-bold"><FormattedMessage defaultMessage="Google Verification Code" /></div>
+            <TextInput {...register('googleCode')} placeholder={intl.formatMessage({ defaultMessage: 'Please input the 6-digit Google verification code' })} />
             <div className="mt-[40px]">
               <Button block><FormattedMessage defaultMessage="Submit" /></Button>
             </div>

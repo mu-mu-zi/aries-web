@@ -29,7 +29,7 @@ export default function FirstGuideWelcome() {
 
   return (
     <div>
-      <div className="justify-center flex h-full flex-col items-center cursor-pointer" onClick={mark}>
+      <div className="justify-center flex h-full flex-col items-center  relative">
         <div
           className="w-[1024px] h-[680px] bg-cover bg-center bg-no-repeat flex flex-col items-center gap-4 p-8 rounded-xl"
           style={{ backgroundImage: `url(${bg})` }}
@@ -39,9 +39,9 @@ export default function FirstGuideWelcome() {
             {CallFormat(userQuery.data?.data?.surname, userQuery.data?.data?.gender, true)}
           </div>
           <div className="mt-4 max-w-[548px] text-center text-[20px] font-title text-[#C39770] leading-[23px]">
-            <FormattedMessage defaultMessage="Welcome to the digital trust exclusively established for you, opening the door to digital wealth. You will be able to see all trust assets and view all records." />
+            <FormattedMessage defaultMessage="Congratulations on successfully establishing your exclusive private trust and opening the door to digital wealth in the modern age! " />
           </div>
-          <div className="mt-[96px] pr-[6px]">
+          <div className="top-[385px] pr-[6px] absolute cursor-pointer" onClick={mark}>
             <div className="gradient-text1 font-bold font-title text-[20px]"><FormattedMessage defaultMessage="Open" /></div>
           </div>
         </div>

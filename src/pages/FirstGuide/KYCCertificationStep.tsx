@@ -18,7 +18,7 @@ export default function KYCCertificationStep({ trust }: {
         className="text-[#708077] text-[14px] leading-[16px] mt-4"
       >
 
-        {trust.kycStatus === 1 ? <FormattedMessage defaultMessage="KYC certification in progress" /> : <FormattedMessage defaultMessage="KYC Certification Success" />}
+        {trust.kycStatus === 1 ? <FormattedMessage defaultMessage="Identity verification in progress" /> : <FormattedMessage defaultMessage="Identity verification successful" />}
       </div>
     </div>
   );

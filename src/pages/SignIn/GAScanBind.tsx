@@ -12,6 +12,7 @@ import ContactUs from './ContactUs';
 import { useGoogleSecretQuery } from '../../api/user/verify';
 import ContactUsFooter from '../../views/ContactUsFooter';
 import QrCode from '../../components/QrCode';
+import CopyIcon from '../../views/CopyIcon';
 // import { useGoogleSecretQuery } from '../../api/user/verify';
 
 export default function GAScanBind() {
@@ -27,8 +28,8 @@ export default function GAScanBind() {
     <div className="flex flex-col items-center pt-[38px]">
       <div className="gradient-bg2 flex max-w-[1200px] w-full min-h-[800px] flex-col overflow-clip  rounded-xl">
         <GANavbar
-          title={intl.formatMessage({ defaultMessage: 'Bind Google Authenticator' })}
-          description={intl.formatMessage({ defaultMessage: 'Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After binding, it generates a dynamic verification code every 30 seconds, which can be used for security verification for login, modifying security settings and other operations.' })}
+          title={intl.formatMessage({ defaultMessage: 'Binding Google Authenticator' })}
+          description={intl.formatMessage({ defaultMessage: 'Google Authenticator is a commonly used identity verification app. After binding, you can obtain verification codes to enhance the security of your account.' })}
         />
         <div className="item-center flex flex-col self-center w-[420px] pt-[64px]">
           <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]">
@@ -39,6 +40,13 @@ export default function GAScanBind() {
               {googleAuth.data?.data.qrCode && <QrCode text={googleAuth.data?.data.qrCode} size={136} />}
             </div>
           </div>
+          <div className="self-center flex flex-row items-center bg-[#3B5649] rounded-xl shadow-block px-8 gap-2 mt-12 h-[60px]">
+            <div className="font-title gradient-text1 text-[24px] font-bold">{googleAuth.data?.data?.secret}</div>
+            <CopyIcon text={googleAuth.data?.data?.secret} />
+          </div>
+          <div className="text-center text-[14px] leading-[16px] mt-8 text-[#99AC9B]">
+            <FormattedMessage defaultMessage="If you are unable to scan this QR code, please enter this string of characters as the setup key in the Google Authenticator app" />
+          </div>
           <div className="flex flex-row gap-4 mt-[40px]">
             <Button size="medium" block onClick={() => navigate(-1)}><FormattedMessage defaultMessage="Back" /></Button>
             <Button
@@ -46,7 +54,7 @@ export default function GAScanBind() {
               block
               onClick={() => {
                 if (googleAuth.data?.data.secret) {
-                  navigate('/gaBackup', {
+                  navigate('/gaBindVerify', {
                     state: {
                       secret: googleAuth.data?.data.secret,
                       account: location.state.account,

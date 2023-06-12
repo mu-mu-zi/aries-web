@@ -99,9 +99,7 @@ export default function ChangeMobile() {
       <GANavbar />
       <form onSubmit={handleSubmit(submit)}>
         <div className="m-auto flex flex-col w-[420px]">
-          <div
-            className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px] my-16"
-          >
+          <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px] my-16">
             <FormattedMessage defaultMessage="Change phone" />
           </div>
           <div className="flex flex-col gap-4">
@@ -124,7 +122,9 @@ export default function ChangeMobile() {
                 />
               </div>
             </div>
-            <div className="text-[#C2D7C7F6] text-[16px] font-bold"><FormattedMessage defaultMessage="New Mobile Verification Code" /></div>
+            <div className="text-[#C2D7C7F6] text-[16px] font-bold">
+              <FormattedMessage defaultMessage="New Mobile Verification Code" />
+            </div>
             <div>
               <TextInput
                 {...register('securityCode')}

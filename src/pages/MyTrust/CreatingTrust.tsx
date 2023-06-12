@@ -15,15 +15,15 @@ export default function CreatingTrust() {
       <div className="px-12 flex flex-col flex-auto">
         <img className="mt-20 self-center" src={icon} width="224px" alt="Logo" />
         <div className="mt-12 gradient-text1 text-shadow-block font-title text-[32px] text-center leading-[36px]">
-          <FormattedMessage defaultMessage="Welcome to Aries Trust Company" />
+          <FormattedMessage defaultMessage="Welcome to Aries Trust" />
         </div>
         <div className="mt-4 text-[#C39770] font-title text-[20px] text-center leading-[24px]">
-          <FormattedMessage defaultMessage="The most professional digital asset family trust service provider." />
+          <FormattedMessage defaultMessage="The unique digital private trust service provider" />
         </div>
         <div className="flex-1" />
         <div className="mt-12 self-center">
           <Button size="large" onClick={() => navigate('/contactCustomer')}>
-            <FormattedMessage defaultMessage="Creating a Trust" />
+            <FormattedMessage defaultMessage="Establish a Trust" />
           </Button>
         </div>
       </div>

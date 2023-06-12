@@ -60,27 +60,27 @@ export default function KycVerify() {
           <div
             className="gradient-text1 text-shadow-block text-center font-title text-[40px] font-bold mt-12"
           >
-            <FormattedMessage defaultMessage="Set Up Your Captive Trust" />
+            <FormattedMessage defaultMessage="Establishing Exclusive Private Trust" />
           </div>
           <div className="text-center font-title text-[20px] font-[400] text-[#C39770] mt-4 px-16">
             {stepId() === 0 && (
               <FormattedMessage
-                defaultMessage="Welcome to Aries Customized Trust Services! In order to protect your assets and comply with the relevant laws and regulations, we require you to complete identity verification. Please contact your trust manager to submit your personal information and proof of identity."
+                defaultMessage="Aries is honored to provide you with world-class digital private trust services! To ensure the security of your assets and comply with relevant laws and regulations, Aries needs to verify your identity. Your dedicated trust manager will contact you to discuss the required information and documents"
               />
             )}
             {stepId() === 1 && (
               <FormattedMessage
-                defaultMessage="In order to protect your assets and comply with the relevant laws and regulations, you are required to complete the trust contract."
+                defaultMessage="Please follow the guidance of your dedicated trust manager to complete the signing of relevant agreements, including the Trust Deed、Trustee Memorandum、Services Agreement"
               />
             )}
             {stepId() === 2 && (
               <FormattedMessage
-                defaultMessage="In the process of setting up a trust, you will need to pay a set-up fee. Once the set-up fee has been paid, we will carry out the subsequent work of setting up the trust for you."
+                defaultMessage="According to the payment method you have chosen, please make the payment for the trust establishment fee. Below is the payment information for Aries. If you have any questions, please contact your dedicated trust manager"
               />
             )}
             {stepId() === 3 && (
               <FormattedMessage
-                defaultMessage="Thank you for choosing the Aries Trust Services platform! As agreed in the trust deed, you will need to complete the first transfer of trust assets to complete the creation of the trust."
+                defaultMessage="Thank you for your patience! Now, all you need to do is complete the injection of the initial entrusted assets to establish the trust. Based on the asset types you have chosen, below is the corresponding payment information"
               />
             )}
           </div>
@@ -91,10 +91,10 @@ export default function KycVerify() {
                 <StepControl
                   current={stepId()}
                   titles={[
-                    intl.formatMessage({ defaultMessage: 'KYC Certification' }),
-                    intl.formatMessage({ defaultMessage: 'Contract Signing' }),
-                    intl.formatMessage({ defaultMessage: 'Establishment Fee' }),
-                    intl.formatMessage({ defaultMessage: 'Trust Completion' }),
+                    intl.formatMessage({ defaultMessage: 'Identity Verification' }),
+                    intl.formatMessage({ defaultMessage: 'Agreements Signing' }),
+                    intl.formatMessage({ defaultMessage: 'Fee Payment' }),
+                    intl.formatMessage({ defaultMessage: 'Establishment completed' }),
                   ]}
                 />
               </div>

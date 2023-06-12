@@ -17,17 +17,17 @@
   "+ZLB8X": {
     "defaultMessage": "View Credentials"
   },
-  "+e/759": {
-    "defaultMessage": "Creating a Trust"
-  },
-  "+l0vPP": {
-    "defaultMessage": "In order to protect your assets and comply with the relevant laws and regulations, you are required to complete the trust contract."
+  "+minEV": {
+    "defaultMessage": "Identity Verification"
   },
   "/0TOL5": {
     "defaultMessage": "Amount"
   },
   "/3s9fM": {
     "defaultMessage": "Transfer Voucher"
+  },
+  "/Ah5JW": {
+    "defaultMessage": "last name"
   },
   "/CaREm": {
     "defaultMessage": "Pending approval"
@@ -52,9 +52,6 @@
   },
   "0V1V61": {
     "defaultMessage": "Notification"
-  },
-  "0fb7mN": {
-    "defaultMessage": "The most professional digital asset family trust service provider."
   },
   "0n96tW": {
     "defaultMessage": "Fiat currency deposit"
@@ -95,6 +92,9 @@
   "2L30vK": {
     "defaultMessage": "Succession Guardian"
   },
+  "2PUpmc": {
+    "defaultMessage": "Agreements Signing"
+  },
   "2avfQY": {
     "defaultMessage": "Half of year"
   },
@@ -103,6 +103,9 @@
   },
   "2o/IFP": {
     "defaultMessage": "Login Time"
+  },
+  "2rHE4w": {
+    "defaultMessage": "After verification, users will be automatically logged in. Registration implies your agreement to Aries' {userPolicy} and {privacyPolicy}."
   },
   "2sdCKo": {
     "defaultMessage": "Establishment fee"
@@ -116,8 +119,8 @@
   "36qSAF": {
     "defaultMessage": "Revocable"
   },
-  "3SeRHQ": {
-    "defaultMessage": "Aries Digital Group Agreement"
+  "3M3J2B": {
+    "defaultMessage": "Google Verification Code"
   },
   "3V9HMB": {
     "defaultMessage": "Please enter the 6-digit Google security code"
@@ -128,9 +131,6 @@
   "3dS3et": {
     "defaultMessage": "Payer's address"
   },
-  "3og3B4": {
-    "defaultMessage": "Digital asset account"
-  },
   "477I0g": {
     "defaultMessage": "Low"
   },
@@ -140,6 +140,9 @@
   "4Awxs4": {
     "defaultMessage": "Identity category"
   },
+  "4B5m3b": {
+    "defaultMessage": "Please keep the communication channels open so that our customer service team can reach you in a timely manner. Additionally, you can also directly communicate with us through the email address {email}."
+  },
   "4HsfLG": {
     "defaultMessage": "Cancelled",
     "description": "投资指令状态"
@@ -147,8 +150,8 @@
   "4J9fO0": {
     "defaultMessage": "Please enter the email"
   },
-  "4VDoXw": {
-    "defaultMessage": "Trust Completion"
+  "4REnT4": {
+    "defaultMessage": "Phone Verification Code"
   },
   "4XQKPu": {
     "defaultMessage": "Additional establishment fee"
@@ -177,9 +180,6 @@
   "5RwpV7": {
     "defaultMessage": "Approval Comments"
   },
-  "5TpQ0V": {
-    "defaultMessage": "To ensure the security of your funds and account, please enter the verification code received in your Aries trust {account} email."
-  },
   "5bKdBH": {
     "defaultMessage": "Your account is in the process of opening"
   },
@@ -188,9 +188,6 @@
   },
   "5qaD7s": {
     "defaultMessage": "Rejected"
-  },
-  "5zUXHf": {
-    "defaultMessage": "Please enter the google verification code"
   },
   "61EVhL": {
     "defaultMessage": "Payee account number"
@@ -204,9 +201,6 @@
   "6Z+f5L": {
     "defaultMessage": "Note: Each additional establishment fee is calculated at a fixed rate of {ratio} and deducted at the end of the year"
   },
-  "7/wPsX": {
-    "defaultMessage": "Google Captcha"
-  },
   "74BYXL": {
     "defaultMessage": "Female"
   },
@@ -216,9 +210,6 @@
   "7rA4vE": {
     "defaultMessage": "Cancelled",
     "description": "资产申报状态"
-  },
-  "7t3xQN": {
-    "defaultMessage": "Trust Asset Holding Company"
   },
   "7tV1mj": {
     "defaultMessage": "Investment Instruction Details"
@@ -247,6 +238,9 @@
   "97nX8g": {
     "defaultMessage": "Three Month"
   },
+  "9QNY4k": {
+    "defaultMessage": "Digital Asset Address"
+  },
   "9WRlF4": {
     "defaultMessage": "Send"
   },
@@ -262,8 +256,14 @@
   "AgQm92": {
     "defaultMessage": "Transaction voucher"
   },
+  "AhOyIX": {
+    "defaultMessage": "Email Verification Code"
+  },
   "AxMhQr": {
     "defaultMessage": "High"
+  },
+  "AyGauy": {
+    "defaultMessage": "Login"
   },
   "BGdkqE": {
     "defaultMessage": "ReadOnly"
@@ -284,8 +284,8 @@
   "BzQPM+": {
     "defaultMessage": "Destination"
   },
-  "C/XIc2": {
-    "defaultMessage": "firstname"
+  "C461+i": {
+    "defaultMessage": "Welcome to Aries Trust"
   },
   "CJl14U": {
     "defaultMessage": "Please enter the expected transfer time"
@@ -343,9 +343,6 @@
   "ECLeIP": {
     "defaultMessage": "Total amount of deposit: {amount} {coinName}"
   },
-  "ELOxIG": {
-    "defaultMessage": "Payment code"
-  },
   "EPMjof": {
     "defaultMessage": "Payment Information"
   },
@@ -355,9 +352,6 @@
   "Ewgy1B": {
     "defaultMessage": "Protector"
   },
-  "F/MMgU": {
-    "defaultMessage": "Verify identity"
-  },
   "F/t0qk": {
     "defaultMessage": "Creating a command"
   },
@@ -366,6 +360,9 @@
   },
   "FG1QzM": {
     "defaultMessage": "Approval opinion (optional)"
+  },
+  "FIwWyA": {
+    "defaultMessage": "QR Code"
   },
   "FXTvHl": {
     "defaultMessage": "Asset Overview"
@@ -388,9 +385,6 @@
   "G23nFE": {
     "defaultMessage": "Transfer of digital assets"
   },
-  "GNL4T/": {
-    "defaultMessage": "To ensure the security of your funds and account, please enter the verification code received in your Aries trust {account} ."
-  },
   "GWtmtu": {
     "defaultMessage": "Mobile"
   },
@@ -407,9 +401,6 @@
   "HLhBp4": {
     "defaultMessage": "Once you decide to add funds, the corresponding fee will be deducted from your trust account according to the contract. Similar to the payment method during the establishment of the trust plan, we will charge the additional establishment fee based on the actual amount of funds added and the agreed-upon ratio."
   },
-  "HV70Qz": {
-    "defaultMessage": "Digital asset address"
-  },
   "Hi93rl": {
     "defaultMessage": "Change Email"
   },
@@ -418,6 +409,9 @@
   },
   "I5NMJ8": {
     "defaultMessage": "More"
+  },
+  "IHdC4B": {
+    "defaultMessage": "The unique digital private trust service provider"
   },
   "IJ1CbI": {
     "defaultMessage": "Please enter the new email"
@@ -467,11 +461,11 @@
   "KJhcLh": {
     "defaultMessage": "Asset Transfer"
   },
-  "KKsoP5": {
-    "defaultMessage": "Account opening fee"
-  },
   "KLs1P7": {
     "defaultMessage": "Name of Legal Document"
+  },
+  "KfZq7T": {
+    "defaultMessage": "In order to ensure the safety of your asset and account, please enter the verification code received by your email {account}"
   },
   "Kl6x+n": {
     "defaultMessage": "Approval"
@@ -479,20 +473,20 @@
   "KmuZrC": {
     "defaultMessage": "Settled in {year}"
   },
-  "L3rMHV": {
-    "defaultMessage": "Applications will be processed within 1 business day, please keep it open for customer service to contact you."
-  },
   "LTiRn7": {
     "defaultMessage": "NonSpecific"
   },
   "LpM3W/": {
     "defaultMessage": "Please enter a number with a maximum precision of 8."
   },
+  "LqZFLZ": {
+    "defaultMessage": "Congratulations on successfully establishing your exclusive private trust and opening the door to digital wealth in the modern age!"
+  },
   "LxJH+O": {
     "defaultMessage": "Digital currency"
   },
-  "ME7veU": {
-    "defaultMessage": "Contract signed successfully"
+  "M2HJ++": {
+    "defaultMessage": "Security Verification"
   },
   "MNoT8+": {
     "defaultMessage": "Authority"
@@ -515,9 +509,6 @@
   "NBvxWR": {
     "defaultMessage": "Estimated transfer time"
   },
-  "NCTRIo": {
-    "defaultMessage": "KYC certification in progress"
-  },
   "NK/IfH": {
     "defaultMessage": "Congratulations! You have successfully bound Google Authenticator."
   },
@@ -535,9 +526,6 @@
   },
   "NwA6NG": {
     "defaultMessage": "The establishment fee refers to the additional fee of {ratio} that needs to be paid if you decide to add funds during the operation of the trust plan. Our company follows the contractual provisions to determine the standard for establishment fees, which is generally based on a certain percentage of the net asset value to ensure the cost coverage of the additional services provided to the settlor."
-  },
-  "O8y1k2": {
-    "defaultMessage": "KYC Certification"
   },
   "O95R3Z": {
     "defaultMessage": "Phone"
@@ -560,6 +548,9 @@
   "Orc8Zk": {
     "defaultMessage": "Distribution"
   },
+  "PK+jHT": {
+    "defaultMessage": "Establishment completed"
+  },
   "PPV+pW": {
     "defaultMessage": "Establishment time"
   },
@@ -577,9 +568,6 @@
   },
   "Pw6Nyf": {
     "defaultMessage": "Digital currency payment"
-  },
-  "Pw74Tl": {
-    "defaultMessage": "The application will be processed within one working day, please keep your communication channels open so that customer service can contact you in a timely manner. Additionally, you can also contact the platform through {email}."
   },
   "Px35ny": {
     "defaultMessage": "Unbilled in {year}"
@@ -615,23 +603,14 @@
   "QsNLAE": {
     "defaultMessage": "Bill and Resources"
   },
-  "Qux9AG": {
-    "defaultMessage": "Submit successfully"
-  },
   "R2toXm": {
     "defaultMessage": "Submission successful."
   },
   "RDZVQL": {
     "defaultMessage": "Check"
   },
-  "RHyvr7": {
-    "defaultMessage": "Bind Google Authenticator"
-  },
   "RKjut/": {
     "defaultMessage": "New allocation plan added"
-  },
-  "Rb2reg": {
-    "defaultMessage": "Please provide a detailed explanation of the subject you would like to consult about."
   },
   "RddZqO": {
     "defaultMessage": "Trust fees"
@@ -641,6 +620,9 @@
   },
   "RrC8Pi": {
     "defaultMessage": "Excess transfer fee"
+  },
+  "Rwu+Kb": {
+    "defaultMessage": "Identity verification in progress"
   },
   "S0AuC3": {
     "defaultMessage": "3) After verifying and confirming with Aries, we will credit your account with the transferred assets. If there are any issues, we will contact you accordingly."
@@ -654,8 +636,11 @@
   "SFuk1v": {
     "defaultMessage": "Permissions"
   },
-  "SQJto2": {
-    "defaultMessage": "Sign in"
+  "SJt3uu": {
+    "defaultMessage": "Verify Identity"
+  },
+  "SNrJ24": {
+    "defaultMessage": "Establishing Exclusive Private Trust"
   },
   "SRhWkB": {
     "defaultMessage": "Principal"
@@ -675,8 +660,8 @@
   "TJwKOe": {
     "defaultMessage": "Scan the new QR code using the Google Authenticator App"
   },
-  "TVcDb2": {
-    "defaultMessage": "Bank Account"
+  "TMT+uu": {
+    "defaultMessage": "Submit Successfully"
   },
   "Tn2M+Y": {
     "defaultMessage": "Exceeding amount: {amount} {coinName}"
@@ -690,20 +675,14 @@
   "UCHG6p": {
     "defaultMessage": "Allocation Plan Explanation"
   },
-  "UCIsVW": {
-    "defaultMessage": "Exchange Account"
-  },
   "UTD1Ap": {
     "defaultMessage": "Establishment Fee: {amount} {coinName}"
   },
-  "UZzSkh": {
-    "defaultMessage": "Initial assets"
-  },
-  "Ub+AGc": {
-    "defaultMessage": "Sign In"
-  },
   "VCHbVR": {
     "defaultMessage": "Payer's address (optional)"
+  },
+  "VEK3MU": {
+    "defaultMessage": "We will process your request within 1 business day. Please keep the communication channels open so that our customer service team can contact you promptly."
   },
   "VLRPxv": {
     "defaultMessage": "FirstName"
@@ -723,8 +702,14 @@
   "WGgtj1": {
     "defaultMessage": "2) Complete the transfer by following the receiving address on the right side."
   },
+  "WJa34X": {
+    "defaultMessage": "Google Authenticator is a commonly used identity verification app. After binding, you can obtain verification codes to enhance the security of your account."
+  },
   "WMykwz": {
     "defaultMessage": "Trust"
+  },
+  "WasQtz": {
+    "defaultMessage": "Please input the 6-digit Google verification code"
   },
   "WkaLYR": {
     "defaultMessage": "Either phone number or email must be kept"
@@ -745,14 +730,8 @@
     "defaultMessage": "Verification failed",
     "description": "投资指令状态"
   },
-  "Xxh5du": {
-    "defaultMessage": "Contact customer service"
-  },
   "XztNoD": {
     "defaultMessage": "It is important to note that the additional establishment fee will be directly deducted from your trust account after the bank account is opened. When conducting the additional establishment operation, you need to ensure that there are sufficient funds in your trust account to cover the required fees and avoid any overdue or late payment charges. Please be aware that it is your responsibility to ensure that there are enough funds in your trust account to fulfill any obligations regarding the payment of additional establishment fees."
-  },
-  "YHZ3Qj": {
-    "defaultMessage": "Please enter your name"
   },
   "YZpBKf": {
     "defaultMessage": "Successfully opened"
@@ -763,11 +742,14 @@
   "YkcGxo": {
     "defaultMessage": "Audit failed"
   },
+  "YsWRvl": {
+    "defaultMessage": "Aries is honored to provide you with world-class digital private trust services! To ensure the security of your assets and comply with relevant laws and regulations, Aries needs to verify your identity. Your dedicated trust manager will contact you to discuss the required information and documents"
+  },
+  "Z6LESk": {
+    "defaultMessage": "Please provide a detailed description of the topic you would like to know about."
+  },
   "ZWNwI0": {
     "defaultMessage": "Please select a payment method"
-  },
-  "ZiH5hb": {
-    "defaultMessage": "In the process of setting up a trust, you will need to pay a set-up fee. Once the set-up fee has been paid, we will carry out the subsequent work of setting up the trust for you."
   },
   "a4iduI": {
     "defaultMessage": "Backup key"
@@ -784,6 +766,9 @@
   "abJ7rq": {
     "defaultMessage": "Additional establishment fee = Transfer amount of each asset declaration * exchange rate * establishment fee APR"
   },
+  "acV3Tk": {
+    "defaultMessage": "Please input your name"
+  },
   "aheQdn": {
     "defaultMessage": "Last Name"
   },
@@ -793,9 +778,6 @@
   },
   "b3LnNC": {
     "defaultMessage": "Unbind"
-  },
-  "bBtPwy": {
-    "defaultMessage": "lastname"
   },
   "bO8j7k": {
     "defaultMessage": "Entrusted assets"
@@ -821,9 +803,6 @@
   "cyR7Kh": {
     "defaultMessage": "Back"
   },
-  "d0DgDw": {
-    "defaultMessage": "Welcome to Aries Trust Company"
-  },
   "d88Ln8": {
     "defaultMessage": "Please enter the payer's name"
   },
@@ -840,14 +819,8 @@
   "de9hDz": {
     "defaultMessage": "Please note that the collected management fees cannot replace your final investment results. We cannot guarantee that your investment funds will definitely generate profits and provide investment advice accordingly. Any information regarding expected returns, risk analysis, and investment advice should be used for reference purposes only. You should be solely responsible for analyzing and evaluating your investment decisions."
   },
-  "e/8Ej6": {
-    "defaultMessage": "Exclusive Trust Service for Digital Assets"
-  },
   "e2Jt59": {
     "defaultMessage": "Allocation plan"
-  },
-  "eA5p4U": {
-    "defaultMessage": "Contract Signing"
   },
   "eGLTZb": {
     "defaultMessage": "LastName"
@@ -867,24 +840,24 @@
   "eumZr1": {
     "defaultMessage": "1) Please declare the asset transfer on the left side for this session."
   },
-  "f+G7rn": {
-    "defaultMessage": "KYC Certification Success"
-  },
   "f2wW1b": {
     "defaultMessage": "Unbound"
   },
   "f6xskA": {
     "defaultMessage": "Add Protector"
   },
+  "fExmWY": {
+    "defaultMessage": "Binding Google Authenticator"
+  },
   "fTlL2P": {
     "defaultMessage": "Remark"
-  },
-  "fmp58I": {
-    "defaultMessage": "We are in the process of setting up your account..."
   },
   "fnukew": {
     "defaultMessage": "Already recorded in account",
     "description": "资产申报状态"
+  },
+  "fvltHv": {
+    "defaultMessage": "Please input your email address"
   },
   "fxR9zh": {
     "defaultMessage": "Foreign Exchange Rate"
@@ -892,17 +865,8 @@
   "g+uuMI": {
     "defaultMessage": "payment Bank"
   },
-  "g3butN": {
-    "defaultMessage": "Phone verification code"
-  },
-  "gYAXXj": {
-    "defaultMessage": "Security verification"
-  },
   "gddsg6": {
     "defaultMessage": "To be effective"
-  },
-  "glVErC": {
-    "defaultMessage": "Transfer network"
   },
   "h00n14": {
     "defaultMessage": "Google Verify"
@@ -923,14 +887,14 @@
   "hJXQPy": {
     "defaultMessage": "Non-Explicit Beneficiary"
   },
+  "hLlw0V": {
+    "defaultMessage": "first name"
+  },
   "hUQSwM": {
     "defaultMessage": "Bank Name"
   },
   "hZOGLS": {
     "defaultMessage": "Contact Us"
-  },
-  "ha6Xf/": {
-    "defaultMessage": "Google Authenticator is a dynamic password tool, which works similar to SMS dynamic verification. After binding, it generates a dynamic verification code every 30 seconds, which can be used for security verification for login, modifying security settings and other operations."
   },
   "hbSqJA": {
     "defaultMessage": "Bank"
@@ -944,9 +908,6 @@
   "i4PAmi": {
     "defaultMessage": "Investment number"
   },
-  "iOpt0L": {
-    "defaultMessage": "Set Up Your Captive Trust"
-  },
   "ie1LwA": {
     "defaultMessage": "Trust total amount"
   },
@@ -956,14 +917,11 @@
   "iroylI": {
     "defaultMessage": "You currently have unapproved investment instructions, so you cannot change the permissions of this protector."
   },
-  "jGOcUI": {
-    "defaultMessage": "Thank you for choosing the Aries Trust Services platform! As agreed in the trust deed, you will need to complete the first transfer of trust assets to complete the creation of the trust."
+  "j9pVsh": {
+    "defaultMessage": "Thank you for your patience! Now, all you need to do is complete the injection of the initial entrusted assets to establish the trust. Based on the asset types you have chosen, below is the corresponding payment information"
   },
   "jIbAky": {
     "defaultMessage": "Male"
-  },
-  "jQ4jWE": {
-    "defaultMessage": "Aries Digital Group Privacy Policy"
   },
   "jeegMK": {
     "defaultMessage": "Remark (optional)"
@@ -985,6 +943,9 @@
   },
   "kWrlKk": {
     "defaultMessage": "Investment advice"
+  },
+  "khMelR": {
+    "defaultMessage": "In order to ensure the safety of your asset and account, please enter the verification code received by your phone number {account}"
   },
   "l00emw": {
     "defaultMessage": "Declaration time"
@@ -1013,9 +974,6 @@
   "lwQ2xb": {
     "defaultMessage": "Edit Role"
   },
-  "m2ct2i": {
-    "defaultMessage": "Please input your email"
-  },
   "m8/n8c": {
     "defaultMessage": "Gender"
   },
@@ -1029,6 +987,9 @@
   "nBH9Uk": {
     "defaultMessage": "Update Time"
   },
+  "nGZLh1": {
+    "defaultMessage": "Agreements signing in progress"
+  },
   "nJMP2w": {
     "defaultMessage": "Login device"
   },
@@ -1037,6 +998,9 @@
   },
   "o0sB98": {
     "defaultMessage": "Billing Record"
+  },
+  "o9Va2+": {
+    "defaultMessage": "Digital Asset"
   },
   "oUWADl": {
     "defaultMessage": "No"
@@ -1080,8 +1044,8 @@
   "qu2FPQ": {
     "defaultMessage": "Payment amount"
   },
-  "r6mXHl": {
-    "defaultMessage": "Contract signing in progress"
+  "r6+Aap": {
+    "defaultMessage": "Establish a Trust"
   },
   "rQxUa6": {
     "defaultMessage": "Declaration information"
@@ -1093,17 +1057,29 @@
   "roB1tg": {
     "defaultMessage": "Digital Asset Out"
   },
+  "s2Ra7v": {
+    "defaultMessage": "Digital Asset Injection"
+  },
+  "sKzrjX": {
+    "defaultMessage": "Identity verification successful"
+  },
   "sS7+IQ": {
     "defaultMessage": "Add time"
   },
   "samtuR": {
     "defaultMessage": "Expected transfer time"
   },
+  "siS/wI": {
+    "defaultMessage": "Fee Payment"
+  },
   "smkEgs": {
     "defaultMessage": "The principal can use the investment instruction function to indicate investment intentions and directions to Aries Digital Group, and request investment operations to be carried out according to the principal's instructions. Throughout the process, the principal can adjust investment instructions based on market fluctuations and investment directions."
   },
   "splreS": {
     "defaultMessage": "Identity Category"
+  },
+  "srggV0": {
+    "defaultMessage": "According to the payment method you have chosen, please make the payment for the trust establishment fee. Below is the payment information for Aries. If you have any questions, please contact your dedicated trust manager"
   },
   "svbYSN": {
     "defaultMessage": "Explicit Beneficiary"
@@ -1129,17 +1105,17 @@
   "u/7eqm": {
     "defaultMessage": "Trust management fee refers to the fee charged by the trust company to the settlor for providing custody, risk control, asset management and other services according to the provisions of the trust plan agreement. Our company's trust plan management fee is generally collected at a standard annualized rate of {ratio}, and this fee is calculated based on the actual market value of the assets under custody. Please note that we will automatically deduct this amount from your custodial account. By default, we will deduct the corresponding amount of fiat currency, such as RMB, as the management fee from your custodial account. If there is not enough fiat currency in your custodial account, we will deduct assets equivalent to the management fee from your custodial account according to the contract."
   },
-  "u4zR/B": {
-    "defaultMessage": "Welcome to Aries Customized Trust Services! In order to protect your assets and comply with the relevant laws and regulations, we require you to complete identity verification. Please contact your trust manager to submit your personal information and proof of identity."
-  },
-  "uFT42D": {
-    "defaultMessage": "After mobile phone verification, the user will automatically log in without registration. Registration represents agreement to the {userPolicy} and {privacyPolicy}."
+  "uLoaam": {
+    "defaultMessage": "Please input your phone number"
   },
   "ug01Mk": {
     "defaultMessage": "Time"
   },
   "uqa1mE": {
     "defaultMessage": "Modify distribution plan details"
+  },
+  "vQryDn": {
+    "defaultMessage": "Please follow the guidance of your dedicated trust manager to complete the signing of relevant agreements, including the Trust Deed、Trustee Memorandum、Services Agreement"
   },
   "vhjvB3": {
     "defaultMessage": "Investment objective:"
@@ -1153,6 +1129,9 @@
   "vwIJj6": {
     "defaultMessage": "BankName"
   },
+  "vx0nkZ": {
+    "defaultMessage": "Privacy Policy"
+  },
   "wGbQN4": {
     "defaultMessage": "New Mobile Phone"
   },
@@ -1165,14 +1144,14 @@
   "wTzoIh": {
     "defaultMessage": "New Email Verification Code"
   },
-  "wjjv1H": {
-    "defaultMessage": "Welcome to the digital trust exclusively established for you, opening the door to digital wealth. You will be able to see all trust assets and view all records."
-  },
   "x5Tz6M": {
     "defaultMessage": "Report"
   },
   "xE3gxA": {
     "defaultMessage": "Please enter the verification code"
+  },
+  "xLRK/w": {
+    "defaultMessage": "If you are unable to scan this QR code, please enter this string of characters as the setup key in the Google Authenticator app"
   },
   "xXbJso": {
     "defaultMessage": "Sign out"
@@ -1204,6 +1183,9 @@
   "y1A6yb": {
     "defaultMessage": "Account Security"
   },
+  "y1cga9": {
+    "defaultMessage": "Initial Entrustment Amount"
+  },
   "y3Yrch": {
     "defaultMessage": "Google verification"
   },
@@ -1215,6 +1197,9 @@
   },
   "y6WYcC": {
     "defaultMessage": "Bill Records"
+  },
+  "yCts/G": {
+    "defaultMessage": "User Agreement"
   },
   "yGeCJm": {
     "defaultMessage": "Please enter the verification code received in your Aries trust {mobile}."
@@ -1243,6 +1228,9 @@
   },
   "zerDWl": {
     "defaultMessage": "Refusal"
+  },
+  "zocfs4": {
+    "defaultMessage": "Agreements signing successful"
   },
   "zu8f6a": {
     "defaultMessage": "New Email"

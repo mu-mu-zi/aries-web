@@ -104,19 +104,19 @@ export default function PersonalRealName() {
           </div>
           <div className="flex flex-row gap-4 mt-16">
             <div className="flex flex-col gap-4">
-              <div className="font-bold text-[#c2d7c7]"><FormattedMessage defaultMessage="FirstName" /></div>
+              <div className="font-bold text-[#c2d7c7]"><FormattedMessage defaultMessage="First Name" /></div>
               <TextInput
                 {...register('firstName')}
-                placeholder={intl.formatMessage({ defaultMessage: 'firstname' })}
+                placeholder={intl.formatMessage({ defaultMessage: 'first name' })}
                 maxLength={15}
                 error={errors.firstName?.message}
               />
             </div>
             <div className="flex flex-col gap-4">
-              <div className="font-bold text-[#c2d7c7]"><FormattedMessage defaultMessage="LastName" /></div>
+              <div className="font-bold text-[#c2d7c7]"><FormattedMessage defaultMessage="Last Name" /></div>
               <TextInput
                 {...register('lastName')}
-                placeholder={intl.formatMessage({ defaultMessage: 'lastname' })}
+                placeholder={intl.formatMessage({ defaultMessage: 'last name' })}
                 maxLength={15}
                 error={errors.lastName?.message}
               />

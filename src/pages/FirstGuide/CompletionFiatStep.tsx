@@ -23,60 +23,60 @@ export default function CompletionFiatStep({ trust }: {
         <FormattedMessage defaultMessage="We will collect from you offline" />
       </div>
       <div className="mt-4" />
-      <div
-        className="text-[#C39770] text-[20px] text-center font-title py-4"
-      >
-        <FormattedMessage defaultMessage="We are in the process of setting up your account..." />
-      </div>
-      <div className="flex flex-col gap-2 self-stretch">
-        {trust.trustCompanyModel?.companyType === 1 ? (
-          <>
-            <VerifyStatusRow
-              icon={digitalIcon}
-              title={intl.formatMessage({ defaultMessage: 'Digital asset account' })}
-              status={VerifyStatusRowStatus.Success}
-            />
-            <VerifyStatusRow
-              icon={icon2}
-              title={intl.formatMessage({ defaultMessage: 'Trust Asset Holding Company' })}
-              status={VerifyStatusRowStatus.Opening}
-            />
-            <VerifyStatusRow
-              icon={icon3}
-              title={intl.formatMessage({ defaultMessage: 'Bank Account' })}
-              status={VerifyStatusRowStatus.NotOpen}
-            />
-            <VerifyStatusRow
-              icon={icon4}
-              title={intl.formatMessage({ defaultMessage: 'Exchange Account' })}
-              status={VerifyStatusRowStatus.NotOpen}
-            />
-          </>
-        ) : (
-          <>
-            <VerifyStatusRow
-              icon={digitalIcon}
-              title={intl.formatMessage({ defaultMessage: 'Digital asset account' })}
-              status={VerifyStatusRowStatus.Success}
-            />
-            <VerifyStatusRow
-              icon={icon2}
-              title={intl.formatMessage({ defaultMessage: 'Trust Asset Holding Company' })}
-              status={VerifyStatusRowStatus.Success}
-            />
-            <VerifyStatusRow
-              icon={icon3}
-              title={intl.formatMessage({ defaultMessage: 'Bank Account' })}
-              status={VerifyStatusRowStatus.Opening}
-            />
-            <VerifyStatusRow
-              icon={icon4}
-              title={intl.formatMessage({ defaultMessage: 'Exchange Account' })}
-              status={VerifyStatusRowStatus.Opening}
-            />
-          </>
-        )}
-      </div>
+      {/* <div */}
+      {/*  className="text-[#C39770] text-[20px] text-center font-title py-4" */}
+      {/* > */}
+      {/*  <FormattedMessage defaultMessage="We are in the process of setting up your account..." /> */}
+      {/* </div> */}
+      {/* <div className="flex flex-col gap-2 self-stretch"> */}
+      {/*  {trust.trustCompanyModel?.companyType === 1 ? ( */}
+      {/*    <> */}
+      {/*      <VerifyStatusRow */}
+      {/*        icon={digitalIcon} */}
+      {/*        title={intl.formatMessage({ defaultMessage: 'Digital asset account' })} */}
+      {/*        status={VerifyStatusRowStatus.Success} */}
+      {/*      /> */}
+      {/*      <VerifyStatusRow */}
+      {/*        icon={icon2} */}
+      {/*        title={intl.formatMessage({ defaultMessage: 'Trust Asset Holding Company' })} */}
+      {/*        status={VerifyStatusRowStatus.Opening} */}
+      {/*      /> */}
+      {/*      <VerifyStatusRow */}
+      {/*        icon={icon3} */}
+      {/*        title={intl.formatMessage({ defaultMessage: 'Bank Account' })} */}
+      {/*        status={VerifyStatusRowStatus.NotOpen} */}
+      {/*      /> */}
+      {/*      <VerifyStatusRow */}
+      {/*        icon={icon4} */}
+      {/*        title={intl.formatMessage({ defaultMessage: 'Exchange Account' })} */}
+      {/*        status={VerifyStatusRowStatus.NotOpen} */}
+      {/*      /> */}
+      {/*    </> */}
+      {/*  ) : ( */}
+      {/*    <> */}
+      {/*      <VerifyStatusRow */}
+      {/*        icon={digitalIcon} */}
+      {/*        title={intl.formatMessage({ defaultMessage: 'Digital asset account' })} */}
+      {/*        status={VerifyStatusRowStatus.Success} */}
+      {/*      /> */}
+      {/*      <VerifyStatusRow */}
+      {/*        icon={icon2} */}
+      {/*        title={intl.formatMessage({ defaultMessage: 'Trust Asset Holding Company' })} */}
+      {/*        status={VerifyStatusRowStatus.Success} */}
+      {/*      /> */}
+      {/*      <VerifyStatusRow */}
+      {/*        icon={icon3} */}
+      {/*        title={intl.formatMessage({ defaultMessage: 'Bank Account' })} */}
+      {/*        status={VerifyStatusRowStatus.Opening} */}
+      {/*      /> */}
+      {/*      <VerifyStatusRow */}
+      {/*        icon={icon4} */}
+      {/*        title={intl.formatMessage({ defaultMessage: 'Exchange Account' })} */}
+      {/*        status={VerifyStatusRowStatus.Opening} */}
+      {/*      /> */}
+      {/*    </> */}
+      {/*  )} */}
+      {/* </div> */}
     </div>
   );
 }

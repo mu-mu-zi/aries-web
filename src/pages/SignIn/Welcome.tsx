@@ -29,7 +29,9 @@ export default function Welcome() {
       >
         <img src={welcomeIcon} className="" width="313px" />
         <div className="gradient-text1 px-[72px] mt-16 text-center font-title text-[40px] leading-[46px]">
-          <FormattedMessage defaultMessage="Exclusive Trust Service for Digital Assets" />
+          Exclusive Trust Service
+          <br />
+          for Digital Assets
         </div>
         <div className="mt-12 px-[85px] self-stretch">
           <Button
@@ -37,7 +39,7 @@ export default function Welcome() {
             block
             onClick={() => (userId ? navigate('/my') : navigate('/signIn'))}
           >
-            {userId ? <FormattedMessage defaultMessage="My Trust" /> : <FormattedMessage defaultMessage="Sign In" /> }
+            {userId ? <FormattedMessage defaultMessage="My Trust" /> : <FormattedMessage defaultMessage="Login" /> }
           </Button>
         </div>
         <div className="mt-[52px] self-stretch flex flex-col gap-12">

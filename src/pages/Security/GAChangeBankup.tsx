@@ -17,7 +17,8 @@ export default function GAChangeBankup() {
   return (
     <CenterContainer>
       <GANavbar
-        title={intl.formatMessage({ defaultMessage: 'Bind Google Authenticator' })}
+        title={intl.formatMessage({ defaultMessage: 'Binding Google Authenticator' })}
+        // description={intl.formatMessage({ defaultMessage: 'Google Authenticator is a commonly used identity verification app. After binding, you can obtain verification codes to enhance the security of your account.' })}
       />
       <div className="item-center flex flex-col self-center w-[420px] pt-[64px]">
         <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]">

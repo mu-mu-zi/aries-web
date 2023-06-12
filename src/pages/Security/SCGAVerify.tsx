@@ -65,7 +65,7 @@ export default function SCGAVerify() {
           <GANavbar />
           <div className="item-center flex w-[420px] flex-col self-center pt-[64px]">
             <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px]">
-              <FormattedMessage defaultMessage="Security verification" />
+              <FormattedMessage defaultMessage="Security Verification" />
             </div>
             <div className="mt-16 flex flex-col gap-4">
               <div className="font-bold text-[#c2d7c7]">

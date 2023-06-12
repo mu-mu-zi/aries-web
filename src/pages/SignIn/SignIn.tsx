@@ -144,7 +144,7 @@ export default function SignIn() {
                 block
                 className="w-full"
                 {...register('account')}
-                placeholder={isPhone ? intl.formatMessage({ defaultMessage: 'Please input your phone' }) : intl.formatMessage({ defaultMessage: 'Please input your email' })}
+                placeholder={isPhone ? intl.formatMessage({ defaultMessage: 'Please input your phone number' }) : intl.formatMessage({ defaultMessage: 'Please input your email address' })}
                 type="text"
                 error={errors.account?.message}
               />
@@ -175,7 +175,7 @@ export default function SignIn() {
               <FormattedMessage defaultMessage="Next" />
             </Button>
             {/* todo: 国际化拆分 */}
-            <div className="text-[#99AC9B] leading-[15px] text-[14px]">
+            <div className="text-[#99AC9B] text-[14px]">
               {/* {t('After mobile phone verification, the user will automatically log in without registration. Registration represents agreement to the')} */}
               {/* {' '} */}
               {/* <a href="https://aries-trust.com/userPolicy" target="_blank" className="gradient-text1" rel="noreferrer">{t('Aries Digital Group Agreement')}</a> */}
@@ -183,8 +183,9 @@ export default function SignIn() {
               {/* and */}
               {/* {' '} */}
               {/* <a href="https://aries-trust.com/privacyPolicy" target="_blank" className="gradient-text1" rel="noreferrer">{t('Aries Digital Group Privacy Policy')}</a> */}
+              {/* After verification, users will be automatically logged in. Registration implies your agreement to Aries' {userPolicy} and {privacyPolicy} */}
               <FormattedMessage
-                defaultMessage="After mobile phone verification, the user will automatically log in without registration. Registration represents agreement to the {userPolicy} and {privacyPolicy}."
+                defaultMessage="After verification, users will be automatically logged in. Registration implies your agreement to Aries' {userPolicy} and {privacyPolicy}."
                 values={{
                   userPolicy: (
                     <a
@@ -193,7 +194,7 @@ export default function SignIn() {
                       className="gradient-text1"
                       rel="noreferrer"
                     >
-                      <FormattedMessage defaultMessage="Aries Digital Group Agreement" />
+                      <FormattedMessage defaultMessage="User Agreement" />
                     </a>),
                   privacyPolicy: (
                     <a
@@ -202,7 +203,7 @@ export default function SignIn() {
                       className="gradient-text1"
                       rel="noreferrer"
                     >
-                      <FormattedMessage defaultMessage="Aries Digital Group Privacy Policy" />
+                      <FormattedMessage defaultMessage="Privacy Policy" />
                     </a>),
                 }}
               />
