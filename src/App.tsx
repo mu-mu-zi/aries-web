@@ -10,10 +10,10 @@ import AppRoutes from './AppRoutes';
 
 export default function App() {
   return (
-    <div className={classNames('min-h-screen font-text gradient-bg1', 'relative', 'min-w-[1280px] transition')}>
+    <div className={classNames('gradient-bg1 min-h-screen font-text', 'relative', 'min-w-[1280px] transition')}>
       <ReactNotifications />
       <div
-        className="bg-cover bg-center bg-no-repeat absolute inset-0 z-[0] bg-fixed"
+        className="absolute inset-0  z-[0] bg-cover bg-fixed bg-center bg-no-repeat"
         css={css`
           background-image: url(${fullBgIcon});
         `}

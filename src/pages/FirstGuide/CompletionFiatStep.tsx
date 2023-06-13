@@ -8,9 +8,7 @@ import icon2 from '../../assets/icon/icon_coin_company.svg';
 import icon3 from '../../assets/icon/icon_coin_bank.svg';
 import icon4 from '../../assets/icon/icon_coin_exchange.svgicon_coin_exchange.svg';
 
-export default function CompletionFiatStep({ trust }: {
-  trust: TrustDetail
-}) {
+export default function CompletionFiatStep({ trust }: { trust: TrustDetail }) {
   // const { t } = useTranslation();
   const intl = useIntl();
 
@@ -19,7 +17,7 @@ export default function CompletionFiatStep({ trust }: {
       <div>
         <img src={logo} />
       </div>
-      <div className="text-[16px] text-center text-[#99AC9B]">
+      <div className="text-center text-[16px] text-[#99AC9B]">
         <FormattedMessage defaultMessage="We will collect from you offline" />
       </div>
       <div className="mt-4" />

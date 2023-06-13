@@ -15,8 +15,8 @@ const msgSlice = createSlice({
   initialState,
   reducers: {
     appendMessage(state, action: PayloadAction<IStationMessage>) {
-      state.lastMsg = action.payload;
       state.msgList.push(action.payload);
+      state.lastMsg = action.payload;
     },
   },
 });

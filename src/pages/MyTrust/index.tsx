@@ -28,17 +28,14 @@ export default function MyTrust() {
 
   return (
     <div>
-      <div className="flex-auto flex flex-row justify-center">
-        <div className="flex flex-row overflow-auto gap-8 px-16 py-3 scrollbar-none">
+      <div className="flex flex-auto flex-row justify-center">
+        <div className="scrollbar-none flex flex-row gap-8 overflow-auto px-16 py-3">
           <CreatingTrust />
           {/* <CreatingTrust /> */}
           {/* <CreatingTrust /> */}
           {/* <CreatingTrust /> */}
           {trustListQuery.data?.data?.map((trust) => (
-            <EnteringTrust
-              key={trust.trustId}
-              trust={trust}
-            />
+            <EnteringTrust key={trust.trustId} trust={trust} />
           ))}
         </div>
       </div>

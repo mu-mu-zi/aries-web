@@ -11,13 +11,20 @@ export default function CreatingTrust() {
   // const { t } = useTranslation();
 
   return (
-    <div className={classNames('gradient-bg2 shadow-block', 'flex flex-col flex-shrink-0 m-auto', 'rounded-xl block-gradient-border', 'max-w-[475px] h-[720px]')}>
-      <div className="px-12 flex flex-col flex-auto">
+    <div
+      className={classNames(
+        'gradient-bg2 shadow-block',
+        'm-auto flex flex-shrink-0 flex-col',
+        'block-gradient-border rounded-xl',
+        'h-[720px] max-w-[475px]',
+      )}
+    >
+      <div className="flex flex-auto flex-col px-12">
         <img className="mt-20 self-center" src={icon} width="224px" alt="Logo" />
-        <div className="mt-12 gradient-text1 text-shadow-block font-title text-[32px] text-center leading-[36px]">
+        <div className="gradient-text1 text-shadow-block mt-12 text-center font-title text-[32px] leading-[36px]">
           <FormattedMessage defaultMessage="Welcome to Aries Trust" />
         </div>
-        <div className="mt-4 text-[#C39770] font-title text-[20px] text-center leading-[24px]">
+        <div className="mt-4 text-center font-title text-[20px] leading-[24px] text-[#C39770]">
           <FormattedMessage defaultMessage="The unique digital private trust service provider" />
         </div>
         <div className="flex-1" />

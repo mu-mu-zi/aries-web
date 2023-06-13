@@ -9,32 +9,30 @@ import icon2 from '../../assets/icon/icon_coin_company.svg';
 import icon3 from '../../assets/icon/icon_coin_bank.svg';
 import icon4 from '../../assets/icon/icon_coin_exchange.svgicon_coin_exchange.svg';
 
-export function Text({ children }: {
-  children?: ReactNode
-}) {
+export function Text({ children }: { children?: ReactNode }) {
   return <div className="gradient-text1 text-[20px] font-[400]">{children}</div>;
 }
 
-export default function CompletionBitStep({ trust }: {
-  trust: TrustDetail
-}) {
+export default function CompletionBitStep({ trust }: { trust: TrustDetail }) {
   const intl = useIntl();
 
   return (
-    <div className="flex flex-col text-[20px] gap-4">
-      <div className="flex flex-row items-center justify-between px-8 h-[70px] gradient-block1 rounded-xl shadow-block">
-        <div className="gradient-text1 font-bold"><FormattedMessage defaultMessage="Initial Entrustment Amount" /></div>
+    <div className="flex flex-col gap-4 text-[20px]">
+      <div className="gradient-block1 flex h-[70px] flex-row items-center justify-between rounded-xl px-8 shadow-block">
+        <div className="gradient-text1 font-bold">
+          <FormattedMessage defaultMessage="Initial Entrustment Amount" />
+        </div>
         <div className="gradient-text1 text-[20px]">
-          {(trust.transferredAssets && trust.coinName) ? `${trust.transferredAssets} ${trust.coinName}` : '--'}
+          {trust.transferredAssets && trust.coinName ? `${trust.transferredAssets} ${trust.coinName}` : '--'}
         </div>
       </div>
-      <div className="flex flex-col rounded-xl overflow-clip shadow-block">
-        <div className="flex flex-row items-center justify-between px-8 h-[70px] gradient-block1">
+      <div className="flex flex-col overflow-clip rounded-xl shadow-block">
+        <div className="gradient-block1 flex h-[70px] flex-row items-center justify-between px-8">
           <div className="gradient-text1 font-bold">
             <FormattedMessage defaultMessage="Digital Asset Injection" />
           </div>
         </div>
-        <div className="flex flex-col p-8 gap-4 bg-[#314C40]">
+        <div className="flex flex-col gap-4 bg-[#314C40] p-8">
           <div className="flex flex-row justify-between">
             <Text>
               <FormattedMessage defaultMessage="Network" />
@@ -48,15 +46,19 @@ export default function CompletionBitStep({ trust }: {
             <Text>{trust.coinName}</Text>
           </div>
           <div className="flex flex-row justify-between">
-            <Text><FormattedMessage defaultMessage="Digital Asset Address" /></Text>
+            <Text>
+              <FormattedMessage defaultMessage="Digital Asset Address" />
+            </Text>
             <div className="flex flex-row gap-2">
               <Text>{trust.safeHeronAddress}</Text>
               {trust.safeHeronAddress && <CopyIcon text={trust.safeHeronAddress} />}
             </div>
           </div>
           <div className="flex flex-row justify-between">
-            <Text><FormattedMessage defaultMessage="QR Code" /></Text>
-            <div className="grid place-items-center p-3 gradient-block1 rounded-xl shadow-btn">
+            <Text>
+              <FormattedMessage defaultMessage="QR Code" />
+            </Text>
+            <div className="gradient-block1 grid place-items-center rounded-xl p-3 shadow-btn">
               {trust.safeHeronAddress && <QrCode text={trust.safeHeronAddress} size={136} />}
             </div>
           </div>

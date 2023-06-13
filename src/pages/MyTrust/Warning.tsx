@@ -5,13 +5,11 @@ import Divide from '../../components/Divide';
 import ContactUsFooter from '../../views/ContactUsFooter';
 import ContactUs from '../SignIn/ContactUs';
 
-export default function Warning({ onOk }: {
-  onOk?(): void
-}) {
+export default function Warning({ onOk }: { onOk?(): void }) {
   return (
-    <div className="gradient-bg2 rounded-xl w-[480px] flex flex-col gap-4 items-center py-8 shadow-block">
+    <div className="gradient-bg2 flex w-[480px] flex-col items-center gap-4 rounded-xl py-8 shadow-block">
       <img src={icon} alt="" className="w-[44px]" />
-      <div className="text-[#708077] text-[14px]">
+      <div className="text-[14px] text-[#708077]">
         <FormattedMessage defaultMessage="You do not yet have the identity of a trustee party." />
       </div>
       <div className="">
@@ -19,7 +17,7 @@ export default function Warning({ onOk }: {
           <FormattedMessage defaultMessage="I know" />
         </Button>
       </div>
-      <div className="mt-4 flex flex-col items-center gap-4 w-full">
+      <div className="mt-4 flex w-full flex-col items-center gap-4">
         <Divide />
         <ContactUs />
       </div>

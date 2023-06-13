@@ -12,11 +12,12 @@ export default function ContractSigningStep({ trust }: {
   return (
     <div className="flex flex-col items-center justify-center">
       <img src={trust.contractStatus === 1 ? waitIcon : okIcon} alt="" width="44px" />
-      <div
-        className="text-[#708077] text-[14px] leading-[16px] mt-4"
-      >
-
-        {trust.contractStatus === 1 ? <FormattedMessage defaultMessage="Agreements signing in progress" /> : <FormattedMessage defaultMessage="Agreements signing successful" /> }
+      <div className="mt-4 text-[14px] leading-[16px] text-[#708077]">
+        {trust.contractStatus === 1 ? (
+          <FormattedMessage defaultMessage="Agreements signing in progress" />
+        ) : (
+          <FormattedMessage defaultMessage="Agreements signing successful" />
+        )}
       </div>
     </div>
   );

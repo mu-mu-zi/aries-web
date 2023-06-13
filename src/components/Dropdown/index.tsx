@@ -5,26 +5,29 @@ import { css } from '@emotion/react';
 import icon from '../../assets/icon/arrow_down.svg';
 
 export default function Dropdown({
-  title, items, onSelected, block,
+  title,
+  items,
+  onSelected,
+  block,
 }: {
-  title?: string | null,
-  items?: string[],
-  onSelected?(index: number): void,
-  block?: boolean
+  title?: string | null;
+  items?: string[];
+  onSelected?(index: number): void;
+  block?: boolean;
 }) {
   return (
     <Menu
       as="div"
-      className={classNames('relative block', {
+      className={classNames('bl relative block', {
         // 'w-fit': !block,
         // 'w-full': block,
       })}
     >
-      <div className="bg-[#3B5649] rounded-xl input-inner-shadow">
-        <Menu.Button className="box-content pl-4 w-full flex flex-row gap-2 items-center justify-between w-full h-[48px]">
+      <div className="input-inner-shadow rounded-xl bg-[#3B5649]">
+        <Menu.Button className="box-content flex h-[48px] w-full flex-row items-center justify-between gap-2 pl-4">
           {/* <div className="flex flex-row gap-2 items-center justify-between w-full h-[48px]"> */}
           <div className="gradient-text1 text-[20px] font-bold">{title}</div>
-          <img src={icon} className="flex-shrink-0 w-[32px] h-[32px] mr-8" alt="" />
+          <img src={icon} className="mr-8 h-[32px] w-[32px] flex-shrink-0" alt="" />
           {/* </div> */}
         </Menu.Button>
       </div>
@@ -39,14 +42,14 @@ export default function Dropdown({
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items
-          className="absolute z-[200] right-0 mt-1 min-w-[136px] w-full max-h-[260px] overflow-y-auto origin-top-left rounded-xl"
+          className="absolute right-0 z-[200] mt-1 max-h-[260px] w-full min-w-[136px] origin-top-left overflow-y-auto rounded-xl"
           css={css`
             &::-webkit-scrollbar {
               display: none;
             }
           `}
         >
-          <div className="shadow-block overflow-clip bg-gradient-to-r from-[#1a4132] to-[#234838] text-[20px]">
+          <div className="overflow-clip bg-gradient-to-r from-[#1a4132] to-[#234838] text-[20px] shadow-block">
             {items?.map((it, idx) => (
               <Menu.Item key={it}>
                 {({ active, close }) => (
@@ -58,7 +61,7 @@ export default function Dropdown({
                       close();
                     }}
                   >
-                    <div className={classNames('px-6 h-[48px] leading-[48px] gradient-text1')}>{it}</div>
+                    <div className={classNames('gradient-text1 h-[48px] px-6 leading-[48px]')}>{it}</div>
                   </div>
                 )}
               </Menu.Item>
