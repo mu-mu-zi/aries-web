@@ -80,7 +80,7 @@ export default function Navbar() {
                   <div className="gradient-block2 rounded-xl shadow-block">
                     <div className="flex flex-col divide-y divide-[#3B5649]">
                       <div
-                        className="px-1 py-3 text-center gradient-text1 text-[20px] cursor-pointer"
+                        className="px-1 h-[48px] leading-[48px] text-center gradient-text1 text-[20px] cursor-pointer"
                         onClick={(e) => {
                           e.preventDefault();
                           close();
@@ -90,7 +90,7 @@ export default function Navbar() {
                         <FormattedMessage defaultMessage="Account Security" />
                       </div>
                       <div
-                        className="px-1 py-3 text-center gradient-text1 text-[20px] cursor-pointer"
+                        className="px-1 h-[48px] leading-[48px] text-center gradient-text1 text-[20px] cursor-pointer"
                         onClick={async (e) => {
                           e.preventDefault();
                           try {
@@ -132,7 +132,7 @@ export default function Navbar() {
                 <div className="gradient-block2 rounded-xl shadow-block ">
                   <div className="flex flex-col divide-y divide-[#3B5649]">
                     <div
-                      className="px-1 py-3 text-center gradient-text1 text-[20px] cursor-pointer"
+                      className="px-1 h-[48px] leading-[48px] text-center gradient-text1 text-[20px] cursor-pointer"
                       onClick={async (e) => {
                         e.preventDefault();
                         close();
@@ -143,7 +143,7 @@ export default function Navbar() {
                       English
                     </div>
                     <div
-                      className="px-1 py-3 text-center gradient-text1 text-[20px] cursor-pointer"
+                      className="px-1 h-[48px] leading-[48px] text-center gradient-text1 text-[20px] cursor-pointer"
                       onClick={async (e) => {
                         e.preventDefault();
                         close();

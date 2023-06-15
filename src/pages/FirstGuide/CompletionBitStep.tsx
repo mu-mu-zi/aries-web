@@ -23,7 +23,7 @@ export default function CompletionBitStep({ trust }: { trust: TrustDetail }) {
           <FormattedMessage defaultMessage="Initial Entrustment Amount" />
         </div>
         <div className="gradient-text1 text-[20px]">
-          {trust.transferredAssets && trust.coinName ? `${trust.transferredAssets} ${trust.coinName}` : '--'}
+          {trust.transferredAssets && trust.trustCompanyModel?.coinName ? `${trust.transferredAssets} ${trust.trustCompanyModel?.coinName}` : '--'}
         </div>
       </div>
       <div className="flex flex-col overflow-clip rounded-xl shadow-block">
@@ -33,17 +33,17 @@ export default function CompletionBitStep({ trust }: { trust: TrustDetail }) {
           </div>
         </div>
         <div className="flex flex-col gap-4 bg-[#314C40] p-8">
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-row justify-between items-center">
             <Text>
               <FormattedMessage defaultMessage="Network" />
             </Text>
-            <Text>{trust.mainne}</Text>
+            <Text>{trust.trustCompanyModel?.mainnet}</Text>
           </div>
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-row justify-between items-center">
             <Text>
               <FormattedMessage defaultMessage="Digital Asset" />
             </Text>
-            <Text>{trust.coinName}</Text>
+            <Text>{trust.trustCompanyModel?.coinName}</Text>
           </div>
           <div className="flex flex-row justify-between">
             <Text>

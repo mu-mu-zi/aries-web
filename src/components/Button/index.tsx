@@ -1,6 +1,5 @@
 import React, { ButtonHTMLAttributes, forwardRef } from 'react';
 import classNames from 'classnames';
-import { css } from '@emotion/react';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'text' | 'normal';

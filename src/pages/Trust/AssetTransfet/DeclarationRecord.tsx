@@ -63,12 +63,20 @@ export default function DeclarationRecord() {
               accessor: (x) => (x.payType === 1 ? intl.formatMessage({ defaultMessage: 'Digital' }) : intl.formatMessage({ defaultMessage: 'Fiat' })),
             },
             {
+              Header: intl.formatMessage({ defaultMessage: 'Network' }),
+              accessor: (x) => x.mainnet,
+            },
+            {
+              Header: intl.formatMessage({ defaultMessage: 'Asset Classes' }),
+              accessor: (x) => x.symbol,
+            },
+            {
               Header: () => <div className="text-right"><FormattedMessage defaultMessage="Amount" /></div>,
               accessor: 'amount',
               Cell: ({ row }) => (
                 <div className="flex items-center gap-2 gradient-text1 justify-end">
                   <div>{numberFormatWithPrefix(row.original.amount)}</div>
-                  <div>{row.original.symbol}</div>
+                  {/* <div>{row.original.symbol}</div> */}
                 </div>
               ),
             },

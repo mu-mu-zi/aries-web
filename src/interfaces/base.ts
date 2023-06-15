@@ -35,6 +35,7 @@ export interface IMainNetCoin {
   contractAddr: string
   coinDecimal: number
   createTime: number
+  name: string
 }
 
 export interface IFiat {

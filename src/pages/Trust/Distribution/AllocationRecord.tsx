@@ -46,7 +46,11 @@ export default function AllocationRecord() {
               accessor: (x) => unixFormatTime(x.createTimeStamp),
             },
             {
-              Header: intl.formatMessage({ defaultMessage: 'Currency' }),
+              Header: intl.formatMessage({ defaultMessage: 'Network' }),
+              accessor: (x) => x.mainnet,
+            },
+            {
+              Header: intl.formatMessage({ defaultMessage: 'Asset Classes' }),
               accessor: (x) => x.coinName,
             },
             {

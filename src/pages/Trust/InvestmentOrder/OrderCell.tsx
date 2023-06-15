@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FormattedMessage, useIntl } from 'react-intl';
 import StepProgress from './StepProgress';
 import { IInvestment } from '../../../interfaces/trust';
@@ -27,29 +27,30 @@ export default function OrderCell({ item }: {
     protectorEditAndNotSettlor,
   } = useTrustPermission({ trust: trustQuery.data?.data });
 
-  const cancelInvestment = async () => {
-    axios.request({
+  // const cancelInvestment = async () => {
+  //   axios.request({
+  //     url: '/trust/trust/investment/cancel',
+  //     method: 'get',
+  //     params: {
+  //       trustInvestmentId: item.trustInvestmentId,
+  //     },
+  //   }).then((resp) => {
+  //     queryClient.invalidateQueries(['trust']);
+  //   });
+  // };
+
+  const cancelMutation = useMutation({
+    mutationFn: () => axios.request({
       url: '/trust/trust/investment/cancel',
       method: 'get',
       params: {
         trustInvestmentId: item.trustInvestmentId,
       },
-    }).then((resp) => {
-      queryClient.invalidateQueries(['trust']);
-    });
-  };
-
-  const approveInvestment = async () => {
-    await axios.request({
-      url: '/trust/trust/investment/bill/check',
-      method: 'get',
-      params: {
-        billId: item.trustInvestmentId,
-        status: 2,
-      },
-    });
-    queryClient.invalidateQueries(['trust']);
-  };
+    }),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(['trust']);
+    },
+  });
 
   const navTo = () => {
     navigate(`/trust/${trustId}/orders/detail/${item.trustInvestmentId}`, {
@@ -128,16 +129,19 @@ export default function OrderCell({ item }: {
       <div className="flex flex-row flex-wrap items-center justify-center gap-4">
         {/* 委托人才能取消 */}
         {item.investmentStatus < 2 && settlorPermission && (
-          <Button onClick={cancelInvestment}>
+          <Button
+            disabled={cancelMutation.isLoading}
+            onClick={() => cancelMutation.mutate()}
+          >
             <FormattedMessage defaultMessage="Cancel" />
           </Button>
         )}
         {/* 保护人才能审批，且保护人不是委托人本人 */}
-        {item.investmentStatus < 3 && protectorEditAndNotSettlor && (
-          <Button onClick={navTo}>
-            <FormattedMessage defaultMessage="Approval" />
-          </Button>
-        )}
+        {/* {item.investmentStatus < 3 && protectorEditAndNotSettlor && ( */}
+        {/*  <Button onClick={navTo}> */}
+        {/*    <FormattedMessage defaultMessage="Approval" /> */}
+        {/*  </Button> */}
+        {/* )} */}
         {/* 任何人都可以查看 */}
         <Button size="medium" onClick={navTo}><FormattedMessage defaultMessage="Check" /></Button>
       </div>

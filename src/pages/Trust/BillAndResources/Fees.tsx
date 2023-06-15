@@ -64,17 +64,17 @@ export default function Fees() {
         return {
           title: intl.formatMessage({ defaultMessage: 'Trust Management Fee = Total Amount Entrusted * Trust Management Fee APR' }),
           description: intl.formatMessage(
-            { defaultMessage: 'Note: Trust management fee is calculated at a fixed rate of {ratio} per day and deducted at the end of the year' },
-            { ratio: ratioFormat(ratioQuery.data?.data?.find((x) => x.type === 1)?.expenseRatio) },
+            { defaultMessage: 'Note: Trust Management Fee is calculated at a fixed rate of {rate} per day and deducted on an annual basis' },
+            { rate: ratioFormat(ratioQuery.data?.data?.find((x) => x.type === 1)?.expenseRatio) },
           ),
         };
       case 2:
         return {
           title: intl.formatMessage({ defaultMessage: 'Excess Transfer Fee = Excess Amount * Excess Transfer Fee APR' }),
           description: intl.formatMessage(
-            { defaultMessage: 'Note: The excess transfer fee is calculated at a fixed rate of {ratio} for each excess amount and will be deducted at the end of the year.' },
+            { defaultMessage: 'Note: Excess Transfer Fee is calculated at a fixed rate of {rate} for each excess amount and is deducted on an annual basis' },
             {
-              ratio: ratioFormat(ratioQuery.data?.data?.find((x) => x.type === 3)?.expenseRatio),
+              rate: ratioFormat(ratioQuery.data?.data?.find((x) => x.type === 3)?.expenseRatio),
             },
           ),
         };
@@ -82,7 +82,7 @@ export default function Fees() {
         return {
           title: intl.formatMessage({ defaultMessage: 'Additional establishment fee = Transfer amount of each asset declaration * exchange rate * establishment fee APR' }),
           description: intl.formatMessage(
-            { defaultMessage: 'Note: Each additional establishment fee is calculated at a fixed rate of {ratio} and deducted at the end of the year' },
+            { defaultMessage: 'Note: Each additional establishment fee is calculated at a fixed rate of {ratio}' },
             {
               ratio: ratioFormat(ratioQuery.data?.data?.find((x) => x.type === 2)?.expenseRatio),
             },

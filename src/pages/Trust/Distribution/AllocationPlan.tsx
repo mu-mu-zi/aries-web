@@ -76,6 +76,10 @@ export default function AllocationPlan() {
         <div className="mt-4"><Hr /></div>
         <SimpleTable
           columns={[
+            // {
+            //   Header: intl.formatMessage({ defaultMessage: 'ID', description: '分配计划ID' }),
+            //   accessor: 'planId',
+            // },
             {
               Header: intl.formatMessage({ defaultMessage: 'Content' }),
               accessor: 'planDescription',

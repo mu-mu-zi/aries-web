@@ -15,6 +15,7 @@ import ContactUsFooter from '../../../views/ContactUsFooter';
 import GoogleVerify from '../../../views/GoogleVerify';
 import Modal from '../../../components/Modal';
 import { useValidators } from '../../../utils/zod';
+import { addSuccessNotification } from '../../../utils/Notification';
 
 export default function NewPlan({ trustId, onClose, onEnter }: {
   trustId: number,
@@ -64,8 +65,12 @@ export default function NewPlan({ trustId, onClose, onEnter }: {
         ...data,
       });
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries(['trust']);
+    onSuccess: async () => {
+      addSuccessNotification({
+        title: intl.formatMessage({ defaultMessage: 'Submit Successfully' }),
+        content: intl.formatMessage({ defaultMessage: 'Trustee is confirming' }),
+      });
+      await queryClient.invalidateQueries(['trust']);
       onClose?.();
     },
   });

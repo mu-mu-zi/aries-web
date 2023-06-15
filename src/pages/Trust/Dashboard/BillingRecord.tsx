@@ -40,7 +40,7 @@ export default function BillingRecord() {
     <div className="gradient-border-container shadow-block">
       <div className={classNames('flex flex-col', 'p-8', 'rounded-xl', 'gradient-bg2')}>
         <div className={classNames('item-center flex flex-row justify-between')}>
-          <div className="gradient-text1 font-bold text-[20px]"><FormattedMessage defaultMessage="Billing Record" /></div>
+          <div className="gradient-text1 font-bold text-[20px] font-title"><FormattedMessage defaultMessage="Billing Record" /></div>
           <div
             className="flex cursor-pointer flex-row items-center gap-2"
             onClick={() => navigate(`/trust/${trustId}/billAndResources`)}

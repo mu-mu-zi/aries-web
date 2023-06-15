@@ -144,12 +144,17 @@ export const useAllCoinInMainNetQuery = (data: {
 /*
 * 获取法币列表
 * */
-export const useFiatListQuery = () => {
+export const useFiatListQuery = (data: {
+  trustId?: number
+}) => {
   const userId = useAuthToken();
 
   return useQuery<IResponseData<IFiat[]>>({
-    queryKey: ['fiat', 'list', userId],
-    queryFn: () => axios.get('/asset/asset/legalCoins'),
+    queryKey: ['fiat', 'list', userId, data],
+    queryFn: () => axios.request({
+      url: '/asset/asset/legalCoins',
+      params: data,
+    }),
     enabled: containsToken(),
   });
 };

@@ -14,7 +14,8 @@ import { IMainNet } from '../../../interfaces/base';
 import { addSuccessNotification } from '../../../utils/Notification';
 import useTrustPermission from '../../../hooks/useTrustRole';
 import { useValidators } from '../../../utils/zod';
-import { useAppSelector } from '../../../state';
+import { useAppDispatch, useAppSelector } from '../../../state';
+import { setAssetTransferSelectedCoinId, setAssetTransferSelectedFiatId } from '../../../state/trust';
 
 export default function AssetDigitalDeclaration() {
   // const { t } = useTranslation();
@@ -49,12 +50,17 @@ export default function AssetDigitalDeclaration() {
     setValue,
     formState: { errors },
     clearErrors,
+    watch,
   } = useForm<FormValid>({
     resolver: zodResolver(valid),
   });
+  const action = useAppDispatch();
+  const coinId = watch('coinId');
 
+  /* 切换语言清除错误信息 */
   useEffect(() => clearErrors(), [lan]);
 
+  /* 默认选择主网 */
   useEffect(() => setMainNet(mainNetListQuery.data?.data?.[0]), [mainNetListQuery.data?.data]);
 
   useEffect(() => {
@@ -63,6 +69,10 @@ export default function AssetDigitalDeclaration() {
       setValue('coinId', one.id);
     }
   }, [mainNetCoinListQuery.data?.data]);
+
+  useEffect(() => {
+    action(setAssetTransferSelectedCoinId(coinId));
+  }, [coinId]);
 
   const submitMutation = useMutation({
     mutationFn: async (data: FormValid) => {
@@ -93,15 +103,16 @@ export default function AssetDigitalDeclaration() {
   return (
     <form onSubmit={handleSubmit(submit)}>
       <div className="flex flex-col gap-3">
-        <div className="font-bold text-[#C2D7C7F6]"><FormattedMessage defaultMessage="Declaration information" /></div>
+        <div className="font-bold text-[#C2D7C7F6]"><FormattedMessage defaultMessage="Declaration Information" /></div>
         <TextField
           requiredLabel
-          label={intl.formatMessage({ defaultMessage: "Payer's name" })}
+          label={intl.formatMessage({ defaultMessage: "Payer's Name" })}
           placeholder={intl.formatMessage({ defaultMessage: "Please enter the payer's name" })}
           maxLength={30}
           error={errors.name?.message}
           {...register('name')}
         />
+        <div className="text-[#C2D7C7F6] font-bold"><FormattedMessage defaultMessage="Network" /></div>
         <Dropdown
           title={mainNet?.name}
           items={mainNetListQuery.data?.data?.map((x) => x.name)}
@@ -111,28 +122,33 @@ export default function AssetDigitalDeclaration() {
           }}
         />
         {mainNet && (
-          <Controller
-            name="coinId"
-            control={control}
-            render={({ field }) => (
-              <Dropdown
-                title={mainNetCoinListQuery.data?.data?.find((x) => x.id === field.value)?.symbol}
-                items={mainNetCoinListQuery.data?.data?.map((x) => x.symbol)}
-                onSelected={(idx) => field.onChange(mainNetCoinListQuery.data?.data?.[idx].id)}
-              />
-            )}
-          />
+          <>
+            <div className="text-[#C2D7C7F6] font-bold"><FormattedMessage defaultMessage="Asset Classes" /></div>
+            <Controller
+              name="coinId"
+              control={control}
+              render={({ field }) => (
+                <Dropdown
+                  title={mainNetCoinListQuery.data?.data?.find((x) => x.id === field.value)?.name}
+                  items={mainNetCoinListQuery.data?.data?.map((x) => x.name)}
+                  onSelected={(idx) => {
+                    field.onChange(mainNetCoinListQuery.data?.data?.[idx].id);
+                  }}
+                />
+              )}
+            />
+          </>
         )}
         <TextField
           requiredLabel
-          label={intl.formatMessage({ defaultMessage: 'Payment amount' })}
+          label={intl.formatMessage({ defaultMessage: 'Entrusted Amount' })}
           placeholder={intl.formatMessage({ defaultMessage: 'Please enter the amount' })}
           {...register('amount')}
           error={errors.amount?.message}
         />
         <TextField
           requiredLabel
-          label={intl.formatMessage({ defaultMessage: 'Expected transfer time' })}
+          label={intl.formatMessage({ defaultMessage: 'Expected Transfer Time' })}
           placeholder={intl.formatMessage({ defaultMessage: 'Please enter the expected transfer time' })}
           maxLength={30}
           {...register('expectedTime')}
@@ -140,20 +156,20 @@ export default function AssetDigitalDeclaration() {
         />
         <TextField
           requiredLabel
-          label={intl.formatMessage({ defaultMessage: "Payer's address" })}
+          label={intl.formatMessage({ defaultMessage: "Payer's Address" })}
           placeholder={intl.formatMessage({ defaultMessage: "Please enter the payer's address" })}
           maxLength={100}
           {...register('address')}
           error={errors.address?.message}
         />
         <TextField
-          label={intl.formatMessage({ defaultMessage: 'Transaction hash (optional)' })}
+          label={intl.formatMessage({ defaultMessage: 'Transaction Hash (if applicable)' })}
           placeholder={intl.formatMessage({ defaultMessage: 'Please enter the transaction hash' })}
           maxLength={66}
           {...register('hash')}
         />
         <TextField
-          label={intl.formatMessage({ defaultMessage: 'Remark (optional)' })}
+          label={intl.formatMessage({ defaultMessage: 'Remarks' })}
           placeholder={intl.formatMessage({ defaultMessage: 'Please enter the remark' })}
           maxLength={100}
           {...register('remark')}

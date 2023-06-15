@@ -18,9 +18,7 @@ export default function App() {
           background-image: url(${fullBgIcon});
         `}
       />
-      <div className="relative z-[1] min-h-screen">
-        <AppRoutes />
-      </div>
+      <div className="relative z-[1] min-h-screen"><AppRoutes /></div>
     </div>
   );
 }

@@ -10,7 +10,7 @@ export default function FeeIntroduction({ title, description }: {
     <Section>
       <SectionTitle title={title} />
       <Hr />
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 leading-6">
         {description.map((x) => <p className="text-[#99AC9B] text-[16px]" key={x}>{x}</p>)}
       </div>
     </Section>

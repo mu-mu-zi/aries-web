@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
 import ModalContainer from '../../../views/ModalContainer';
@@ -40,15 +40,26 @@ export default function CreatingCommand({ onClose }: {
   });
   const queryClient = useQueryClient();
 
-  const submit = async (data: FormValid) => {
-    await axios.post('/trust/trust/investment/addTrustInvestment', {
+  // const submit = async (data: FormValid) => {
+  //   await axios.post('/trust/trust/investment/addTrustInvestment', {
+  //     trustId: Number(trustId),
+  //     ...data,
+  //   }).then((resp) => {
+  //     onClose?.();
+  //     queryClient.invalidateQueries(['trust']);
+  //   });
+  // };
+
+  const addTrustInvestmentMutation = useMutation({
+    mutationFn: (data: FormValid) => axios.post('/trust/trust/investment/addTrustInvestment', {
       trustId: Number(trustId),
       ...data,
-    }).then((resp) => {
+    }),
+    onSuccess: async () => {
       onClose?.();
-      queryClient.invalidateQueries(['trust']);
-    });
-  };
+      await queryClient.invalidateQueries(['trust']);
+    },
+  });
 
   return (
     <ModalContainer>
@@ -57,7 +68,7 @@ export default function CreatingCommand({ onClose }: {
         onClose={onClose}
       />
       <div className="flex flex-col">
-        <form onSubmit={handleSubmit(submit)}>
+        <form onSubmit={handleSubmit((data) => addTrustInvestmentMutation.mutate(data))}>
           {/* todo: 这里的表单输入框缺少内阴影，文字颜色 */}
           <div className="flex flex-col gap-8">
             <div className="py-4 rounded-xl">
@@ -92,7 +103,7 @@ export default function CreatingCommand({ onClose }: {
               />
             </div>
             <div className="self-center">
-              <Button type="submit">
+              <Button type="submit" disabled={addTrustInvestmentMutation.isLoading}>
                 <FormattedMessage defaultMessage="Submit" />
               </Button>
             </div>

@@ -19,19 +19,19 @@ export default function EstablishmentBitStep({ trust }: { trust: TrustDetail }) 
           </div>
         </div>
         <div className="flex flex-col gap-4 bg-[#314C40] p-8">
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-row justify-between items-center">
             <Text>
               <FormattedMessage defaultMessage="Establishment Fee" />
             </Text>
-            <Text>{`${trust.initialCost} ${trust.coinName}`}</Text>
+            <Text>{`${trust.initialCost} ${trust.trustEstablishmentFeeModel?.coinName}`}</Text>
           </div>
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-row justify-between items-center">
             <Text>
               <FormattedMessage defaultMessage="Network" />
             </Text>
-            <Text>{trust.mainne}</Text>
+            <Text>{trust.trustEstablishmentFeeModel?.mainnet}</Text>
           </div>
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-row justify-between items-center">
             <Text>
               <FormattedMessage defaultMessage="Digital Asset Address" />
             </Text>

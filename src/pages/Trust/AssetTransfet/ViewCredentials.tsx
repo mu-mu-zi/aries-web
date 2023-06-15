@@ -42,7 +42,14 @@ export default function ViewCredentials({ onClose, recordId, images }: {
             />
             {query.data.data.payType === 1 && (
               <>
-                <PaymentRow title={intl.formatMessage({ defaultMessage: 'Internet' })} value={query.data.data.symbol} />
+                <PaymentRow
+                  title={intl.formatMessage({ defaultMessage: 'Internet' })}
+                  value={query.data.data.mainnet}
+                />
+                <PaymentRow
+                  title={intl.formatMessage({ defaultMessage: 'Asset Classes' })}
+                  value={query.data.data.symbol}
+                />
                 <PaymentRow
                   title={intl.formatMessage({ defaultMessage: 'Payment Amount' })}
                   value={query.data.data.amount}

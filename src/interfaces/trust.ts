@@ -7,6 +7,8 @@ export interface ITrustCompany {
   id: number
   mainnetCoinId: number
   mainnetId: number
+  coinName: string
+  mainnet: string
   payType: number
   trustId: number
   trustMoney: number
@@ -39,7 +41,7 @@ export interface TrustDetail {
   kycStatus: number;
   initialCost: number;
   safeHeronAddress: string;
-  mainne: string;
+  mainnet: string;
   coinName: string;
   transferredAssets: number;
   bankName: string;
@@ -50,10 +52,17 @@ export interface TrustDetail {
   surname: string
   collectionAddress: string
   trustCompanyModel?: ITrustCompany
+  trustEstablishmentFeeModel?:ITrustEstablishmentFeeModel
   bankUserName: string
   userTypeArr: number[]
   contents?: ITrustDetailContent[]
   gender: boolean
+  trustCoinName?: string
+}
+
+export interface ITrustEstablishmentFeeModel {
+  mainnet: string
+  coinName: string
 }
 
 export interface ITrustDetailContent {
@@ -93,6 +102,7 @@ export interface IDigitalAssets {
   name: string;
   status: number,
   details: IDigitalAssetsDetail[]
+  isSafeHeron: boolean
 }
 
 export interface IFiatAssetsDetail {
@@ -286,4 +296,5 @@ export interface ITrustAssetRecode {
   createTime: number
   updateTime: number
   proofs?: string[]
+  mainnet: string
 }

@@ -63,7 +63,11 @@ export default function BillRecords({ trustInvestmentId }: {
               // accessor: (x) => x.billName ?? '--',
             },
             {
-              Header: intl.formatMessage({ defaultMessage: 'Currency' }),
+              Header: intl.formatMessage({ defaultMessage: 'Network' }),
+              accessor: 'mainnet',
+            },
+            {
+              Header: intl.formatMessage({ defaultMessage: 'Asset Classes' }),
               accessor: 'coinName',
             },
             {
@@ -73,7 +77,8 @@ export default function BillRecords({ trustInvestmentId }: {
                 <div
                   className="gradient-text1 text-right"
                 >
-                  {`${numberFormatWithPrefix(row.original.quantity)} ${row.original.coinName}`}
+                  {/* {`${numberFormatWithPrefix(row.original.quantity)} ${row.original.coinName}`} */}
+                  {`${numberFormatWithPrefix(row.original.quantity)}`}
                 </div>
               ),
             },

@@ -10,39 +10,46 @@ import { IDigitalAssets } from '../../../interfaces/trust';
 import sectionIcon from '../../../assets/icon/icon_coin_coinbase.svg';
 import safeheronIcon from '../../../assets/icon/icon_coin_safeheron.svg';
 
-export default function DigtalAssetsSection({ asset }: {
-  asset: IDigitalAssets
-}) {
-  // const { t } = useTranslation();
+export default function DigtalAssetsSection({ asset }: { asset: IDigitalAssets }) {
   const [isExpanded, setExpanded] = useState(true);
   const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
 
   return (
     <div className={classNames('gradient-block1', 'shadow-block', 'rounded-xl')}>
       <div
-        className="flex flex-row gap-4 items-center h-[80px] px-8"
+        className="flex h-[80px] flex-row items-center gap-4 px-8"
         {...getToggleProps({ onClick: () => setExpanded((x) => !x) })}
       >
-        <img src={asset.name === 'SafeHeron' ? safeheronIcon : sectionIcon} alt="" />
-        <div className="gradient-text1 text-[20px] font-bold flex-auto">{asset.name}</div>
-        {(asset.status === 1 || asset.status === 2)
-          && <div className="font-bold text-[20px] text-[#708077] break-keep"><FormattedMessage defaultMessage="Opening in progress" /></div>}
-        {asset.status === 3
-          && <div className="gradient-text1 text-[20px] font-bold">{`${currencyUSDTFormat(asset.totalUSDT)} USD`}</div>}
+        {/* 安全路图标特殊点 */}
+        <img src={asset.isSafeHeron ? safeheronIcon : sectionIcon} alt={asset.name} />
+        <div className="gradient-text1 flex-auto text-[20px] font-bold">{asset.name}</div>
+        {/* 开立中 */}
+        {(asset.status === 1 || asset.status === 2) && (
+          <div className="break-keep text-[20px] font-bold text-[#708077]">
+            <FormattedMessage defaultMessage="Opening in progress" />
+          </div>
+        )}
+        {/* 已开立 */}
+        {asset.status === 3 && (
+          <div className="gradient-text1 text-[20px] font-bold">{`${currencyUSDTFormat(asset.totalUSDT)} USD`}</div>
+        )}
         {asset.details?.filter((x) => x.amount > 0).length > 0 && (
-          <img src={arrowUp} alt="" className={classNames('transition', isExpanded && 'rotate-180')} />)}
+          <img src={arrowUp} alt="" className={classNames('transition', isExpanded && 'rotate-180')} />
+        )}
       </div>
       {asset.details?.filter((x) => x.amount > 0).length > 0 && (
         <section {...getCollapseProps()}>
-          <div className="flex flex-col gap-6 p-8 bg-divider rounded-b-xl bg-[#314C40]">
-            {asset.details?.filter((x) => x.amount > 0).map((d) => (
-              <Cell
-                icon={symbolIcon}
-                amount={d.amount}
-                symbol={d.symbol}
-                rate={Number((d.amount * d.price / asset.totalUSDT * 100).toFixed(2))}
-              />
-            ))}
+          <div className="flex flex-col gap-6 rounded-b-xl bg-divider p-8">
+            {asset.details
+              ?.filter((x) => x.amount > 0)
+              .map((d) => (
+                <Cell
+                  icon={symbolIcon}
+                  amount={d.amount}
+                  symbol={d.symbol}
+                  rate={Number((((d.amount * d.price) / asset.totalUSDT) * 100).toFixed(2))}
+                />
+              ))}
           </div>
         </section>
       )}

@@ -10,7 +10,7 @@ function Tooltip({
   children: ReactNode,
   title: string,
   content?: string,
-  position?: 'bottom' | 'bottom-start'
+  position?: 'bottom' | 'bottom-start' | 'top'
 }) {
   const [isOpen, setIsOpen] = useState(false);
 

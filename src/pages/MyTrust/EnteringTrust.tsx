@@ -124,7 +124,7 @@ export default function EnteringTrust({ trust }: {
                 }
               }}
             >
-              <FormattedMessage defaultMessage="Entering the trust" />
+              <FormattedMessage defaultMessage="Enter Trust" />
             </Button>
           </div>
         </div>

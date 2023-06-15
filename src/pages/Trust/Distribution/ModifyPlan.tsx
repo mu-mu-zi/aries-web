@@ -16,6 +16,7 @@ import GoogleVerify from '../../../views/GoogleVerify';
 import Modal from '../../../components/Modal';
 import { useValidators } from '../../../utils/zod';
 import { useAppSelector } from '../../../state';
+import { addSuccessNotification } from '../../../utils/Notification';
 
 export default function ModifyPlan({ trustId, row, onClose }: {
   trustId: number,
@@ -56,9 +57,13 @@ export default function ModifyPlan({ trustId, row, onClose }: {
       planId: row.planId,
       ...data,
     }),
-    onSuccess: () => {
+    onSuccess: async () => {
+      addSuccessNotification({
+        title: intl.formatMessage({ defaultMessage: 'Submit Successfully' }),
+        content: intl.formatMessage({ defaultMessage: 'Trustee is confirming' }),
+      });
       onClose?.();
-      queryClient.invalidateQueries();
+      await queryClient.invalidateQueries();
     },
   });
 

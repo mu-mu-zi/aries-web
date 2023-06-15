@@ -13,15 +13,17 @@ import Dropdown from '../../../components/Dropdown';
 import { addSuccessNotification } from '../../../utils/Notification';
 import useTrustPermission from '../../../hooks/useTrustRole';
 import { useValidators } from '../../../utils/zod';
-import { useAppSelector } from '../../../state';
+import { useAppDispatch, useAppSelector } from '../../../state';
+import { setAssetTransferSelectedFiatId } from '../../../state/trust';
 
 export default function AssetFiatDeclaration() {
   // const { t } = useTranslation();
   const intl = useIntl();
   const { trustId } = useParams();
+  const action = useAppDispatch();
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
   const { settlorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
-  const fiatListQuery = useFiatListQuery();
+  const fiatListQuery = useFiatListQuery({ trustId: Number(trustId) });
   const { zodRequired } = useValidators();
   const valid = z.object({
     name: zodRequired(),
@@ -42,12 +44,14 @@ export default function AssetFiatDeclaration() {
     reset,
     setValue,
     clearErrors,
+    watch,
     formState: { errors },
   } = useForm<FormValid>({
     resolver: zodResolver(valid),
   });
   const queryClient = useQueryClient();
   const lan = useAppSelector((state) => state.app.language);
+  const faitId = watch('fiatId');
 
   useEffect(() => clearErrors(), [lan]);
 
@@ -57,6 +61,10 @@ export default function AssetFiatDeclaration() {
       setValue('fiatId', one.id);
     }
   }, [fiatListQuery.data?.data]);
+
+  useEffect(() => {
+    action(setAssetTransferSelectedFiatId(faitId));
+  }, [faitId]);
 
   const submitMutation = useMutation({
     mutationFn: async (data: FormValid) => {
@@ -107,12 +115,13 @@ export default function AssetFiatDeclaration() {
         <div className="font-bold text-[#C2D7C7F6]"><FormattedMessage defaultMessage="Declaration information" /></div>
         <TextField
           requiredLabel
-          label={intl.formatMessage({ defaultMessage: "Payer's name" })}
+          label={intl.formatMessage({ defaultMessage: "Payer's Name" })}
           placeholder={intl.formatMessage({ defaultMessage: "Please enter the payer's name" })}
           {...register('name')}
           maxLength={30}
           error={errors.name?.message}
         />
+        <div className="text-[#C2D7C7F6] font-bold"><FormattedMessage defaultMessage="Currencies" /></div>
         <Controller
           name="fiatId"
           control={control}
@@ -120,22 +129,20 @@ export default function AssetFiatDeclaration() {
             <Dropdown
               title={fiatListQuery.data?.data?.find((x) => x.id === field.value)?.symbol}
               items={fiatListQuery.data?.data?.map((x) => x.symbol)}
-              onSelected={(idx) => {
-                field.onChange(fiatListQuery.data?.data?.[idx].id);
-              }}
+              onSelected={(idx) => field.onChange(fiatListQuery.data?.data?.[idx].id)}
             />
           )}
         />
         <TextField
           requiredLabel
-          label={intl.formatMessage({ defaultMessage: 'Payment amount' })}
+          label={intl.formatMessage({ defaultMessage: 'Entrusted Amount' })}
           placeholder={intl.formatMessage({ defaultMessage: 'Please enter the amount' })}
           {...register('amount')}
           error={errors.amount?.message}
         />
         <TextField
           requiredLabel
-          label={intl.formatMessage({ defaultMessage: 'Expected transfer time' })}
+          label={intl.formatMessage({ defaultMessage: 'Expected Transfer Time' })}
           placeholder={intl.formatMessage({ defaultMessage: 'Please enter the expected transfer time' })}
           {...register('expectedTime')}
           maxLength={30}
@@ -143,26 +150,26 @@ export default function AssetFiatDeclaration() {
         />
         <TextField
           requiredLabel
-          label={intl.formatMessage({ defaultMessage: 'payment Bank' })}
+          label={intl.formatMessage({ defaultMessage: 'Payment Bank' })}
           placeholder={intl.formatMessage({ defaultMessage: 'Please enter the payment bank(English)' })}
           {...register('bank')}
           maxLength={100}
           error={errors.bank?.message}
         />
         <TextField
-          label={intl.formatMessage({ defaultMessage: 'Bank card number (optional)' })}
+          label={intl.formatMessage({ defaultMessage: 'Payment Bank Account' })}
           placeholder={intl.formatMessage({ defaultMessage: 'Please enter your payment card number' })}
           {...register('bankCardNo')}
           maxLength={60}
         />
         <TextField
-          label={intl.formatMessage({ defaultMessage: "Payer's address (optional)" })}
+          label={intl.formatMessage({ defaultMessage: "Payer's Address (Optional)" })}
           placeholder={intl.formatMessage({ defaultMessage: "Please enter the payer's address" })}
           {...register('address')}
           maxLength={100}
         />
         <TextField
-          label={intl.formatMessage({ defaultMessage: 'Remark (optional)' })}
+          label={intl.formatMessage({ defaultMessage: 'Remarks' })}
           placeholder={intl.formatMessage({ defaultMessage: 'Please enter the remark' })}
           maxLength={100}
           {...register('remark')}

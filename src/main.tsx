@@ -11,23 +11,6 @@ import { store, useAppSelector } from './state';
 import Updater from './updater';
 import { Language } from './interfaces/language';
 
-// i18n.use(initReactI18next)
-//   .use(LanguageDetector)
-//   .init({
-//     resources: {
-//       zhHK: {
-//         translation: zhHkJSON,
-//       },
-//       en: {},
-//     },
-//     lng: localStorage.getItem('LANGUAGE') ?? 'en',
-//     fallbackLng: 'en',
-//     debug: false,
-//     interpolation: {
-//       escapeValue: false,
-//     },
-//   });
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

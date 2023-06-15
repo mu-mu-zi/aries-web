@@ -22,22 +22,21 @@ export default function EntrustedDeclaration() {
         <div className="flex flex-col gap-4">
           <div className="flex flex-row items-center justify-between font-title">
             <div className="gradient-text1 font-bold text-[20px]">
-              <FormattedMessage defaultMessage="Entrusted declaration" />
+              <FormattedMessage defaultMessage="Entrusted Declaration" />
             </div>
             <ContactUs />
           </div>
           <div className="h-[1px] bg-[#3B5649]" />
           <div className="gradient-bg1 rounded-xl overflow-clip p-8 leading-[18px] text-[16px]">
             <div className="text-[#C2D7C7F6] font-bold">
-              <FormattedMessage defaultMessage="Please complete asset delegation establishment according to the following three steps:" />
+              <FormattedMessage defaultMessage="Please follow these three steps to complete the establishment of the asset entrusted:" />
             </div>
-            <div className="mt-2 text-[#99AC9B]">
-              <FormattedMessage defaultMessage="1) Please declare the asset transfer on the left side for this session." />
+            <div className="mt-2 text-[#99AC9B] leading-6">
+              <FormattedMessage defaultMessage="1) Fill out the declaration on the left side for the asset transfer;" />
               <br />
-              <FormattedMessage defaultMessage="2) Complete the transfer by following the receiving address on the right side." />
+              <FormattedMessage defaultMessage="2) Complete the transfer according to the receiving address on the right side;" />
               <br />
-              <FormattedMessage defaultMessage="3) After verifying and confirming with Aries, we will credit your account with the transferred assets. If there are any issues, we will contact you accordingly." />
-              <br />
+              <FormattedMessage defaultMessage="3) After verification and confirmation by Aries, the assets will be credited to your account. If there are any issues, we will contact you" />
             </div>
           </div>
         </div>
@@ -49,7 +48,7 @@ export default function EntrustedDeclaration() {
           <div className="w-[1px] bg-[#3B5649] my-[120px]" />
           <div className="flex-1">
             <div className="gradient-text1 font-bold text-[20px] font-title">
-              <FormattedMessage defaultMessage="Payment information" />
+              <FormattedMessage defaultMessage="Receiving Method" />
             </div>
             <div className="mt-[40px]">
               {/* eslint-disable-next-line no-nested-ternary */}

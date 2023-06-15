@@ -65,7 +65,7 @@ export default function Approval({ trustInvestmentId }: {
       <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8">
         {/* 标题 */}
         <div className="gradient-text1 font-bold text-[20px] font-title">
-          <FormattedMessage defaultMessage="Approval" />
+          <FormattedMessage defaultMessage="Approval Details" />
         </div>
         {/* 分割线 */}
         <div className="h-[1px] bg-[#3B5649]" />
@@ -73,7 +73,11 @@ export default function Approval({ trustInvestmentId }: {
         <SimpleTable
           columns={[
             {
-              Header: intl.formatMessage({ defaultMessage: 'Currency' }),
+              Header: intl.formatMessage({ defaultMessage: 'Network' }),
+              accessor: 'mainnet',
+            },
+            {
+              Header: intl.formatMessage({ defaultMessage: 'Asset Classes' }),
               accessor: 'coinName',
             },
             {
@@ -82,11 +86,12 @@ export default function Approval({ trustInvestmentId }: {
               // eslint-disable-next-line react/prop-types
               Cell: ({ row }) => (
               // eslint-disable-next-line react/prop-types
-                <div className="gradient-text1">{`${row.original.amount} ${row.original.coinName}`}</div>
+              //   <div className="gradient-text1">{`${row.original.amount} ${row.original.coinName}`}</div>
+                <div className="gradient-text1">{`${row.original.amount}`}</div>
               ),
             },
             {
-              Header: () => (<div className="text-left"><FormattedMessage defaultMessage="Destination" /></div>),
+              Header: () => (<div className="text-left"><FormattedMessage defaultMessage="Organizations" description="投资指令、收款机构" /></div>),
               accessor: 'destination',
               Cell: ({ row }) => {
                 switch (row.original.direction) {
@@ -104,7 +109,7 @@ export default function Approval({ trustInvestmentId }: {
               // },
             },
             {
-              Header: () => (<div className=""><FormattedMessage defaultMessage={"Opponent's address"} /></div>),
+              Header: () => (<div className=""><FormattedMessage defaultMessage="Receiving Address" description="投资指令、收款地址" /></div>),
               accessor: 'address',
               // eslint-disable-next-line react/prop-types
               Cell: ({ row }) => (
@@ -116,6 +121,10 @@ export default function Approval({ trustInvestmentId }: {
                 </div>
               ),
             },
+            // {
+            //   Header: intl.formatMessage({ defaultMessage: 'Purpose', description: '投资指令、转账目的' }),
+            //   accessor: 'purpose',
+            // },
             {
               Header: () => <div className=""><FormattedMessage defaultMessage="Approval Comments" /></div>,
               accessor: 'approvalRemark',
@@ -147,7 +156,7 @@ export default function Approval({ trustInvestmentId }: {
               accessor: (x) => unixFormatTime(x.approvalTimeStamp),
             },
             {
-              Header: () => <div className="text-right"><FormattedMessage defaultMessage="Reconciliation" /></div>,
+              Header: () => <div className="text-right"><FormattedMessage defaultMessage="Operation" /></div>,
               accessor: 'Reconciliation',
               Cell: ({ row }) => (
                 <div className="flex justify-end items-center gap-4">

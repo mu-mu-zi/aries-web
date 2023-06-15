@@ -19,7 +19,8 @@ export const useAssetByCoinId = (data: {
 };
 
 export const useAllBankQuery = (data: {
-  trustId?: number | string
+  trustId?: number | string,
+  coinId?: number, /* faitId 法币 CoinID */
 }) => {
   const userId = useAuthToken();
 
@@ -30,6 +31,6 @@ export const useAllBankQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!data.trustId && containsToken(),
+    enabled: !!data.trustId && containsToken() && !!data.coinId,
   });
 };

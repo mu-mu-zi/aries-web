@@ -22,17 +22,17 @@ export default function AssetDeclaration({ assetModeChange }: {
   return (
     <div className="flex flex-col">
       <div className="gradient-text1 font-bold text-[20px] font-title">
-        <FormattedMessage defaultMessage="Asset Transfer Information Declaration" />
+        <FormattedMessage defaultMessage="Entrusted Declaration Information" />
       </div>
       <div className="mt-[40px] flex flex-col gap-8">
         <div className="flex flex-col gap-3">
           <div className="font-bold text-[#C2D7C7F6]">
-            <FormattedMessage defaultMessage="Please select a payment method" />
+            <FormattedMessage defaultMessage="Please select the transfer method" />
           </div>
           <MethodSwitch
             titles={[
-              intl.formatMessage({ defaultMessage: 'Digital currency' }),
-              intl.formatMessage({ defaultMessage: 'Fiat currency' }),
+              intl.formatMessage({ defaultMessage: 'Digital Assets' }),
+              intl.formatMessage({ defaultMessage: 'Fiat Assets' }),
             ]}
             onSelected={(idx) => {
               setIsDigital(idx === 0);

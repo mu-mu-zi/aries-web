@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Outlet } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 import Navbar from '../../views/Navbar';
 
 export default function Home() {

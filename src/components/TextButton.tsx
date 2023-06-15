@@ -20,7 +20,6 @@ const TextButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
       className={classNames('text-center font-title font-bold text-[14px] cursor-pointer w-fit whitespace-pre', disabled ? 'text-[#695D52]' : 'gradient-text2')}
       css={css`
         position: relative;
-
         &::before {
           content: "";
           position: absolute;
@@ -28,7 +27,7 @@ const TextButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
           width: 100%;
           left: 0;
           height: 1px;
-          background: linear-gradient(90deg, ${disabled ? '#695D52' : '#AF8160'}  0%, ${disabled ? '#695D52' : '#D0B588'} 100%);
+          background: linear-gradient(90deg, ${disabled ? '#695D52' : '#AF8160'} 0%, ${disabled ? '#695D52' : '#D0B588'} 100%);
         }
       `}
     >

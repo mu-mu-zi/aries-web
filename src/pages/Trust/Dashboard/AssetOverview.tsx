@@ -31,7 +31,7 @@ export default function AssetOverview({ assetOverview }: {
               replace: true,
             })}
           >
-            <FormattedMessage defaultMessage="Asset transfer" />
+            <FormattedMessage defaultMessage="Asset Transfer" />
           </Button>
           <Button
             className="flex-1"

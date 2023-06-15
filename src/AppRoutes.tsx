@@ -110,7 +110,7 @@ export default function AppRoutes() {
             <Route path="assets" element={<AssetTransfet />} />
             {/* 订单 */}
             <Route path="orders">
-              <Route path="" element={<InvestmentOrder />} />
+              <Route index element={<InvestmentOrder />} />
               <Route path="detail/:investmentId" element={<OrderDetail />} />
             </Route>
             {/* 计划 */}

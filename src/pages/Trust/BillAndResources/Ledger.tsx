@@ -217,16 +217,18 @@ export default function Ledger() {
             },
           },
           {
-            Header: intl.formatMessage({ defaultMessage: 'Currency' }),
+            Header: intl.formatMessage({ defaultMessage: 'Network' }),
+            accessor: 'mainnet',
+          },
+          {
+            Header: intl.formatMessage({ defaultMessage: 'Asset Classes' }),
             accessor: 'coinName',
           },
           {
             Header: intl.formatMessage({ defaultMessage: 'Amount' }),
             // accessor: 'amount',
             Cell: ({ row }) => (
-              <div
-                className="gradient-text1 text-[16px]"
-              >
+              <div className="gradient-text1 text-[16px]">
                 {numberFormatWithPrefix(row.original?.amount)}
               </div>
             ),

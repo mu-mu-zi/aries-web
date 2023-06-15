@@ -1,4 +1,6 @@
-import React, { ReactNode, useState } from 'react';
+import React, {
+  ReactNode, Ref, useRef, useState,
+} from 'react';
 import classNames from 'classnames';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { useIntl } from 'react-intl';
@@ -29,6 +31,7 @@ import LanguageIcon from '../../views/Icons/LanguageIcon';
 import { setLanguage } from '../../state/app';
 import { Language } from '../../interfaces/language';
 import { useAppDispatch } from '../../state';
+import Tooltip from '../../components/Tooltip';
 
 export default function Sidebar() {
   // const { t } = useTranslation();
@@ -37,6 +40,9 @@ export default function Sidebar() {
   const { trustId } = useParams();
   const action = useAppDispatch();
   const queryClient = useQueryClient();
+  const [languageTooltipVisible, setLanguageTooltipVisible] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const timeOutRef = useRef<any>(null);
 
   return (
     <div className="gradient-border-container h-full w-full shadow-block">
@@ -73,56 +79,103 @@ export default function Sidebar() {
         <Divide />
         {/* 底部工具 */}
         <div className="flex flex-row items-center justify-evenly py-10">
-          <NavLink to="/personal"><img src={personIcon} className="cursor-pointer w-[22px] h-auto" alt="" /></NavLink>
-          <NavLink to={`/contactCustomer/${trustId}`}><img src={messageIcon} className="cursor-pointer w-[22px] h-auto" alt="" /></NavLink>
+          <Tooltip position="top" title={intl.formatMessage({ defaultMessage: 'Account Security' })}>
+            <NavLink to="/personal"><img src={personIcon} className="cursor-pointer w-[22px] h-auto" alt="" /></NavLink>
+          </Tooltip>
+          <Tooltip position="top" title={intl.formatMessage({ defaultMessage: 'Contact Us' })}>
+            <NavLink to={`/contactCustomer/${trustId}`}>
+              <img
+                src={messageIcon}
+                className="cursor-pointer w-[22px] h-auto"
+                alt=""
+              />
+            </NavLink>
+          </Tooltip>
+          {/* 语言切换 */}
+          {/* <Tooltip position="top" title={intl.formatMessage({ defaultMessage: 'Contact Us' })}> */}
           <Popover className="relative z-[500]">
-            <Popover.Button className="active:outline:none">
-              <div><img src={languageIcon} className="cursor-pointer w-[22px]" /></div>
-            </Popover.Button>
-            {/* @ts-ignore */}
-            <Transition
-              enter="transition duration-100 ease-out"
-              enterFrom="transform scale-95 opacity-0"
-              enterTo="transform scale-100 opacity-100"
-              leave="transition duration-75 ease-out"
-              leaveFrom="transform scale-100 opacity-100"
-              leaveTo="transform scale-95 opacity-0"
-            >
-              <Popover.Panel className="absolute z-[500] pt-4 left-[50%] translate-x-[-50%] bottom-[44px] min-w-[170px]">
-                {({ close }) => (
-                  <div className="gradient-block2 rounded-xl shadow-block ">
-                    <div className="flex flex-col divide-y divide-[#3B5649]">
-                      <div
-                        className="px-1 py-3 text-center gradient-text1 text-[20px] cursor-pointer"
-                        onClick={async (e) => {
-                          e.preventDefault();
-                          close();
-                          action(setLanguage(Language.EN));
-                          queryClient.invalidateQueries();
-                        }}
-                      >
-                        English
+            {({ open }) => (
+              <div
+                onMouseEnter={() => {
+                  clearTimeout(timeOutRef.current);
+                  !open && triggerRef.current?.click();
+                }}
+                onMouseLeave={() => {
+                  timeOutRef.current = setTimeout(() => {
+                    open && triggerRef.current?.click();
+                  }, 120);
+                }}
+              >
+                <Popover.Button
+                  className="active:outline:none"
+                  ref={triggerRef}
+                >
+                  {/* <Tooltip title="Language"> */}
+                  <img
+                    src={languageIcon}
+                    className="cursor-pointer w-[22px]"
+                  />
+                  {/* </Tooltip> */}
+                </Popover.Button>
+                {/* @ts-ignore */}
+                <Transition
+                  // show={languageTooltipVisible}
+                  enter="transition duration-100 ease-out"
+                  enterFrom="transform scale-95 opacity-0"
+                  enterTo="transform scale-100 opacity-100"
+                  leave="transition duration-75 ease-out"
+                  leaveFrom="transform scale-100 opacity-100"
+                  leaveTo="transform scale-95 opacity-0"
+                >
+                  <Popover.Panel className="absolute z-[500] left-[50%] translate-x-[-50%] bottom-[44px] min-w-[170px]">
+                    {({ close }) => (
+                      <div className="gradient-block2 rounded-xl shadow-block ">
+                        <div className="flex flex-col divide-y divide-[#3B5649]">
+                          <div
+                            className="px-1 h-[48px] leading-[48px] text-center gradient-text1 text-[20px] cursor-pointer"
+                            onClick={async (e) => {
+                              e.preventDefault();
+                              close();
+                              setLanguageTooltipVisible(false);
+                              action(setLanguage(Language.EN));
+                              queryClient.invalidateQueries();
+                            }}
+                          >
+                            English
+                          </div>
+                          <div
+                            className="px-1 h-[48px] leading-[48px] text-center gradient-text1 text-[20px] cursor-pointer"
+                            onClick={async (e) => {
+                              e.preventDefault();
+                              close();
+                              setLanguageTooltipVisible(false);
+                              action(setLanguage(Language.HK));
+                              queryClient.invalidateQueries();
+                            }}
+                          >
+                            繁体中文
+                          </div>
+                        </div>
                       </div>
-                      <div
-                        className="px-1 py-3 text-center gradient-text1 text-[20px] cursor-pointer"
-                        onClick={async (e) => {
-                          e.preventDefault();
-                          close();
-                          action(setLanguage(Language.HK));
-                          queryClient.invalidateQueries();
-                        }}
-                      >
-                        繁体中文
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </Popover.Panel>
-            </Transition>
+                    )}
+                  </Popover.Panel>
+                </Transition>
+              </div>
+            )}
           </Popover>
-
-          <NavLink to={`/trust/${trustId}/notification`}><img src={notifyIcon} className="cursor-pointer w-[22px] h-auto" alt="" /></NavLink>
-          <NavLink to="/my"><img src={exitIcon} className="cursor-pointer w-[22px] h-auto" alt="" /></NavLink>
+          {/* </Tooltip> */}
+          <Tooltip position="top" title={intl.formatMessage({ defaultMessage: 'Notifications' })}>
+            <NavLink to={`/trust/${trustId}/notification`}>
+              <img
+                src={notifyIcon}
+                className="cursor-pointer w-[22px] h-auto"
+                alt=""
+              />
+            </NavLink>
+          </Tooltip>
+          <Tooltip position="top" title={intl.formatMessage({ defaultMessage: 'Exit Trust' })}>
+            <NavLink to="/my"><img src={exitIcon} className="cursor-pointer w-[22px] h-auto" alt="" /></NavLink>
+          </Tooltip>
         </div>
       </div>
     </div>

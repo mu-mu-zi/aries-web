@@ -119,6 +119,10 @@ export default function ExcessFee() {
                 accessor: (x) => `${x.totalAmount} ${x.totalTrustCoinName}`,
               },
               {
+                Header: intl.formatMessage({ defaultMessage: 'Network' }),
+                accessor: (x) => x.mainnet,
+              },
+              {
                 Header: intl.formatMessage({ defaultMessage: 'Transferred amount' }),
                 accessor: (x) => `${x.amount} ${x.coinName}`,
               },

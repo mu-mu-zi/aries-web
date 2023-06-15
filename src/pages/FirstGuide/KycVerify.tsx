@@ -98,6 +98,7 @@ export default function KycVerify() {
                   ]}
                 />
               </div>
+              {/* <EstablishmentBitStep trust={detailQuery.data.data} /> */}
               <div className="flex-auto flex flex-col justify-center mt-12 max-w-[824px] w-full">
                 {detailQuery.data.data.stepId === 1 && <KYCCertificationStep trust={detailQuery.data.data} />}
                 {[2, 3].includes(detailQuery.data.data.stepId) && <ContractSigningStep trust={detailQuery.data.data} />}
