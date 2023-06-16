@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useInterval } from 'react-use';
 import { FormattedMessage } from 'react-intl';
+import classNames from 'classnames';
 
 export default function SendButton({
   onClick,
@@ -23,7 +24,10 @@ export default function SendButton({
 
   return (
     <div
-      className="cursor-pointer font-bold gradient-text1 text-[20px] px-2 break-keep"
+      className={classNames(
+        'font-bold gradient-text1 text-[20px] px-2 break-keep select-none',
+        duration > 0 ? 'cursor-not-allowed' : 'cursor-pointer',
+      )}
       onClick={async () => {
         if (duration > 0) {
           return;

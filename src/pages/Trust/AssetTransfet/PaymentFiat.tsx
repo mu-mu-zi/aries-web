@@ -41,7 +41,7 @@ export default function PaymentFiat() {
             <PaymentRow title={intl.formatMessage({ defaultMessage: 'Payee Name' })} value={bank.userName} />
             <PaymentRow title={intl.formatMessage({ defaultMessage: 'Payee Bank Account Number' })} value={bank.address} />
             <PaymentRow title={intl.formatMessage({ defaultMessage: 'Bank Name' })} value={bank.bankName} />
-            <PaymentRow title={intl.formatMessage({ defaultMessage: 'Payee Country/Region' })} value={bank.symbol} />
+            <PaymentRow title={intl.formatMessage({ defaultMessage: 'Currency' })} value={bank.symbol} />
             {bank.customContents?.map((it) => <PaymentRow key={it.id} title={it.key} value={it.value} />)}
           </div>
         </div>

@@ -16,7 +16,7 @@ export default function CreatingTrust() {
         'gradient-bg2 shadow-block',
         'm-auto flex flex-shrink-0 flex-col',
         'block-gradient-border rounded-xl',
-        'h-[720px] max-w-[475px]',
+        'h-[720px] w-[475px]',
       )}
     >
       <div className="flex flex-auto flex-col px-12">

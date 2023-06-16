@@ -19,6 +19,7 @@ import ContactUsFooter from '../../views/ContactUsFooter';
 import AreaSelect from '../../components/AreaSelect';
 import { useValidators } from '../../utils/zod';
 import { useAppSelector } from '../../state';
+import { useUserInfoQuery } from '../../api/user/user';
 
 export default function ChangeMobile() {
   // const { t } = useTranslation();
@@ -45,6 +46,7 @@ export default function ChangeMobile() {
     resolver: zodResolver(valid),
   });
   const queryClient = useQueryClient();
+  const useUserQuery = useUserInfoQuery();
   const navigate = useNavigate();
   const lan = useAppSelector((state) => state.app.language);
 
@@ -100,11 +102,11 @@ export default function ChangeMobile() {
       <form onSubmit={handleSubmit(submit)}>
         <div className="m-auto flex flex-col w-[420px]">
           <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px] my-16">
-            <FormattedMessage defaultMessage="Change phone" />
+            {useUserQuery.data?.data?.mobileAuth ? <FormattedMessage defaultMessage="Change phone" /> : <FormattedMessage defaultMessage="Bind phone" /> }
           </div>
           <div className="flex flex-col gap-4">
             <div className="text-[#C2D7C7F6] text-[16px] font-bold">
-              <FormattedMessage defaultMessage="New Mobile Phone" />
+              {useUserQuery.data?.data?.mobileAuth ? <FormattedMessage defaultMessage="New Mobile Phone" /> : <FormattedMessage defaultMessage="Mobile Phone" />}
             </div>
             <div className="flex flex-row gap-4">
               <Controller
@@ -123,7 +125,7 @@ export default function ChangeMobile() {
               </div>
             </div>
             <div className="text-[#C2D7C7F6] text-[16px] font-bold">
-              <FormattedMessage defaultMessage="New Mobile Verification Code" />
+              {useUserQuery.data?.data?.mobileAuth ? <FormattedMessage defaultMessage="New Mobile Verification Code" /> : <FormattedMessage defaultMessage="Mobile Verification Code" /> }
             </div>
             <div>
               <TextInput

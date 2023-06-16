@@ -21,8 +21,8 @@ export default function LoginLog() {
     <Container>
       <div className="flex flex-col gap-6">
         <CancelNav />
-        <div className="flex flex-col gap-4 gradient-bg2 rounded-xl p-8">
-          <div className="gradient-text1 font-title font-bold text-[20px]">
+        <div className="gradient-bg2 flex flex-col gap-4 rounded-xl p-8 shadow-block">
+          <div className="gradient-text1 font-title text-[20px] font-bold">
             <FormattedMessage defaultMessage="Recent Login Records" />
           </div>
           <Hr />

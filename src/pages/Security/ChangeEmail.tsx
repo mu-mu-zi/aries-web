@@ -16,6 +16,7 @@ import SendButton from '../../views/SendButton';
 import ContactUsFooter from '../../views/ContactUsFooter';
 import { useValidators } from '../../utils/zod';
 import { useAppSelector } from '../../state';
+import { useUserInfoQuery } from '../../api/user/user';
 
 export default function ChangeEmail() {
   const { zodEmail, zodRequired } = useValidators();
@@ -39,6 +40,7 @@ export default function ChangeEmail() {
   });
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const userQuery = useUserInfoQuery();
   // const { t } = useTranslation();
   const intl = useIntl();
   const lan = useAppSelector((state) => state.app.language);
@@ -84,18 +86,22 @@ export default function ChangeEmail() {
           <div
             className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px] my-16"
           >
-            <FormattedMessage defaultMessage="Change Email" />
+            {userQuery.data?.data?.emailAuth ? <FormattedMessage defaultMessage="Change Email" /> : <FormattedMessage defaultMessage="Bind Email" />}
           </div>
           <div className="flex flex-col gap-4">
-            <div className="text-[#C2D7C7F6] text-[16px] font-bold">{intl.formatMessage({ defaultMessage: 'New Email' })}</div>
+            <div className="text-[#C2D7C7F6] text-[16px] font-bold">
+              {userQuery?.data?.data?.emailAuth ? <FormattedMessage defaultMessage="New Email" /> : <FormattedMessage defaultMessage="Email" />}
+            </div>
             <div className="flex-auto">
               <TextInput
                 {...register('email')}
-                placeholder={intl.formatMessage({ defaultMessage: 'Please enter the new email' })}
+                placeholder={intl.formatMessage({ defaultMessage: 'Please enter the email' })}
                 error={errors.email?.message}
               />
             </div>
-            <div className="text-[#C2D7C7F6] text-[16px] font-bold">{intl.formatMessage({ defaultMessage: 'New Email Verification Code' })}</div>
+            <div className="text-[#C2D7C7F6] text-[16px] font-bold">
+              {userQuery.data?.data?.emailAuth ? <FormattedMessage defaultMessage="New Email Verification Code" /> : <FormattedMessage defaultMessage="Email Verification Code" /> }
+            </div>
             <div>
               <TextInput
                 {...register('securityCode')}
@@ -106,7 +112,9 @@ export default function ChangeEmail() {
             </div>
           </div>
           <div className="mt-10">
-            <Button block><FormattedMessage defaultMessage="Confirm" /></Button>
+            <Button block>
+              <FormattedMessage defaultMessage="Confirm" />
+            </Button>
           </div>
         </div>
       </form>

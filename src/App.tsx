@@ -13,12 +13,14 @@ export default function App() {
     <div className={classNames('gradient-bg1 min-h-screen font-text', 'relative', 'min-w-[1280px] transition')}>
       <ReactNotifications />
       <div
-        className="absolute inset-0  z-[0] bg-cover bg-fixed bg-center bg-no-repeat"
+        className="absolute inset-0 z-[0] bg-cover bg-fixed bg-center bg-no-repeat"
         css={css`
           background-image: url(${fullBgIcon});
         `}
       />
-      <div className="relative z-[1] min-h-screen"><AppRoutes /></div>
+      <div className="relative z-[1] min-h-screen">
+        <AppRoutes />
+      </div>
     </div>
   );
 }

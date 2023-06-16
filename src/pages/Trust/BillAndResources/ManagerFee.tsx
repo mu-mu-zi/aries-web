@@ -73,7 +73,8 @@ export default function ManagerFee() {
             columns={[
               {
                 Header: intl.formatMessage({ defaultMessage: 'Time' }),
-                accessor: (x) => unixFormatTime(x.createTimeStamp),
+                // accessor: (x) => unixFormatTime(x.createTimeStamp),
+                accessor: (x) => x.createTimeFormat,
               },
               {
                 Header: intl.formatMessage({ defaultMessage: 'Trust total amount' }),

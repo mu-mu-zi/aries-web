@@ -59,21 +59,20 @@ export default function AllocationPlan() {
   // @ts-ignore
   return (
     <div className="gradient-border-container shadow-block">
-      <div className="flex flex-col p-8 gradient-bg2 rounded-xl">
+      <div className="gradient-bg2 flex flex-col rounded-xl p-8">
         <div className="flex flex-row items-center justify-between">
-          <div className="gradient-text1 text-[20px] font-title font-bold">
+          <div className="gradient-text1 font-title text-[20px] font-bold">
             <FormattedMessage defaultMessage="Allocation plan" />
           </div>
           {settlorPermission && (
-            <Button
-              size="medium"
-              onClick={() => setAddedVisible(true)}
-            >
+            <Button size="medium" onClick={() => setAddedVisible(true)}>
               <FormattedMessage defaultMessage="+ Add" />
             </Button>
           )}
         </div>
-        <div className="mt-4"><Hr /></div>
+        <div className="mt-4">
+          <Hr />
+        </div>
         <SimpleTable
           columns={[
             // {
@@ -86,7 +85,7 @@ export default function AllocationPlan() {
               // eslint-disable-next-line react/prop-types
               Cell: ({ row }) => (
                 // eslint-disable-next-line react/prop-types
-                <div className="pr-2 line-clamp-1 text-ellipsis overflow-hidden">
+                <div className="line-clamp-1 overflow-hidden text-ellipsis pr-2">
                   {/* {row.original?.planDescription.length > 40 ? `${row.original?.planDescription.substring(0, 40)}...` : row.original?.planDescription} */}
                   {stringShort(row.original?.planDescription)}
                 </div>
@@ -95,9 +94,7 @@ export default function AllocationPlan() {
             {
               Header: intl.formatMessage({ defaultMessage: 'Update Time' }),
               accessor: (originalRow) => (
-                <div
-                  className="break-keep"
-                >
+                <div className="break-keep">
                   {/* {moment.unix(originalRow.updateTimeStamp / 1000).format('yyyy-MM-DD HH:mm:ss')} */}
                   {unixFormatTime(originalRow.updateTimeStamp)}
                 </div>
@@ -107,10 +104,14 @@ export default function AllocationPlan() {
               Header: intl.formatMessage({ defaultMessage: 'Status' }),
               accessor: (x) => {
                 switch (x.planStatus) {
-                  case 1: return intl.formatMessage({ defaultMessage: 'Checking' });
-                  case 2: return intl.formatMessage({ defaultMessage: 'Approved' });
-                  case 3: return intl.formatMessage({ defaultMessage: 'Rejected' });
-                  default: return '--';
+                  case 1:
+                    return intl.formatMessage({ defaultMessage: 'Checking' });
+                  case 2:
+                    return intl.formatMessage({ defaultMessage: 'Approved' });
+                  case 3:
+                    return intl.formatMessage({ defaultMessage: 'Rejected' });
+                  default:
+                    return '--';
                 }
               },
             },
@@ -143,6 +144,18 @@ export default function AllocationPlan() {
                       <FormattedMessage defaultMessage="Modify" />
                     </TextButton>
                   )}
+
+                  {/* {[1, 2].includes(row.original.planStatus) && settlorPermission && ( */}
+                  {/*  <TextButton */}
+                  {/*    onClick={() => { */}
+                  {/*      // eslint-disable-next-line react/prop-types */}
+                  {/*      setSelectRow(row.original); */}
+                  {/*      setModifyVisible(true); */}
+                  {/*    }} */}
+                  {/*  > */}
+                  {/*    <FormattedMessage defaultMessage="Modify" /> */}
+                  {/*  </TextButton> */}
+                  {/* )} */}
                 </div>
               ),
             },
@@ -180,13 +193,7 @@ export default function AllocationPlan() {
       {/*  /> */}
       {/* </Modal> */}
       <Modal visible={modifyVisible} onClose={() => setModifyVisible(false)}>
-        {selectRow && (
-          <ModifyPlan
-            trustId={Number(trustId)}
-            row={selectRow}
-            onClose={() => setModifyVisible(false)}
-          />
-        )}
+        {selectRow && <ModifyPlan trustId={Number(trustId)} row={selectRow} onClose={() => setModifyVisible(false)} />}
       </Modal>
       <Modal visible={detailVisible} onClose={() => setDetailVisible(false)}>
         {selectRow && <PlanDetail detail={selectRow.planDescription} onClose={() => setDetailVisible(false)} />}

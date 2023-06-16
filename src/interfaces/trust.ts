@@ -117,7 +117,7 @@ export interface IFiatAssetsDetails2 {
   apr: number;
   symbol: string;
   amount: number;
-  name: number
+  name: string
   image: string
 }
 
