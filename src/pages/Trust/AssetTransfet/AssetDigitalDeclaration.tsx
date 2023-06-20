@@ -103,10 +103,10 @@ export default function AssetDigitalDeclaration() {
   return (
     <form onSubmit={handleSubmit(submit)}>
       <div className="flex flex-col gap-3">
-        <div className="font-bold text-[#C2D7C7F6]"><FormattedMessage defaultMessage="Declaration Information" /></div>
+        <div className="font-bold text-[#C2D7C7F6]"><FormattedMessage defaultMessage="Identity" /></div>
         <TextField
           requiredLabel
-          label={intl.formatMessage({ defaultMessage: 'Identity' })}
+          label={intl.formatMessage({ defaultMessage: 'Payer Name' })}
           placeholder={intl.formatMessage({ defaultMessage: "Please enter the payer's name" })}
           maxLength={30}
           error={errors.name?.message}
@@ -123,7 +123,7 @@ export default function AssetDigitalDeclaration() {
         />
         {mainNet && (
           <>
-            <div className="text-[#C2D7C7F6] font-bold"><FormattedMessage defaultMessage="Asset Classes" /></div>
+            <div className="text-[#C2D7C7F6] font-bold"><FormattedMessage defaultMessage="Asset" /></div>
             <Controller
               name="coinId"
               control={control}
