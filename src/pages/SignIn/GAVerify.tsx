@@ -44,48 +44,56 @@ export default function GAVerify() {
   });
   const queryClient = useQueryClient();
   const lan = useAppSelector((state) => state.app.language);
+  const [validating, setValidating] = React.useState(false);
 
   useEffect(() => clearErrors(), [lan]);
 
   const submit = async (data: FormValid) => {
     const { account, areaCodeId } = location.state;
-    if (account) {
-      const resp = await axios.post('/user/userSecurity/securityVerification', {
-        userEmail: areaCodeId ? undefined : account,
-        userMobile: areaCodeId ? account : undefined,
-        areaCodeId,
-        googleCode: data.googleCode,
-        verificationType: 1,
-      });
-      const ticker = resp.data.ticker as string;
-      const loginResp = await axios.post('/auth/ariesToken/login', {
-        account,
-        ticker,
-      });
-      const token = loginResp.data as string;
-      if (token) {
-        // localStorage.setItem('TOKEN', token);
-        action(setToken(token));
-        await queryClient.invalidateQueries();
-        /*
-        * 判断信托列表
-        * */
-        const trustResp = await axios.get<Trust[]>('/trust/trust/list');
-        const trustList = trustResp.data ?? [];
-        /* 无信托 */
-        if (trustList.length === 1) {
-          /* 进入引导 */
-          if (trustList[0].trustStatus === 1) {
-            navigate(`/first/${trustList[0].trustId}/KycVerify`, { replace: true });
-          } else if (trustList[0].trustStatus === 21) {
-            navigate(`/first/${trustList[0].trustId}/welcome`, { replace: true });
-          } else if (trustList[0].trustStatus === 2) {
+    try {
+      setValidating(true);
+      if (account) {
+        const resp = await axios.post('/user/userSecurity/securityVerification', {
+          userEmail: areaCodeId ? undefined : account,
+          userMobile: areaCodeId ? account : undefined,
+          areaCodeId,
+          googleCode: data.googleCode,
+          verificationType: 1,
+        });
+        const ticker = resp.data.ticker as string;
+        const loginResp = await axios.post('/auth/ariesToken/login', {
+          account,
+          ticker,
+        });
+        const token = loginResp.data as string;
+        if (token) {
+          // localStorage.setItem('TOKEN', token);
+          action(setToken(token));
+          await queryClient.invalidateQueries();
+          /*
+          * 判断信托列表
+          * */
+          const trustResp = await axios.get<Trust[]>('/trust/trust/list');
+          const trustList = trustResp.data ?? [];
+          /* 无信托 */
+          if (trustList.length === 1) {
+            /* 进入引导 */
+            if (trustList[0].trustStatus === 1) {
+              navigate(`/first/${trustList[0].trustId}/KycVerify`, { replace: true });
+            } else if (trustList[0].trustStatus === 21) {
+              navigate(`/first/${trustList[0].trustId}/welcome`, { replace: true });
+            } else if (trustList[0].trustStatus === 2) {
+              navigate('/my', { replace: true });
+            }
+          } else {
             navigate('/my', { replace: true });
           }
-        } else {
-          navigate('/my', { replace: true });
         }
       }
+    } catch (e) {
+      console.log(`Google va error => ${e}`);
+    } finally {
+      setValidating(false);
     }
   };
 
@@ -111,7 +119,7 @@ export default function GAVerify() {
               />
             </div>
             <div className="mt-[40px] flex flex-row gap-4">
-              <Button size="medium" block>
+              <Button size="medium" block disabled={validating}>
                 <FormattedMessage defaultMessage="Confirm" />
               </Button>
             </div>

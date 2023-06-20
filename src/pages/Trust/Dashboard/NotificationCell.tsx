@@ -15,7 +15,7 @@ export default function NotificationCell({
 }) {
   return (
     <div className="flex flex-row items-center gap-4">
-      <img src={cellIcon} width="32px" alt="" />
+      <img src={cellIcon} width="32px" alt="" className={classNames(!simple && 'self-start')} />
       <div className="flex flex-col gap-2">
         <div
           className={classNames(
@@ -38,10 +38,12 @@ export default function NotificationCell({
         {!simple && (
           <div
             className="text-[16px] text-[#99ac9b]"
-            dangerouslySetInnerHTML={{
-              __html: content.replace('\n', '<br>'),
-            }}
-          />
+            // dangerouslySetInnerHTML={{
+            //   __html: content.replace('\n', '<br>'),
+            // }}
+          >
+            {content.trim().split('\n').map((x) => <p key={x}>{x}</p>)}
+          </div>
         )}
         <div className="text-[14px] font-normal text-[#99ac9b]">{datetime}</div>
       </div>

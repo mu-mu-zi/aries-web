@@ -90,6 +90,7 @@ export const useTrustMessageListQuery = (data: {
       params: data,
     }),
     enabled: containsToken() && !!data.trustId,
+    keepPreviousData: true,
   });
 };
 

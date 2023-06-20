@@ -6,12 +6,12 @@ import { IUser } from '../../interfaces/user';
 /*
 * 发送手机 Or 邮箱验证码
 * */
-export const useSendValidateCodeMutation = () => useMutation({
-  mutationFn: (data: {
-      account: string,
-      areaCodeId?: number
-  }) => axios.post('/user/send/sendSmsCode', data),
-});
+// export const useSendValidateCodeMutation = () => useMutation({
+//   mutationFn: (data: {
+//       account: string,
+//       areaCodeId?: number
+//   }) => axios.post('/user/send/sendSmsCode', data),
+// });
 
 /*
 * 未登录获取用户信息

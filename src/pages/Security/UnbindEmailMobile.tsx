@@ -6,7 +6,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import React, { useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useSendValidateCodeMutation } from '../../api/user/verify';
 import { useUserInfoQuery } from '../../api/user/user';
 import CenterContainer from '../../views/CenterContainer';
 import GANavbar from '../SignIn/GANavbar';
@@ -15,6 +14,7 @@ import SendButton from '../../views/SendButton';
 import Button from '../../components/Button';
 import ContactUsFooter from '../../views/ContactUsFooter';
 import { useValidators } from '../../utils/zod';
+import { ISendSMSCodeAction, ISendSMSCodeType, userSendSMSCodeInLogin } from '../../api/base/send';
 
 export default function UnbindEmailMobile() {
   // const { t } = useTranslation();
@@ -52,6 +52,7 @@ export default function UnbindEmailMobile() {
       });
       /* 跳转到绑定 */
       navigate(-1);
+      queryClient.invalidateQueries();
     } catch (e) {
       console.log(e);
     }
@@ -59,8 +60,12 @@ export default function UnbindEmailMobile() {
 
   const emailSend = async () => {
     try {
-      await axios.post('/user/send/sendSmsCode', {
-        type: 1,
+      // await axios.post('/user/send/sendSmsCode', {
+      //   type: 1,
+      // });
+      await userSendSMSCodeInLogin({
+        type: ISendSMSCodeType.OldEmail,
+        action: ISendSMSCodeAction.UnbindEmail,
       });
       return true;
     } catch (e) {
@@ -70,8 +75,12 @@ export default function UnbindEmailMobile() {
 
   const mobileSend = async () => {
     try {
-      await axios.post('/user/send/sendSmsCode', {
-        type: 2,
+      // await axios.post('/user/send/sendSmsCode', {
+      //   type: 2,
+      // });
+      await userSendSMSCodeInLogin({
+        type: ISendSMSCodeType.OldMobile,
+        action: ISendSMSCodeAction.UnbindMobile,
       });
       return true;
     } catch (e) {
@@ -81,23 +90,35 @@ export default function UnbindEmailMobile() {
 
   return (
     <CenterContainer>
-      <GANavbar title={isPhone ? intl.formatMessage({ defaultMessage: 'Unbind Mobile' }) : intl.formatMessage({ defaultMessage: 'Unbind Email' })} />
-      <div className="flex-auto flex flex-col ">
-        <div className="gradient-text1 my-16 text-center font-title font-bold text-[32px]">
-          {isPhone ? <FormattedMessage defaultMessage="Unbind Mobile" /> : <FormattedMessage defaultMessage="Unbind Email" /> }
+      <GANavbar
+        title={
+          isPhone
+            ? intl.formatMessage({ defaultMessage: 'Unbind Mobile' })
+            : intl.formatMessage({ defaultMessage: 'Unbind Email' })
+        }
+      />
+      <div className="flex flex-auto flex-col ">
+        <div className="gradient-text1 my-16 text-center font-title text-[32px] font-bold">
+          {isPhone ? (
+            <FormattedMessage defaultMessage="Unbind Mobile" />
+          ) : (
+            <FormattedMessage defaultMessage="Unbind Email" />
+          )}
         </div>
         <form onSubmit={handleSubmit(submit)}>
-          <div className="flex flex-col flex-auto max-w-[420px] mx-auto gap-4">
+          <div className="mx-auto flex max-w-[420px] flex-auto flex-col gap-4">
             {/* {isPhone ? 'Hone' : 'Email'} */}
             {userQuery.data?.data?.emailAuth && (
               <>
-                <div className="text-[#C2D7C7F6] text-[16px] font-bold"><FormattedMessage defaultMessage="Email verification code" /></div>
+                <div className="text-[16px] font-bold text-[#C2D7C7F6]">
+                  <FormattedMessage defaultMessage="Email verification code" />
+                </div>
                 <TextInput
                   {...register('emailCode')}
                   placeholder={intl.formatMessage({ defaultMessage: 'Please enter the verification code' })}
                   suffix={<SendButton onClick={emailSend} />}
                 />
-                <div className="text-[#708077] text-[14px]">
+                <div className="text-[14px] text-[#708077]">
                   <FormattedMessage
                     defaultMessage="Please enter the verification code received in your Aries trust {email} email."
                     values={{
@@ -109,13 +130,15 @@ export default function UnbindEmailMobile() {
             )}
             {userQuery.data?.data?.mobileAuth && (
               <>
-                <div className="text-[#C2D7C7F6] text-[16px] font-bold"><FormattedMessage defaultMessage="Mobile verification code" /></div>
+                <div className="text-[16px] font-bold text-[#C2D7C7F6]">
+                  <FormattedMessage defaultMessage="Mobile verification code" />
+                </div>
                 <TextInput
                   {...register('mobileCode')}
                   placeholder={intl.formatMessage({ defaultMessage: 'Please enter the verification code' })}
                   suffix={<SendButton onClick={mobileSend} />}
                 />
-                <div className="text-[#708077] text-[14px]">
+                <div className="text-[14px] text-[#708077]">
                   <FormattedMessage
                     defaultMessage="Please enter the verification code received in your Aries trust {mobile}."
                     values={{
@@ -125,15 +148,22 @@ export default function UnbindEmailMobile() {
                 </div>
               </>
             )}
-            <div className="text-[#C2D7C7F6] text-[16px] font-bold"><FormattedMessage defaultMessage="Google Verification Code" /></div>
-            <TextInput {...register('googleCode')} placeholder={intl.formatMessage({ defaultMessage: 'Please input the 6-digit Google verification code' })} />
+            <div className="text-[16px] font-bold text-[#C2D7C7F6]">
+              <FormattedMessage defaultMessage="Google Verification Code" />
+            </div>
+            <TextInput
+              {...register('googleCode')}
+              placeholder={intl.formatMessage({ defaultMessage: 'Please input the 6-digit Google verification code' })}
+            />
             <div className="mt-[40px]">
-              <Button block><FormattedMessage defaultMessage="Submit" /></Button>
+              <Button block>
+                <FormattedMessage defaultMessage="Submit" />
+              </Button>
             </div>
           </div>
         </form>
         <div className="flex-auto" />
-        <div className="self-stretch py-12 pb-16 gap-9 px-8">
+        <div className="gap-9 self-stretch px-8 py-12 pb-16">
           {/* <Divide /> */}
           {/* <ContactUs /> */}
           <ContactUsFooter />

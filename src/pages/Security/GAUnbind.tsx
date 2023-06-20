@@ -1,26 +1,23 @@
 import React, { useEffect } from 'react';
 import { z } from 'zod';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
 import CenterContainer from '../../views/CenterContainer';
-import CancelNav from '../../views/CancelNav';
 import GANavbar from '../SignIn/GANavbar';
 import TextInput from '../../components/TextInput';
 import SendButton from '../../views/SendButton';
 import Button from '../../components/Button';
-import Divide from '../../components/Divide';
-import ContactUs from '../SignIn/ContactUs';
-import { useSendValidateCodeMutation } from '../../api/user/verify';
+// import { useSendValidateCodeMutation } from '../../api/user/verify';
 import { useUserInfoQuery } from '../../api/user/user';
 // import { useAreaCodeListQuery } from '../../api/base/areaCode';
-import Dropdown from '../../components/Dropdown';
 import ContactUsFooter from '../../views/ContactUsFooter';
 import { useValidators } from '../../utils/zod';
 import { useAppSelector } from '../../state';
+import { ISendSMSCodeAction, ISendSMSCodeType, userSendSMSCodeInLogin } from '../../api/base/send';
 
 export default function GAUnbind() {
   // const { t } = useTranslation();
@@ -32,7 +29,7 @@ export default function GAUnbind() {
     googleCode: zodRequired(),
   });
   type FormValid = z.infer<typeof valid>;
-  const sendValidateCodeMutation = useSendValidateCodeMutation();
+  // const sendValidateCodeMutation = useSendValidateCodeMutation();
   const {
     register,
     handleSubmit,
@@ -69,8 +66,12 @@ export default function GAUnbind() {
 
   const emailSend = async () => {
     try {
-      await axios.post('/user/send/sendSmsCode', {
-        type: 1,
+      // await axios.post('/user/send/sendSmsCode', {
+      //   type: 1,
+      // });
+      await userSendSMSCodeInLogin({
+        type: ISendSMSCodeType.OldEmail,
+        action: ISendSMSCodeAction.UnbindGA,
       });
       return true;
     } catch (e) {
@@ -80,8 +81,12 @@ export default function GAUnbind() {
 
   const mobileSend = async () => {
     try {
-      await axios.post('/user/send/sendSmsCode', {
-        type: 2,
+      // await axios.post('/user/send/sendSmsCode', {
+      //   type: 2,
+      // });
+      await userSendSMSCodeInLogin({
+        type: ISendSMSCodeType.OldMobile,
+        action: ISendSMSCodeAction.UnbindGA,
       });
       return true;
     } catch (e) {
@@ -92,21 +97,23 @@ export default function GAUnbind() {
   return (
     <CenterContainer>
       <GANavbar title={intl.formatMessage({ defaultMessage: 'Change Google Authenticator' })} />
-      <div className="flex-auto flex flex-col ">
-        <div className="gradient-text1 my-16 text-center font-title font-bold text-[32px] text-shadow-block">
+      <div className="flex flex-auto flex-col ">
+        <div className="gradient-text1 text-shadow-block my-16 text-center font-title text-[32px] font-bold">
           <FormattedMessage defaultMessage="Change Google Authenticator" />
         </div>
         <form onSubmit={handleSubmit(submit)}>
-          <div className="flex flex-col flex-auto max-w-[420px] mx-auto gap-4">
+          <div className="mx-auto flex max-w-[420px] flex-auto flex-col gap-4">
             {userQuery.data?.data?.emailAuth && (
               <>
-                <div className="text-[#C2D7C7F6] text-[16px] font-bold"><FormattedMessage defaultMessage="Email verification code" /></div>
+                <div className="text-[16px] font-bold text-[#C2D7C7F6]">
+                  <FormattedMessage defaultMessage="Email verification code" />
+                </div>
                 <TextInput
                   {...register('emailCode')}
                   placeholder={intl.formatMessage({ defaultMessage: 'Please enter the verification code' })}
                   suffix={<SendButton onClick={emailSend} />}
                 />
-                <div className="text-[#708077] text-[14px]">
+                <div className="text-[14px] text-[#708077]">
                   <FormattedMessage
                     defaultMessage="Please enter the verification code received in your Aries trust {email} email."
                     values={{
@@ -118,13 +125,15 @@ export default function GAUnbind() {
             )}
             {userQuery.data?.data?.mobileAuth && (
               <>
-                <div className="text-[#C2D7C7F6] text-[16px] font-bold"><FormattedMessage defaultMessage="Mobile verification code" /></div>
+                <div className="text-[16px] font-bold text-[#C2D7C7F6]">
+                  <FormattedMessage defaultMessage="Mobile verification code" />
+                </div>
                 <TextInput
                   {...register('mobileCode')}
                   placeholder={intl.formatMessage({ defaultMessage: 'Please enter the verification code' })}
                   suffix={<SendButton onClick={mobileSend} />}
                 />
-                <div className="text-[#708077] text-[14px]">
+                <div className="text-[14px] text-[#708077]">
                   <FormattedMessage
                     defaultMessage="Please enter the verification code received in your Aries trust {mobile}."
                     values={{
@@ -134,15 +143,22 @@ export default function GAUnbind() {
                 </div>
               </>
             )}
-            <div className="text-[#C2D7C7F6] text-[16px] font-bold"><FormattedMessage defaultMessage="Google Verification Code" /></div>
-            <TextInput {...register('googleCode')} placeholder={intl.formatMessage({ defaultMessage: 'Please input the 6-digit Google verification code' })} />
+            <div className="text-[16px] font-bold text-[#C2D7C7F6]">
+              <FormattedMessage defaultMessage="Google Verification Code" />
+            </div>
+            <TextInput
+              {...register('googleCode')}
+              placeholder={intl.formatMessage({ defaultMessage: 'Please input the 6-digit Google verification code' })}
+            />
             <div className="mt-[40px]">
-              <Button block><FormattedMessage defaultMessage="Submit" /></Button>
+              <Button block>
+                <FormattedMessage defaultMessage="Submit" />
+              </Button>
             </div>
           </div>
         </form>
         <div className="flex-auto" />
-        <div className="self-stretch py-12 pb-16 gap-9 px-8">
+        <div className="gap-9 self-stretch px-8 py-12 pb-16">
           {/* <Divide /> */}
           {/* <ContactUs /> */}
           <ContactUsFooter />

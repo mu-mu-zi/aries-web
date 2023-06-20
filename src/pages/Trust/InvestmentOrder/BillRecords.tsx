@@ -35,12 +35,11 @@ export default function BillRecords({ trustInvestmentId }: {
   const billTypeTitle = (type: number, customName: string) => {
     // 1-法币转出，2-法币转入，3-数字资产转出，4-数字资产转入，5-兑换交易，6-自定义
     switch (type) {
-      case 1: return intl.formatMessage({ defaultMessage: 'Withdrawal of fiat currency' });
-      case 2: return intl.formatMessage({ defaultMessage: 'Fiat currency deposit' });
-      case 3: return intl.formatMessage({ defaultMessage: 'Transfer of digital assets' });
-      case 4: return intl.formatMessage({ defaultMessage: 'Transfer of digital assets' });
-      case 5: return intl.formatMessage({ defaultMessage: 'Exchange transaction' });
-      // case 6: return intl.formatMessage({ defaultMessage: 'Customization' });
+      case 1: return intl.formatMessage({ defaultMessage: 'Withdrawal of fiat currency', description: '投资指令/账单类型' });
+      case 2: return intl.formatMessage({ defaultMessage: 'Fiat currency deposit', description: '投资指令/账单类型' });
+      case 3: return intl.formatMessage({ defaultMessage: 'Digital asset transfer out', description: '投资指令/账单类型' });
+      case 4: return intl.formatMessage({ defaultMessage: 'Transfer of digital assets', description: '投资指令/账单类型' });
+      case 5: return intl.formatMessage({ defaultMessage: 'Exchange transaction', description: '投资指令/账单类型' });
       case 6: return customName ?? '--';
       default: return '--';
     }

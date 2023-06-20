@@ -93,8 +93,8 @@ export default function EnteringTrust({ trust }: {
             {`[${trust.userTypeArr.map((x) => userType(x)).join(', ')}]`}
           </div>
           <div className="mt-4 text-center font-title text-[20px] text-[#C39770]">
-            {/* {moment.unix(trust.createTime / 1000).format('yyyy-MM-DD')} */}
-            {unixFormatTime(trust.createTime)}
+            {moment.unix(trust.createTime / 1000).format('yyyy-MM-DD')}
+            {/* {unixFormatTime(trust.createTime)} */}
           </div>
           <div className="flex-auto" />
           <div className="self-center">

@@ -17,7 +17,7 @@ import emailSelIcon from '../../assets/icon/email_sel.svg';
 import Select from '../../components/Select';
 import ContactUs from './ContactUs';
 import PhotoEmailSwitch from '../../components/PhotoEmailSwitch';
-import { useGetUserInfoMutation, useSendValidateCodeMutation } from '../../api/user/verify';
+import { useGetUserInfoMutation } from '../../api/user/verify';
 import { IResponseData } from '../../interfaces/base';
 import Dropdown from '../../components/Dropdown';
 // import { useAreaCodeListQuery } from '../../api/base/areaCode';
@@ -33,7 +33,7 @@ export default function SignIn() {
   const intl = useIntl();
   const navigate = useNavigate();
   const [isPhone, setIsPhone] = useState(true);
-  const sendValidateCodeMutation = useSendValidateCodeMutation();
+  // const sendValidateCodeMutation = useSendValidateCodeMutation();
   const getUserInfoMutation = useGetUserInfoMutation();
   // const areaCodeListQuery = useAreaCodeListQuery();
   const { zodEmail, zodPhone, zodRequired } = useValidators();
@@ -75,6 +75,7 @@ export default function SignIn() {
           account: getValues('account'),
           areaCodeId: getValues('areaCodeId'),
           type: isPhone ? 2 : 1,
+          action: 2,
         });
         return true;
       }

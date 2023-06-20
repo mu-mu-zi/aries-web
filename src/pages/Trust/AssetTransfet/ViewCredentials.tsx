@@ -19,7 +19,7 @@ export default function ViewCredentials({ onClose, recordId, images }: {
       {/* Header */}
       <div className="flex flex-row justify-between items-center">
         <div className="gradient-text1 font-title font-bold text-[32px]">
-          <FormattedMessage defaultMessage="View Credentials" />
+          <FormattedMessage defaultMessage="Declaration Details" />
         </div>
         <div onClick={onClose} className="cursor-pointer">
           <img src={closeIcon} alt="" />
@@ -28,12 +28,12 @@ export default function ViewCredentials({ onClose, recordId, images }: {
       {/* Content */}
       <div className="mt-8 mx-[-32px] px-8 py-1 overflow-y-auto flex-auto flex flex-col gap-4">
         <div className="text-[#C2D7C7F6] font-bold text-[16px]">
-          <FormattedMessage defaultMessage="Bank transfer information" />
+          <FormattedMessage defaultMessage="Declaration Information" />
         </div>
         {query.data?.data && (
           <div className="flex flex-col gap-4">
             <PaymentRow
-              title={intl.formatMessage({ defaultMessage: 'Payee Name' })}
+              title={intl.formatMessage({ defaultMessage: 'Payer Name' })}
               value={query.data?.data?.payUserName}
             />
             <PaymentRow
@@ -47,13 +47,17 @@ export default function ViewCredentials({ onClose, recordId, images }: {
                   value={query.data.data.mainnet}
                 />
                 <PaymentRow
-                  title={intl.formatMessage({ defaultMessage: 'Asset Classes' })}
+                  title={intl.formatMessage({ defaultMessage: 'Asset' })}
                   value={query.data.data.symbol}
                 />
                 <PaymentRow
-                  title={intl.formatMessage({ defaultMessage: 'Payment Amount' })}
+                  title={intl.formatMessage({ defaultMessage: 'Declared Amount' })}
                   value={query.data.data.amount}
                 />
+                {/* <PaymentRow */}
+                {/*  title={intl.formatMessage({ defaultMessage: 'Transferred Amount' })} */}
+                {/*  value={query.data.data.amount} */}
+                {/* /> */}
                 <PaymentRow
                   title={intl.formatMessage({ defaultMessage: 'Estimated transfer time' })}
                   value={query.data.data.estimateTime}

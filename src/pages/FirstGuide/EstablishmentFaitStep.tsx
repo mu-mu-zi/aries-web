@@ -28,7 +28,7 @@ export default function EstablishmentFaitStep({ trust }: {
         </div>
         <div className="flex flex-col p-8 gap-4 bg-[#314C40]">
           <Row title={intl.formatMessage({ defaultMessage: 'Bank Name' })} value={trust.bankName} />
-          <Row title={intl.formatMessage({ defaultMessage: 'Bank Address' })} value={trust.bankAddress} />
+          <Row title={intl.formatMessage({ defaultMessage: 'Payee Account Number' })} value={trust.bankAddress} />
           <Row title={intl.formatMessage({ defaultMessage: 'Payee Name' })} value={trust.bankUserName} />
           {trust.contents?.map((x) => (
             <Row key={x.customKey} title={x.customKey} value={x.customValue} />

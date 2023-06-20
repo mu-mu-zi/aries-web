@@ -11,7 +11,7 @@ import Button from '../../components/Button';
 import Divide from '../../components/Divide';
 import ContactUs from './ContactUs';
 import TextInput from '../../components/TextInput';
-import { useSendValidateCodeMutation } from '../../api/user/verify';
+// import { useSendValidateCodeMutation } from '../../api/user/verify';
 import Dropdown from '../../components/Dropdown';
 // import { useAreaCodeListQuery } from '../../api/base/areaCode';
 import SendButton from '../../views/SendButton';
@@ -28,7 +28,7 @@ export default function GABindVerify() {
   const location = useLocation();
   // const { t } = useTranslation();
   const intl = useIntl();
-  const sendValidateCodeMutation = useSendValidateCodeMutation();
+  // const sendValidateCodeMutation = useSendValidateCodeMutation();
   const userQuery = useUserInfoQuery();
   const { zodRequired } = useValidators();
   const valid = z.object({
@@ -63,6 +63,7 @@ export default function GABindVerify() {
         account,
         type: areaCodeId ? 2 : 1,
         areaCodeId,
+        action: 1,
       });
       return true;
     } catch (e) {

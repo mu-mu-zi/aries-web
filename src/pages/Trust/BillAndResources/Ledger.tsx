@@ -208,9 +208,10 @@ export default function Ledger() {
                 case 9:
                   return intl.formatMessage({ defaultMessage: 'Exceed Transfer' });
                 case 10:
-                  return intl.formatMessage({ defaultMessage: 'Establishment Fee' });
+                  return intl.formatMessage({ defaultMessage: 'Initial Minimum Establishment Fee' });
                 case 11:
-                  return intl.formatMessage({ defaultMessage: 'Additional Establishment Fee' });
+                  // return intl.formatMessage({ defaultMessage: 'Additional Establishment Fee' });
+                  return intl.formatMessage({ defaultMessage: 'Establishment Fee' });
                 default:
                   return '--';
               }

@@ -69,9 +69,13 @@ export default function SCGAVerify() {
             </div>
             <div className="mt-16 flex flex-col gap-4">
               <div className="font-bold text-[#c2d7c7]">
-                <FormattedMessage defaultMessage="Please enter the 6-digit Google security code" />
+                <FormattedMessage defaultMessage="Google Verification Code" />
               </div>
-              <TextInput {...register('googleCode')} maxLength={6} />
+              <TextInput
+                {...register('googleCode')}
+                maxLength={6}
+                placeholder={intl.formatMessage({ defaultMessage: 'Please enter the 6-digit Google security code' })}
+              />
             </div>
             <div className="mt-[40px] flex flex-row gap-4">
               <Button size="medium" block>

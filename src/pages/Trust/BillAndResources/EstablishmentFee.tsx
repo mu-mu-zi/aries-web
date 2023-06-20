@@ -88,9 +88,10 @@ export default function EstablishmentFee() {
                 accessor: (x) => {
                   switch (x.billType) {
                     case 10:
-                      return intl.formatMessage({ defaultMessage: 'Establishment fee' });
+                      return intl.formatMessage({ defaultMessage: 'Initial Minimum Establishment Fee' });
                     case 11:
-                      return intl.formatMessage({ defaultMessage: 'Additional establishment fee' });
+                      // return intl.formatMessage({ defaultMessage: 'Additional establishment fee' });
+                      return intl.formatMessage({ defaultMessage: 'Establishment fee' });
                     default:
                       return null;
                   }
@@ -174,29 +175,33 @@ export default function EstablishmentFee() {
         )}
       </Section>
       <FeeIntroduction
-        title={intl.formatMessage({ defaultMessage: 'Establishment Fee' })}
+        title={intl.formatMessage({ defaultMessage: 'About Establishment Fee' })}
         description={[
-          intl.formatMessage(
-            {
-              defaultMessage:
-                'The establishment fee refers to the additional fee of {ratio} that needs to be paid if you decide to add funds during the operation of the trust plan. Our company follows the contractual provisions to determine the standard for establishment fees, which is generally based on a certain percentage of the net asset value to ensure the cost coverage of the additional services provided to the settlor.',
-            },
-            {
-              ratio: ratioFormat(ratioQuery.data?.data?.find((x) => x.type === 2)?.expenseRatio),
-            },
-          ),
-          intl.formatMessage({
-            defaultMessage:
-              'Once you decide to add funds, the corresponding fee will be deducted from your trust account according to the contract. Similar to the payment method during the establishment of the trust plan, we will charge the additional establishment fee based on the actual amount of funds added and the agreed-upon ratio.',
-          }),
-          intl.formatMessage({
-            defaultMessage:
-              'It is important to note that the additional establishment fee will be directly deducted from your trust account after the bank account is opened. When conducting the additional establishment operation, you need to ensure that there are sufficient funds in your trust account to cover the required fees and avoid any overdue or late payment charges. Please be aware that it is your responsibility to ensure that there are enough funds in your trust account to fulfill any obligations regarding the payment of additional establishment fees.',
-          }),
-          intl.formatMessage({
-            defaultMessage:
-              'Additionally, we recommend that the settlor thoroughly understands the specific details and provisions of the trust plan, clarifies their risk tolerance and investment objectives before making any additional contributions. It is essential to carefully review the contractual terms related to the additional establishment to safeguard your legitimate rights and interests. If you have any questions, please feel free to contact our professional trust managers for further consultation.',
-          }),
+          // intl.formatMessage(
+          //   {
+          //     defaultMessage:
+          //       'The establishment fee refers to the additional fee of {ratio} that needs to be paid if you decide to add funds during the operation of the trust plan. Our company follows the contractual provisions to determine the standard for establishment fees, which is generally based on a certain percentage of the net asset value to ensure the cost coverage of the additional services provided to the settlor.',
+          //   },
+          //   {
+          //     ratio: ratioFormat(ratioQuery.data?.data?.find((x) => x.type === 2)?.expenseRatio),
+          //   },
+          // ),
+          // intl.formatMessage({
+          //   defaultMessage:
+          //     'Once you decide to add funds, the corresponding fee will be deducted from your trust account according to the contract. Similar to the payment method during the establishment of the trust plan, we will charge the additional establishment fee based on the actual amount of funds added and the agreed-upon ratio.',
+          // }),
+          // intl.formatMessage({
+          //   defaultMessage:
+          //     'It is important to note that the additional establishment fee will be directly deducted from your trust account after the bank account is opened. When conducting the additional establishment operation, you need to ensure that there are sufficient funds in your trust account to cover the required fees and avoid any overdue or late payment charges. Please be aware that it is your responsibility to ensure that there are enough funds in your trust account to fulfill any obligations regarding the payment of additional establishment fees.',
+          // }),
+          // intl.formatMessage({
+          //   defaultMessage:
+          //     'Additionally, we recommend that the settlor thoroughly understands the specific details and provisions of the trust plan, clarifies their risk tolerance and investment objectives before making any additional contributions. It is essential to carefully review the contractual terms related to the additional establishment to safeguard your legitimate rights and interests. If you have any questions, please feel free to contact our professional trust managers for further consultation.',
+          // }),
+          intl.formatMessage({ defaultMessage: 'The establishment fee is a one-time charge based on the amount of entrusted assets transferred into the trust' }),
+          intl.formatMessage({ defaultMessage: "Excluding the initial minimum establishment fee collected at the trust's establishment, the calculation method for the establishment fee is as follows: Establishment Fee = (Total amount of assets transferred into the trust - Amount of entrusted assets exempt from the establishment fee) × [Establishment fee rate for the trust]" }),
+          intl.formatMessage({ defaultMessage: 'Unit Conversion: To facilitate uniform accounting, each transferred amount is calculated based on the equivalent USD value at the time of asset confirmation' }),
+          intl.formatMessage({ defaultMessage: 'Deduction of the establishment fee: The establishment fee is deducted immediately based on the corresponding asset type for each transfer, and the Settlor will be notified accordingly' }),
         ]}
       />
       <Modal visible={credentialsVisible} onClose={() => setCredentialsVisible(false)}>

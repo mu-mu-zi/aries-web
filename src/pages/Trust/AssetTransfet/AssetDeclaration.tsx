@@ -27,7 +27,7 @@ export default function AssetDeclaration({ assetModeChange }: {
       <div className="mt-[40px] flex flex-col gap-8">
         <div className="flex flex-col gap-3">
           <div className="font-bold text-[#C2D7C7F6]">
-            <FormattedMessage defaultMessage="Please select the transfer method" />
+            <FormattedMessage defaultMessage="Asset Type" />
           </div>
           <MethodSwitch
             titles={[

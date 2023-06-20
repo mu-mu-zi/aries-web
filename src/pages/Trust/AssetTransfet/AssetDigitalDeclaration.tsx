@@ -106,7 +106,7 @@ export default function AssetDigitalDeclaration() {
         <div className="font-bold text-[#C2D7C7F6]"><FormattedMessage defaultMessage="Declaration Information" /></div>
         <TextField
           requiredLabel
-          label={intl.formatMessage({ defaultMessage: "Payer's Name" })}
+          label={intl.formatMessage({ defaultMessage: 'Identity' })}
           placeholder={intl.formatMessage({ defaultMessage: "Please enter the payer's name" })}
           maxLength={30}
           error={errors.name?.message}
@@ -156,20 +156,20 @@ export default function AssetDigitalDeclaration() {
         />
         <TextField
           requiredLabel
-          label={intl.formatMessage({ defaultMessage: "Payer's Address" })}
-          placeholder={intl.formatMessage({ defaultMessage: "Please enter the payer's address" })}
+          label={intl.formatMessage({ defaultMessage: 'Payment Address / Service Provider' })}
+          placeholder={intl.formatMessage({ defaultMessage: 'Please enter the payment address (if using a centralized exchange, enter the exchange name)' })}
           maxLength={100}
           {...register('address')}
           error={errors.address?.message}
         />
+        {/* <TextField */}
+        {/*  label={intl.formatMessage({ defaultMessage: 'Transaction Hash (if applicable)' })} */}
+        {/*  placeholder={intl.formatMessage({ defaultMessage: 'Please enter the transaction hash' })} */}
+        {/*  maxLength={66} */}
+        {/*  {...register('hash')} */}
+        {/* /> */}
         <TextField
-          label={intl.formatMessage({ defaultMessage: 'Transaction Hash (if applicable)' })}
-          placeholder={intl.formatMessage({ defaultMessage: 'Please enter the transaction hash' })}
-          maxLength={66}
-          {...register('hash')}
-        />
-        <TextField
-          label={intl.formatMessage({ defaultMessage: 'Remarks' })}
+          label={intl.formatMessage({ defaultMessage: 'Remarks (if any)' })}
           placeholder={intl.formatMessage({ defaultMessage: 'Please enter the remark' })}
           maxLength={100}
           {...register('remark')}

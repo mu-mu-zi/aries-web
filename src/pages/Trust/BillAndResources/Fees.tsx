@@ -129,9 +129,9 @@ function FeesCell({
     <NavLink to={to} className="flex flex-col gap-2 p-8 gradient-block1 rounded-xl shadow-block">
       <div className="flex flex-row gap-2 items-center">
         <div className="gradient-text1 font-title font-bold text-[20px]">{title}</div>
-        <Tooltip title={tooltip.title} content={tooltip.description} position="bottom-start">
-          <img src={alertIcon} width="16px" alt="" />
-        </Tooltip>
+        {/* <Tooltip title={tooltip.title} content={tooltip.description} position="bottom-start"> */}
+        {/*  <img src={alertIcon} width="16px" alt="" /> */}
+        {/* </Tooltip> */}
       </div>
       <div className="text-[#708077] text-[16px]">{subtitle}</div>
       <div className="mt-4 flex flex-row items-baseline gap-4 font-title font-bold">

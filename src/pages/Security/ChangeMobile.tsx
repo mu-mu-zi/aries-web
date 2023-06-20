@@ -2,24 +2,23 @@ import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Simulate } from 'react-dom/test-utils';
 import axios from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
 import CenterContainer from '../../views/CenterContainer';
 import GANavbar from '../SignIn/GANavbar';
-import Dropdown from '../../components/Dropdown';
 import TextInput from '../../components/TextInput';
 // import { useAreaCodeListQuery } from '../../api/base/areaCode';
 import Button from '../../components/Button';
-import { useSendValidateCodeMutation } from '../../api/user/verify';
+// import { useSendValidateCodeMutation } from '../../api/user/verify';
 import SendButton from '../../views/SendButton';
 import ContactUsFooter from '../../views/ContactUsFooter';
 import AreaSelect from '../../components/AreaSelect';
 import { useValidators } from '../../utils/zod';
 import { useAppSelector } from '../../state';
 import { useUserInfoQuery } from '../../api/user/user';
+import { ISendSMSCodeAction, ISendSMSCodeType, userSendSMSCodeInLogin } from '../../api/base/send';
 
 export default function ChangeMobile() {
   // const { t } = useTranslation();
@@ -32,7 +31,7 @@ export default function ChangeMobile() {
     securityCode: zodRequired(),
   });
   type FormValid = z.infer<typeof valid>;
-  const sendValidateCodeMutation = useSendValidateCodeMutation();
+  // const sendValidateCodeMutation = useSendValidateCodeMutation();
   const {
     register,
     handleSubmit,
@@ -62,11 +61,18 @@ export default function ChangeMobile() {
       //   account: getValues('mobile'),
       //   areaCodeId: getValues('areaCodeId'),
       // });
-      await axios.post('/user/send/sendSmsCode', {
+      // await axios.post('/user/send/sendSmsCode', {
+      //   account: getValues('mobile'),
+      //   areaCodeId: getValues('areaCodeId'),
+      //   type: 4,
+      // });
+      await userSendSMSCodeInLogin({
         account: getValues('mobile'),
         areaCodeId: getValues('areaCodeId'),
-        type: 4,
+        type: ISendSMSCodeType.NewMobile,
+        action: useUserQuery.data?.data?.mobileAuth ? ISendSMSCodeAction.ChangeMobile : ISendSMSCodeAction.BingMobile,
       });
+
       return true;
     } catch (e) {
       console.log(e);
@@ -91,6 +97,7 @@ export default function ChangeMobile() {
         },
         replace: true,
       });
+      queryClient.invalidateQueries();
     } catch (e) {
       console.log(e);
     }
@@ -100,19 +107,25 @@ export default function ChangeMobile() {
     <CenterContainer>
       <GANavbar />
       <form onSubmit={handleSubmit(submit)}>
-        <div className="m-auto flex flex-col w-[420px]">
-          <div className="text-shadow-block font-bold gradient-text1 text-center font-title text-[32px] leading-[36px] my-16">
-            {useUserQuery.data?.data?.mobileAuth ? <FormattedMessage defaultMessage="Change phone" /> : <FormattedMessage defaultMessage="Bind phone" /> }
+        <div className="m-auto flex w-[420px] flex-col">
+          <div className="text-shadow-block gradient-text1 my-16 text-center font-title text-[32px] font-bold leading-[36px]">
+            {useUserQuery.data?.data?.mobileAuth ? (
+              <FormattedMessage defaultMessage="Change phone" />
+            ) : (
+              <FormattedMessage defaultMessage="Bind phone" />
+            )}
           </div>
           <div className="flex flex-col gap-4">
-            <div className="text-[#C2D7C7F6] text-[16px] font-bold">
-              {useUserQuery.data?.data?.mobileAuth ? <FormattedMessage defaultMessage="New Mobile Phone" /> : <FormattedMessage defaultMessage="Mobile Phone" />}
+            <div className="text-[16px] font-bold text-[#C2D7C7F6]">
+              {useUserQuery.data?.data?.mobileAuth ? (
+                <FormattedMessage defaultMessage="New Mobile Phone" />
+              ) : (
+                <FormattedMessage defaultMessage="Mobile Phone" />
+              )}
             </div>
             <div className="flex flex-row gap-4">
               <Controller
-                render={({ field }) => (
-                  <AreaSelect defaultId={field.value} onSelected={(e) => field.onChange(e.id)} />
-                )}
+                render={({ field }) => <AreaSelect defaultId={field.value} onSelected={(e) => field.onChange(e.id)} />}
                 name="areaCodeId"
                 control={control}
               />
@@ -124,21 +137,25 @@ export default function ChangeMobile() {
                 />
               </div>
             </div>
-            <div className="text-[#C2D7C7F6] text-[16px] font-bold">
-              {useUserQuery.data?.data?.mobileAuth ? <FormattedMessage defaultMessage="New Mobile Verification Code" /> : <FormattedMessage defaultMessage="Mobile Verification Code" /> }
+            <div className="text-[16px] font-bold text-[#C2D7C7F6]">
+              {useUserQuery.data?.data?.mobileAuth ? (
+                <FormattedMessage defaultMessage="New Mobile Verification Code" />
+              ) : (
+                <FormattedMessage defaultMessage="Mobile Verification Code" />
+              )}
             </div>
             <div>
               <TextInput
                 {...register('securityCode')}
                 placeholder={intl.formatMessage({ defaultMessage: 'Please enter the verification code' })}
-                suffix={(
-                  <SendButton onClick={sendValidCode} />
-                )}
+                suffix={<SendButton onClick={sendValidCode} />}
               />
             </div>
           </div>
           <div className="mt-10">
-            <Button block><FormattedMessage defaultMessage="Confirm" /></Button>
+            <Button block>
+              <FormattedMessage defaultMessage="Confirm" />
+            </Button>
           </div>
         </div>
       </form>
