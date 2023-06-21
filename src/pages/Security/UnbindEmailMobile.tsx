@@ -108,7 +108,7 @@ export default function UnbindEmailMobile() {
         <form onSubmit={handleSubmit(submit)}>
           <div className="mx-auto flex max-w-[420px] flex-auto flex-col gap-4">
             {/* {isPhone ? 'Hone' : 'Email'} */}
-            {userQuery.data?.data?.emailAuth && (
+            {!isPhone && (
               <>
                 <div className="text-[16px] font-bold text-[#C2D7C7F6]">
                   <FormattedMessage defaultMessage="Email verification code" />
@@ -128,7 +128,7 @@ export default function UnbindEmailMobile() {
                 </div>
               </>
             )}
-            {userQuery.data?.data?.mobileAuth && (
+            {isPhone && (
               <>
                 <div className="text-[16px] font-bold text-[#C2D7C7F6]">
                   <FormattedMessage defaultMessage="Mobile verification code" />

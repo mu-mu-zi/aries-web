@@ -98,7 +98,18 @@ export default function KycVerify() {
                   ]}
                 />
               </div>
-              {/* <EstablishmentBitStep trust={detailQuery.data.data} /> */}
+              {/* {import.meta.env.VITE_DEV && ( */}
+              {/*  <> */}
+              {/*    <div className="text-red-500 text-3xl text-center">--- DEBUG START ---</div> */}
+              {/*    <KYCCertificationStep trust={detailQuery.data.data} /> */}
+              {/*    <ContractSigningStep trust={detailQuery.data.data} /> */}
+              {/*    <EstablishmentBitStep trust={detailQuery.data.data} /> */}
+              {/*    <EstablishmentFaitStep trust={detailQuery.data.data} /> */}
+              {/*    <CompletionBitStep trust={detailQuery.data.data} /> */}
+              {/*    <CompletionFiatStep trust={detailQuery.data.data} /> */}
+              {/*    <div className="text-red-500 text-3xl text-center">--- DEBUG END ---</div> */}
+              {/*  </> */}
+              {/* )} */}
               <div className="flex-auto flex flex-col justify-center mt-12 max-w-[824px] w-full">
                 {detailQuery.data.data.stepId === 1 && <KYCCertificationStep trust={detailQuery.data.data} />}
                 {[2, 3].includes(detailQuery.data.data.stepId) && <ContractSigningStep trust={detailQuery.data.data} />}

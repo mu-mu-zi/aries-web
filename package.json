@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host --mode dev",
-    "local": "tsc && vite build --mode dev",
+    "build:dev": "tsc && vite build --mode dev && caddy run --config Caddyfile",
+    "local": "tsc && vite build --mode test",
     "build": "tsc && vite build --mode production",
     "preview": "vite preview",
     "i18n:extract": "formatjs extract 'src/**/*.{tsx,jsx,ts,js}' --ignore 'src/vite-env.d.ts' --out-file 'lang/message.json' --throws",
