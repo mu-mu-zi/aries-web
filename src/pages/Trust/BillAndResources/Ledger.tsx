@@ -19,8 +19,8 @@ import NoCredentials from '../../../views/NoCredentials';
 import { useAppSelector } from '../../../state';
 
 /*
-* 1-法币转出，2-法币转入，3-数字资产转出，4-数字资产转入，5-兑换交易，6-自定义，7-分配收益，8-管理费，9-超额转账费，10-设立费，11-追加设立费'
-* */
+ * 1-法币转出，2-法币转入，3-数字资产转出，4-数字资产转入，5-兑换交易，6-自定义，7-分配收益，8-管理费，9-超额转账费，10-设立费，11-追加设立费'
+ * */
 enum BillType {
   All = 0,
   FiatOut = 1,
@@ -119,25 +119,37 @@ export default function Ledger() {
               render={({ field }) => {
                 const enums = [
                   { type: BillType.All, title: intl.formatMessage({ defaultMessage: 'All' }) },
-                  { type: BillType.FiatOut, title: intl.formatMessage({ defaultMessage: 'FiatOut' }) },
-                  { type: BillType.FiatIn, title: intl.formatMessage({ defaultMessage: 'FiatIn' }) },
-                  { type: BillType.DigitalAssetOut, title: intl.formatMessage({ defaultMessage: 'Digital Asset Out' }) },
-                  { type: BillType.DigitalAssetIn, title: intl.formatMessage({ defaultMessage: 'Digital Asset In' }) },
+                  {
+                    type: BillType.FiatOut,
+                    title: intl.formatMessage({ defaultMessage: 'Financial Product Purchase', description: '账单记录类型' }),
+                  },
+                  {
+                    type: BillType.FiatIn,
+                    title: intl.formatMessage({ defaultMessage: 'Financial Product Redemption', description: '账单记录类型' }),
+                  },
+                  {
+                    type: BillType.DigitalAssetOut,
+                    title: intl.formatMessage({ defaultMessage: 'Digital Asset Transfer Out', description: '账单记录类型' }),
+                  },
+                  {
+                    type: BillType.DigitalAssetIn,
+                    title: intl.formatMessage({ defaultMessage: 'Digital Asset Transfer In', description: '账单记录类型' }),
+                  },
                   { type: BillType.Exchange, title: intl.formatMessage({ defaultMessage: 'Exchange' }) },
-                  { type: BillType.Custom, title: intl.formatMessage({ defaultMessage: 'Custom' }) },
+                  { type: BillType.Custom, title: intl.formatMessage({ defaultMessage: 'Others' }) },
                   {
                     type: BillType.DistributeProfit,
                     title: intl.formatMessage({ defaultMessage: 'Distribute Profit' }),
                   },
                   { type: BillType.ManagementFee, title: intl.formatMessage({ defaultMessage: 'Management Fee' }) },
-                  { type: BillType.ExceedTransfer, title: intl.formatMessage({ defaultMessage: 'Exceed Transfer' }) },
+                  { type: BillType.ExceedTransfer, title: intl.formatMessage({ defaultMessage: 'Transfer Fee' }) },
                   {
                     type: BillType.EstablishmentFee,
                     title: intl.formatMessage({ defaultMessage: 'Establishment Fee' }),
                   },
                   {
                     type: BillType.AdditionalEstablishmentFee,
-                    title: intl.formatMessage({ defaultMessage: 'Additional Establishment Fee' }),
+                    title: intl.formatMessage({ defaultMessage: 'Initial Minimum Establishment Fee' }),
                   },
                 ];
                 return (
@@ -174,9 +186,13 @@ export default function Ledger() {
               control={control}
             />
           </div>
-          <TextButton type="button" onClick={reset}><FormattedMessage defaultMessage="Reset" /></TextButton>
+          <TextButton type="button" onClick={reset}>
+            <FormattedMessage defaultMessage="Reset" />
+          </TextButton>
           <div className="flex-auto" />
-          <TextButton type="button" onClick={download}><FormattedMessage defaultMessage="Download" /></TextButton>
+          <TextButton type="button" onClick={download}>
+            <FormattedMessage defaultMessage="Download" />
+          </TextButton>
         </div>
       </form>
       <SimpleTable
@@ -190,13 +206,13 @@ export default function Ledger() {
             accessor: (x) => {
               switch (x.billType) {
                 case 1:
-                  return intl.formatMessage({ defaultMessage: 'Fiat Out' });
+                  return intl.formatMessage({ defaultMessage: 'Financial Product Purchase', description: '账单记录类型' });
                 case 2:
-                  return intl.formatMessage({ defaultMessage: 'Fiat In' });
+                  return intl.formatMessage({ defaultMessage: 'Financial Product Redemption', description: '账单记录类型' });
                 case 3:
-                  return intl.formatMessage({ defaultMessage: 'Digital Asset Out' });
+                  return intl.formatMessage({ defaultMessage: 'Digital Asset Transfer Out', description: '账单记录类型' });
                 case 4:
-                  return intl.formatMessage({ defaultMessage: 'Digital Asset In' });
+                  return intl.formatMessage({ defaultMessage: 'Digital Asset Transfer In', description: '账单记录类型' });
                 case 5:
                   return intl.formatMessage({ defaultMessage: 'Exchange' });
                 case 6:
@@ -229,14 +245,16 @@ export default function Ledger() {
             Header: intl.formatMessage({ defaultMessage: 'Amount' }),
             // accessor: 'amount',
             Cell: ({ row }) => (
-              <div className="gradient-text1 text-[16px]">
-                {numberFormatWithPrefix(row.original?.amount)}
-              </div>
+              <div className="gradient-text1 text-[16px]">{numberFormatWithPrefix(row.original?.amount)}</div>
             ),
           },
           {
             accessor: 'Reconciliation',
-            Header: () => (<div className="text-right"><FormattedMessage defaultMessage="Reconciliation" /></div>),
+            Header: () => (
+              <div className="text-right">
+                <FormattedMessage defaultMessage="Reconciliation" />
+              </div>
+            ),
             Cell: ({ row }) => (
               <div className="flex justify-end">
                 {row.original.billCertificate ? (
@@ -249,7 +267,9 @@ export default function Ledger() {
                   >
                     <FormattedMessage defaultMessage="View credentials" />
                   </TextButton>
-                ) : <NoCredentials />}
+                ) : (
+                  <NoCredentials />
+                )}
               </div>
             ),
           },
@@ -264,10 +284,7 @@ export default function Ledger() {
       />
       <Modal visible={credentialsVisible} onClose={() => setCredentialsVisible(false)}>
         {selected && (
-          <RecodeViewCredentials
-            images={[selected.billCertificate]}
-            onClose={() => setCredentialsVisible(false)}
-          />
+          <RecodeViewCredentials images={[selected.billCertificate]} onClose={() => setCredentialsVisible(false)} />
         )}
       </Modal>
     </div>

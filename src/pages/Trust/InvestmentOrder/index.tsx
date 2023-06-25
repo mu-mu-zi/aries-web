@@ -32,7 +32,7 @@ export default function InvestmentOrder() {
       {/* 委托人才有新增按钮 */}
       <TrustHeader
         title={intl.formatMessage({ defaultMessage: 'Investment Order' })}
-        description={intl.formatMessage({ defaultMessage: 'The principal can use the investment instruction function to indicate investment intentions and directions to Aries Digital Group, and request investment operations to be carried out according to the principal\'s instructions. Throughout the process, the principal can adjust investment instructions based on market fluctuations and investment directions.' })}
+        description={intl.formatMessage({ defaultMessage: 'The Settlor has the authority to make investments in the trust assets and can send investment orders through this page to be executed by the Trustee' })}
         logo={logo}
         btn={settlorPermission && (
           <Button onClick={() => setCreatingVisible(true)}>

@@ -33,7 +33,7 @@ export default function BillAndResources() {
     <div className="flex flex-col">
       <TrustHeader
         title={intl.formatMessage({ defaultMessage: 'Bill and Resources' })}
-        description={intl.formatMessage({ defaultMessage: 'Here, you can access all the information about changes in trust property and make inquiries.' })}
+        description={intl.formatMessage({ defaultMessage: 'Here, you can perform account inquiries for each change in trust assets and access related legal documents and other resources' })}
         logo={logo}
       />
       <TrustContainer>
@@ -43,7 +43,7 @@ export default function BillAndResources() {
           {/*  onSelect={setSelected} */}
           {/* /> */}
           <div className="flex gap-4 font-title font-bold text-[20px]">
-            <Link to={`/trust/${trustId}/billAndResources/`}><FormattedMessage defaultMessage="General ledger" /></Link>
+            <Link to={`/trust/${trustId}/billAndResources/ledger`}><FormattedMessage defaultMessage="General ledger" /></Link>
             <Link to={`/trust/${trustId}/billAndResources/fees`}><FormattedMessage defaultMessage="Trust fees" /></Link>
             <Link to={`/trust/${trustId}/billAndResources/legalText`}><FormattedMessage defaultMessage="Legal text" /></Link>
             <Link to={`/trust/${trustId}/billAndResources/report`}><FormattedMessage defaultMessage="Report" /></Link>

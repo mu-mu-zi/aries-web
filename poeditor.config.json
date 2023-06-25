@@ -1,6 +1,6 @@
 {
-  "api_token": "68e71ff3d82a7134ddc4788c35bd2043",
-  "project_id": "626155",
+  "api_token": "5b0af7e0d32b9f8295cfc46a2940ddb8",
+  "project_id": "629043",
   "export_type": "key_value_json",
   "export_language": {
     "en": "src/locales/en.json",

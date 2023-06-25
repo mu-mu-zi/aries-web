@@ -14,7 +14,7 @@ export default function Distribution() {
     <div className="flex flex-col pt-4 gap-6">
       <TrustHeader
         title={intl.formatMessage({ defaultMessage: 'Distribution' })}
-        description={intl.formatMessage({ defaultMessage: 'The trustee can establish a distribution plan to distribute the trust property to designated beneficiaries according to the wishes and conditions of the grantor.' })}
+        description={intl.formatMessage({ defaultMessage: 'The Settlor can create a statement of intent regarding the distribution of trust assets, which the Trustee can refer to and execute accordingly' })}
         logo={logo}
       />
       <AllocationPlan />

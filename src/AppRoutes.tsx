@@ -118,7 +118,7 @@ export default function AppRoutes() {
             <Route path="elements" element={<Elements />} />
             {/* 账单与资源 */}
             <Route path="billAndResources" element={<BillAndResources />}>
-              <Route index element={<Ledger />} />
+              <Route path="ledger" element={<Ledger />} />
               <Route path="fees" element={<Fees />} />
               <Route path="legalText" element={<LegalText />} />
               <Route path="report" element={<Report />} />

@@ -60,7 +60,7 @@ export default function Sidebar() {
             [intl.formatMessage({ defaultMessage: 'Investment Order' }), keyIcon, keySelIcon, `/trust/${trustId}/orders`],
             [intl.formatMessage({ defaultMessage: 'Distribution' }), distIcon, distSelIcon, `/trust/${trustId}/distribution`],
             [intl.formatMessage({ defaultMessage: 'Trust Elements' }), eleIcon, eleSelIcon, `/trust/${trustId}/elements`],
-            [intl.formatMessage({ defaultMessage: 'Bill and Resources' }), billIcon, billSelIcon, `/trust/${trustId}/billAndResources/`],
+            [intl.formatMessage({ defaultMessage: 'Bill and Resources' }), billIcon, billSelIcon, `/trust/${trustId}/billAndResources/ledger`],
           ].map(([title, icon, selectIcon, to], idx) => (
             <SidebarCell
               key={title}

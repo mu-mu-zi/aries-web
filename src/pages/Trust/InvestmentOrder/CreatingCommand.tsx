@@ -85,7 +85,9 @@ export default function CreatingCommand({ onClose }: {
                       {...register('investmentSuggestion')}
                       maxLength={1000}
                       className="w-full text-[16px] placeholder:text-[#708077] h-[320px] bg-[#3B5649] outline-none resize-none"
-                      placeholder={intl.formatMessage({ defaultMessage: 'To better handle investment instructions, please describe them as completely as possible, including the following: \r\n\n1.Investment objective: specify the target and purpose of the trust assets to be invested, such as capital appreciation or income growth. \r\n\n2.Investment target: determine the specific investment targets, such as stocks, bonds, real estate, etc. \r\n\n3.Investment scope: determine the scope and limitations of the investment, such as investment regions, industries, risk levels, etc. \r\n\n4.Investment strategy: develop an investment strategy, such as diversified investment, portfolio adjustment, dynamic asset allocation, etc. \r\n\n5.Investment risk: determine risk management measures for investment, such as using hedging tools to reduce market risk, establishing risk control systems, etc. \r\n\n6.Investment returns: determine the distribution method and proportion of investment returns, such as reinvestment of returns, proportional distribution, etc. \r\n\n7.Investment term: determine the investment term and subsequent processing methods, such as long-term holding, regular adjustment, early exit, etc.' })}
+                      placeholder={intl.formatMessage({
+                        defaultMessage: 'To ensure better handling of investment instructions, please provide as much detail as possible, including:\r\n\r\nInvestment Objective: Specify the investment objective for the designated trust assets, such as capital preservation, steady appreciation, or pursuit of returns\r\n\r\nInvestment Strategy: Clearly define the strategy, goals, and amount for this investment. For example, it could involve converting a portion of one asset class in the trust into another asset class, investing in a specific term deposit or bank financial product, etc',
+                      })}
                     />
                     {errors.investmentSuggestion?.message && <div className="text-[#ECA741] text-[14px]">{errors.investmentSuggestion?.message}</div>}
                   </div>
@@ -96,7 +98,7 @@ export default function CreatingCommand({ onClose }: {
               <TextField
                 type="text"
                 // className="w-full h-[48px] rounded-xl bg-[#3B5649] placeholder:text-[#708077] text-[16px] px-6 outline-none"
-                placeholder={intl.formatMessage({ defaultMessage: 'Investment time' })}
+                placeholder={intl.formatMessage({ defaultMessage: 'Investment Timeline: Clearly indicate when you would like this investment to be executed, allowing sufficient time for the trustee to complete all necessary operations in advance' })}
                 maxLength={50}
                 {...register('investmentTime')}
                 error={errors.investmentTime?.message}

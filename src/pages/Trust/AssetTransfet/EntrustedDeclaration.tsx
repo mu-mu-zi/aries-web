@@ -29,14 +29,14 @@ export default function EntrustedDeclaration() {
           <div className="h-[1px] bg-[#3B5649]" />
           <div className="gradient-bg1 rounded-xl overflow-clip p-8 leading-[18px] text-[16px]">
             <div className="text-[#C2D7C7F6] font-bold">
-              <FormattedMessage defaultMessage="Please follow these three steps to complete the establishment of the asset entrusted:" />
+              <FormattedMessage defaultMessage="Please complete the following three steps for the new asset entrustment:" />
             </div>
             <div className="mt-2 text-[#99AC9B] leading-6">
-              <FormattedMessage defaultMessage="1) Fill out the declaration on the left side for the asset transfer;" />
+              <FormattedMessage defaultMessage="1）Fill out the declaration information on the left side below" />
               <br />
-              <FormattedMessage defaultMessage="2) Complete the transfer according to the receiving address on the right side;" />
+              <FormattedMessage defaultMessage="2）Complete the transfer according to the payment information on the right side below" />
               <br />
-              <FormattedMessage defaultMessage="3) After verification and confirmation by Aries, the assets will be credited to your account. If there are any issues, we will contact you" />
+              <FormattedMessage defaultMessage="3）Once verified and confirmed by Aries, the newly added trust asset will be officially effective" />
             </div>
           </div>
         </div>

@@ -12,7 +12,7 @@ export default function Report() {
   const listQuery = useTrustReportListQuery({
     trustId: Number(trustId),
     pageIndex: page,
-    pageSize: 10,
+    pageSize: 5,
   });
   // const { t } = useTranslation();
   const intl = useIntl();
@@ -41,7 +41,7 @@ export default function Report() {
       data={listQuery.data?.data?.records}
       pagination={{
         pageIndex: page,
-        pageSize: 10,
+        pageSize: 5,
         total: listQuery.data?.data?.total ?? 0,
         onPageChanged: (page) => setPage(page),
       }}

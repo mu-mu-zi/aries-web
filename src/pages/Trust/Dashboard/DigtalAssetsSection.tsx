@@ -22,7 +22,13 @@ export default function DigtalAssetsSection({ asset }: { asset: IDigitalAssets }
       >
         {/* 安全路图标特殊点 */}
         <img src={asset.isSafeHeron ? safeheronIcon : sectionIcon} alt={asset.name} />
-        <div className="gradient-text1 flex-auto text-[20px] font-bold">{asset.name}</div>
+        {asset.isSafeHeron ? (
+          <div className="gradient-text1 flex-auto text-[20px] font-bold">
+            <FormattedMessage defaultMessage="Custodial Account" />
+          </div>
+        ) : (
+          <div className="gradient-text1 flex-auto text-[20px] font-bold">{asset.name}</div>
+        )}
         {/* 开立中 */}
         {(asset.status === 1 || asset.status === 2) && (
           <div className="break-keep text-[20px] font-bold text-[#708077]">

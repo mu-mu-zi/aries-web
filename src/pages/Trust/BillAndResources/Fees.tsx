@@ -22,9 +22,9 @@ export default function Fees() {
   const titleFormat = (type: number) => {
     switch (type) {
       case 1:
-        return intl.formatMessage({ defaultMessage: 'Trust management fee' });
+        return intl.formatMessage({ defaultMessage: 'Trust Management Fee' });
       case 2:
-        return intl.formatMessage({ defaultMessage: 'Excess transfer fee' });
+        return intl.formatMessage({ defaultMessage: 'Transfer Fee' });
       case 3:
         return intl.formatMessage({ defaultMessage: 'Establishment Fee' });
       default:

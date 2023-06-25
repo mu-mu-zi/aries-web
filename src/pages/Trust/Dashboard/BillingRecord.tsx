@@ -43,7 +43,7 @@ export default function BillingRecord() {
           <div className="gradient-text1 font-bold text-[20px] font-title"><FormattedMessage defaultMessage="Billing Record" /></div>
           <div
             className="flex cursor-pointer flex-row items-center gap-2"
-            onClick={() => navigate(`/trust/${trustId}/billAndResources`)}
+            onClick={() => navigate(`/trust/${trustId}/billAndResources/ledger`)}
           >
             <div className="gradient-text1 font-bold text-[16px]"><FormattedMessage defaultMessage="More" /></div>
             <img src={moreIcon} width="24px" alt="" />

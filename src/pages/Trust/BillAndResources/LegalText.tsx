@@ -10,7 +10,7 @@ export default function LegalText() {
   const [page, setPage] = useState(1);
   const listQuery = useTrustLawListQuery({
     pageIndex: page,
-    pageSize: 10,
+    pageSize: 5,
     trustId: Number(trustId),
   });
   // const { t } = useTranslation();
@@ -42,7 +42,7 @@ export default function LegalText() {
       data={listQuery.data?.data?.records}
       pagination={{
         pageIndex: page,
-        pageSize: 10,
+        pageSize: 5,
         total: listQuery.data?.data?.total ?? 0,
         onPageChanged: (page) => setPage(page),
       }}

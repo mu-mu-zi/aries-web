@@ -54,14 +54,14 @@ export default function Dropdown({
               <Menu.Item key={it}>
                 {({ active, close }) => (
                   <div
-                    className={classNames('block cursor-pointer', active ? 'bg-[#3B5649]' : 'bg-transparent')}
+                    className={classNames('flex flex-col justify-center px-6 min-h-[48px] cursor-pointer', active ? 'bg-[#3B5649]' : 'bg-transparent')}
                     onClick={(e) => {
                       e.preventDefault();
                       onSelected?.(idx);
                       close();
                     }}
                   >
-                    <div className={classNames('gradient-text1 h-[48px] px-6 leading-[48px]')}>{it}</div>
+                    <div className={classNames('gradient-text1 leading-6 py-2')}>{it}</div>
                   </div>
                 )}
               </Menu.Item>

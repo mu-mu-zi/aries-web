@@ -52,7 +52,7 @@ export default function ExcessFee() {
               {/* <SectionTitle title={`Excess transfer fee: ${currencyUSDTFormat(currentFee?.feeAmount)} ${currentFee?.coinName}`} /> */}
               <SectionTitle title={(
                 <FormattedMessage
-                  defaultMessage="Excess transfer fee: {amount} {coinName}"
+                  defaultMessage="Transfer Fee: {amount} {coinName}"
                   values={{
                     amount: currencyUSDTFormat(statisticsQuery?.data?.data?.amount),
                     coinName: statisticsQuery?.data?.data?.coinName,
@@ -62,33 +62,33 @@ export default function ExcessFee() {
               />
               {statisticsQuery.data?.data && (
                 <div className="flex flex-row items-center flex-wrap gap-4 text-[#C2D7C7F6] text-[16px]">
+                  {/* <div> */}
+                  {/*  <FormattedMessage */}
+                  {/*    defaultMessage="Total amount of deposit: {amount} {coinName}" */}
+                  {/*    values={{ */}
+                  {/*      amount: currencyUSDTFormat(statisticsQuery.data?.data.trustAmount), */}
+                  {/*      coinName: statisticsQuery.data?.data.coinName, */}
+                  {/*    }} */}
+                  {/*  /> */}
+                  {/* </div> */}
                   <div>
                     <FormattedMessage
-                      defaultMessage="Total amount of deposit: {amount} {coinName}"
-                      values={{
-                        amount: currencyUSDTFormat(statisticsQuery.data?.data.trustAmount),
-                        coinName: statisticsQuery.data?.data.coinName,
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <FormattedMessage
-                      defaultMessage="Accumulated transfer amount: {amount} {coinName}"
+                      defaultMessage="Accumulated Transfer Amount: {amount} {coinName}"
                       values={{
                         amount: currencyUSDTFormat(statisticsQuery.data.data.totalAmount),
                         coinName: statisticsQuery.data.data.coinName,
                       }}
                     />
                   </div>
-                  <div>
-                    <FormattedMessage
-                      defaultMessage="Exceeding amount: {amount} {coinName}"
-                      values={{
-                        amount: currencyUSDTFormat(statisticsQuery.data?.data.excessAmount),
-                        coinName: statisticsQuery.data.data.coinName,
-                      }}
-                    />
-                  </div>
+                  {/* <div> */}
+                  {/*  <FormattedMessage */}
+                  {/*    defaultMessage="Exceeding amount: {amount} {coinName}" */}
+                  {/*    values={{ */}
+                  {/*      amount: currencyUSDTFormat(statisticsQuery.data?.data.excessAmount), */}
+                  {/*      coinName: statisticsQuery.data.data.coinName, */}
+                  {/*    }} */}
+                  {/*  /> */}
+                  {/* </div> */}
                 </div>
               )}
               {statisticsQuery.data?.data?.billCertificate
@@ -111,23 +111,27 @@ export default function ExcessFee() {
                 accessor: (x) => unixFormatTime(x.createTimeStamp),
               },
               {
-                Header: intl.formatMessage({ defaultMessage: 'Trust total amount' }),
-                accessor: (x) => `${x.totalTrustAmount} ${x.totalTrustCoinName}`,
-              },
-              {
-                Header: intl.formatMessage({ defaultMessage: 'Cumulative transferred amount' }),
-                accessor: (x) => `${x.totalAmount} ${x.totalTrustCoinName}`,
-              },
-              {
                 Header: intl.formatMessage({ defaultMessage: 'Network' }),
                 accessor: (x) => x.mainnet,
               },
               {
-                Header: intl.formatMessage({ defaultMessage: 'Transferred amount' }),
+                Header: intl.formatMessage({ defaultMessage: 'Transfer Amount' }),
                 accessor: (x) => `${x.amount} ${x.coinName}`,
               },
+              // {
+              //   Header: intl.formatMessage({ defaultMessage: 'Cumulative transferred amount' }),
+              //   accessor: (x) => `${x.totalAmount} ${x.totalTrustCoinName}`,
+              // },
               {
-                Header: () => <div className="text-right"><FormattedMessage defaultMessage="Currency Price" /></div>,
+                Header: intl.formatMessage({ defaultMessage: 'Transfer Amount (USD)' }),
+                accessor: (x) => `${x.amountUSD} USD`,
+              },
+              {
+                Header: intl.formatMessage({ defaultMessage: 'Transferred Fee (USD)' }),
+                accessor: (x) => `${x.feeAmount} USD`,
+              },
+              {
+                Header: () => <div className="text-right"><FormattedMessage defaultMessage="Exchange Rate" /></div>,
                 accessor: 'totalAmount',
                 // eslint-disable-next-line react/prop-types
                 Cell: ({ row }) => (
@@ -152,14 +156,13 @@ export default function ExcessFee() {
         </div>
       </Section>
       <FeeIntroduction
-        title="Excess transfer fee"
+        title={intl.formatMessage({ defaultMessage: 'About Transfer Fee' })}
         description={[
-          intl.formatMessage({ defaultMessage: 'Excess transfer fees refer to the transfer fees incurred when the entrusted assets exceed the set limit during the operation of the trust plan. We charge a handling fee of {ratio} for each excess transfer according to the contract, which will be calculated based on the token price at the time of transfer. ' }, {
+          intl.formatMessage({ defaultMessage: 'When transferring digital assets from the custodial account, a transfer fee will be incurred. This fee is calculated as {ratio} of the equivalent value in USD of the digital assets being transferred, calculated on a per transaction basis' }, {
             ratio: ratioFormat(ratioQuery.data?.data?.find((x) => x.type === 3)?.expenseRatio),
           }),
-          intl.formatMessage({ defaultMessage: 'To facilitate asset maintenance and appreciation for the client, we would like to provide specific information about transfer fees. When the amount of external transfer of entrusted assets exceeds the set limit, we will charge a fee of {ratio} based on the actual transfer amount. It should be noted that this fee is calculated based on the token price at the time of transfer and will be paid annually. At the same time, we will provide accurate information in accordance with the contract to help the client better understand the relevant situation of the transfer fee.' }, {
-            ratio: ratioFormat(ratioQuery.data?.data?.find((x) => x.type === 3)?.expenseRatio),
-          }),
+          intl.formatMessage({ defaultMessage: 'The accumulated transfer fees for the year will be collected on December 31st of each year and on the trust termination date' }),
+          intl.formatMessage({ defaultMessage: "It's important to note that this transfer fee does not include the gas fees required for blockchain transactions" }),
         ]}
       />
       <Modal

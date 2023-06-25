@@ -13,7 +13,7 @@ export default function AssetTransfet() {
       {/* <Header /> */}
       <TrustHeader
         title={intl.formatMessage({ defaultMessage: 'Asset Transfer' })}
-        description={intl.formatMessage({ defaultMessage: 'The Settlor can submit an application on this page to transfer entrusted assets into the trust. Please note that before proceeding with the asset transfer, please submit the entrusted declaration. Once verified by the Trustee, the entrusted assets will be transferred into the trust' })}
+        description={intl.formatMessage({ defaultMessage: 'To transfer additional assets into the trust, please follow the asset declaration process on this page' })}
         logo={logo}
       />
       <EntrustedDeclaration />

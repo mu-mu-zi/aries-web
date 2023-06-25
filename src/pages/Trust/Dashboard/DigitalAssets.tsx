@@ -11,9 +11,7 @@ import { currencyFormat, currencyUSDTFormat } from '../../../utils/CurrencyForma
 import DigtalAssetsSection from './DigtalAssetsSection';
 import Empty from '../../../views/Empty';
 
-export default function DigitalAssets({ assetOverview }: {
-  assetOverview?: IAssetsOverview
-}) {
+export default function DigitalAssets({ assetOverview }: { assetOverview?: IAssetsOverview }) {
   // const { t } = useTranslation();
   const intl = useIntl();
 
@@ -26,44 +24,57 @@ export default function DigitalAssets({ assetOverview }: {
           'rounded-xl',
           'h-[64px]',
           'px-8',
-          'font-bold text-[24px] font-title text-t4',
+          'font-title text-[24px] font-bold text-t4',
         )}
       >
-        <div><FormattedMessage defaultMessage="Digital Assets" /></div>
+        <div>
+          <FormattedMessage defaultMessage="Digital Assets" />
+        </div>
         {/* {assetOverview?.digitalAssets.reduce((x, y) => x + Number(y.totalUSDT), 0)} */}
         <div>
-          {`${currencyUSDTFormat(assetOverview?.digitalAssets.reduce((x, y) => BigNumber(y.totalUSDT).plus(x), BigNumber(0)).toFixed())} USD`}
+          {`${currencyUSDTFormat(
+            assetOverview?.digitalAssets.reduce((x, y) => BigNumber(y.totalUSDT).plus(x), BigNumber(0)).toFixed(),
+          )} USD`}
         </div>
       </div>
-      {assetOverview?.digitalAssets.map((it) => <DigtalAssetsSection asset={it} key={it.name} />)}
+      {assetOverview?.digitalAssets.map((it) => (
+        <DigtalAssetsSection asset={it} key={it.name} />
+      ))}
       {assetOverview?.digitalAssets.length === 0 && <Empty />}
+      <div className="gradient-text1 px-1">
+        <FormattedMessage defaultMessage="* The USD price of digital assets is referenced from a third-party authoritative institution and is updated every 5 minutes" />
+      </div>
     </div>
   );
 }
 
 export function Cell({
-  icon, amount, symbol, rate,
+  icon,
+  amount,
+  symbol,
+  rate,
 }: {
-  icon: string,
-  amount: string | number,
-  symbol: string,
-  rate: number
+  icon: string;
+  amount: string | number;
+  symbol: string;
+  rate: number;
 }) {
   return (
-    <div className="flex flex-row items-center relative">
+    <div className="relative flex flex-row items-center">
       <img src={icon} width="24px" alt="" className="absolute z-[1]" />
       <div className="ml-[12px] w-[70%]">
         <div
-          className={classNames('gradient-border1 shadow-block h-[10px] rounded-full overflow-clip', rate <= 0 && 'w-0')}
+          className={classNames(
+            'gradient-border1 h-[10px] overflow-clip rounded-full shadow-block',
+            rate <= 0 && 'w-0',
+          )}
           css={css`
             width: ${Math.max(rate, 5)}%;
           `}
         />
       </div>
       {/* {rate} */}
-      <div className="flex-auto ml-[36px] gradient-text1 text-[20px] text-right">
-        {`${amount} ${symbol}`}
-      </div>
+      <div className="gradient-text1 ml-[36px] flex-auto text-right text-[20px]">{`${amount} ${symbol}`}</div>
     </div>
   );
 }

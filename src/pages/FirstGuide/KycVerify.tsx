@@ -70,7 +70,7 @@ export default function KycVerify() {
             )}
             {stepId() === 1 && (
               <FormattedMessage
-                defaultMessage="Please follow the guidance of your dedicated trust manager to complete the signing of relevant agreements, including the Trust Deed、Trustee Memorandum、Services Agreement"
+                defaultMessage="Please follow the guidance of your dedicated trust manager to complete the signing of relevant agreements, including the Trust Deed and Services Agreement"
               />
             )}
             {stepId() === 2 && (

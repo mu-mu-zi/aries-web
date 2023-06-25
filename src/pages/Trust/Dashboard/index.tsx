@@ -37,7 +37,7 @@ export default function Dashboard() {
         {/* <Button onClick={() => addSuccessNotification({ title: '???' })}>Click</Button> */}
         <Portrait
           trustName={trustQuery.data?.data?.trustName}
-          description={intl.formatMessage({ defaultMessage: 'has been exclusively established in accordance with your wishes to achieve the purpose of wealth inheritance and planning for your family' })}
+          description={intl.formatMessage({ defaultMessage: "has been exclusively established in accordance with the Settlor's wishes to achieve the purposes of family wealth preservation, inheritance, and strategic planning" })}
         />
         <DigitalAssets assetOverview={assetsOverviewQuery.data?.data} />
         <FiatAssets asset={assetsOverviewQuery.data?.data} />
