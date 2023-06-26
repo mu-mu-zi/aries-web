@@ -54,37 +54,29 @@ export const useEstablishmentFeeListQuery = (data: {
   pageSize: number,
   trustId?: number,
   year?: number
-}) => {
-  const userId = useAuthToken();
-
-  return useQuery<IResponseData<IPage<ITrustEstablishment>>>({
-    queryKey: ['trust', 'fee', 'establishment', data, userId],
-    queryFn: () => axios.request({
-      url: '/trust/trust/establishment/fee/list',
-      method: 'get',
-      params: data,
-    }),
-    enabled: containsToken() && !!data.trustId && !!data.year,
-  });
-};
+}) => useQuery<IResponseData<IPage<ITrustEstablishment>>>({
+  queryKey: ['trust', 'fee', 'establishment', data],
+  queryFn: () => axios.request({
+    url: '/trust/trust/establishment/fee/list',
+    method: 'get',
+    params: data,
+  }),
+  enabled: containsToken() && !!data.trustId && !!data.year,
+});
 
 export const useTrustFeeStatisticsQuery = (data: {
   trustId: number,
   year: number,
   type?: number
-}) => {
-  const userId = useAuthToken();
-
-  return useQuery({
-    queryKey: ['trust', 'fee', 'statistics', data, userId],
-    queryFn: () => axios.request({
-      url: '/trust/trust/fee/statistics',
-      method: 'get',
-      params: data,
-    }),
-    enabled: containsToken() && !!data.trustId && !!data.type,
-  });
-};
+}) => useQuery({
+  queryKey: ['trust', 'fee', 'statistics', data],
+  queryFn: () => axios.request({
+    url: '/trust/trust/fee/statistics',
+    method: 'get',
+    params: data,
+  }),
+  enabled: containsToken() && !!data.trustId && !!data.type,
+});
 
 /*
 * 获取费率配置参数

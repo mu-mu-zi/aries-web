@@ -56,12 +56,12 @@ export default function Axios() {
           }
           /* token */
           if (response.data.code === 406 || response.data.code === 407 || response.data.code === 401) {
-            addNotification({
-              title: response.data.msg,
-            });
             navigate('/welcome', { replace: true });
             action(deleteToken());
             queryClient.removeQueries();
+            addNotification({
+              title: response.data.msg,
+            });
             return Promise.reject(response.data);
           }
           /* 服务端错误处理 */

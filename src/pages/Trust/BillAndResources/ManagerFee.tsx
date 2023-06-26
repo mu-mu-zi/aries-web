@@ -83,7 +83,7 @@ export default function ManagerFee() {
               },
               {
                 Header: intl.formatMessage({ defaultMessage: 'Trust total amount' }),
-                accessor: (x) => `${x.totalTrustAmount} ${x.coinName}`,
+                accessor: (x) => `${currencyUSDTFormat(x.totalTrustAmount)} ${x.coinName}`,
               },
               {
                 Header: () => (
@@ -95,7 +95,7 @@ export default function ManagerFee() {
                 // eslint-disable-next-line react/prop-types
                 Cell: ({ row }) => (
                   <div className="gradient-text2 text-right">
-                    {`${numberFormatWithPrefix(row.original.amount)} ${row.original.coinName}`}
+                    {`${numberFormatWithPrefix(currencyUSDTFormat(row.original.amount))} ${row.original.coinName}`}
                   </div>
                 ),
               },
@@ -113,14 +113,7 @@ export default function ManagerFee() {
         </div>
       </Section>
       <FeeIntroduction
-        title={<FormattedMessage defaultMessage="About Trust Management Fee" />}
-        // description={[
-        //   intl.formatMessage({ defaultMessage: "Trust management fee refers to the fee charged by the trust company to the settlor for providing custody, risk control, asset management and other services according to the provisions of the trust plan agreement. Our company's trust plan management fee is generally collected at a standard annualized rate of {ratio}, and this fee is calculated based on the actual market value of the assets under custody. Please note that we will automatically deduct this amount from your custodial account. By default, we will deduct the corresponding amount of fiat currency, such as RMB, as the management fee from your custodial account. If there is not enough fiat currency in your custodial account, we will deduct assets equivalent to the management fee from your custodial account according to the contract." }, {
-        //     ratio: ratioFormat(ratioQuery.data?.data?.find((x) => x.type === 1)?.expenseRatio),
-        //   }),
-        //   intl.formatMessage({ defaultMessage: 'Before you make an investment, we need to clearly inform you of the relevant fees and deductions. In addition, we will provide you with regular bills of your investment portfolio and related fees to enable you to have a clear understanding of the asset management fees for a certain period of time in the past. We recommend that you, as the settlor, should be aware of various fees rates and deduction methods associated with the selected trust plan in advance to ensure a clear understanding of your investment costs and accordingly formulate an investment plan. As a settlor, you should always closely monitor your investment and stay informed about the latest information regarding fees and changes in assets, as well as any other issues that may affect your investment results. ' }),
-        //   intl.formatMessage({ defaultMessage: 'Please note that the collected management fees cannot replace your final investment results. We cannot guarantee that your investment funds will definitely generate profits and provide investment advice accordingly. Any information regarding expected returns, risk analysis, and investment advice should be used for reference purposes only. You should be solely responsible for analyzing and evaluating your investment decisions.' }),
-        // ]}
+        title={intl.formatMessage({ defaultMessage: 'About Trust Management Fee' })}
         description={[
           intl.formatMessage({
             defaultMessage:

@@ -124,11 +124,11 @@ export default function ExcessFee() {
               // },
               {
                 Header: intl.formatMessage({ defaultMessage: 'Transfer Amount (USD)' }),
-                accessor: (x) => `${x.amountUSD} USD`,
+                accessor: (x) => `${currencyUSDTFormat(x.amountUSD)} USD`,
               },
               {
                 Header: intl.formatMessage({ defaultMessage: 'Transferred Fee (USD)' }),
-                accessor: (x) => `${x.feeAmount} USD`,
+                accessor: (x) => `${currencyUSDTFormat(x.feeAmount)} USD`,
               },
               {
                 Header: () => <div className="text-right"><FormattedMessage defaultMessage="Exchange Rate" /></div>,

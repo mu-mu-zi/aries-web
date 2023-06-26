@@ -122,7 +122,7 @@ export default function EstablishmentFee() {
                 accessor: 'totalAmount',
                 // eslint-disable-next-line react/prop-types
                 Cell: ({ row }) => (
-                  <div className="text-right">{`${-row.original.initialCost} ${row.original.coinName}`}</div>
+                  <div className="text-right">{`${currencyUSDTFormat(-row.original.initialCost)} ${row.original.coinName}`}</div>
                 ),
               },
               {
@@ -168,7 +168,7 @@ export default function EstablishmentFee() {
             <FormattedMessage
               defaultMessage="* Exempted Establishment Fee for Entrusted assets: {amount}"
               values={{
-                amount: `${trustQuery.data?.data?.trustCoinQuantity} ${trustQuery.data?.data?.trustCoinName}`,
+                amount: `${currencyUSDTFormat(trustQuery.data?.data?.trustCoinQuantity)} ${trustQuery.data?.data?.trustCoinName}`,
               }}
             />
           </div>
