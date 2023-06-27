@@ -20,31 +20,23 @@ export const useUserInfoQuery = () => useQuery<IResponseData<IUser>>({
 export const useLoginLogQuery = (data: {
   pageIndex: number,
   pageSize?: number
-}) => {
-  const userId = useAuthToken();
+}) => useQuery<IResponseData<IPage<IUserLoginLog>>>({
+  queryKey: ['user', 'loginLog', data],
+  queryFn: () => axios.request({
+    url: '/user/user/log/list',
+    method: 'get',
+    params: data,
+  }),
+  enabled: containsToken(),
+});
 
-  return useQuery<IResponseData<IPage<IUserLoginLog>>>({
-    queryKey: ['user', 'loginLog', data, userId],
-    queryFn: () => axios.request({
-      url: '/user/user/log/list',
-      method: 'get',
-      params: data,
-    }),
-    enabled: containsToken(),
-  });
-};
-
-export const useGoogleSecretKeyQuery = () => {
-  const userId = useAuthToken();
-
-  return useQuery<IResponseData<IGoogleQr>>({
-    queryKey: ['user', 'googleSecretKey', userId],
-    queryFn: () => axios.get('/user/user/achieveGoogleSecretKey'),
-    enabled: containsToken(),
-    retry: false,
-    refetchOnWindowFocus: false,
-  });
-};
+export const useGoogleSecretKeyQuery = () => useQuery<IResponseData<IGoogleQr>>({
+  queryKey: ['user', 'googleSecretKey'],
+  queryFn: () => axios.get('/user/user/achieveGoogleSecretKey'),
+  enabled: containsToken(),
+  retry: false,
+  refetchOnWindowFocus: false,
+});
 
 /*
 * 检查用户是否已经注册

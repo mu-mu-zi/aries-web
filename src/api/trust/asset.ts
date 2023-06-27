@@ -8,32 +8,24 @@ export const useTrustAssetDeclareQuery = (data: {
   pageIndex: number,
   pageSize?: number,
   trustId?: number
-}) => {
-  const token = useAuthToken();
-
-  return useQuery({
-    queryKey: ['trust', 'asset', data, token],
-    queryFn: () => axios.request({
-      url: '/trust/assetDeclare/list',
-      method: 'get',
-      params: data,
-    }),
-    enabled: containsToken() && !!data.trustId,
-  });
-};
+}) => useQuery({
+  queryKey: ['trust', 'asset', data],
+  queryFn: () => axios.request({
+    url: '/trust/assetDeclare/list',
+    method: 'get',
+    params: data,
+  }),
+  enabled: containsToken() && !!data.trustId,
+});
 
 export const useAssetDeclareDetailQuery = (data: {
   recordId?: number
-}) => {
-  const userId = useAuthToken();
-
-  return useQuery<IResponseData<ITrustAssetRecode>>({
-    queryKey: ['trust', 'asset', data, userId],
-    queryFn: () => axios.request({
-      url: '/trust/assetDeclare/detail',
-      method: 'get',
-      params: data,
-    }),
-    enabled: containsToken() && !!data.recordId,
-  });
-};
+}) => useQuery<IResponseData<ITrustAssetRecode>>({
+  queryKey: ['trust', 'asset', data],
+  queryFn: () => axios.request({
+    url: '/trust/assetDeclare/detail',
+    method: 'get',
+    params: data,
+  }),
+  enabled: containsToken() && !!data.recordId,
+});
