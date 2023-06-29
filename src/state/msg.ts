@@ -3,7 +3,6 @@ import { IStationMessage } from '../interfaces/message';
 
 interface IState {
   msgList: IStationMessage[]
-  lastMsg?: IStationMessage
 }
 
 const initialState: IState = {
@@ -16,7 +15,6 @@ const msgSlice = createSlice({
   reducers: {
     appendMessage(state, action: PayloadAction<IStationMessage>) {
       state.msgList.push(action.payload);
-      state.lastMsg = action.payload;
     },
   },
 });
