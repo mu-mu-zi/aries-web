@@ -85,6 +85,20 @@ export default function SignIn() {
     }
   };
 
+  const userPolicyHref = () => {
+    if (lan === 'en') {
+      return 'https://aries-trust.com/en/userPolicy';
+    }
+    return 'https://aries-trust.com/zh/userPolicy';
+  };
+
+  const privacyPolicyHref = () => {
+    if (lan === 'en') {
+      return 'https://aries-trust.com/en/privacyPolicy';
+    }
+    return 'https://aries-trust.com/zh/privacyPolicy';
+  };
+
   const submit = async (data: FormValid) => {
     try {
       const resp = await axios.post('/auth/ariesToken/getUserInfo', {
@@ -190,7 +204,7 @@ export default function SignIn() {
                 values={{
                   userPolicy: (
                     <a
-                      href="https://aries-trust.com/userPolicy"
+                      href={userPolicyHref()}
                       target="_blank"
                       className="gradient-text1"
                       rel="noreferrer"
@@ -199,7 +213,7 @@ export default function SignIn() {
                     </a>),
                   privacyPolicy: (
                     <a
-                      href="https://aries-trust.com/privacyPolicy"
+                      href={privacyPolicyHref()}
                       target="_blank"
                       className="gradient-text1"
                       rel="noreferrer"
