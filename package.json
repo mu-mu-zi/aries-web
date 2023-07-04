@@ -14,7 +14,7 @@
     "poeditor:push": "pnpm i18n:extract && ./command/poeditor-tools push -c poeditor.config.json -m 'lang/message.json' && rm -rf 'lang'",
     "poeditor:sync": "pnpm poeditor:pull && pnpm poeditor:push",
     "win:poeditor:pull": "command\\poeditor-tools.exe pull -c poeditor.config.json",
-    "win:poeditor:push": "pnpm i18n:extract && ./command/poeditor-tools push -c poeditor.config.json -m 'lang/message.json' && rm -rf 'lang'",
+    "win:poeditor:push": "pnpm i18n:extract && command\\poeditor-tools.exe push -c poeditor.config.json -m 'lang/message.json' && rm -rf 'lang'",
     "win:poeditor:sync": "pnpm poeditor:pull && pnpm poeditor:push"
   },
   "dependencies": {
