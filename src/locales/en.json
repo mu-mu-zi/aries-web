@@ -62,7 +62,6 @@
     "90v2VO": "Others ({remark})",
     "97nX8g": "Three Month",
     "9WRlF4": "Send",
-    "9k5qQl": "Payment methods",
     "9wYjel": "Digital Asset Market",
     "A80LZF": "Please enter the mobile",
     "AgQm92": "Transaction voucher",
@@ -77,7 +76,6 @@
     "CSohMF": "Unbind Email",
     "Crul8p": "Pending accounting",
     "DCxnyk": "Add Beneficiary",
-    "DINtnX": "Payment Amount",
     "DK0yD8": "Opening in progress",
     "DMdWww": "Please enter your distribution plan",
     "DO24M+": "Change Google Authenticator",
@@ -429,5 +427,9 @@
     "Hr7g0C": "Exchange Rate",
     "O8BntV": "Transfer Amount",
     "xf9w5j": "Transferred Fee (USD)",
-    "NQYEZF": "Session timeout. Please log in again to continue using the account"
+    "NQYEZF": "Session timeout. Please log in again to continue using the account",
+    "Xuw7yI": "Transfer Amount",
+    "PST9si": "planCode",
+    "l+M6a+": "Assets Type",
+    "iCuOBX": "remark"
 }
