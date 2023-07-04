@@ -12,7 +12,10 @@
     "i18n:extract": "formatjs extract 'src/**/*.{tsx,jsx,ts,js}' --ignore 'src/vite-env.d.ts' --out-file 'lang/message.json' --throws",
     "poeditor:pull": "./command/poeditor-tools pull -c poeditor.config.json",
     "poeditor:push": "pnpm i18n:extract && ./command/poeditor-tools push -c poeditor.config.json -m 'lang/message.json' && rm -rf 'lang'",
-    "poeditor:sync": "pnpm poeditor:pull && pnpm poeditor:push"
+    "poeditor:sync": "pnpm poeditor:pull && pnpm poeditor:push",
+    "win:poeditor:pull": "command\\poeditor-tools.exe pull -c poeditor.config.json",
+    "win:poeditor:push": "pnpm i18n:extract && ./command/poeditor-tools push -c poeditor.config.json -m 'lang/message.json' && rm -rf 'lang'",
+    "win:poeditor:sync": "pnpm poeditor:pull && pnpm poeditor:push"
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",

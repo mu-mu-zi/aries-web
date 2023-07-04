@@ -37,7 +37,7 @@ export default function ViewCredentials({ onClose, recordId, images }: {
               value={query.data?.data?.payUserName}
             />
             <PaymentRow
-              title={intl.formatMessage({ defaultMessage: 'Payment methods' })}
+              title={intl.formatMessage({ defaultMessage: 'Assets Type' })}
               value={query.data.data.payType === 1 ? intl.formatMessage({ defaultMessage: 'Digital currency payment' }) : intl.formatMessage({ defaultMessage: 'Fiat currency payment' })}
             />
             {query.data.data.payType === 1 && (
@@ -53,6 +53,10 @@ export default function ViewCredentials({ onClose, recordId, images }: {
                 <PaymentRow
                   title={intl.formatMessage({ defaultMessage: 'Declared Amount' })}
                   value={query.data.data.amount}
+                />
+                <PaymentRow
+                  title={intl.formatMessage({ defaultMessage: 'Transfer Amount', description: '申报详情' })}
+                  value={query.data.data.inAmount}
                 />
                 {/* <PaymentRow */}
                 {/*  title={intl.formatMessage({ defaultMessage: 'Transferred Amount' })} */}
@@ -84,8 +88,12 @@ export default function ViewCredentials({ onClose, recordId, images }: {
                 />
                 <PaymentRow title={intl.formatMessage({ defaultMessage: 'Currency' })} value={query.data.data.symbol} />
                 <PaymentRow
-                  title={intl.formatMessage({ defaultMessage: 'Payment Amount' })}
+                  title={intl.formatMessage({ defaultMessage: 'Declared Amount' })}
                   value={query.data.data.amount}
+                />
+                <PaymentRow
+                  title={intl.formatMessage({ defaultMessage: 'Transfer Amount', description: '申报详情' })}
+                  value={query.data.data.inAmount}
                 />
                 <PaymentRow
                   title={intl.formatMessage({ defaultMessage: 'Estimated transfer time' })}

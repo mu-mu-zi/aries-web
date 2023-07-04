@@ -249,6 +249,10 @@ export default function Ledger() {
             ),
           },
           {
+            Header: intl.formatMessage({ defaultMessage: 'remark', description: '总账单页面' }),
+            accessor: 'remark',
+          },
+          {
             accessor: 'Reconciliation',
             Header: () => (
               <div className="text-right">

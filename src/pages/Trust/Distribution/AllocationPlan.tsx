@@ -75,10 +75,10 @@ export default function AllocationPlan() {
         </div>
         <SimpleTable
           columns={[
-            // {
-            //   Header: intl.formatMessage({ defaultMessage: 'ID', description: '分配计划ID' }),
-            //   accessor: 'planId',
-            // },
+            {
+              Header: intl.formatMessage({ defaultMessage: 'planCode', description: '分配意愿编号' }),
+              accessor: (x) => x.planCode ?? '--',
+            },
             {
               Header: intl.formatMessage({ defaultMessage: 'Content' }),
               accessor: 'planDescription',

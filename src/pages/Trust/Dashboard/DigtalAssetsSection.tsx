@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { useState } from 'react';
 import { useCollapse } from 'react-collapsed';
 import { FormattedMessage } from 'react-intl';
-import { currencyUSDTFormat } from '../../../utils/CurrencyFormat';
+import { currencyUSDTFormat, digitalUSDTFormat } from '../../../utils/CurrencyFormat';
 import arrowUp from '../../../assets/icon/arrow_up.svg';
 import symbolIcon from '../../../assets/icon/dash_bit_icon.svg';
 import { Cell } from './DigitalAssets';
@@ -37,7 +37,7 @@ export default function DigtalAssetsSection({ asset }: { asset: IDigitalAssets }
         )}
         {/* 已开立 */}
         {asset.status === 3 && (
-          <div className="gradient-text1 text-[20px] font-bold">{`${currencyUSDTFormat(asset.totalUSDT)} USD`}</div>
+          <div className="gradient-text1 text-[20px] font-bold">{`${digitalUSDTFormat(asset.totalUSDT)} USD`}</div>
         )}
         {asset.details?.filter((x) => x.amount > 0).length > 0 && (
           <img src={arrowUp} alt="" className={classNames('transition', isExpanded && 'rotate-180')} />
@@ -51,7 +51,7 @@ export default function DigtalAssetsSection({ asset }: { asset: IDigitalAssets }
               .map((d) => (
                 <Cell
                   icon={symbolIcon}
-                  amount={d.amount}
+                  amount={digitalUSDTFormat(d.amount)}
                   symbol={d.symbol}
                   rate={Number((((d.amount * d.price) / asset.totalUSDT) * 100).toFixed(2))}
                 />

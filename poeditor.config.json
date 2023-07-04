@@ -1,10 +1,10 @@
 {
-  "api_token": "5b0af7e0d32b9f8295cfc46a2940ddb8",
-  "project_id": "629043",
-  "export_type": "key_value_json",
-  "export_language": {
-    "en": "src/locales/en.json",
-    "zh-hk": "src/locales/zh-hk.json"
+  "api_token":"4e2eacfa4b10085ea35bbb0b9e46cb7e",
+  "project_id":"631117",
+  "export_type":"key_value_json",
+  "export_language":{
+      "en":"src/locales/en.json",
+      "zh-hk":"src/locales/zh-hk.json"
   },
-  "upload_language": "en"
+  "upload_language":"en"
 }

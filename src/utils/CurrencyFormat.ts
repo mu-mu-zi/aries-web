@@ -10,12 +10,22 @@ export const currencyUSDTFormat = (value?: number | string) => {
   if (!value) return undefined;
   const val = BigNumber(value ?? 0).toFormat(2, BigNumber.ROUND_DOWN);
   return numeral(val.toString()).format('0,0.[00]');
+  // return numeral(val.toString()).format('0,0.[00]');
+};
+/*
+ * USDT 格式化，小数点最多保留 8 位小数
+ * */
+export const digitalUSDTFormat = (value?: number | string) => {
+  if (!value) return undefined;
+  const val = BigNumber(value ?? 0).toFormat(8, BigNumber.ROUND_DOWN);
+  return numeral(val.toString()).format('0,0.[00000000]');
+  // return numeral(val.toString()).format('0,0.[00]');
 };
 
 export const numberFormatWithPrefix = (value?: number | string) => {
   if (!value) return undefined;
   const val = BigNumber(value);
-  return val.gt(0) ? `+${value}` : `${value}`;
+  return val.gt(0) ? `+${numeral(value).format('0,0.[00000000]')}` : `${value}`;
 };
 
 export const ratioFormat = (value?: number | string) => numeral(value).format('0.[000]%');

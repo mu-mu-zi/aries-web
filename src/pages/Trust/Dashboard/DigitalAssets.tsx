@@ -7,7 +7,7 @@ import GradientBox from '../../../components/GradientBox';
 import symbolIcon from '../../../assets/icon/dash_bit_icon.svg';
 import arrowUp from '../../../assets/icon/arrow_up.svg';
 import { IAssetsOverview, IDigitalAssets } from '../../../interfaces/trust';
-import { currencyFormat, currencyUSDTFormat } from '../../../utils/CurrencyFormat';
+import { currencyFormat, currencyUSDTFormat, digitalUSDTFormat } from '../../../utils/CurrencyFormat';
 import DigtalAssetsSection from './DigtalAssetsSection';
 import Empty from '../../../views/Empty';
 
@@ -32,7 +32,7 @@ export default function DigitalAssets({ assetOverview }: { assetOverview?: IAsse
         </div>
         {/* {assetOverview?.digitalAssets.reduce((x, y) => x + Number(y.totalUSDT), 0)} */}
         <div>
-          {`${currencyUSDTFormat(
+          {`${digitalUSDTFormat(
             assetOverview?.digitalAssets.reduce((x, y) => BigNumber(y.totalUSDT).plus(x), BigNumber(0)).toFixed(),
           )} USD`}
         </div>

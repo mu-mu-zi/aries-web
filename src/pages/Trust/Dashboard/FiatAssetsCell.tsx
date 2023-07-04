@@ -47,7 +47,7 @@ export default function FiatAssetsCell({ asset }: {
                   {`${currencyUSDTFormat(it.totalAmountUSDT)} USD`}
                 </div>
               </div>
-              {it.details.filter((x) => x.amount > 0).map((y) => (
+              {it.details?.filter((x) => x.amount > 0).map((y) => (
                 <div className="flex items-baseline gap-4 text-[16px]">
                   <Tooltip title={y.name}>
                     <div className="line-clamp-1 break-all overflow-ellipsis">{y.name}</div>
