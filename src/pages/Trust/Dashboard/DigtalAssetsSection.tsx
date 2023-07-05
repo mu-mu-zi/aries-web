@@ -37,7 +37,7 @@ export default function DigtalAssetsSection({ asset }: { asset: IDigitalAssets }
         )}
         {/* 已开立 */}
         {asset.status === 3 && (
-          <div className="gradient-text1 text-[20px] font-bold">{`${digitalUSDTFormat(asset.totalUSDT)} USD`}</div>
+          <div className="gradient-text1 text-[20px] font-bold">{`${currencyUSDTFormat(asset.totalUSDT)} USD`}</div>
         )}
         {asset.details?.filter((x) => x.amount > 0).length > 0 && (
           <img src={arrowUp} alt="" className={classNames('transition', isExpanded && 'rotate-180')} />

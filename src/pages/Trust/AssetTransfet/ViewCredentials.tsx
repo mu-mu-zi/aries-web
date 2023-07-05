@@ -4,6 +4,7 @@ import closeIcon from '../../../assets/icon/model_close.svg';
 import PaymentRow from './PaymentRow';
 import { useAssetDeclareDetailQuery } from '../../../api/trust/asset';
 import Sider from '../../../components/Sider';
+import { currencyUSDTFormat, digitalUSDTFormat } from '../../../utils/CurrencyFormat';
 
 export default function ViewCredentials({ onClose, recordId, images }: {
   onClose?(): void,
@@ -52,11 +53,11 @@ export default function ViewCredentials({ onClose, recordId, images }: {
                 />
                 <PaymentRow
                   title={intl.formatMessage({ defaultMessage: 'Declared Amount' })}
-                  value={query.data.data.amount}
+                  value={digitalUSDTFormat(query.data.data.amount)}
                 />
                 <PaymentRow
                   title={intl.formatMessage({ defaultMessage: 'Transfer Amount', description: '申报详情' })}
-                  value={query.data.data.inAmount}
+                  value={digitalUSDTFormat(query.data.data.inAmount)}
                 />
                 {/* <PaymentRow */}
                 {/*  title={intl.formatMessage({ defaultMessage: 'Transferred Amount' })} */}
@@ -89,11 +90,11 @@ export default function ViewCredentials({ onClose, recordId, images }: {
                 <PaymentRow title={intl.formatMessage({ defaultMessage: 'Currency' })} value={query.data.data.symbol} />
                 <PaymentRow
                   title={intl.formatMessage({ defaultMessage: 'Declared Amount' })}
-                  value={query.data.data.amount}
+                  value={currencyUSDTFormat(query.data.data.amount)}
                 />
                 <PaymentRow
                   title={intl.formatMessage({ defaultMessage: 'Transfer Amount', description: '申报详情' })}
-                  value={query.data.data.inAmount}
+                  value={currencyUSDTFormat(query.data.data.inAmount)}
                 />
                 <PaymentRow
                   title={intl.formatMessage({ defaultMessage: 'Estimated transfer time' })}

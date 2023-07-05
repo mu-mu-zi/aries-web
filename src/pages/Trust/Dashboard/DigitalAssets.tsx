@@ -32,7 +32,7 @@ export default function DigitalAssets({ assetOverview }: { assetOverview?: IAsse
         </div>
         {/* {assetOverview?.digitalAssets.reduce((x, y) => x + Number(y.totalUSDT), 0)} */}
         <div>
-          {`${digitalUSDTFormat(
+          {`${currencyUSDTFormat(
             assetOverview?.digitalAssets.reduce((x, y) => BigNumber(y.totalUSDT).plus(x), BigNumber(0)).toFixed(),
           )} USD`}
         </div>
@@ -55,7 +55,7 @@ export function Cell({
   rate,
 }: {
   icon: string;
-  amount: string | number;
+  amount?: string | number;
   symbol: string;
   rate: number;
 }) {

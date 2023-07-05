@@ -14,6 +14,8 @@ import TextButton from '../../../components/TextButton';
 import { numberFormatWithPrefix } from '../../../utils/CurrencyFormat';
 import TrustContainer from '../TrustContainer';
 import NoCredentials from '../../../views/NoCredentials';
+import Tooltip from '../../../components/Tooltip';
+import { stringShort } from '../../../utils/stringShort';
 
 export default function BillRecords({ trustInvestmentId }: {
   trustInvestmentId: number
@@ -56,11 +58,12 @@ export default function BillRecords({ trustInvestmentId }: {
         <div className="h-[1px] bg-[#3B5649]" />
         <SimpleTable
           columns={[
-            {
-              Header: intl.formatMessage({ defaultMessage: 'Type' }),
-              accessor: (x) => billTypeTitle(x.billType, x.billName),
-              // accessor: (x) => x.billName ?? '--',
-            },
+            // v1.1
+            // {
+            //   Header: intl.formatMessage({ defaultMessage: 'Type' }),
+            //   accessor: (x) => billTypeTitle(x.billType, x.billName),
+            //   // accessor: (x) => x.billName ?? '--',
+            // },
             {
               Header: intl.formatMessage({ defaultMessage: 'Network' }),
               accessor: 'mainnet',
@@ -86,6 +89,20 @@ export default function BillRecords({ trustInvestmentId }: {
               accessor: 'time',
               // eslint-disable-next-line react/prop-types
               Cell: ({ row }) => <div className="text-right">{unixFormatTime(row.original.createTimeStamp)}</div>,
+            },
+            {
+              Header: () => (<div className="text-right"><FormattedMessage defaultMessage="remark" description="总账单页面" /></div>),
+              accessor: 'remark',
+              Cell: ({ row }) => (
+                <div className="text-right">
+                  <Tooltip
+                    title={intl.formatMessage({ defaultMessage: 'remark', description: '总账单页面' })}
+                    content={row.original.remark}
+                  >
+                    <div>{stringShort(row.original.remark, 20)}</div>
+                  </Tooltip>
+                </div>
+              ),
             },
             {
               Header: () => (

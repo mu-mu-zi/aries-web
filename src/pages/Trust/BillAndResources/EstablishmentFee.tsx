@@ -19,7 +19,7 @@ import { ITrustEstablishment } from '../../../interfaces/trust';
 import { allYears } from '../../../utils/year';
 import useFeeYears from '../../../hooks/useFeeYears';
 import NoCredentials from '../../../views/NoCredentials';
-import { currencyUSDTFormat, ratioFormat } from '../../../utils/CurrencyFormat';
+import { currencyUSDTFormat, numberFormatWithPrefix, ratioFormat } from '../../../utils/CurrencyFormat';
 import { useTrustDetailQuery } from '../../../api/trust/trust';
 
 export default function EstablishmentFee() {
@@ -103,7 +103,7 @@ export default function EstablishmentFee() {
               // },
               {
                 Header: intl.formatMessage({ defaultMessage: 'Entrusted Asset' }),
-                accessor: (x) => `${x.amount} ${x.coinName}`,
+                accessor: (x) => `${currencyUSDTFormat(x.amount)} ${x.coinName}`,
               },
               // {
               //   Header: 'Trust total amount',

@@ -10,6 +10,7 @@ import { IDistributionBill } from '../../../interfaces/trust';
 import Modal from '../../../components/Modal';
 import RecodeViewCredentials from '../AssetTransfet/RecodeViewCredentials';
 import NoCredentials from '../../../views/NoCredentials';
+import { currencyUSDTFormat, numberFormatWithPrefix } from '../../../utils/CurrencyFormat';
 
 export default function AllocationRecord() {
   const { trustId } = useParams();
@@ -63,7 +64,7 @@ export default function AllocationRecord() {
               // eslint-disable-next-line react/prop-types
               Cell: ({ row }) => (
                 // eslint-disable-next-line react/prop-types
-                <div className="text-right text-[16px] gradient-text2">{row.original.quantity}</div>
+                <div className="text-right text-[16px] gradient-text2">{currencyUSDTFormat(row.original.quantity)}</div>
               ),
             },
             {

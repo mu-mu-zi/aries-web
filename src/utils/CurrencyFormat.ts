@@ -25,7 +25,7 @@ export const digitalUSDTFormat = (value?: number | string) => {
 export const numberFormatWithPrefix = (value?: number | string) => {
   if (!value) return undefined;
   const val = BigNumber(value);
-  return val.gt(0) ? `+${numeral(value).format('0,0.[00000000]')}` : `${value}`;
+  return val.gt(0) ? `+${numeral(value).format('0,0.[00000000]')}` : `${numeral(value).format('0,0.[00000000]')}`;
 };
 
 export const ratioFormat = (value?: number | string) => numeral(value).format('0.[000]%');

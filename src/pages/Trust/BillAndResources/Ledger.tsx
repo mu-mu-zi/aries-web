@@ -17,6 +17,8 @@ import { ITrustBill } from '../../../interfaces/asset';
 import { numberFormatWithPrefix } from '../../../utils/CurrencyFormat';
 import NoCredentials from '../../../views/NoCredentials';
 import { useAppSelector } from '../../../state';
+import Tooltip from '../../../components/Tooltip';
+import { stringShort } from '../../../utils/stringShort';
 
 /*
  * 1-法币转出，2-法币转入，3-数字资产转出，4-数字资产转入，5-兑换交易，6-自定义，7-分配收益，8-管理费，9-超额转账费，10-设立费，11-追加设立费'
@@ -127,14 +129,14 @@ export default function Ledger() {
                     type: BillType.FiatIn,
                     title: intl.formatMessage({ defaultMessage: 'Financial Product Redemption', description: '账单记录类型' }),
                   },
-                  {
-                    type: BillType.DigitalAssetOut,
-                    title: intl.formatMessage({ defaultMessage: 'Digital Asset Transfer Out', description: '账单记录类型' }),
-                  },
-                  {
-                    type: BillType.DigitalAssetIn,
-                    title: intl.formatMessage({ defaultMessage: 'Digital Asset Transfer In', description: '账单记录类型' }),
-                  },
+                  // {
+                  //   type: BillType.DigitalAssetOut,
+                  //   title: intl.formatMessage({ defaultMessage: 'Digital Asset Transfer Out', description: '账单记录类型' }),
+                  // },
+                  // {
+                  //   type: BillType.DigitalAssetIn,
+                  //   title: intl.formatMessage({ defaultMessage: 'Digital Asset Transfer In', description: '账单记录类型' }),
+                  // },
                   { type: BillType.Exchange, title: intl.formatMessage({ defaultMessage: 'Exchange' }) },
                   { type: BillType.Custom, title: intl.formatMessage({ defaultMessage: 'Others' }) },
                   {
@@ -251,6 +253,15 @@ export default function Ledger() {
           {
             Header: intl.formatMessage({ defaultMessage: 'remark', description: '总账单页面' }),
             accessor: 'remark',
+            width: '150px',
+            Cell: ({ row }) => (
+              <Tooltip
+                title={intl.formatMessage({ defaultMessage: 'remark', description: '总账单页面' })}
+                content={row.original.remark}
+              >
+                <div>{stringShort(row.original.remark, 20)}</div>
+              </Tooltip>
+            ),
           },
           {
             accessor: 'Reconciliation',

@@ -108,6 +108,7 @@ export interface IDigitalAssets {
 export interface IFiatAssetsDetail {
   name: string;
   totalAmountUSDT: number;
+  cardTypeId: number;
   amount: number;
   details: IFiatAssetsDetails2[];
   e_expand: boolean
@@ -161,6 +162,7 @@ export interface IInvestmentOrderRecode {
   billStatusName: string;
   billTypeName: string;
   coinName: string;
+  ramark: string;
   createTimeStamp: number;
   quantity: number;
 }
@@ -287,6 +289,7 @@ export interface ITrustAssetRecode {
   payUserName: string
   bankName: string
   amount: string
+  inAmount: string
   declareNo: string
   estimateTime: string
   status: number
