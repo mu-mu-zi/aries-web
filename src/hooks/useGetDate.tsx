@@ -1,4 +1,6 @@
 import moment from 'moment/moment';
+import { useParams } from 'react-router-dom';
+import { useTrustDetailQuery } from '../api/trust/trust';
 
 export type BaseType = {
   title: string
@@ -15,47 +17,55 @@ interface IDateGroup {
 }
 
 export default function useGetDate() {
-  const start = 2023;
-  const currentDate = moment();
-  const currentYear = currentDate.year() + 1;
+  const { trustId } = useParams();
+  const detailQuery = useTrustDetailQuery({
+    trustId: Number(trustId),
+  });
+  const currentDate = moment(detailQuery.data?.data?.createTime);
+
+  // 获取起始时间的年份 计算与当前年份的差值 * 时间维度。 目的是增加循环
+  const reMonth = (moment().year() - currentDate.year()) * 12;
+  const reQuerter = (moment().year() - currentDate.year()) * 4;
+
   const dateGroup:IDateGroup = {
     years: [],
     month: [],
     quarter: [],
   };
   const years = [];
-  for (let i = start; i <= currentYear; i += 1) {
+  for (let i = currentDate.year(); i <= moment().year(); i += 1) {
     years.push({
       title: `${i}年`,
       value: i,
       year: i,
-      quarter: null,
-      month: null,
+      quarter: undefined,
+      month: undefined,
     });
   }
-  dateGroup.years = years;
+  dateGroup.years = years.reverse();
 
   const monthArray = [];
-  for (let month = 0; month <= currentDate.month(); month += 1) {
+  for (let month = currentDate.month(); month <= (moment().month() + reMonth); month += 1) {
     monthArray.push({
-      title: `${currentDate.year()}年${month + 1}月`,
-      value: month + 1,
-      year: currentDate.year(),
-      quarter: null,
-      month: month + 1,
+      title: `${(currentDate.year() + Math.floor(month / 12))}年${((month + 1) % 12) ? ((month + 1) % 12) : 12}月`,
+      value: ((month + 1) % 12) ? ((month + 1) % 12) : 12,
+      year: (currentDate.year()) + Math.floor(month / 12),
+      quarter: undefined,
+      month: ((month + 1) % 12) ? ((month + 1) % 12) : 12,
     });
   }
-  dateGroup.month = monthArray;
+  dateGroup.month = monthArray.reverse();
   const quarterArray = [];
-  for (let quarter = 0; quarter <= Math.ceil(currentDate.month() / 3); quarter += 1) {
+  for (let quarter = Math.floor((currentDate.month() + 3) / 3); quarter <= Math.ceil(moment().quarter() + (reQuerter)); quarter += 1) {
     quarterArray.push({
-      title: `${currentDate.year()}年第${quarter + 1}季度`,
-      value: quarter + 1,
-      year: currentDate.year(),
-      quarter: quarter + 1,
-      month: null,
+      title: `${currentDate.year() + Math.ceil(quarter / 4) - 1}年第${(quarter % 4) ? (quarter % 4) : 4}季度`,
+      value: (quarter % 4) ? (quarter % 4) : 4,
+      year: currentDate.year() + Math.ceil(quarter / 4) - 1,
+      quarter: (quarter % 4) ? (quarter % 4) : 4,
+      month: undefined,
     });
   }
-  dateGroup.quarter = quarterArray;
+
+  dateGroup.quarter = quarterArray.reverse();
   return dateGroup;
 }

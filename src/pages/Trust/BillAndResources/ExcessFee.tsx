@@ -36,6 +36,8 @@ export default function ExcessFee() {
     pageSize: 10,
     trustId: Number(trustId),
     year: selectVal?.year,
+    month: selectVal?.month,
+    quarter: selectVal?.quarter,
   });
   const statisticsQuery = useTrustFeeStatisticsQuery({
     trustId: Number(trustId),

@@ -12,7 +12,9 @@ export const useTrustManageFeeListQuery = (data: {
   pageIndex: number,
   pageSize: number,
   trustId?: number,
-  year?: number
+  year?: number,
+  quarter?: number,
+  month?: number,
 }) => {
   const userId = useAuthToken();
 
@@ -53,7 +55,9 @@ export const useEstablishmentFeeListQuery = (data: {
   pageIndex: number,
   pageSize: number,
   trustId?: number,
-  year?: number
+  year?: number,
+  quarter?: number,
+  month?: number,
 }) => useQuery<IResponseData<IPage<ITrustEstablishment>>>({
   queryKey: ['trust', 'fee', 'establishment', data],
   queryFn: () => axios.request({

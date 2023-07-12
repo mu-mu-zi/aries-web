@@ -31,7 +31,9 @@ export const useExcessFeeListQuery = (data: {
   pageIndex: number,
   pageSize?: number,
   trustId?: number,
-  year?: number
+  year?: number,
+  quarter?: number,
+  month?: number,
 }) => {
   const userId = useAuthToken();
 
@@ -42,7 +44,7 @@ export const useExcessFeeListQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: containsToken() && !!data.trustId,
+    enabled: containsToken() && !!data.trustId && !!data.year,
   });
 };
 
