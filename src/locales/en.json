@@ -345,7 +345,6 @@
     "p8X3iX": "Expected Transfer Time",
     "DQtrKp": "Payer's Name",
     "t8ugD9": "Entrusted Declaration Information",
-    "g2jt4M": "Payee Bank Account Number",
     "VOaOBF": "Payment Bank Account",
     "tZJvMV": "Please select the receiving bank",
     "RQ8U4E": "Currencies",
@@ -407,11 +406,6 @@
     "yKxa88": "The Settlor can create a statement of intent regarding the distribution of trust assets, which the Trustee can refer to and execute accordingly",
     "NyaKBm": "The Settlor can view trust information and designate beneficiaries for the trust here. If the Beneficiary's identity is clear, it is necessary to complete the Beneficiary's identity verification process before proceeding",
     "gUudPK": "Here, you can perform account inquiries for each change in trust assets and access related legal documents and other resources",
-    "fqJtkV": "Others",
-    "kh/ztZ": "Financial Product Purchase",
-    "9/RAdj": "Digital Asset Transfer Out",
-    "YorgzL": "Financial Product Redemption",
-    "etHciH": "Digital Asset Transfer In",
     "RRvGB6": "It's important to note that this transfer fee does not include the gas fees required for blockchain transactions",
     "I/uBms": "When transferring digital assets from the custodial account, a transfer fee will be incurred. This fee is calculated as {ratio} of the equivalent value in USD of the digital assets being transferred, calculated on a per transaction basis",
     "VXZosE": "The accumulated transfer fees for the year will be collected on December 31st of each year and on the trust termination date",
@@ -431,5 +425,10 @@
     "Xuw7yI": "Transfer Amount",
     "PST9si": "planCode",
     "l+M6a+": "Assets Type",
-    "iCuOBX": "remark"
+    "iCuOBX": "remark",
+    "XDE6FH": "Fee Charging",
+    "q79HCV": "Others",
+    "cwcFqQ": "Asset Transfer",
+    "lwfOb3": "Investment Operation",
+    "jkfM04": "Asset Allocation"
 }
