@@ -159,3 +159,17 @@ export const useFiatListQuery = (data: {
     enabled: containsToken(),
   });
 };
+
+/*
+* 获取法币下的储蓄币种列表
+* */
+export const useFiatCoinsQuery = (data: {
+  bankId?: number
+}) => useQuery<IResponseData<IFiat[]>>({
+  queryKey: ['legalCoins', 'list', data],
+  queryFn: () => axios.request({
+    url: '/asset/asset/bank/legalCoins',
+    params: data,
+  }),
+  enabled: containsToken() && !!data.bankId,
+});

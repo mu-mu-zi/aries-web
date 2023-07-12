@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
 import moment from 'moment';
@@ -21,28 +21,51 @@ import useFeeYears from '../../../hooks/useFeeYears';
 import NoCredentials from '../../../views/NoCredentials';
 import { currencyUSDTFormat, numberFormatWithPrefix, ratioFormat } from '../../../utils/CurrencyFormat';
 import { useTrustDetailQuery } from '../../../api/trust/trust';
+import useGetDate, { BaseType } from '../../../hooks/useGetDate';
 
 export default function EstablishmentFee() {
   const { trustId } = useParams();
   const intl = useIntl();
   const [page, setPage] = useState(1);
   const [year, setYear] = useState<number>(moment().year());
+  const [selectAy, setSelectAy] = useState<BaseType[]>();
+  const [selectVal, setSelectVal] = useState<BaseType>();
   const listQuery = useEstablishmentFeeListQuery({
     pageIndex: page,
     pageSize: 10,
     trustId: Number(trustId),
-    year,
+    year: selectVal?.year,
   });
   const statisticsQuery = useTrustFeeStatisticsQuery({
     trustId: Number(trustId),
     type: 3,
-    year,
+    year: selectVal?.year,
+    month: selectVal?.month,
+    quarter: selectVal?.quarter,
   });
-  // const query = useTrustFeeListQuery({
-  //   trustId: Number(trustId),
-  // });
-  // const currentFee = useMemo(() => query.data?.data?.find((x) => x.feeType === 3), [query.data?.data]);
+  const query = useTrustFeeListQuery({
+    trustId: Number(trustId),
+  });
+  const currentFee = useMemo(() => query.data?.data?.find((x) => x.feeType === 3), [query.data?.data]);
+
   const years = useFeeYears();
+  const date = useGetDate();
+  console.log(date);
+  useEffect(() => {
+    if (!currentFee) return;
+    let showDate;
+    if (currentFee.type === 1) {
+      showDate = date.years;
+    }
+    if (currentFee.type === 2) {
+      showDate = date.quarter;
+    }
+    if (currentFee.type === 3) {
+      showDate = date.month;
+    }
+    setSelectAy(showDate);
+    setSelectVal(showDate?.[0]);
+  }, [currentFee]);
   const [credentialsVisible, setCredentialsVisible] = useState(false);
   const [selected, setSelected] = useState<ITrustEstablishment>();
   const ratioQuery = useExpenseRatioQuery();
@@ -69,9 +92,9 @@ export default function EstablishmentFee() {
             </div>
             <div className="w-full max-w-[260px]">
               <Dropdown
-                title={`${year}`}
-                items={years.map((x) => `${x}`)}
-                onSelected={(idx) => setYear(years[idx])}
+                title={`${selectVal?.title}`}
+                items={selectAy?.map((x) => `${x.title}`)}
+                onSelected={(idx) => setSelectVal(selectAy?.[idx])}
                 block
               />
             </div>

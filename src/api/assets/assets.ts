@@ -31,6 +31,6 @@ export const useAllBankQuery = (data: {
       method: 'get',
       params: data,
     }),
-    enabled: !!data.trustId && containsToken() && !!data.coinId,
+    enabled: !!data.trustId && containsToken(),
   });
 };

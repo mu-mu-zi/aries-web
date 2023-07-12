@@ -125,7 +125,8 @@ export default function BillRecords({ trustInvestmentId }: {
                     >
                       <FormattedMessage defaultMessage="View credentials" />
                     </TextButton>
-                  ) : <NoCredentials />}
+                  )
+                    : <NoCredentials />}
                 </div>
               ),
             },

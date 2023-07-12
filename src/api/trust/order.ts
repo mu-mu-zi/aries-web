@@ -16,6 +16,7 @@ export const useLedgerOrderListQuery = (data: {
   endTimestamp?: number,
   timeType?: number,
   billType?: number
+  type?: number
 }) => {
   const userId = useAuthToken();
 

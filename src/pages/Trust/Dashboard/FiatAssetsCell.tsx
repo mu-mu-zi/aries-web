@@ -44,16 +44,11 @@ export default function FiatAssetsCell({ asset }: {
                   <AssetsProgress scale={it.totalAmountUSDT / Number(asset.totalUSDT)} />
                 </div>
                 <div className="flex-1 font-bold text-[20px] text-right">
-                  {/* {`${currencyUSDTFormat(it.totalAmountUSDT)} USD`} */}
-                  {
-                    it.cardTypeId === 1
-                      ? `${currencyUSDTFormat(it.details?.[0].amount)} ${it.details?.[0].symbol}`
-                      : (`${currencyUSDTFormat(it.totalAmountUSDT)} USD`)
-                  }
+                  {`${currencyUSDTFormat(it.totalAmountUSDT)} USD`}
                 </div>
               </div>
               {it.details?.filter((x) => x.amount > 0).map((y) => (
-                <div className={`flex items-baseline gap-4 text-[16px] ${it.cardTypeId === 1 ? 'hidden' : ''}`}>
+                <div className="flex items-baseline gap-4 text-[16px]">
                   <Tooltip title={y.name}>
                     <div className="line-clamp-1 break-all overflow-ellipsis">{y.name}</div>
                   </Tooltip>
@@ -63,9 +58,10 @@ export default function FiatAssetsCell({ asset }: {
                   {/*    <div>{stringShort(y.name, 20)}</div> */}
                   {/*  </Tooltip> */}
                   {/* )} */}
-                  {y.apr > 0 && <div className="">{`APR (${y.apr}%)`}</div>}
+                  {it.cardTypeId === 1 ? `${y.symbol}`
+                    : y.apr > 0 && <div className="">{`APR (${y.apr}%)`}</div>}
                   <div className="flex-auto" />
-                  <div className="">{`${currencyUSDTFormat(y.amount)} ${y.symbol}`}</div>
+                  <div className="">{`${y.amount} ${y.symbol}`}</div>
                 </div>
               ))}
             </div>

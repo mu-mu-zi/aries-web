@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,13 +8,15 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FormattedMessage, useIntl } from 'react-intl';
 import TextField from '../../../components/TextField';
 import Button from '../../../components/Button';
-import { useFiatListQuery, useTrustDetailQuery } from '../../../api/trust/trust';
+import { useFiatCoinsQuery, useFiatListQuery, useTrustDetailQuery } from '../../../api/trust/trust';
 import Dropdown from '../../../components/Dropdown';
 import { addSuccessNotification } from '../../../utils/Notification';
 import useTrustPermission from '../../../hooks/useTrustRole';
 import { useValidators } from '../../../utils/zod';
 import { useAppDispatch, useAppSelector } from '../../../state';
-import { setAssetTransferSelectedFiatId } from '../../../state/trust';
+import { setAssetTransferSelectedFiatId, setAssetTransferselectedFiatBankId } from '../../../state/trust';
+import { useAllBankQuery } from '../../../api/assets/assets';
+import { IBank } from '../../../interfaces/asset';
 
 export default function AssetFiatDeclaration() {
   // const { t } = useTranslation();
@@ -23,7 +25,15 @@ export default function AssetFiatDeclaration() {
   const action = useAppDispatch();
   const trustQuery = useTrustDetailQuery({ trustId: Number(trustId) });
   const { settlorPermission } = useTrustPermission({ trust: trustQuery.data?.data });
-  const fiatListQuery = useFiatListQuery({ trustId: Number(trustId) });
+  const [bank, setBank] = useState<IBank>();
+  const fiatListQuery = useFiatCoinsQuery({ bankId: Number(bank?.id) });
+  // const fiatListQuery = useFiatListQuery({ trustId: Number(trustId) });
+  const bankFiatId = useAppSelector((state) => state.trust.assetTransfer.selectedFiatId);
+  console.log('bankFiatId', bankFiatId);
+  const bankListQuery = useAllBankQuery({
+    trustId,
+  });
+
   const { zodRequired } = useValidators();
   const valid = z.object({
     name: zodRequired(),
@@ -51,8 +61,13 @@ export default function AssetFiatDeclaration() {
   });
   const queryClient = useQueryClient();
   const lan = useAppSelector((state) => state.app.language);
-  const faitId = watch('fiatId');
 
+  const faitId = watch('fiatId');
+  useEffect(() => {
+    action(setAssetTransferSelectedFiatId(faitId));
+  }, [faitId]);
+
+  useEffect(() => setBank(bankListQuery.data?.data?.[0]), [bankListQuery.data?.data]);
   useEffect(() => clearErrors(), [lan]);
 
   useEffect(() => {
@@ -61,10 +76,6 @@ export default function AssetFiatDeclaration() {
       setValue('fiatId', one.id);
     }
   }, [fiatListQuery.data?.data]);
-
-  useEffect(() => {
-    action(setAssetTransferSelectedFiatId(faitId));
-  }, [faitId]);
 
   const submitMutation = useMutation({
     mutationFn: async (data: FormValid) => {
@@ -121,6 +132,20 @@ export default function AssetFiatDeclaration() {
           maxLength={30}
           error={errors.name?.message}
         />
+
+        <div className="text-[#C2D7C7F6] font-bold text-[16px]">
+          <FormattedMessage defaultMessage="Please select the receiving bank" />
+        </div>
+        <Dropdown
+          title={bank?.bankName}
+          items={bankListQuery.data?.data?.map((x) => x.bankName)}
+          onSelected={(idx) => {
+            console.log('aaaaaaa1', idx);
+            setBank(bankListQuery.data?.data?.[idx]);
+            action(setAssetTransferselectedFiatBankId(idx));
+          }}
+        />
+
         <div className="text-[#C2D7C7F6] font-bold"><FormattedMessage defaultMessage="Currencies" /></div>
         <Controller
           name="fiatId"

@@ -5,11 +5,14 @@ interface IState {
   assetTransfer: {
     selectedCoinId?: number;
     selectedFiatId?: number;
+    selectedFiatBankId?: number;
   }
 }
 
 const initialState: IState = {
-  assetTransfer: {},
+  assetTransfer: {
+    selectedFiatBankId: 0,
+  },
 };
 
 const trustSlice = createSlice({
@@ -22,6 +25,9 @@ const trustSlice = createSlice({
     setAssetTransferSelectedFiatId(state, action: PayloadAction<number | undefined>) {
       state.assetTransfer.selectedFiatId = action.payload;
     },
+    setAssetTransferselectedFiatBankId(state, action: PayloadAction<number | undefined>) {
+      state.assetTransfer.selectedFiatBankId = action.payload;
+    },
   },
 });
 
@@ -29,4 +35,5 @@ export default trustSlice;
 export const {
   setAssetTransferSelectedCoinId,
   setAssetTransferSelectedFiatId,
+  setAssetTransferselectedFiatBankId,
 } = trustSlice.actions;

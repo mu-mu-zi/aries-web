@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
 import moment from 'moment';
@@ -17,6 +17,7 @@ import RecodeViewCredentials from '../AssetTransfet/RecodeViewCredentials';
 import Modal from '../../../components/Modal';
 import { allYears } from '../../../utils/year';
 import useFeeYears from '../../../hooks/useFeeYears';
+import useGetDate, { BaseType } from '../../../hooks/useGetDate';
 
 export default function ExcessFee() {
   const { trustId } = useParams();
@@ -24,21 +25,42 @@ export default function ExcessFee() {
   const query = useTrustFeeListQuery({
     trustId: Number(trustId),
   });
-  // const currentFee = useMemo(() => query.data?.data?.find((x) => x.feeType === 2), [query.data?.data]);
+  const currentFee = useMemo(() => query.data?.data?.find((x) => x.feeType === 2), [query.data?.data]);
+  console.log('currentFee', currentFee);
   const years = useFeeYears();
   const [year, setYear] = useState<number>(moment().year());
+  const [selectAy, setSelectAy] = useState<BaseType[]>();
+  const [selectVal, setSelectVal] = useState<BaseType>();
   const listQuery = useExcessFeeListQuery({
     pageIndex: page,
     pageSize: 10,
     trustId: Number(trustId),
-    year,
+    year: selectVal?.year,
   });
   const statisticsQuery = useTrustFeeStatisticsQuery({
     trustId: Number(trustId),
     type: 2,
-    year,
+    year: selectVal?.year,
+    month: selectVal?.month,
+    quarter: selectVal?.quarter,
   });
   const intl = useIntl();
+  const date = useGetDate();
+  useEffect(() => {
+    if (!currentFee) return;
+    let showDate;
+    if (currentFee.type === 1) {
+      showDate = date.years;
+    }
+    if (currentFee.type === 2) {
+      showDate = date.quarter;
+    }
+    if (currentFee.type === 3) {
+      showDate = date.month;
+    }
+    setSelectAy(showDate);
+    setSelectVal(showDate?.[0]);
+  }, [currentFee]);
   const [viewCredentialsVisible, setViewCredentialsVisible] = useState(false);
   const ratioQuery = useExpenseRatioQuery();
 
@@ -96,9 +118,9 @@ export default function ExcessFee() {
             </div>
             <div className="max-w-[260px] w-full">
               <Dropdown
-                title={`${year}`}
-                items={years.map((x) => `${x}`)}
-                onSelected={(idx) => setYear(years[idx])}
+                title={`${selectVal?.title}`}
+                items={selectAy?.map((x) => `${x.title}`)}
+                onSelected={(idx) => setSelectVal(selectAy?.[idx])}
                 block
               />
             </div>
@@ -159,7 +181,8 @@ export default function ExcessFee() {
         title={intl.formatMessage({ defaultMessage: 'About Transfer Fee' })}
         description={[
           intl.formatMessage({ defaultMessage: 'When transferring digital assets from the custodial account, a transfer fee will be incurred. This fee is calculated as {ratio} of the equivalent value in USD of the digital assets being transferred, calculated on a per transaction basis' }, {
-            ratio: ratioFormat(ratioQuery.data?.data?.find((x) => x.type === 3)?.expenseRatio),
+            // ratio: ratioFormat(ratioQuery.data?.data?.find((x) => x.type === 3)?.expenseRatio),
+            ratio: ratioFormat(currentFee?.interestRate),
           }),
           intl.formatMessage({ defaultMessage: 'The accumulated transfer fees for the year will be collected on December 31st of each year and on the trust termination date' }),
           intl.formatMessage({ defaultMessage: "It's important to note that this transfer fee does not include the gas fees required for blockchain transactions" }),

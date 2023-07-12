@@ -25,7 +25,7 @@ import { stringShort } from '../../../utils/stringShort';
  * */
 enum BillType {
   All = 0,
-  FiatOut = 1,
+  FiatOut,
   FiatIn,
   DigitalAssetOut,
   DigitalAssetIn,
@@ -36,6 +36,17 @@ enum BillType {
   ExceedTransfer,
   EstablishmentFee,
   AdditionalEstablishmentFee
+}
+/*
+ * 1-资产转入，2-投资运作，3-资产分配，4-费用收取 5-其他'
+ * */
+enum Type {
+  All = 0,
+  AssetTransfer,
+  InvestmentOperation,
+  AssetAllocation,
+  FeeCharging,
+  Others,
 }
 
 enum TimeType {
@@ -51,7 +62,7 @@ export default function Ledger() {
   // const { t } = useTranslation();
   const intl = useIntl();
   const valid = z.object({
-    billType: z.nativeEnum(BillType).default(BillType.All),
+    type: z.nativeEnum(Type).default(Type.All),
     timeType: z.nativeEnum(TimeType).default(TimeType.All),
   });
   type FormValid = z.infer<typeof valid>;
@@ -68,14 +79,14 @@ export default function Ledger() {
   } = useForm<FormValid>({
     resolver: zodResolver(valid),
   });
-  const billType = watch('billType');
+  const type = watch('type');
   const timeType = watch('timeType');
   const [page, setPage] = useState(1);
   const listQuery = useLedgerOrderListQuery({
     pageIndex: page,
     pageSize: 10,
     trustId: Number(trustId),
-    billType: Number(billType) > 0 ? Number(billType) : undefined,
+    type: Number(type) > 0 ? Number(type) : undefined,
     timeType: Number(timeType) > 0 ? Number(timeType) : undefined,
   });
   const [credentialsVisible, setCredentialsVisible] = useState(false);
@@ -85,12 +96,12 @@ export default function Ledger() {
   useEffect(() => clearErrors(), [lan]);
 
   useEffect(() => {
-    setValue('billType', BillType.All);
+    setValue('type', Type.All);
     setValue('timeType', TimeType.All);
   }, []);
 
   const reset = () => {
-    setValue('billType', BillType.All);
+    setValue('type', Type.All);
     setValue('timeType', TimeType.All);
   };
 
@@ -100,7 +111,7 @@ export default function Ledger() {
       method: 'post',
       data: {
         trustId: Number(trustId),
-        billType: billType === BillType.All ? undefined : billType,
+        type: type === Type.All ? undefined : type,
         timeType: timeType === TimeType.All ? undefined : timeType,
         pageIndex: page,
         pageSize: 10,
@@ -120,39 +131,51 @@ export default function Ledger() {
             <Controller
               render={({ field }) => {
                 const enums = [
-                  { type: BillType.All, title: intl.formatMessage({ defaultMessage: 'All' }) },
+                  { type: Type.All, title: intl.formatMessage({ defaultMessage: 'All' }) },
                   {
-                    type: BillType.FiatOut,
-                    title: intl.formatMessage({ defaultMessage: 'Financial Product Purchase', description: '账单记录类型' }),
+                    type: Type.AssetAllocation,
+                    title: intl.formatMessage({ defaultMessage: 'Asset Allocation', description: '账单记录类型' }),
                   },
                   {
-                    type: BillType.FiatIn,
-                    title: intl.formatMessage({ defaultMessage: 'Financial Product Redemption', description: '账单记录类型' }),
+                    type: Type.AssetTransfer,
+                    title: intl.formatMessage({ defaultMessage: 'Asset Transfer', description: '账单记录类型' }),
+                  },
+                  {
+                    type: Type.FeeCharging,
+                    title: intl.formatMessage({ defaultMessage: 'Fee Charging', description: '账单记录类型' }),
+                  },
+                  {
+                    type: Type.InvestmentOperation,
+                    title: intl.formatMessage({ defaultMessage: 'Investment Operation', description: '账单记录类型' }),
+                  },
+                  {
+                    type: Type.Others,
+                    title: intl.formatMessage({ defaultMessage: 'Others', description: '账单记录类型' }),
                   },
                   // {
-                  //   type: BillType.DigitalAssetOut,
+                  //   type: Type.DigitalAssetOut,
                   //   title: intl.formatMessage({ defaultMessage: 'Digital Asset Transfer Out', description: '账单记录类型' }),
                   // },
                   // {
-                  //   type: BillType.DigitalAssetIn,
+                  //   type: Type.DigitalAssetIn,
                   //   title: intl.formatMessage({ defaultMessage: 'Digital Asset Transfer In', description: '账单记录类型' }),
                   // },
-                  { type: BillType.Exchange, title: intl.formatMessage({ defaultMessage: 'Exchange' }) },
-                  { type: BillType.Custom, title: intl.formatMessage({ defaultMessage: 'Others' }) },
-                  {
-                    type: BillType.DistributeProfit,
-                    title: intl.formatMessage({ defaultMessage: 'Distribute Profit' }),
-                  },
-                  { type: BillType.ManagementFee, title: intl.formatMessage({ defaultMessage: 'Management Fee' }) },
-                  { type: BillType.ExceedTransfer, title: intl.formatMessage({ defaultMessage: 'Transfer Fee' }) },
-                  {
-                    type: BillType.EstablishmentFee,
-                    title: intl.formatMessage({ defaultMessage: 'Establishment Fee' }),
-                  },
-                  {
-                    type: BillType.AdditionalEstablishmentFee,
-                    title: intl.formatMessage({ defaultMessage: 'Initial Minimum Establishment Fee' }),
-                  },
+                  // { type: Type.Exchange, title: intl.formatMessage({ defaultMessage: 'Exchange' }) },
+                  // { type: Type.Custom, title: intl.formatMessage({ defaultMessage: 'Others' }) },
+                  // {
+                  //   type: Type.DistributeProfit,
+                  //   title: intl.formatMessage({ defaultMessage: 'Distribute Profit' }),
+                  // },
+                  // { type: Type.ManagementFee, title: intl.formatMessage({ defaultMessage: 'Management Fee' }) },
+                  // { type: Type.ExceedTransfer, title: intl.formatMessage({ defaultMessage: 'Transfer Fee' }) },
+                  // {
+                  //   type: Type.EstablishmentFee,
+                  //   title: intl.formatMessage({ defaultMessage: 'Establishment Fee' }),
+                  // },
+                  // {
+                  //   type: Type.AdditionalEstablishmentFee,
+                  //   title: intl.formatMessage({ defaultMessage: 'Initial Minimum Establishment Fee' }),
+                  // },
                 ];
                 return (
                   <Dropdown
@@ -162,7 +185,7 @@ export default function Ledger() {
                   />
                 );
               }}
-              name="billType"
+              name="type"
               control={control}
             />
           </div>
@@ -206,30 +229,41 @@ export default function Ledger() {
           {
             Header: intl.formatMessage({ defaultMessage: 'Type' }),
             accessor: (x) => {
-              switch (x.billType) {
-                case 1:
-                  return intl.formatMessage({ defaultMessage: 'Financial Product Purchase', description: '账单记录类型' });
+              switch (x.recordType) {
                 case 2:
-                  return intl.formatMessage({ defaultMessage: 'Financial Product Redemption', description: '账单记录类型' });
-                case 3:
-                  return intl.formatMessage({ defaultMessage: 'Digital Asset Transfer Out', description: '账单记录类型' });
                 case 4:
-                  return intl.formatMessage({ defaultMessage: 'Digital Asset Transfer In', description: '账单记录类型' });
+                case 16:
+                case 17:
+                  return intl.formatMessage({ defaultMessage: 'Asset Transfer', description: '账单记录类型' });
                 case 5:
-                  return intl.formatMessage({ defaultMessage: 'Exchange' });
                 case 6:
-                  return x.billName ?? '--';
+                case 12:
+                case 13:
+                  return intl.formatMessage({ defaultMessage: 'Investment Operation', description: '账单记录类型' });
                 case 7:
-                  return intl.formatMessage({ defaultMessage: 'Distribute Profit' });
+                  return intl.formatMessage({ defaultMessage: 'Asset Allocation', description: '账单记录类型' });
                 case 8:
-                  return intl.formatMessage({ defaultMessage: 'Management Fee' });
                 case 9:
-                  return intl.formatMessage({ defaultMessage: 'Exceed Transfer' });
                 case 10:
-                  return intl.formatMessage({ defaultMessage: 'Initial Minimum Establishment Fee' });
                 case 11:
-                  // return intl.formatMessage({ defaultMessage: 'Additional Establishment Fee' });
-                  return intl.formatMessage({ defaultMessage: 'Establishment Fee' });
+                  return intl.formatMessage({ defaultMessage: 'Fee Charging', description: '账单记录类型' });
+                case 14:
+                case 15:
+                case 18:
+                  return intl.formatMessage({ defaultMessage: 'Others', description: '账单记录类型' });
+                // case 6:
+                //   return x.billName ?? '--';
+                // case 7:
+                //   return intl.formatMessage({ defaultMessage: 'Distribute Profit' });
+                // case 8:
+                //   return intl.formatMessage({ defaultMessage: 'Management Fee' });
+                // case 9:
+                //   return intl.formatMessage({ defaultMessage: 'Exceed Transfer' });
+                // case 10:
+                //   return intl.formatMessage({ defaultMessage: 'Initial Minimum Establishment Fee' });
+                // case 11:
+                //   // return intl.formatMessage({ defaultMessage: 'Additional Establishment Fee' });
+                //   return intl.formatMessage({ defaultMessage: 'Establishment Fee' });
                 default:
                   return '--';
               }

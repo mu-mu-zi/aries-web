@@ -66,7 +66,9 @@ export const useEstablishmentFeeListQuery = (data: {
 
 export const useTrustFeeStatisticsQuery = (data: {
   trustId: number,
-  year: number,
+  year?: number,
+  quarter?: number,
+  month?: number,
   type?: number
 }) => useQuery({
   queryKey: ['trust', 'fee', 'statistics', data],
@@ -75,7 +77,7 @@ export const useTrustFeeStatisticsQuery = (data: {
     method: 'get',
     params: data,
   }),
-  enabled: containsToken() && !!data.trustId && !!data.type,
+  enabled: containsToken() && !!data.trustId && !!data.type && !!data.year,
 });
 
 /*

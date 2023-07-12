@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
 import moment from 'moment/moment';
@@ -17,27 +17,50 @@ import RecodeViewCredentials from '../AssetTransfet/RecodeViewCredentials';
 import Modal from '../../../components/Modal';
 import { allYears } from '../../../utils/year';
 import useFeeYears from '../../../hooks/useFeeYears';
+import useGetDate, { BaseType } from '../../../hooks/useGetDate';
 
 export default function ManagerFee() {
   const { trustId } = useParams();
   const [page, setPage] = useState(1);
   const [year, setYear] = useState<number>(moment().year());
+  const [selectAy, setSelectAy] = useState<BaseType[]>();
+  const [selectVal, setSelectVal] = useState<BaseType>();
   const listQuery = useTrustManageFeeListQuery({
     pageIndex: page,
     pageSize: 10,
     trustId: Number(trustId),
-    year,
+    year: selectVal?.year,
   });
   const statisticsQuery = useTrustFeeStatisticsQuery({
     trustId: Number(trustId),
     type: 1,
-    year,
+    year: selectVal?.year,
+    month: selectVal?.month,
+    quarter: selectVal?.quarter,
   });
   const query = useTrustFeeListQuery({
     trustId: Number(trustId),
   });
-  // const currentFee = useMemo(() => query.data?.data?.find((x) => x.feeType === 1), [query.data?.data]);
+  const currentFee = useMemo(() => query.data?.data?.find((x) => x.feeType === 1), [query.data?.data]);
   const years = useFeeYears();
+  const date = useGetDate();
+  console.log(date);
+  useEffect(() => {
+    if (!currentFee) return;
+    let showDate;
+    if (currentFee.type === 1) {
+      showDate = date.years;
+    }
+    if (currentFee.type === 2) {
+      showDate = date.quarter;
+    }
+    if (currentFee.type === 3) {
+      showDate = date.month;
+    }
+    setSelectAy(showDate);
+    setSelectVal(showDate?.[0]);
+  }, [currentFee]);
+
   const ratioQuery = useExpenseRatioQuery();
   const [viewCredentialsVisible, setViewCredentialsVisible] = useState(false);
   const intl = useIntl();
@@ -66,9 +89,9 @@ export default function ManagerFee() {
             </div>
             <div className="w-full max-w-[260px]">
               <Dropdown
-                title={`${year}`}
-                items={years.map((x) => `${x}`)}
-                onSelected={(idx) => setYear(years[idx])}
+                title={`${selectVal?.title}`}
+                items={selectAy?.map((x) => `${x.title}`)}
+                onSelected={(idx) => setSelectVal(selectAy?.[idx])}
                 block
               />
             </div>

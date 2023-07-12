@@ -98,16 +98,29 @@ export default function Fees() {
 
   return (
     <div className="flex flex-col gap-4">
-      {query.data?.data?.map((it) => (
-        <FeesCell
-          title={titleFormat(it.feeType)}
-          subtitle={statusTitle(it.feeStatus, it.year)}
-          amount={it.feeAmount}
-          suffix="USD"
-          to={linkTo(it.feeType)}
-          tooltip={tooltipAttr(it.feeType)}
-        />
-      ))}
+      {query.data?.data?.map((it) => {
+        console.log(it);
+        let showDate;
+        if (it.type === 1) {
+          showDate = `${it.year}年`;
+        }
+        if (it.type === 2) {
+          showDate = `${it.year}年第${it.quarter}季度`;
+        }
+        if (it.type === 3) {
+          showDate = `${it.year}年${it.month}月`;
+        }
+        return (
+          <FeesCell
+            title={titleFormat(it.feeType)}
+            subtitle={statusTitle(it.feeStatus, showDate)}
+            amount={it.feeAmount}
+            suffix="USD"
+            to={linkTo(it.feeType)}
+            tooltip={tooltipAttr(it.feeType)}
+          />
+        );
+      })}
     </div>
   );
 }

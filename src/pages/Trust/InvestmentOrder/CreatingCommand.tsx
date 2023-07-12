@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -15,6 +15,8 @@ import ContactUs from '../../SignIn/ContactUs';
 import ContactUsFooter from '../../../views/ContactUsFooter';
 import TextField from '../../../components/TextField';
 import { useValidators } from '../../../utils/zod';
+import Modal from '../../../components/Modal';
+import GoogleVerify from '../../../views/GoogleVerify';
 
 export default function CreatingCommand({ onClose }: {
   onClose?(): void
@@ -23,6 +25,8 @@ export default function CreatingCommand({ onClose }: {
   // const { t } = useTranslation();
   const intl = useIntl();
   const { zodMinStr } = useValidators();
+  const [googleVerifyVisible, setGoogleVerifyVisible] = useState(false);
+  const [formData, setFormData] = useState<FormValid>();
   const valid = z.object({
     investmentSuggestion: zodMinStr(),
     investmentTime: zodMinStr(5),
@@ -60,6 +64,10 @@ export default function CreatingCommand({ onClose }: {
       await queryClient.invalidateQueries(['trust']);
     },
   });
+  const submit = (data: FormValid) => {
+    setFormData(data);
+    setGoogleVerifyVisible(true);
+  };
 
   return (
     <ModalContainer>
@@ -68,7 +76,7 @@ export default function CreatingCommand({ onClose }: {
         onClose={onClose}
       />
       <div className="flex flex-col">
-        <form onSubmit={handleSubmit((data) => addTrustInvestmentMutation.mutate(data))}>
+        <form onSubmit={handleSubmit(submit)}>
           {/* todo: 这里的表单输入框缺少内阴影，文字颜色 */}
           <div className="flex flex-col gap-8">
             <div className="py-4 rounded-xl">
@@ -116,6 +124,21 @@ export default function CreatingCommand({ onClose }: {
             </div>
           </div>
         </form>
+        <Modal visible={googleVerifyVisible} onClose={() => setGoogleVerifyVisible(false)}>
+          {formData && (
+          <GoogleVerify
+            onClose={() => setGoogleVerifyVisible(false)}
+            onEnter={(ticket) => {
+              console.log('aaaaaaaaaaaaaa');
+              setGoogleVerifyVisible(false);
+              addTrustInvestmentMutation.mutate({
+                ...formData,
+                ticker: ticket,
+              });
+            }}
+          />
+          )}
+        </Modal>
       </div>
     </ModalContainer>
   );
