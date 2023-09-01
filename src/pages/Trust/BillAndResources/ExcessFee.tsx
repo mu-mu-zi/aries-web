@@ -63,6 +63,55 @@ export default function ExcessFee() {
     setSelectAy(showDate);
     setSelectVal(showDate?.[0]);
   }, [currentFee]);
+
+  const transferType = (time: number | undefined) => {
+    switch (time) {
+      case 1:
+        return intl.formatMessage({
+          defaultMessage: 'Transfer Fee for the Current Year: {amount} {coinName}',
+        }, {
+          amount: currencyUSDTFormat(statisticsQuery?.data?.data?.amount),
+          coinName: statisticsQuery?.data?.data?.coinName,
+        });
+      case 2:
+        return intl.formatMessage({ defaultMessage: 'Transfer Fee for the Current Quarter: {amount} {coinName}' }, {
+          amount: currencyUSDTFormat(statisticsQuery?.data?.data?.amount),
+          coinName: statisticsQuery?.data?.data?.coinName,
+        });
+      case 3:
+        return intl.formatMessage({ defaultMessage: 'Transfer Fee for the Current Month: {amount} {coinName}' }, {
+          amount: currencyUSDTFormat(statisticsQuery?.data?.data?.amount),
+          coinName: statisticsQuery?.data?.data?.coinName,
+        });
+      default:
+        return '';
+    }
+  };
+
+  const accumulatedTransferType = (time: number | undefined) => {
+    switch (time) {
+      case 1:
+        return intl.formatMessage({
+          defaultMessage: 'Accumulated Transfer Amount for the Current Year: {amount} {coinName}',
+        }, {
+          amount: currencyUSDTFormat(statisticsQuery?.data?.data.totalAmount),
+          coinName: statisticsQuery?.data?.data.coinName,
+        });
+      case 2:
+        return intl.formatMessage({ defaultMessage: 'Accumulated Transfer Amount for the Current Quarter: {amount} {coinName}' }, {
+          amount: currencyUSDTFormat(statisticsQuery.data?.data.totalAmount),
+          coinName: statisticsQuery.data?.data.coinName,
+        });
+      case 3:
+        return intl.formatMessage({ defaultMessage: 'Accumulated Transfer Amount for the Current Month: {amount} {coinName}' }, {
+          amount: currencyUSDTFormat(statisticsQuery.data?.data.totalAmount),
+          coinName: statisticsQuery.data?.data.coinName,
+        });
+      default:
+        return '';
+    }
+  };
+
   const [viewCredentialsVisible, setViewCredentialsVisible] = useState(false);
   const ratioQuery = useExpenseRatioQuery();
 
@@ -74,16 +123,7 @@ export default function ExcessFee() {
           <div className="flex items-center gap-4 justify-between">
             <div className="flex flex-col gap-4">
               {/* <SectionTitle title={`Excess transfer fee: ${currencyUSDTFormat(currentFee?.feeAmount)} ${currentFee?.coinName}`} /> */}
-              <SectionTitle title={(
-                <FormattedMessage
-                  defaultMessage="Transfer Fee: {amount} {coinName}"
-                  values={{
-                    amount: currencyUSDTFormat(statisticsQuery?.data?.data?.amount),
-                    coinName: statisticsQuery?.data?.data?.coinName,
-                  }}
-                />
-              )}
-              />
+              <SectionTitle title={transferType(currentFee?.type)} />
               {statisticsQuery.data?.data && (
                 <div className="flex flex-row items-center flex-wrap gap-4 text-[#C2D7C7F6] text-[16px]">
                   {/* <div> */}
@@ -96,13 +136,7 @@ export default function ExcessFee() {
                   {/*  /> */}
                   {/* </div> */}
                   <div>
-                    <FormattedMessage
-                      defaultMessage="Accumulated Transfer Amount: {amount} {coinName}"
-                      values={{
-                        amount: currencyUSDTFormat(statisticsQuery.data.data.totalAmount),
-                        coinName: statisticsQuery.data.data.coinName,
-                      }}
-                    />
+                    {accumulatedTransferType(currentFee?.type)}
                   </div>
                   {/* <div> */}
                   {/*  <FormattedMessage */}
@@ -162,7 +196,7 @@ export default function ExcessFee() {
                   <div
                     className="text-right gradient-text2"
                   >
-                    {`1 ${row.original.coinName}≈${row.original.currencyPrice} ${row.original.totalTrustCoinName}`}
+                    {`1 ${row.original.coinName}≈${currencyUSDTFormat(row.original.currencyPrice)} ${row.original.totalTrustCoinName}`}
                   </div>
                 ),
               },
@@ -186,7 +220,7 @@ export default function ExcessFee() {
             // ratio: ratioFormat(ratioQuery.data?.data?.find((x) => x.type === 3)?.expenseRatio),
             ratio: ratioFormat(currentFee?.interestRate),
           }),
-          intl.formatMessage({ defaultMessage: 'The accumulated transfer fees for the year will be collected on December 31st of each year and on the trust termination date' }),
+          intl.formatMessage({ defaultMessage: 'The accumulated transfer fees for this billing cycle will be collected on December 31st of each year/the last day of each quarter/the last day of each month and on the trust termination date' }),
           intl.formatMessage({ defaultMessage: "It's important to note that this transfer fee does not include the gas fees required for blockchain transactions" }),
         ]}
       />

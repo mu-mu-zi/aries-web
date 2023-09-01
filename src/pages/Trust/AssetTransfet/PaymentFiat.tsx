@@ -20,6 +20,7 @@ export default function PaymentFiat() {
   const [bank, setBank] = useState<IBank>();
 
   useEffect(() => {
+    if (typeof fiatBankId === 'undefined') return;
     console.log('aaaaaaa2', fiatBankId, bankListQuery.data?.data);
 
     setBank(bankListQuery.data?.data?.[fiatBankId]);

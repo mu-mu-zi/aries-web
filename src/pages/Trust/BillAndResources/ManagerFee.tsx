@@ -46,7 +46,6 @@ export default function ManagerFee() {
   const currentFee = useMemo(() => query.data?.data?.find((x) => x.feeType === 1), [query.data?.data]);
   const years = useFeeYears();
   const date = useGetDate();
-  console.log(date);
   useEffect(() => {
     if (!currentFee) return;
     let showDate;
@@ -61,7 +60,31 @@ export default function ManagerFee() {
     }
     setSelectAy(showDate);
     setSelectVal(showDate?.[0]);
-  }, [currentFee]);
+  }, [currentFee, date.month, date.quarter, date.years]);
+
+  const timeType = (time: number | undefined) => {
+    switch (time) {
+      case 1:
+        return intl.formatMessage({
+          defaultMessage: 'Trust Management Fee for the Current Year: {amount} {coinName}',
+        }, {
+          amount: currencyUSDTFormat(statisticsQuery?.data?.data?.amount),
+          coinName: statisticsQuery?.data?.data?.coinName,
+        });
+      case 2:
+        return intl.formatMessage({ defaultMessage: 'Trust Management Fee for the Current Quarter: {amount} {coinName}' }, {
+          amount: currencyUSDTFormat(statisticsQuery?.data?.data?.amount),
+          coinName: statisticsQuery?.data?.data?.coinName,
+        });
+      case 3:
+        return intl.formatMessage({ defaultMessage: 'Trust Management Fee for the Current Month: {amount} {coinName}' }, {
+          amount: currencyUSDTFormat(statisticsQuery?.data?.data?.amount),
+          coinName: statisticsQuery?.data?.data?.coinName,
+        });
+      default:
+        return '';
+    }
+  };
 
   const ratioQuery = useExpenseRatioQuery();
   const [viewCredentialsVisible, setViewCredentialsVisible] = useState(false);
@@ -75,15 +98,7 @@ export default function ManagerFee() {
           <div className="flex items-center justify-between">
             <div className="flex flex-col gap-4">
               <SectionTitle
-                title={intl.formatMessage(
-                  {
-                    defaultMessage: 'Trust management fee: {amount} {coinName}',
-                  },
-                  {
-                    amount: currencyUSDTFormat(statisticsQuery?.data?.data?.amount),
-                    coinName: statisticsQuery?.data?.data?.coinName,
-                  },
-                )}
+                title={timeType(currentFee?.type)}
               />
               {statisticsQuery.data?.data?.billCertificate && (
                 <ViewCredentials onTap={() => setViewCredentialsVisible(true)} />
@@ -142,7 +157,7 @@ export default function ManagerFee() {
         description={[
           intl.formatMessage({
             defaultMessage:
-              'The trust management fee is a fee that is charged based on the total daily assets of the trust, calculated on a daily basis and collected annually',
+              'The trust management fee is a fee that is charged based on the total daily assets of the trust, calculated on a daily basis and collected annually/quarterly/monthly',
           }),
           intl.formatMessage({
             defaultMessage:
@@ -154,7 +169,7 @@ export default function ManagerFee() {
           }),
           intl.formatMessage({
             defaultMessage:
-              'The Trustee will collect the accumulated daily calculated trust management fee on December 31st of each year and on the trust termination date. The fee will be deducted first from the equivalent fiat assets transferred from the trust assets. If there are insufficient fiat assets, the remaining amount will be deducted from the equivalent digital assets',
+              'The Trustee will collect the accumulated daily calculated trust management fee on December 31st of each year/the last day of each quarter/the last day of each month and on the trust termination date. The fee will be deducted first from the equivalent fiat assets transferred from the trust assets. If there are insufficient fiat assets, the remaining amount will be deducted from the equivalent digital assets',
           }),
         ]}
       />

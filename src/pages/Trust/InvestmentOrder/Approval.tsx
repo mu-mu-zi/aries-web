@@ -19,6 +19,7 @@ import useTrustPermission from '../../../hooks/useTrustRole';
 import { stringShort } from '../../../utils/stringShort';
 import Tooltip from '../../../components/Tooltip';
 import TrustContainer from '../TrustContainer';
+import { currencyUSDTFormat } from '../../../utils/CurrencyFormat';
 
 export default function Approval({ trustInvestmentId }: {
   trustInvestmentId: number
@@ -87,7 +88,7 @@ export default function Approval({ trustInvestmentId }: {
               Cell: ({ row }) => (
               // eslint-disable-next-line react/prop-types
               //   <div className="gradient-text1">{`${row.original.amount} ${row.original.coinName}`}</div>
-                <div className="gradient-text1">{`${row.original.amount}`}</div>
+                <div className="gradient-text1">{`${currencyUSDTFormat(row.original.amount)}`}</div>
               ),
             },
             {

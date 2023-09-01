@@ -19,6 +19,37 @@ export default function Fees() {
   });
   const ratioQuery = useExpenseRatioQuery();
 
+  const formatMonth = (month: number) => {
+    switch (month) {
+      case 1:
+        return intl.formatMessage({ defaultMessage: 'January' });
+      case 2:
+        return intl.formatMessage({ defaultMessage: 'February' });
+      case 3:
+        return intl.formatMessage({ defaultMessage: 'March' });
+      case 4:
+        return intl.formatMessage({ defaultMessage: 'April' });
+      case 5:
+        return intl.formatMessage({ defaultMessage: 'May' });
+      case 6:
+        return intl.formatMessage({ defaultMessage: 'June' });
+      case 7:
+        return intl.formatMessage({ defaultMessage: 'July' });
+      case 8:
+        return intl.formatMessage({ defaultMessage: 'August' });
+      case 9:
+        return intl.formatMessage({ defaultMessage: 'September' });
+      case 10:
+        return intl.formatMessage({ defaultMessage: 'October' });
+      case 11:
+        return intl.formatMessage({ defaultMessage: 'November' });
+      case 12:
+        return intl.formatMessage({ defaultMessage: 'December' });
+      default:
+        return '';
+    }
+  };
+
   const titleFormat = (type: number) => {
     switch (type) {
       case 1:
@@ -45,7 +76,7 @@ export default function Fees() {
     }
   };
 
-  const statusTitle = (type: number, year: number) => {
+  const statusTitle = (type: number, year: number | string) => {
     switch (type) {
       case 1:
         return intl.formatMessage({ defaultMessage: 'Unbilled in {year}' }, { year });
@@ -100,15 +131,18 @@ export default function Fees() {
     <div className="flex flex-col gap-4">
       {query.data?.data?.map((it) => {
         console.log(it);
-        let showDate;
+        let showDate = '';
         if (it.type === 1) {
-          showDate = `${it.year}年`;
+          // showDate = `${it.year}年`;
+          showDate = intl.formatMessage({ defaultMessage: '{year}year' }, { year: it.year });
         }
         if (it.type === 2) {
-          showDate = `${it.year}年第${it.quarter}季度`;
+          // showDate = `${it.year}年第${it.quarter}季度`;
+          showDate = intl.formatMessage({ defaultMessage: '{year} Q{quarter}' }, { year: it.year, quarter: it.quarter });
         }
         if (it.type === 3) {
-          showDate = `${it.year}年${it.month}月`;
+          // showDate = `${it.year}年${it.month}月`;
+          showDate = intl.formatMessage({ defaultMessage: '{month} {year}' }, { year: it.year, month: formatMonth(it.month) });
         }
         return (
           <FeesCell

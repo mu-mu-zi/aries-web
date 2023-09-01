@@ -1,3 +1,4 @@
+import React from 'react';
 import moment from 'moment/moment';
 import { useParams } from 'react-router-dom';
 import { useIntl } from 'react-intl';
@@ -27,7 +28,38 @@ export default function useGetDate() {
   // 获取起始时间的年份 计算与当前年份的差值 * 时间维度。 目的是增加循环
   const reMonth = (moment().year() - currentDate.year()) * 12;
   const reQuerter = (moment().year() - currentDate.year()) * 4;
-  const { formatMessage } = useIntl();
+  const intl = useIntl();
+
+  const formatMonth = (month: number) => {
+    switch (month) {
+      case 1:
+        return intl.formatMessage({ defaultMessage: 'January' });
+      case 2:
+        return intl.formatMessage({ defaultMessage: 'February' });
+      case 3:
+        return intl.formatMessage({ defaultMessage: 'March' });
+      case 4:
+        return intl.formatMessage({ defaultMessage: 'April' });
+      case 5:
+        return intl.formatMessage({ defaultMessage: 'May' });
+      case 6:
+        return intl.formatMessage({ defaultMessage: 'June' });
+      case 7:
+        return intl.formatMessage({ defaultMessage: 'July' });
+      case 8:
+        return intl.formatMessage({ defaultMessage: 'August' });
+      case 9:
+        return intl.formatMessage({ defaultMessage: 'September' });
+      case 10:
+        return intl.formatMessage({ defaultMessage: 'October' });
+      case 11:
+        return intl.formatMessage({ defaultMessage: 'November' });
+      case 12:
+        return intl.formatMessage({ defaultMessage: 'December' });
+      default:
+        return '';
+    }
+  };
 
   const dateGroup:IDateGroup = {
     years: [],
@@ -38,9 +70,9 @@ export default function useGetDate() {
   for (let i = currentDate.year(); i <= moment().year(); i += 1) {
     years.push({
       // title: `${i}年`,
-      title: formatMessage(
+      title: intl.formatMessage(
         {
-          defaultMessage: '{i}年',
+          defaultMessage: '{i}year',
         },
         {
           i,
@@ -58,13 +90,13 @@ export default function useGetDate() {
   for (let month = currentDate.month(); month <= (moment().month() + reMonth); month += 1) {
     monthArray.push({
       // title: `${(currentDate.year() + Math.floor(month / 12))}年${((month + 1) % 12) ? ((month + 1) % 12) : 12}月`,
-      title: formatMessage(
+      title: intl.formatMessage(
         {
-          defaultMessage: '{year}年第{month}月',
+          defaultMessage: '{month} {year}',
         },
         {
           year: (currentDate.year() + Math.floor(month / 12)),
-          month: ((month + 1) % 12) ? ((month + 1) % 12) : 12,
+          month: formatMonth(((month + 1) % 12) ? ((month + 1) % 12) : 12),
         },
       ),
       value: ((month + 1) % 12) ? ((month + 1) % 12) : 12,
@@ -78,9 +110,10 @@ export default function useGetDate() {
   for (let quarter = Math.floor((currentDate.month() + 3) / 3); quarter <= Math.ceil(moment().quarter() + (reQuerter)); quarter += 1) {
     quarterArray.push({
       // title: formatMessage({ defaultMessage: '{currentDate.year()} + Math.ceil(quarter / 4) - 1}年第{(quarter % 4) ? (quarter % 4) : 4}季度' }),
-      title: formatMessage(
+      title: intl.formatMessage(
         {
-          defaultMessage: '{year}年第{querter}季度',
+          defaultMessage: '{year} Q{querter}',
+          description: 'hei',
         },
         {
           year: currentDate.year() + Math.ceil(quarter / 4) - 1,

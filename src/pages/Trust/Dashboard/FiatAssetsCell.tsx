@@ -61,7 +61,7 @@ export default function FiatAssetsCell({ asset }: {
                   {it.cardTypeId === 1 ? `${y.symbol}`
                     : y.apr > 0 && <div className="">{`APR (${y.apr}%)`}</div>}
                   <div className="flex-auto" />
-                  <div className="">{`${y.amount} ${y.symbol}`}</div>
+                  <div className="">{`${currencyUSDTFormat(y.amount)} ${y.symbol}`}</div>
                 </div>
               ))}
             </div>

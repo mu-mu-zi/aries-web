@@ -55,7 +55,9 @@ export default function CreatingCommand({ onClose }: {
   // };
 
   const addTrustInvestmentMutation = useMutation({
-    mutationFn: (data: FormValid) => axios.post('/trust/trust/investment/addTrustInvestment', {
+    mutationFn: (data: FormValid & {
+      ticker: string
+    }) => axios.post('/trust/trust/investment/addTrustInvestment', {
       trustId: Number(trustId),
       ...data,
     }),

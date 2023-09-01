@@ -9,7 +9,7 @@
     "local": "tsc && vite build --mode test",
     "build": "tsc && vite build --mode production",
     "preview": "vite preview",
-    "i18n:extract": "formatjs extract 'src/**/*.{tsx,jsx,ts,js}' --ignore 'src/vite-env.d.ts' --out-file 'lang/message.json' --throws",
+    "i18n:extract": "formatjs extract src/**/*.ts* --ignore=**/*.d.ts --out-file src/locales/extract/en.json --id-interpolation-pattern [sha512:contenthash:base64:6] --format crowdin",
     "poeditor:pull": "./command/poeditor-tools pull -c poeditor.config.json",
     "poeditor:push": "pnpm i18n:extract && ./command/poeditor-tools push -c poeditor.config.json -m 'lang/message.json' && rm -rf 'lang'",
     "poeditor:sync": "pnpm poeditor:pull && pnpm poeditor:push",

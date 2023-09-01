@@ -21,20 +21,33 @@ export default function BillingRecord() {
   const intl = useIntl();
   // const { t } = useTranslation();
 
-  const typeTitle = (type: number, custom?: string) => [
-    intl.formatMessage({ defaultMessage: 'Fiat Out' }),
-    intl.formatMessage({ defaultMessage: 'Fiat In' }),
-    intl.formatMessage({ defaultMessage: 'Digital Asset Out' }),
-    intl.formatMessage({ defaultMessage: 'Digital Asset In' }),
-    intl.formatMessage({ defaultMessage: 'Exchange' }),
-    // intl.formatMessage({ defaultMessage: 'Custom' }),
-    custom ?? '--',
-    intl.formatMessage({ defaultMessage: 'Distribute Profit' }),
-    intl.formatMessage({ defaultMessage: 'Management Fee' }),
-    intl.formatMessage({ defaultMessage: 'Exceed Transfer' }),
-    intl.formatMessage({ defaultMessage: 'Establishment Fee' }),
-    intl.formatMessage({ defaultMessage: 'Additional Establishment Fee' }),
-  ][type - 1];
+  const typeTitle = (x: number) => {
+    switch (x) {
+      case 2:
+      case 4:
+      case 16:
+      case 17:
+        return intl.formatMessage({ defaultMessage: 'Asset Transfer', description: '账单记录类型' });
+      case 5:
+      case 6:
+      case 12:
+      case 13:
+        return intl.formatMessage({ defaultMessage: 'Investment Operation', description: '账单记录类型' });
+      case 7:
+        return intl.formatMessage({ defaultMessage: 'Asset Allocation', description: '账单记录类型' });
+      case 8:
+      case 9:
+      case 10:
+      case 11:
+        return intl.formatMessage({ defaultMessage: 'Fee Charging', description: '账单记录类型' });
+      case 14:
+      case 15:
+      case 18:
+        return intl.formatMessage({ defaultMessage: 'Others', description: '账单记录类型' });
+      default:
+        return '--';
+    }
+  };
 
   return (
     <div className="gradient-border-container shadow-block">
@@ -54,7 +67,7 @@ export default function BillingRecord() {
           {listQuery.data?.data?.records.length === 0 && <Empty />}
           {listQuery.data?.data?.records.map((x) => (
             <RecordCell
-              title={typeTitle(x.billType, x.billName)}
+              title={typeTitle(x.recordType)}
               datetime={unixFormatTime(x.createTimeStamp)}
               amount={x.amount}
               status={x.billStatus}

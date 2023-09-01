@@ -216,6 +216,10 @@ export interface ITrustFee {
   trustId: number;
   year: number
   coinName: string
+  type: number
+  quarter: number
+  month: number
+  interestRate: number
 }
 
 export interface IReport {

@@ -1,0 +1,1378 @@
+{
+  "+67FEp": {
+    "message": "Investment Recommendation"
+  },
+  "+FFQth": {
+    "message": "2）Complete the transfer according to the payment information on the right side below"
+  },
+  "+U6ozc": {
+    "message": "Type"
+  },
+  "+k5Igf": {
+    "message": "Remarks"
+  },
+  "+minEV": {
+    "message": "Identity Verification"
+  },
+  "/0TOL5": {
+    "message": "Amount"
+  },
+  "/3s9fM": {
+    "message": "Transfer Voucher"
+  },
+  "/Ah5JW": {
+    "message": "last name"
+  },
+  "/CaREm": {
+    "message": "Pending approval"
+  },
+  "/VnDMl": {
+    "message": "Other"
+  },
+  "/esrRk": {
+    "message": "Define"
+  },
+  "00JriY": {
+    "message": "In order to better handle investment instructions, please express your opinions as completely as possible."
+  },
+  "0TR0PD": {
+    "message": "February"
+  },
+  "0V1V61": {
+    "message": "Notification"
+  },
+  "0kVxh6": {
+    "message": "has been exclusively established in accordance with the Settlor's wishes to achieve the purposes of family wealth preservation, inheritance, and strategic planning"
+  },
+  "0yLcs0": {
+    "message": "Effective"
+  },
+  "18ScX5": {
+    "message": "Dual Verification(2FA)"
+  },
+  "1Eu0bT": {
+    "message": "Login Log"
+  },
+  "1Wqzc4": {
+    "message": "Download and install the Google Authenticator app"
+  },
+  "1jL65B": {
+    "message": "Login status"
+  },
+  "1umnAX": {
+    "message": "Personal Information"
+  },
+  "1xaaM3": {
+    "message": "My Trust"
+  },
+  "2H3Nva": {
+    "message": "Establishment Fee"
+  },
+  "2HDg9k": {
+    "message": "Recipient's address"
+  },
+  "2KFAT1": {
+    "message": "Audit status"
+  },
+  "2L30vK": {
+    "message": "Succession Guardian"
+  },
+  "2PUpmc": {
+    "message": "Agreements Signing"
+  },
+  "2STPax": {
+    "message": "Bind phone"
+  },
+  "2avfQY": {
+    "message": "Half of year"
+  },
+  "2hsoiX": {
+    "message": "+ Add"
+  },
+  "2o/IFP": {
+    "message": "Login Time"
+  },
+  "2rHE4w": {
+    "message": "After verification, users will be automatically logged in. Registration implies your agreement to Aries' {userPolicy} and {privacyPolicy}."
+  },
+  "2sdCKo": {
+    "message": "Establishment fee"
+  },
+  "2xj3MC": {
+    "message": "Management fee"
+  },
+  "362hSX": {
+    "message": "Mobile Phone verification"
+  },
+  "36qSAF": {
+    "message": "Revocable"
+  },
+  "3CTUr1": {
+    "message": "Entrusted Amount"
+  },
+  "3M3J2B": {
+    "message": "Google Verification Code"
+  },
+  "3V9HMB": {
+    "message": "Please enter the 6-digit Google security code"
+  },
+  "3ZKLMq": {
+    "message": "Recent Login Records"
+  },
+  "44Hfs9": {
+    "description": "投资指令/账单类型",
+    "message": "Digital asset transfer out"
+  },
+  "47FYwb": {
+    "message": "Cancel"
+  },
+  "4Awxs4": {
+    "message": "Identity category"
+  },
+  "4B5m3b": {
+    "message": "Please keep the communication channels open so that our customer service team can reach you in a timely manner. Additionally, you can also directly communicate with us through the email address {email}."
+  },
+  "4HsfLG": {
+    "description": "投资指令状态",
+    "message": "Cancelled"
+  },
+  "4J9fO0": {
+    "message": "Please enter the email"
+  },
+  "4REnT4": {
+    "message": "Phone Verification Code"
+  },
+  "4chu8L": {
+    "message": "Fiat"
+  },
+  "55hdQy": {
+    "message": "Currency"
+  },
+  "55riRe": {
+    "message": "Edit personal information"
+  },
+  "5JMI0B": {
+    "message": "Allocation Plan Explanation:"
+  },
+  "5Qt+/1": {
+    "message": "{year}year"
+  },
+  "5RwpV7": {
+    "message": "Approval Comments"
+  },
+  "5bKdBH": {
+    "message": "Your account is in the process of opening"
+  },
+  "5q3qC0": {
+    "message": "Download"
+  },
+  "5qaD7s": {
+    "message": "Rejected"
+  },
+  "63Y2RE": {
+    "message": "Change phone"
+  },
+  "6XFO/C": {
+    "message": "Approved"
+  },
+  "6tRGFR": {
+    "message": "Remarks (if any)"
+  },
+  "74BYXL": {
+    "message": "Female"
+  },
+  "7JtU4x": {
+    "message": "Transfer Fee for the Current Month: {amount} {coinName}"
+  },
+  "7nmFO7": {
+    "message": "Excluding the initial minimum establishment fee collected at the trust's establishment, the calculation method for the establishment fee is as follows: Establishment Fee = (Total amount of assets transferred into the trust - Amount of entrusted assets exempt from the establishment fee) × [Establishment fee rate for the trust]"
+  },
+  "7oKb+J": {
+    "message": "Trust Management Fee for the Current Quarter: {amount} {coinName}"
+  },
+  "7rA4vE": {
+    "description": "资产申报状态",
+    "message": "Cancelled"
+  },
+  "7tV1mj": {
+    "message": "Investment Instruction Details"
+  },
+  "8FNOCL": {
+    "message": "At least {min} characters"
+  },
+  "8P6eaJ": {
+    "message": "To ensure better handling of investment instructions, please provide as much detail as possible, including: Investment Objective: Specify the investment objective for the designated trust assets, such as capital preservation, steady appreciation, or pursuit of returns Investment Strategy: Clearly define the strategy, goals, and amount for this investment. For example, it could involve converting a portion of one asset class in the trust into another asset class, investing in a specific term deposit or bank financial product, etc"
+  },
+  "8mk826": {
+    "message": "Already passed"
+  },
+  "8rK1RH": {
+    "message": "Approval opinion"
+  },
+  "8uBiH8": {
+    "message": "The Second Successor Protector"
+  },
+  "8uIBg0": {
+    "message": "Operation"
+  },
+  "9+Ddtu": {
+    "message": "Next"
+  },
+  "90v2VO": {
+    "message": "Others ({remark})"
+  },
+  "97nX8g": {
+    "message": "Three Month"
+  },
+  "9By6rl": {
+    "message": "Receiving Information"
+  },
+  "9QNY4k": {
+    "message": "Digital Asset Address"
+  },
+  "9WRlF4": {
+    "message": "Send"
+  },
+  "9wYjel": {
+    "message": "Digital Asset Market"
+  },
+  "A5uW2K": {
+    "message": "3）Once verified and confirmed by Aries, the newly added trust asset will be officially effective"
+  },
+  "A80LZF": {
+    "message": "Please enter the mobile"
+  },
+  "A8YHzk": {
+    "message": "Payer Name"
+  },
+  "AgQm92": {
+    "message": "Transaction voucher"
+  },
+  "AhOyIX": {
+    "message": "Email Verification Code"
+  },
+  "Ai4Mgw": {
+    "description": "投资指令/账单类型",
+    "message": "Withdrawal of fiat currency"
+  },
+  "AyGauy": {
+    "message": "Login"
+  },
+  "B+tb36": {
+    "message": "The Trustee will collect the accumulated daily calculated trust management fee on December 31st of each year/the last day of each quarter/the last day of each month and on the trust termination date. The fee will be deducted first from the equivalent fiat assets transferred from the trust assets. If there are insufficient fiat assets, the remaining amount will be deducted from the equivalent digital assets"
+  },
+  "B94TR7": {
+    "message": "Please complete the following three steps for the new asset entrustment:"
+  },
+  "BGdkqE": {
+    "message": "ReadOnly"
+  },
+  "BY343C": {
+    "message": "Change"
+  },
+  "Bh7H4U": {
+    "description": "投资指令，去向",
+    "message": "Exchange"
+  },
+  "ByuOj8": {
+    "message": "Invalid email"
+  },
+  "C461+i": {
+    "message": "Welcome to Aries Trust"
+  },
+  "CJl14U": {
+    "message": "Please enter the expected transfer time"
+  },
+  "CSohMF": {
+    "message": "Unbind Email"
+  },
+  "Crul8p": {
+    "description": "资产申报状态",
+    "message": "Pending accounting"
+  },
+  "DCxnyk": {
+    "message": "Add Beneficiary"
+  },
+  "DK0yD8": {
+    "message": "Opening in progress"
+  },
+  "DMdWww": {
+    "message": "Please enter your distribution plan"
+  },
+  "DO24M+": {
+    "message": "Change Google Authenticator"
+  },
+  "DQtrKp": {
+    "message": "Payer's Name"
+  },
+  "DWzZcz": {
+    "message": "{year} Q{quarter}"
+  },
+  "DZkaw7": {
+    "message": "No result"
+  },
+  "Ddaw0w": {
+    "description": "投资指令状态",
+    "message": "Under review"
+  },
+  "DjxGFE": {
+    "message": "Payee Account Number"
+  },
+  "DyutYi": {
+    "message": "Name of Report Document"
+  },
+  "E9SodZ": {
+    "message": "Please enter the verification code received in your Aries trust {email} email."
+  },
+  "EPMjof": {
+    "message": "Payment Information"
+  },
+  "ErxWra": {
+    "message": "Self"
+  },
+  "EuK7yR": {
+    "message": "October"
+  },
+  "EweAIC": {
+    "message": "Accumulated Transfer Amount for the Current Quarter: {amount} {coinName}"
+  },
+  "Ewgy1B": {
+    "message": "Protector"
+  },
+  "F/t0qk": {
+    "message": "Creating a command"
+  },
+  "FCXIlK": {
+    "message": "Transaction hash"
+  },
+  "FCfb14": {
+    "description": "投资指令、收款机构",
+    "message": "Organizations"
+  },
+  "FDVa1Z": {
+    "message": "Please enter the payment address (if using a centralized exchange, enter the exchange name)"
+  },
+  "FFprW7": {
+    "message": "Declaration Details"
+  },
+  "FG1QzM": {
+    "message": "Approval opinion (optional)"
+  },
+  "FIwWyA": {
+    "message": "QR Code"
+  },
+  "FXTvHl": {
+    "message": "Asset Overview"
+  },
+  "FgydNe": {
+    "message": "View"
+  },
+  "FiPuxO": {
+    "message": "Legal text"
+  },
+  "FqZCsA": {
+    "message": "You currently have unapproved investment instructions, so you cannot remove this protector."
+  },
+  "FqztZR": {
+    "message": "Note:"
+  },
+  "G/yZLu": {
+    "message": "Remove"
+  },
+  "GO7e9W": {
+    "message": "Initial Minimum Establishment Fee"
+  },
+  "GQAV04": {
+    "message": "Trustee is confirming"
+  },
+  "GWtmtu": {
+    "message": "Mobile"
+  },
+  "GyByCc": {
+    "description": "无权限",
+    "message": "No"
+  },
+  "HAlOn1": {
+    "message": "Name"
+  },
+  "HLZ9CC": {
+    "message": "Credentials"
+  },
+  "Hi93rl": {
+    "message": "Change Email"
+  },
+  "Hr7g0C": {
+    "message": "Exchange Rate"
+  },
+  "I/uBms": {
+    "message": "When transferring digital assets from the custodial account, a transfer fee will be incurred. This fee is calculated as {ratio} of the equivalent value in USD of the digital assets being transferred, calculated on a per transaction basis"
+  },
+  "I3JhPS": {
+    "message": "Network"
+  },
+  "I5NMJ8": {
+    "message": "More"
+  },
+  "IHdC4B": {
+    "message": "The unique digital private trust service provider"
+  },
+  "IOP8/v": {
+    "message": "Custodial Account"
+  },
+  "ITSE3D": {
+    "description": "投资指令/账单类型",
+    "message": "Transfer of digital assets"
+  },
+  "IXycMo": {
+    "message": "Resend"
+  },
+  "IfPEOm": {
+    "message": "In {year}"
+  },
+  "Im8OoK": {
+    "message": "The establishment fee is a one-time charge based on the amount of entrusted assets transferred into the trust"
+  },
+  "JaQioG": {
+    "message": "The total trust assets refer to the total amount of trust assets at 24:00 Hong Kong time, converted to USD at the prevailing exchange rate of the day"
+  },
+  "JfG49w": {
+    "message": "Open"
+  },
+  "Jh+LNk": {
+    "message": "Current account security level: {level}"
+  },
+  "JiVrYf": {
+    "message": "{month} {year}"
+  },
+  "Jj5BdQ": {
+    "message": "Digital Assets"
+  },
+  "Jq3FDz": {
+    "message": "Content"
+  },
+  "JrkOLe": {
+    "message": "Trust Management Fee"
+  },
+  "Jrw8G7": {
+    "message": "Modify"
+  },
+  "K1uUiB": {
+    "message": "Account Type"
+  },
+  "K2Gtfe": {
+    "message": "General ledger"
+  },
+  "K3qnJa": {
+    "message": "Update time:"
+  },
+  "KBmP9A": {
+    "message": "The trustee can establish a distribution plan to distribute the trust property to designated beneficiaries according to the wishes and conditions of the grantor."
+  },
+  "KJ/y5z": {
+    "message": "One Month"
+  },
+  "KJhcLh": {
+    "message": "Asset Transfer"
+  },
+  "KLs1P7": {
+    "message": "Name of Legal Document"
+  },
+  "KfZq7T": {
+    "message": "In order to ensure the safety of your asset and account, please enter the verification code received by your email {account}"
+  },
+  "Kl6x+n": {
+    "message": "Approval"
+  },
+  "KmuZrC": {
+    "message": "Settled in {year}"
+  },
+  "KpfRxM": {
+    "message": "Transfer Fee for the Current Year: {amount} {coinName}"
+  },
+  "LTiRn7": {
+    "message": "NonSpecific"
+  },
+  "LpM3W/": {
+    "message": "Please enter a number with a maximum precision of 8."
+  },
+  "LqZFLZ": {
+    "message": "Congratulations on successfully establishing your exclusive private trust and opening the door to digital wealth in the modern age!"
+  },
+  "M2HJ++": {
+    "message": "Security Verification"
+  },
+  "M6G+Q3": {
+    "message": "Entrusted Declaration"
+  },
+  "MNoT8+": {
+    "message": "Authority"
+  },
+  "MRtziD": {
+    "message": "Fiat Assets"
+  },
+  "MVN3kK": {
+    "message": "Digital"
+  },
+  "MnpUD7": {
+    "message": "View details"
+  },
+  "N2IrpM": {
+    "message": "Confirm"
+  },
+  "NAidKb": {
+    "message": "Notifications"
+  },
+  "NBvxWR": {
+    "message": "Estimated transfer time"
+  },
+  "NGWumB": {
+    "message": "July"
+  },
+  "NK/IfH": {
+    "message": "Congratulations! You have successfully bound Google Authenticator."
+  },
+  "NMaE+o": {
+    "message": "Approval status:"
+  },
+  "NQYEZF": {
+    "message": "Session timeout. Please log in again to continue using the account"
+  },
+  "NUdX0x": {
+    "message": "Investment time"
+  },
+  "NvEGEQ": {
+    "message": "You do not yet have the identity of a trustee party."
+  },
+  "NyaKBm": {
+    "message": "The Settlor can view trust information and designate beneficiaries for the trust here. If the Beneficiary's identity is clear, it is necessary to complete the Beneficiary's identity verification process before proceeding"
+  },
+  "O8BntV": {
+    "message": "Transfer Amount"
+  },
+  "O95R3Z": {
+    "message": "Phone"
+  },
+  "OD2RH9": {
+    "message": "Email verification code"
+  },
+  "ODuqW4": {
+    "message": "Investment code {code}"
+  },
+  "OM37oX": {
+    "message": "About Establishment Fee"
+  },
+  "OnPdkW": {
+    "message": "Beneficiary Entrustor Himself/Herself"
+  },
+  "OnbqrE": {
+    "message": "Downloads"
+  },
+  "Orc8Zk": {
+    "message": "Distribution"
+  },
+  "PK+jHT": {
+    "message": "Establishment completed"
+  },
+  "PPV+pW": {
+    "message": "Establishment time"
+  },
+  "PPjEkm": {
+    "message": "* The USD price of digital assets is referenced from a third-party authoritative institution and is updated every 5 minutes"
+  },
+  "PST9si": {
+    "description": "分配意愿编号",
+    "message": "planCode"
+  },
+  "PpxYsO": {
+    "message": "One year"
+  },
+  "Pw6Nyf": {
+    "message": "Digital currency payment"
+  },
+  "Px35ny": {
+    "message": "Unbilled in {year}"
+  },
+  "PzSdjk": {
+    "message": "Allocation Record"
+  },
+  "Q6wcZ5": {
+    "message": "First Name"
+  },
+  "Q8Qw5B": {
+    "message": "Description"
+  },
+  "QJsfnJ": {
+    "message": "If you cannot scan the QR code, please enter the character manually"
+  },
+  "QKFeMq": {
+    "message": "Internet"
+  },
+  "QTTrf+": {
+    "description": "投资指令状态",
+    "message": "Investment"
+  },
+  "QlsDcr": {
+    "message": "Action"
+  },
+  "QsNLAE": {
+    "message": "Bill and Resources"
+  },
+  "R2toXm": {
+    "message": "Submission successful."
+  },
+  "RDZVQL": {
+    "message": "Check"
+  },
+  "RKjut/": {
+    "message": "New allocation plan added"
+  },
+  "RQ8U4E": {
+    "message": "Currencies"
+  },
+  "RRvGB6": {
+    "message": "It's important to note that this transfer fee does not include the gas fees required for blockchain transactions"
+  },
+  "RXwQOL": {
+    "message": "The Settlor has the authority to make investments in the trust assets and can send investment orders through this page to be executed by the Trustee"
+  },
+  "RccENd": {
+    "message": "Note: Excess Transfer Fee is calculated at a fixed rate of {rate} for each excess amount and is deducted on an annual basis"
+  },
+  "RddZqO": {
+    "message": "Trust fees"
+  },
+  "RppKua": {
+    "message": "You have set another account as approval protector, please change it and reset it!"
+  },
+  "Rwu+Kb": {
+    "message": "Identity verification in progress"
+  },
+  "S1hLS6": {
+    "message": "Commission declaration record"
+  },
+  "SFuk1v": {
+    "message": "Permissions"
+  },
+  "SHT3Ge": {
+    "description": "投资指令、收款地址",
+    "message": "Receiving Address"
+  },
+  "SJt3uu": {
+    "message": "Verify Identity"
+  },
+  "SNrJ24": {
+    "message": "Establishing Exclusive Private Trust"
+  },
+  "SRhWkB": {
+    "message": "Principal"
+  },
+  "SXPT+g": {
+    "message": "{i}year"
+  },
+  "Seanpx": {
+    "message": "Required"
+  },
+  "Sfwy2k": {
+    "message": "Exit Trust"
+  },
+  "Sq61WU": {
+    "message": "Please scan this QR code using Google Authenticator app"
+  },
+  "SsiZK7": {
+    "message": "December"
+  },
+  "T5W0CV": {
+    "message": "March"
+  },
+  "TFf5u+": {
+    "message": "September"
+  },
+  "THRRbq": {
+    "message": "New Mobile Verification Code"
+  },
+  "TJwKOe": {
+    "message": "Scan the new QR code using the Google Authenticator App"
+  },
+  "TMT+uu": {
+    "message": "Submit Successfully"
+  },
+  "TwyMau": {
+    "message": "Account"
+  },
+  "U6wIhw": {
+    "message": "Investment instructions"
+  },
+  "UCHG6p": {
+    "message": "Allocation Plan Explanation"
+  },
+  "UOryIn": {
+    "message": "Payer's Address (Optional)"
+  },
+  "UTD1Ap": {
+    "message": "Establishment Fee: {amount} {coinName}"
+  },
+  "VEK3MU": {
+    "message": "We will process your request within 1 business day. Please keep the communication channels open so that our customer service team can contact you promptly."
+  },
+  "VG0sbl": {
+    "description": "投资指令/账单类型",
+    "message": "Fiat currency deposit"
+  },
+  "VLRPxv": {
+    "message": "FirstName"
+  },
+  "VOaOBF": {
+    "message": "Payment Bank Account"
+  },
+  "VfJsl4": {
+    "message": "Beneficiary"
+  },
+  "WCaf5C": {
+    "message": "Approve"
+  },
+  "WJa34X": {
+    "message": "Google Authenticator is a commonly used identity verification app. After binding, you can obtain verification codes to enhance the security of your account."
+  },
+  "WKCp0D": {
+    "message": "Asset"
+  },
+  "WMykwz": {
+    "message": "Trust"
+  },
+  "WWgayW": {
+    "message": "To transfer additional assets into the trust, please follow the asset declaration process on this page"
+  },
+  "WXpQfW": {
+    "description": "账户安全等级",
+    "message": "Low"
+  },
+  "WasQtz": {
+    "message": "Please input the 6-digit Google verification code"
+  },
+  "WkaLYR": {
+    "message": "Either phone number or email must be kept"
+  },
+  "X2KySu": {
+    "message": "Successful"
+  },
+  "XAIhUN": {
+    "message": "Set-up fee"
+  },
+  "XDE6FH": {
+    "description": "账单记录类型",
+    "message": "Fee Charging"
+  },
+  "XUZ07T": {
+    "message": "Fiat currency payment"
+  },
+  "Xij2fm": {
+    "message": "Bind"
+  },
+  "XmJ+f3": {
+    "description": "投资指令状态",
+    "message": "Verification failed"
+  },
+  "Xpbxur": {
+    "description": "hei",
+    "message": "{year} Q{querter}"
+  },
+  "Xuw7yI": {
+    "description": "申报详情",
+    "message": "Transfer Amount"
+  },
+  "YZpBKf": {
+    "message": "Successfully opened"
+  },
+  "YbZEaX": {
+    "message": "1）Fill out the declaration information on the left side below"
+  },
+  "YhwOzR": {
+    "message": "Unit Conversion: To facilitate uniform accounting, each transferred amount is calculated based on the equivalent USD value at the time of asset confirmation"
+  },
+  "YjO/0+": {
+    "message": "Myself"
+  },
+  "YkcGxo": {
+    "message": "Audit failed"
+  },
+  "YsWRvl": {
+    "message": "Aries is honored to provide you with world-class digital private trust services! To ensure the security of your assets and comply with relevant laws and regulations, Aries needs to verify your identity. Your dedicated trust manager will contact you to discuss the required information and documents"
+  },
+  "Z6LESk": {
+    "message": "Please provide a detailed description of the topic you would like to know about."
+  },
+  "Z9XjoN": {
+    "message": "Declaration Information"
+  },
+  "ZACij3": {
+    "description": "投资指令/账单类型",
+    "message": "Exchange transaction"
+  },
+  "a4iduI": {
+    "message": "Backup key"
+  },
+  "a6Njl6": {
+    "message": "Please enter the payer's address"
+  },
+  "aAcuYs": {
+    "description": "账户安全等级",
+    "message": "High"
+  },
+  "aD+nOt": {
+    "message": "Unsettled in {year}"
+  },
+  "abJ7rq": {
+    "message": "Additional establishment fee = Transfer amount of each asset declaration * exchange rate * establishment fee APR"
+  },
+  "acV3Tk": {
+    "message": "Please input your name"
+  },
+  "aheQdn": {
+    "message": "Last Name"
+  },
+  "aky3TA": {
+    "description": "投资指令状态",
+    "message": "Initiated"
+  },
+  "b3LnNC": {
+    "message": "Unbind"
+  },
+  "b5A9fd": {
+    "message": "Declared Amount"
+  },
+  "bL1g0y": {
+    "message": "About Trust Management Fee"
+  },
+  "bLmxeK": {
+    "message": "Note: Each additional establishment fee is calculated at a fixed rate of {ratio}"
+  },
+  "bcDtbb": {
+    "message": "Regent protector"
+  },
+  "cPJPjk": {
+    "message": "We will collect from you offline"
+  },
+  "ccE0zH": {
+    "message": "Please provide additional instructions"
+  },
+  "cwcFqQ": {
+    "description": "账单记录类型",
+    "message": "Asset Transfer"
+  },
+  "cyR7Kh": {
+    "message": "Back"
+  },
+  "d88Ln8": {
+    "message": "Please enter the payer's name"
+  },
+  "dAtsDB": {
+    "message": "Mobile Phone"
+  },
+  "dG3isw": {
+    "message": "Please enter the remark"
+  },
+  "dNWX+p": {
+    "message": "Transfer Fee"
+  },
+  "dVSc3s": {
+    "message": "View credentials"
+  },
+  "de91pr": {
+    "description": "资产申报状态",
+    "message": "Verification failed"
+  },
+  "dt6MRD": {
+    "message": "Accumulated Transfer Amount for the Current Month: {amount} {coinName}"
+  },
+  "e2Jt59": {
+    "message": "Allocation plan"
+  },
+  "eGLTZb": {
+    "message": "LastName"
+  },
+  "eKEL/g": {
+    "message": "Pending"
+  },
+  "em+ApY": {
+    "message": "Real name"
+  },
+  "f2wW1b": {
+    "message": "Unbound"
+  },
+  "f6xskA": {
+    "message": "Add Protector"
+  },
+  "fExmWY": {
+    "message": "Binding Google Authenticator"
+  },
+  "fTlL2P": {
+    "message": "Remark"
+  },
+  "fnukew": {
+    "description": "资产申报状态",
+    "message": "Already recorded in account"
+  },
+  "fvltHv": {
+    "message": "Please input your email address"
+  },
+  "fxR9zh": {
+    "message": "Foreign Exchange Rate"
+  },
+  "gDzrf7": {
+    "message": "Enter Trust"
+  },
+  "gUudPK": {
+    "message": "Here, you can perform account inquiries for each change in trust assets and access related legal documents and other resources"
+  },
+  "gddsg6": {
+    "message": "To be effective"
+  },
+  "h00n14": {
+    "message": "Google Verify"
+  },
+  "h4gkv3": {
+    "message": "Second Succession Guardia"
+  },
+  "h7xti1": {
+    "message": "April"
+  },
+  "h83mmJ": {
+    "description": "投资指令状态",
+    "message": "Canceling"
+  },
+  "h8b4HI": {
+    "message": "The trust management fee is a fee that is charged based on the total daily assets of the trust, calculated on a daily basis and collected annually/quarterly/monthly"
+  },
+  "hDpv78": {
+    "message": "Login address"
+  },
+  "hJXQPy": {
+    "message": "Non-Explicit Beneficiary"
+  },
+  "hLlw0V": {
+    "message": "first name"
+  },
+  "hUQSwM": {
+    "message": "Bank Name"
+  },
+  "hZOGLS": {
+    "message": "Contact Us"
+  },
+  "haju4N": {
+    "message": "* Exempted Establishment Fee for Entrusted assets: {amount}"
+  },
+  "hbSqJA": {
+    "message": "Bank"
+  },
+  "hzSNj4": {
+    "message": "Dashboard"
+  },
+  "i1ZY1B": {
+    "message": "Here, you can access all the information about changes in trust property and make inquiries."
+  },
+  "i4PAmi": {
+    "message": "Investment number"
+  },
+  "iCuOBX": {
+    "description": "总账单页面",
+    "message": "remark"
+  },
+  "ie1LwA": {
+    "message": "Trust total amount"
+  },
+  "iq0vHI": {
+    "message": "Please enter a number with a maximum precision of 3."
+  },
+  "iroylI": {
+    "message": "You currently have unapproved investment instructions, so you cannot change the permissions of this protector."
+  },
+  "j+lDJN": {
+    "message": "Transfer Amount (USD)"
+  },
+  "j9pVsh": {
+    "message": "Thank you for your patience! Now, all you need to do is complete the injection of the initial entrusted assets to establish the trust. Based on the asset types you have chosen, below is the corresponding payment information"
+  },
+  "jIbAky": {
+    "message": "Male"
+  },
+  "jf2QkF": {
+    "message": "I Know"
+  },
+  "jjqAZx": {
+    "message": "Trust Management Fee for the Current Year: {amount} {coinName}"
+  },
+  "jkfM04": {
+    "description": "账单记录类型",
+    "message": "Asset Allocation"
+  },
+  "jm/spn": {
+    "message": "Reset"
+  },
+  "jsnWPj": {
+    "message": "Last Login: {time}"
+  },
+  "kVNdzj": {
+    "message": "{year}年{month}月"
+  },
+  "kWrlKk": {
+    "message": "Investment advice"
+  },
+  "khMelR": {
+    "message": "In order to ensure the safety of your asset and account, please enter the verification code received by your phone number {account}"
+  },
+  "l+M6a+": {
+    "message": "Assets Type"
+  },
+  "l00emw": {
+    "message": "Declaration time"
+  },
+  "l8YAJw": {
+    "message": "Approval Details"
+  },
+  "lINtN6": {
+    "message": "August"
+  },
+  "lJePcp": {
+    "message": "Failure"
+  },
+  "lJkDt8": {
+    "message": "Mobile verification code"
+  },
+  "lTleCS": {
+    "message": "Checking"
+  },
+  "lcwsL3": {
+    "message": "Verification successful"
+  },
+  "lp4lPv": {
+    "message": "The key is used to replace the email or retrieve the Google Authenticator when lost. Please be sure to backup the key before binding."
+  },
+  "ltzaQI": {
+    "message": "Investment Order"
+  },
+  "lwQ2xb": {
+    "message": "Edit Role"
+  },
+  "lwfOb3": {
+    "description": "账单记录类型",
+    "message": "Investment Operation"
+  },
+  "m8/n8c": {
+    "message": "Gender"
+  },
+  "m9gqil": {
+    "message": "Asset Type"
+  },
+  "mDGZTn": {
+    "description": "投资指令状态",
+    "message": "Verifying"
+  },
+  "mfdmBl": {
+    "message": "Entrusted Asset"
+  },
+  "mmPSWH": {
+    "message": "Read Only"
+  },
+  "nB+itt": {
+    "message": "Deduction of the establishment fee: The establishment fee is deducted immediately based on the corresponding asset type for each transfer, and the Settlor will be notified accordingly"
+  },
+  "nBH9Uk": {
+    "message": "Update Time"
+  },
+  "nDuihx": {
+    "message": "Asset Classes"
+  },
+  "nGZLh1": {
+    "message": "Agreements signing in progress"
+  },
+  "nJMP2w": {
+    "message": "Login device"
+  },
+  "nYtp1E": {
+    "message": "Copy Success"
+  },
+  "niiPR0": {
+    "message": "About Transfer Fee"
+  },
+  "o0sB98": {
+    "message": "Billing Record"
+  },
+  "o9Va2+": {
+    "message": "Digital Asset"
+  },
+  "oUWADl": {
+    "message": "No"
+  },
+  "oZztY4": {
+    "message": "No credentials"
+  },
+  "ons2A7": {
+    "message": "Trust information"
+  },
+  "p5vOoH": {
+    "message": "Please enter the payment bank(English)"
+  },
+  "p8X3iX": {
+    "message": "Expected Transfer Time"
+  },
+  "pHcHz6": {
+    "message": "Accumulated Transfer Amount for the Current Year: {amount} {coinName}"
+  },
+  "pRRPv2": {
+    "message": "Settlor"
+  },
+  "pn+jQD": {
+    "message": "November"
+  },
+  "poUf8i": {
+    "message": "Guardian"
+  },
+  "q1WWIr": {
+    "message": "In progress"
+  },
+  "q79HCV": {
+    "description": "账单记录类型",
+    "message": "Others"
+  },
+  "qE8CZX": {
+    "message": "Bind Email"
+  },
+  "qFQsjj": {
+    "message": "Irrevocable"
+  },
+  "qWdLvt": {
+    "message": "Please input your phone"
+  },
+  "qYlEHR": {
+    "message": "Trust Management Fee for the Current Month: {amount} {coinName}"
+  },
+  "qcptBZ": {
+    "message": "Reconciliation"
+  },
+  "qiejq5": {
+    "message": "Trust name"
+  },
+  "r6+Aap": {
+    "message": "Establish a Trust"
+  },
+  "rE5mJi": {
+    "message": "Daily management fee = Daily total trust assets × [Annualized management fee rate of the trust] / 365"
+  },
+  "rQxUa6": {
+    "message": "Declaration information"
+  },
+  "rd4l5S": {
+    "description": "投资指令状态",
+    "message": "Completed"
+  },
+  "s2Ra7v": {
+    "message": "Digital Asset Injection"
+  },
+  "sHRuID": {
+    "message": "Mobile Verification Code"
+  },
+  "sKzrjX": {
+    "message": "Identity verification successful"
+  },
+  "sS7+IQ": {
+    "message": "Add time"
+  },
+  "sY+eNp": {
+    "message": "The accumulated transfer fees for this billing cycle will be collected on December 31st of each year/the last day of each quarter/the last day of each month and on the trust termination date"
+  },
+  "siS/wI": {
+    "message": "Fee Payment"
+  },
+  "splreS": {
+    "message": "Identity Category"
+  },
+  "srggV0": {
+    "message": "According to the payment method you have chosen, please make the payment for the trust establishment fee. Below is the payment information for Aries. If you have any questions, please contact your dedicated trust manager"
+  },
+  "svbYSN": {
+    "message": "Explicit Beneficiary"
+  },
+  "sy+pv5": {
+    "message": "Email"
+  },
+  "szkvUz": {
+    "message": "Please enter the amount"
+  },
+  "t/xxrr": {
+    "message": "Payer's card number"
+  },
+  "t8QlFE": {
+    "message": "January"
+  },
+  "t8ugD9": {
+    "message": "Entrusted Declaration Information"
+  },
+  "tShbyC": {
+    "message": "Identity"
+  },
+  "tZJvMV": {
+    "message": "Please select the receiving bank"
+  },
+  "tndpYy": {
+    "message": "I know"
+  },
+  "tzMNF3": {
+    "message": "Status"
+  },
+  "uCMCb1": {
+    "message": "Please follow the guidance of your dedicated trust manager to complete the signing of relevant agreements, including the Trust Deed and Services Agreement"
+  },
+  "uEyEKJ": {
+    "description": "账户安全等级",
+    "message": "Medium"
+  },
+  "uLoaam": {
+    "message": "Please input your phone number"
+  },
+  "ug01Mk": {
+    "message": "Time"
+  },
+  "uqa1mE": {
+    "message": "Modify distribution plan details"
+  },
+  "vB5sE3": {
+    "message": "Note: Trust Management Fee is calculated at a fixed rate of {rate} per day and deducted on an annual basis"
+  },
+  "vhjvB3": {
+    "message": "Investment objective:"
+  },
+  "vnjEeb": {
+    "message": "Trust Management Fee = Total Amount Entrusted * Trust Management Fee APR"
+  },
+  "vwG4jB": {
+    "message": "Trust Type"
+  },
+  "vx0nkZ": {
+    "message": "Privacy Policy"
+  },
+  "wGbQN4": {
+    "message": "New Mobile Phone"
+  },
+  "wMYE24": {
+    "message": "Approval time"
+  },
+  "wSZR47": {
+    "message": "Submit"
+  },
+  "wTzoIh": {
+    "message": "New Email Verification Code"
+  },
+  "x5Tz6M": {
+    "message": "Report"
+  },
+  "xBaHKe": {
+    "message": "June"
+  },
+  "xE3gxA": {
+    "message": "Please enter the verification code"
+  },
+  "xLRK/w": {
+    "message": "If you are unable to scan this QR code, please enter this string of characters as the setup key in the Google Authenticator app"
+  },
+  "xXbJso": {
+    "message": "Sign out"
+  },
+  "xbhKoW": {
+    "message": "KYC certification"
+  },
+  "xf9w5j": {
+    "message": "Transferred Fee (USD)"
+  },
+  "xmcVZ0": {
+    "message": "Search"
+  },
+  "xrKHS6": {
+    "message": "Success"
+  },
+  "xsSIwK": {
+    "message": "Payee Name"
+  },
+  "xvqMgn": {
+    "message": "Please enter your payment card number"
+  },
+  "y1A6yb": {
+    "message": "Account Security"
+  },
+  "y1cga9": {
+    "message": "Initial Entrustment Amount"
+  },
+  "y3Yrch": {
+    "message": "Google verification"
+  },
+  "y4uN5/": {
+    "message": "Unbind Mobile"
+  },
+  "y6Aics": {
+    "message": "Payment Bank"
+  },
+  "y6WYcC": {
+    "message": "Bill Records"
+  },
+  "yCts/G": {
+    "message": "User Agreement"
+  },
+  "yGeCJm": {
+    "message": "Please enter the verification code received in your Aries trust {mobile}."
+  },
+  "yKxa88": {
+    "message": "The Settlor can create a statement of intent regarding the distribution of trust assets, which the Trustee can refer to and execute accordingly"
+  },
+  "yjH5zJ": {
+    "message": "Trust Elements"
+  },
+  "yjm+E6": {
+    "message": "Receiving Method"
+  },
+  "ylZLjM": {
+    "message": "Not Open"
+  },
+  "ylw/Tz": {
+    "message": "Transfer Fee for the Current Quarter: {amount} {coinName}"
+  },
+  "yvdaz+": {
+    "description": "资产申报状态",
+    "message": "To be verified"
+  },
+  "z7vofl": {
+    "message": "Investment Timeline: Clearly indicate when you would like this investment to be executed, allowing sufficient time for the trustee to complete all necessary operations in advance"
+  },
+  "z8ufSi": {
+    "message": "Excess Transfer Fee = Excess Amount * Excess Transfer Fee APR"
+  },
+  "zFegDD": {
+    "message": "Contact"
+  },
+  "zNqdXx": {
+    "message": "Email verification"
+  },
+  "zQvVDJ": {
+    "message": "All"
+  },
+  "zUpHdf": {
+    "message": "May"
+  },
+  "zerDWl": {
+    "message": "Refusal"
+  },
+  "zocfs4": {
+    "message": "Agreements signing successful"
+  },
+  "zu8f6a": {
+    "message": "New Email"
+  },
+  "zvEumv": {
+    "message": "Invalid phone"
+  },
+  "zw+5Z9": {
+    "message": "Payment Address / Service Provider"
+  },
+  "zwA0uF": {
+    "description": "资产申报状态",
+    "message": "Application for cancellation"
+  }
+}
